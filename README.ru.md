@@ -8,6 +8,8 @@
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
+Доки двуязычны: английский — основной, русские близнецы живут в файлах `*.ru.md`. Правьте любой язык — CI переведёт и закоммитит второй (см. [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md)).
+
 <p align="center"><img src="docs/img/sim0-rig-sketch.ru.png" alt="Стенд этапа 1: Pi → DDS → полумост → транс → пьезо-TX | сталь | пьезо-RX → мост → АЦП → Pi" width="900"></p>
 
 ## Идея в одном абзаце

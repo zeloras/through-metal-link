@@ -55,6 +55,10 @@ Rules:
 - In Russian files internal links to translated .md files point to their .ru.md
   twins, and generated images use the .ru.png / .ru.svg suffix. In English files
   links stay canonical (no suffix).
+- The user message includes the diff of what changed in the source: EVERY added,
+  removed or reworded fragment there must be reflected in the target. Do not
+  make unrelated edits. If the target already reflects all the changes, return
+  it exactly as it is.
 - Return ONLY the full content of the target file. No code fences, no comments."""
 
 SYSTEM_JSON = f"""You translate UI label strings for an open-hardware project
@@ -92,7 +96,7 @@ def chat(system: str, user: str) -> str:
     return out
 
 
-def sync_markdown(changed: list[str], dry: bool) -> int:
+def sync_markdown(changed: list[str], base: str, dry: bool) -> int:
     n = 0
     pairs: dict[str, set[str]] = {}
     for f in changed:
@@ -115,14 +119,16 @@ def sync_markdown(changed: list[str], dry: bool) -> int:
             print(f"  ! {src}: too large ({len(text)} chars), skipping")
             continue
         old_dst = dst_p.read_text(encoding="utf-8") if dst_p.exists() else "(missing)"
+        src_diff = sh("git", "diff", f"{base}..HEAD", "--", src)[:8000]
         print(f"  -> {src} -> {dst}")
         if dry:
             n += 1
             continue
         out = chat(SYSTEM_MD, (
             f"Source file `{src}` — NEW content:\n<<<\n{text}\n>>>\n\n"
+            f"What changed in the source (unified diff):\n<<<\n{src_diff}\n>>>\n\n"
             f"Target file `{dst}` — CURRENT (possibly outdated) content:\n<<<\n{old_dst}\n>>>\n\n"
-            "Produce the full updated target file."))
+            "Produce the full updated target file, reflecting every change from the diff."))
         dst_p.write_text(out.rstrip() + "\n", encoding="utf-8")
         n += 1
     return n
@@ -170,5 +176,5 @@ if __name__ == "__main__":
         print(f"{len(changed)} files changed — looks like a bulk edit, sync skipped")
         sys.exit(0)
     print(f"Base: {base}; model: {MODEL} @ {ENDPOINT}")
-    total = sync_markdown(changed, a.dry_run) + sync_labels(changed, base, a.dry_run)
+    total = sync_markdown(changed, base, a.dry_run) + sync_labels(changed, base, a.dry_run)
     print(f"Synced: {total}")
