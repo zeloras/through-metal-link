@@ -1,6 +1,6 @@
 # Lizenzen und Patentschutz
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch · [Português](../pt/LICENSES.md)
 
 Das Ziel dieses Schemas: Das Projekt ist vollständig offen, jeder kann es forken und darauf aufbauen (einschließlich kommerzieller Nutzung), während das Risiko von Patentstreitigkeiten auf das absolute Minimum reduziert wird, das durch rechtliche und prozedurale Mittel erreichbar ist.
 

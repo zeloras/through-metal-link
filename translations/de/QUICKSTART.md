@@ -1,6 +1,6 @@
 # QUICKSTART: von absolutem Nullpunkt zum Testrigg der Stufe 1–2
 
-> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · Deutsch
+> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · Deutsch · [Português](../pt/QUICKSTART.md)
 
 Szenario: Sie haben nichts als einen Schreibtisch und etwas Geld. Alles unten bringt Sie zu einem funktionierenden Rigg — "Sweep-Map + erste Watt durch Stahl". Preise sind Schätzungen, USD.
 

@@ -1,6 +1,6 @@
 # Опыт 001: Свип-карта канала, сталь 3 мм (ЗАПЛАНИРОВАН)
 
-> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · Русский · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md)
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · Русский · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md)
 
 - Цель: найти резонанс пары ланжевенов через пластину 3 мм; получить первую АЧХ канала.
 - Гипотеза: пик в районе 38-42 кГц (резонанс ланжевенов), ширина пика единицы кГц.

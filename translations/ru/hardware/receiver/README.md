@@ -1,6 +1,6 @@
 # Приёмник
 
-> [English (primary)](../../../../hardware/receiver/README.md) · Русский · [Deutsch](../../../de/hardware/receiver/README.md)
+> [English (primary)](../../../../hardware/receiver/README.md) · Русский · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md)
 
 Схемы: [этап 1 — sch2](../schematics/sch2-receiver-stage1.png) · [этап 4 — sch4](../schematics/sch4-receiver-node.png) (генерируются [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

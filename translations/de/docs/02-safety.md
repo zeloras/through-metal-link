@@ -1,6 +1,6 @@
 # Sicherheit
 
-> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · Deutsch
+> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · Deutsch · [Português](../../pt/docs/02-safety.md)
 
 1. **Hohe Spannung am Piezo.** Bei Resonanz liegen an den Transducer-Anschlüssen Hunderte von Volt an. Der TVS/Zener auf der Empfangsseite wird VOR dem ersten Einschalten installiert. Berühren Sie die Anschlüssen nicht, während es läuft.
 2. **Netzspannung.** Ultrschallreiniger-Treiber sind galvanisch mit der Netzspannung verbunden. Arbeiten Sie nur über eine Labornetzgerät/Isolationstransformator.

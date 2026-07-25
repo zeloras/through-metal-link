@@ -1,6 +1,6 @@
 # Драйвер (этап 2): полумост на IR2110
 
-> [English (primary)](../../../../hardware/driver/README.md) · Русский · [Deutsch](../../../de/hardware/driver/README.md)
+> [English (primary)](../../../../hardware/driver/README.md) · Русский · [Deutsch](../../../de/hardware/driver/README.md) · [Português](../../../pt/hardware/driver/README.md)
 
 **Схема:** [../schematics/sch1-driver-halfbridge.png](../schematics/sch1-driver-halfbridge.png) (генерируется [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

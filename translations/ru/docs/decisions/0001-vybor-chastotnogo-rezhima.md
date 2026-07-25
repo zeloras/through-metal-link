@@ -1,6 +1,6 @@
 # ADR-0001: Выбор частотного режима для этапа 1
 
-> [English (primary)](../../../../docs/decisions/0001-vybor-chastotnogo-rezhima.md) · Русский · [Deutsch](../../../de/docs/decisions/0001-vybor-chastotnogo-rezhima.md)
+> [English (primary)](../../../../docs/decisions/0001-vybor-chastotnogo-rezhima.md) · Русский · [Deutsch](../../../de/docs/decisions/0001-vybor-chastotnogo-rezhima.md) · [Português](../../../pt/docs/decisions/0001-vybor-chastotnogo-rezhima.md)
 
 - Статус: ПРИНЯТО (пересмотр после этапа 2)
 - Дата: 2026-07-24

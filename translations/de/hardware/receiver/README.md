@@ -1,6 +1,6 @@
 # Empfänger
 
-> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · Deutsch
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · Deutsch · [Português](../../../pt/hardware/receiver/README.md)
 
 Schemazeichnungen: [Stufe 1 — sch2](../schematics/sch2-receiver-stage1.png) · [Stufe 4 — sch4](../schematics/sch4-receiver-node.png) (generiert durch [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

@@ -1,6 +1,6 @@
 # Licensing and patent protection
 
-> English (primary) · [Русский](translations/ru/LICENSES.md) · [Deutsch](translations/de/LICENSES.md)
+> English (primary) · [Русский](translations/ru/LICENSES.md) · [Deutsch](translations/de/LICENSES.md) · [Português](translations/pt/LICENSES.md)
 
 The goal of this scheme: the project is fully open, anyone can fork it and build on it (commercially included), while the patent-litigation risk is cut down to the bare minimum achievable by legal and procedural means at all.
 

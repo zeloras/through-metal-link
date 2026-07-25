@@ -1,6 +1,6 @@
 # Experiment NNN: <title>
 
-> English (primary) · [Русский](../translations/ru/experiments/TEMPLATE.md) · [Deutsch](../translations/de/experiments/TEMPLATE.md)
+> English (primary) · [Русский](../translations/ru/experiments/TEMPLATE.md) · [Deutsch](../translations/de/experiments/TEMPLATE.md) · [Português](../translations/pt/experiments/TEMPLATE.md)
 
 - Date:
 - Goal (the one question this experiment answers):

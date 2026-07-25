@@ -1,6 +1,6 @@
 # Anwendungsübersicht: wer benötigt diesen Technologie-Stack und warum
 
-> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · Deutsch
+> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · Deutsch · [Português](../../pt/docs/05-applications-map.md)
 
 Der Plattform-Stack: ein aktiver Power- und Datenkanal durch blinde Wände — Piezo-Akustik / EMAT / LF-Magnetik. Unten: wo dies in der realen Welt benötigt wird, wer bereits dort ist und was für uns noch übrig bleibt.
 

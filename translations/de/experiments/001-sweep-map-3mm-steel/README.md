@@ -1,6 +1,6 @@
 # Experiment 001: Kanal-Sweep-Karte, 3 mm Stahl (GEPLANT)
 
-> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · Deutsch
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · Deutsch · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md)
 
 - Ziel: Resonanz eines Langevin-Wandler-Paares durch eine 3 mm Platte finden; erste Frequenzantwort des Kanals erhalten.
 - Hypothese: ein Peak um 38-42 kHz (Langevin-Wandler-Resonanz), Peakbreite von einigen kHz.

@@ -1,6 +1,6 @@
 # data/
 
-> [English (primary)](../../../data/README.md) · Русский · [Deutsch](../../de/data/README.md)
+> [English (primary)](../../../data/README.md) · Русский · [Deutsch](../../de/data/README.md) · [Português](../../pt/data/README.md)
 
 Сырые логи измерений: CSV и PNG от `software/sweep-map/sweep_map.py`.
 

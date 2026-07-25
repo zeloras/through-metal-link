@@ -1,6 +1,6 @@
 # Hybridkanäle: Barrier → Physik → Zahlen
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · Deutsch
+> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · Deutsch · [Português](../../pt/docs/04-hybrid-channels.md)
 
 Das Prinzip (eine Folge des "Penetrationsparadoxons"): Eine Welle durchdringt eine Barriere genau in dem Maße, in dem sie schwach mit ihr interagiert — daher existiert kein universeller Kanal. Die Plattform verfolgt keinen einzelnen Kanal; für jede Barriere wählt sie die Physik, die die Barriere durchlässig ist, und der Empfänger ist resonant "gierig" danach.
 

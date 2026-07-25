@@ -1,6 +1,6 @@
 # How to Contribute
 
-> English (primary) · [Русский](translations/ru/CONTRIBUTING.md) · [Deutsch](translations/de/CONTRIBUTING.md)
+> English (primary) · [Русский](translations/ru/CONTRIBUTING.md) · [Deutsch](translations/de/CONTRIBUTING.md) · [Português](translations/pt/CONTRIBUTING.md)
 
 Thank you for wanting to advance the open through-steel channel. The three rules below are not bureaucracy — they are the project's patent armor (see [LICENSES.md](LICENSES.md) for why).
 
