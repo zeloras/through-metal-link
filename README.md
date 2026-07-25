@@ -14,14 +14,14 @@ Docs are multilingual: English is primary and lives at the canonical paths; ever
 
 ## The idea in one paragraph
 
-Radio waves don't pass through metal (Faraday cage), and a cable penetration means a hole, a seal, and a point of failure. Ultrasound, on the other hand, travels through metal just fine: a piezo element on each side of the wall turns it into a channel for power (watts through 3–5 mm of steel) and data (kbit/s). The physics is proven (RPI: 50 W + 12 Mbit/s through 63 mm of steel; NASA JPL: ~kW through 5 mm of titanium), the foundational patents have expired, and no open platform exists — this repository is building one.
+Radio waves don't pass through metal (Faraday cage), and a cable penetration means a hole, a seal, and a point of failure. Ultrasound, on the other hand, travels through metal just fine: a piezo element on each side of the wall turns it into a channel for power and data. Lab literature already proved the physics at serious levels (RPI: 50 W + 12 Mbit/s through 63.5 mm of steel; NASA JPL: up to ~kW through 5 mm of titanium) — those are existence proofs with specialized hardware, not this repo's garage BOM. The foundational patents have expired, and no open, reproducible platform exists yet — this repository is building one, starting at **watts-class power and kbit/s data through 3–5 mm steel** once stage 2 is measured.
 
 ## Roadmap
 
 | Stage | Deliverable | Success criterion | Expectation |
 |---|---|---|---|
 | 1. Sweep map | frequency response of the "Langevin–3 mm steel–Langevin" channel | pair resonance found, plot in [experiments/001](experiments/001-sweep-map-3mm-steel/README.md) | [sim1](docs/img/sim1-sweep-contacts.png), [sim2](docs/img/sim2-pair-mismatch.png) |
-| 2. Watts | power into the load at resonance | ≥0.5 W through 3 mm of steel | [sim4](docs/img/sim4-power-budget.png) |
+| 2. Watts | power into the load at resonance | ≥0.5 W through 3 mm of steel, protocol in [experiments/002](experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
 | 3. Data | FSK/OOK over the same pair | ≥1 kbit/s error-free | [sim5](docs/img/sim5-ook-datarate.png) |
 | 4. Node | ESP32 + sensor in a welded-shut box, powered and telemetered by sound alone | ≥1 h of autonomous operation | [sim4](docs/img/sim4-power-budget.png) |
 | 5. Publication | repo goes public, article/how-to | reproduction by a third party | — |
@@ -43,7 +43,7 @@ Every block below expands: inside is a digest sufficient to work from, plus a li
 python3 software/sweep-map/sweep_map.py --mock
 ```
 
-**The rig counts as working when:** (1) the sweep peak reproduces across two runs to within <200 Hz; (2) ≥0.5 W in the load through 3 mm of steel; (3) the LED behind the plate lights up, photo in experiments/001.
+**Done when (by stage):** stage 1 — sweep peak reproduces across two runs to within <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); stage 2 — ≥0.5 W into a known load through 3 mm of steel and an LED lit from the RX side ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
 </details>
 
@@ -66,21 +66,21 @@ The main losses: resonance mismatch within the pair (±1 kHz for cheap Langevin 
 <details>
 <summary><b>📈 What the rig should show: expectation plots from the simulator</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
 
-A semi-empirical channel model (not FEM — intuition for "what the sweep will show and what to count on"). Regenerate with: `python3 channel_sim.py --out ../../docs/img`.
+A semi-empirical channel model (not FEM, **not lab data** — intuition for "what the sweep should look like and what to aim at"). Assumptions are explicit in `channel_sim.py` (loaded Q≈40, contact k-factors, chain η≤40%). Regenerate with: `python3 channel_sim.py --out ../../docs/img`.
 
-**Stage 1 — sweep.** A narrow peak near ~40 kHz; grease couplant + clamp gives ~4× dry pressure and ~50× an air gap. No peak means a problem with the contact or the pair:
+**Stage 1 — sweep.** A narrow peak near ~40 kHz; the model’s placeholder contact multipliers are grease:dry:gap = 1 : 0.25 : 0.02 (i.e. grease ≈4× dry and ≈50× air gap). No peak means a problem with the contact or the pair:
 
 <img src="docs/img/sim1-sweep-contacts.png" width="720">
 
-**Why 4 Langevin transducers, not 2.** A 1.5 kHz resonance mismatch within the pair drops the power 10-fold:
+**Why 4 Langevin transducers, not 2.** Under Q≈40, a 1.5 kHz resonance mismatch within the pair drops model power ~10×:
 
 <img src="docs/img/sim2-pair-mismatch.png" width="720">
 
-**Stage 3 — data.** OOK runs into resonator ringing (Q~40 → τ≈0.3 ms): 1 kbit/s is clean, at 5 kbit/s the eye is closed. Going faster takes mode B:
+**Stage 3 — data.** OOK runs into resonator ringing (model Q~40 → τ≈0.3 ms): 1 kbit/s is clean, at 5 kbit/s the eye is closed. Going faster takes mode B:
 
 <img src="docs/img/sim5-ook-datarate.png" width="720">
 
-**Receiver power budget.** Mode A feeds everything up to Wi-Fi peaks; mode B feeds an ESP32 with a supercapacitor buffer:
+**Receiver power budget.** Shaded bands are **targets** (mode A 0.5–5 W if stage 2 lands; mode B lower). Realistic first loads are duty-cycled ESP32 / BLE / LED; Wi-Fi is shown as a peak-draw marker, not a continuous promise:
 
 <img src="docs/img/sim4-power-budget.png" width="720">
 
@@ -93,13 +93,13 @@ A semi-empirical channel model (not FEM — intuition for "what the sweep will s
 <details>
 <summary><b>⚠️ Safety — read before first power-up</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
 
-1. **Hundreds of volts on the piezo** at resonance — the TVS on the receive side goes in BEFORE the first power-up; keep your hands off the leads.
+1. **Tens to hundreds of volts on the piezo** once the stage-2 driver is online — the TVS on the receive side goes in BEFORE the first powered run; keep your hands off the leads.
 2. **Mains** — only through a bench power supply / isolation; ultrasonic-cleaner driver boards are galvanically tied to the mains.
-3. **Ears** — operate transducers only when pressed against metal; never run high-power airborne ultrasound without an enclosure.
-4. **Heat** — an unclamped Langevin transducer overheats in minutes; check the clamping before applying power.
+3. **Ears** — at non-trivial power, operate transducers pressed against metal; never run high-power airborne ultrasound without an enclosure.
+4. **Heat** — an unclamped Langevin transducer overheats in minutes at power; clamp before raising current (brief low-current electrical bring-up only — see driver README).
 5. **Shards** — piezoceramic is brittle: an overtightened bolt or an impact means shards; wear safety glasses for any mechanical work.
 
-First driver power-up: set the bench supply current limit to 0.2 A.
+First driver power-up: bench supply current limit 0.2 A; full sequence in [hardware/driver/](hardware/driver/README.md) and [docs/02-safety.md](docs/02-safety.md).
 
 </details>
 

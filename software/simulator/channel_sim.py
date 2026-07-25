@@ -3,11 +3,14 @@
 """
 channel_sim.py — semi-empirical simulator of the through-wall acoustic channel.
 
-Not CAD and not FEM: a model for intuition — "what the sweep will show and what
-to expect". Physics inside:
-  Mode A (40 kHz): a Langevin pair = two Lorentzian resonances (Q~40 loaded),
-  channel ∝ |H_tx·H_rx| · k_contact. A 3-5 mm plate ≪ λ (148 mm) — a
-  transparent membrane.
+Not CAD, not FEM, and not lab data: a model for intuition — "what the sweep
+should look like and what to aim at". Replace assumed constants with measured
+values after experiments 001/002.
+
+Physics inside:
+  Mode A (40 kHz): a Langevin pair = two Lorentzian resonances (Q~40 loaded,
+  assumed), channel ∝ |H_tx·H_rx| · k_contact. A 3-5 mm plate ≪ λ (148 mm) —
+  a transparent membrane. Contact k and chain η_max are placeholders.
   Mode B (MHz): a comb of plate thickness resonances (Fabry-Perot):
   T(f) = 1 / (1 + ((r - 1/r)/2 · sin(2πfd/v))²), r — impedance step.
 
@@ -62,11 +65,15 @@ def lorentz(f, f0, q):
 # ---------- Mode A ----------
 
 F = np.linspace(25e3, 45e3, 2000)
-Q_LOADED = 40
-F_TX, F_RX = 39.8e3, 40.4e3          # real spread of a cheap pair, ~0.6 kHz
+Q_LOADED = 40                         # assumed loaded Q; measure from sweep width
+F_TX, F_RX = 39.8e3, 40.4e3          # example cheap-pair spread ~0.6 kHz
 
 def chart_sweep(out, L):
-    """What sweep_map.py will show at stage 1 (drive ~1 Vpp, no amplifier)."""
+    """Expected stage-1 sweep shape (weak DDS drive, no half-bridge).
+
+    Contact multipliers are placeholders (grease:dry:gap = 1:0.25:0.02),
+    not calibrated measurements — experiment 001 bonus pass replaces them.
+    """
     contacts = [(L["sim1.contact.grease"], 1.00, S1),
                 (L["sim1.contact.dry"],    0.25, S2),
                 (L["sim1.contact.gap"],    0.02, S3)]
@@ -89,9 +96,14 @@ def chart_sweep(out, L):
     plt.close(fig)
 
 def chart_mismatch(out, L):
-    """Power into the load vs frequency for a mismatched resonance pair."""
+    """Model power into the load vs frequency for a mismatched resonance pair.
+
+    eff_max=0.40 is an optimistic chain ceiling (driver + match + contact +
+    transducers), not a measured efficiency. Peak ratios vs Δf are the lesson;
+    absolute watts are stage-2 targets until experiment 002 lands.
+    """
     fig, ax = plt.subplots(figsize=(9, 5))
-    p_drive, eff_max = 10.0, 0.40      # watts of drive, max chain efficiency
+    p_drive, eff_max = 10.0, 0.40      # drive watts; assumed max chain efficiency
     for df, color, label in [(0.0, S1, L["sim2.match"]),
                              (700.0, S2, L["sim2.typ"]),
                              (1500.0, S3, L["sim2.bad"])]:
@@ -193,6 +205,7 @@ def chart_power_budget(out, L):
     ax.set_xlim(1e-5, 20)
     # expected received-power windows
     ax.set_ylim(-0.6, 6.9)
+    # Target received-power bands (not measured). Mode A lower edge = stage-2 gate.
     ax.axvspan(0.1, 0.5, color=S3, alpha=0.12)
     ax.axvspan(0.5, 5.0, color=S2, alpha=0.12)
     ax.text(0.22, 6.05, L["sim4.modeB"], color=S3, fontsize=9, ha="center")

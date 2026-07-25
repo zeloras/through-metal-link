@@ -51,17 +51,26 @@ Steel plate 3 mm ~150×150 — 2 pcs (metal yard / laser cutting); F-style clamp
 
 ## What you will see (simulator: software/simulator/channel_sim.py → docs/img)
 
-- `sim0-rig-sketch.png` — the whole rig in one sketch.
-- `sim1-sweep-contacts.png` — sweep frequency response: a narrow peak near ~40 kHz; grease + clamp gives ~4× more than a dry press-fit and ~50× more than an air gap. No peak — the problem is the contact or the pair, see sim2.
-- `sim2-pair-mismatch.png` — why 4 Langevin transducers and not 2: a 1.5 kHz resonance mismatch within a pair drops power 10×; the sweep picks the best pair out of 4.
+These PNGs are **model expectations**, not lab measurements. Contact ratios, loaded Q≈40, and chain efficiency ≤40% are explicit assumptions in `channel_sim.py` — replace them with sweep/power data once the rig exists.
+
+- `sim0-rig-sketch.png` — the whole rig in one sketch (stage 2 chain; stage 1 omits the half-bridge and drives the TX from the weak DDS sine).
+- `sim1-sweep-contacts.png` — expected sweep shape: a narrow peak near ~40 kHz; the model uses grease:dry:gap ≈ 1 : 0.25 : 0.02 as placeholders. No peak — debug contact or pair mismatch first (sim2).
+- `sim2-pair-mismatch.png` — why 4 Langevin transducers and not 2: with Q≈40, a 1.5 kHz resonance mismatch within a pair drops model power ~10×; the sweep picks the best pair out of 4.
 - `sim3-thickness-comb.png` — for later (mode B, MHz): the plate is transparent as a comb of thickness resonances, so the frequency has to be tracked.
-- `sim4-power-budget.png` — target watts versus the loads: mode A feeds everything up to Wi-Fi peaks, mode B feeds an ESP32 with a supercapacitor buffer.
-- `sim5-ook-datarate.png` — stage 3: why OOK on Langevin transducers tops out at ~1–2 kbit/s (resonator ring-down τ≈0.3 ms), and why that is fine for a sensor node.
+- `sim4-power-budget.png` — load draw vs **target** received-power bands. Mode A band (0.5–5 W) is the stage-2 ambition if matching and contact cooperate; mode B is the lower band. Continuous Wi-Fi is a peak-load marker, not a promise — duty-cycled ESP32/BLE/LED are the realistic first consumers.
+- `sim5-ook-datarate.png` — stage 3: why OOK on Langevin transducers tops out at ~1–2 kbit/s under Q≈40 (ring-down τ≈0.3 ms), and why that is fine for a sensor node.
 
 ## Criteria for "the rig works"
 
-1. Sweep 25–45 kHz in two consecutive runs: the peak reproduces to within <200 Hz.
-2. At resonance, ≥0.5 W into a resistive load through 3 mm of steel.
-3. The LED behind the plate is lit. Photo in experiments/001 — and the stage is closed.
+Split by stage — do not mark stage 1 done with stage 2 numbers.
 
-Safety before first power-up: docs/02-safety.md (TVS on the receiver, PSU current limit at 0.2 A, never drive a Langevin transducer without clamping pressure).
+**Stage 1 — sweep map** ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)):
+1. Sweep 25–45 kHz in two consecutive runs: the peak center reproduces to within <200 Hz.
+2. Optional bonus: grease+clamp vs dry press-on on the same pair (relative amplitudes, not absolute watts).
+
+**Stage 2 — first watts** ([experiments/002](experiments/002-watts-3mm-steel/README.md)):
+1. Half-bridge + matching transformer online; PSU current-limited bring-up per [docs/02-safety.md](docs/02-safety.md) and [hardware/driver/](hardware/driver/README.md).
+2. At the stage-1 resonance, ≥0.5 W into a known resistive load through 3 mm of steel (measure V and I on the DC side after the RX bridge).
+3. LED behind the plate lights from harvested power; photo + CSV in experiments/002.
+
+Safety before first power-up: [docs/02-safety.md](docs/02-safety.md) (TVS on the receiver, PSU current limit at 0.2 A for bring-up, no free-air high-power Langevin runs).

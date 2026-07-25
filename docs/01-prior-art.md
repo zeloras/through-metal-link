@@ -20,5 +20,7 @@ Every technical decision in this repo must be traceable to a source from the "fr
 - Yang et al., Sensors 2015 (10.3390/s151229870) — review, the best summary of the numbers.
 - Ji et al., Phys. Rev. Applied 21, 014059 (2024) — metamaterial, 2%→66% through 1 mm stainless (no patent found as of 07.2026).
 
+These papers are the **physics and patent-hygiene baseline**. Their power/bitrate numbers used lab transducers, bonding, and matching — not the AliExpress Langevin + grease BOM in [QUICKSTART.md](../QUICKSTART.md). Cite them as existence proofs; the project's own pass bars live in [experiments/](../experiments/).
+
 ## What we don't copy while it's alive (US-only, until ~2032; stages 1–4 don't need it anyway)
 OFDM with subcarriers placed to dodge the power channel's harmonics (RPI US9054826); full-duplex "AM downlink + load-modulation uplink + frequency tracking" as a single scheme (RPI US9455791); conformal transducers for curved surfaces per the Drexel approach (US10594409).

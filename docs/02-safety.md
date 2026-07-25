@@ -2,8 +2,9 @@
 
 > English (primary) · [Русский](../translations/ru/docs/02-safety.md) · [Deutsch](../translations/de/docs/02-safety.md) · [Português](../translations/pt/docs/02-safety.md)
 
-1. **High voltage on the piezo.** At resonance the transducer terminals carry hundreds of volts. The TVS/Zener on the receive side goes in BEFORE the first power-up. Do not touch the terminals while it is running.
-2. **Mains.** Ultrasonic-cleaner drivers are galvanically coupled to the mains. Work only through a lab power supply / isolation transformer.
-3. **Ears.** Humans can't hear 40 kHz, but subharmonics — and animals — can. Work with the emitters pressed against metal, not radiating into air. Powerful airborne ultrasound — never switch it on without an enclosure.
-4. **Heating.** A Langevin transducer running unloaded (not pressed against anything) overheats within minutes at full power. Always check the contact pressure before applying power.
+1. **High voltage on the piezo.** At resonance the transducer terminals carry tens to hundreds of volts once the stage-2 driver is online. The TVS/Zener on the receive side goes in BEFORE the first powered run. Do not touch the terminals while it is running.
+2. **Mains.** Ultrasonic-cleaner drivers are galvanically coupled to the mains. Work only through a lab power supply / isolation transformer. This project's half-bridge is meant to run from a current-limited bench PSU, not from a mains-tied cleaner board.
+3. **Ears.** Humans can't hear 40 kHz, but subharmonics — and animals — can. For any non-trivial power, work with the emitters pressed against metal, not radiating into air. Powerful airborne ultrasound — never switch it on without an enclosure.
+4. **Heating.** A Langevin transducer running unloaded (not pressed against anything) overheats within minutes at full power. **Default rule:** clamp to the plate (or a sacrificial block) before raising power. The only intentional exception is a **brief, low-current electrical bring-up** of the half-bridge (PSU limited to ~0.2 A, seconds not minutes, scope on the switch node) described in [hardware/driver/](../hardware/driver/README.md) — still not a free-air power run.
 5. **Shrapnel.** Piezoceramic is brittle; an overtightened Langevin bolt or an impact = fragments. Safety glasses during mechanical work.
+6. **Stage 1 vs stage 2.** The stage-1 sweep drives the TX from the weak AD9833 sine (~0.6 Vpp) and is electrically gentle; almost all of the hazards above become real when the IR2110 half-bridge and matching transformer come online for watts.

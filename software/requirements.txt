@@ -1,7 +1,7 @@
-# Общее (симулятор + графики свипа) — работает на любом компьютере
+# Common (simulator + sweep plots) — any computer
 numpy
 matplotlib
 
-# Только на Raspberry Pi (железо стенда) — раскомментировать на Pi:
+# Raspberry Pi only (rig hardware) — uncomment on the Pi:
 # spidev
 # smbus2

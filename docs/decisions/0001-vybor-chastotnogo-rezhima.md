@@ -13,3 +13,5 @@ Stages 1–2 run mode A. Reasons: cheaper ($10–30 apiece), more powerful (watt
 
 ## Consequences
 Data at Stage 3 will be slow (kbit/s) — enough for a sensor node. The ADS1115 ADC (860 SPS) is fine for the envelope at 40 kHz after the rectifier, but not for direct sampling — direct sampling is deferred to mode B (needs a different ADC).
+
+Stage 1 (sweep) uses the weak DDS drive only; stage 2 (watts) is a separate experiment and bring-up ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)). Simulator power bands remain targets until 002 is measured.
