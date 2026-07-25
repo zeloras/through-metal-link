@@ -1,6 +1,6 @@
 # Applications map: who needs this technology stack, and why
 
-> [Русская версия](05-applications-map.ru.md)
+> English (primary) · [Русский](05-applications-map.ru.md)
 
 The platform stack: an active power-and-data channel through blind walls — piezo-acoustics / EMAT / LF magnetics. Below: where this is needed in the real world, who is already there, and what's left for us.
 

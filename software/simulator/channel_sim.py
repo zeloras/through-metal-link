@@ -30,7 +30,9 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 
 LABELS = json.loads((Path(__file__).resolve().parent / "labels.json").read_text(encoding="utf-8"))
-SUFFIX = {"en": "", "ru": ".ru"}
+
+def lang_suffix(lang: str) -> str:
+    return "" if lang == "en" else f".{lang}"
 
 # ---------- palette (light mode, validated) ----------
 SURFACE = "#fcfcfb"
@@ -273,16 +275,19 @@ def sketch_rig(out, L, sfx):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--out", default="../../docs/img")
-    p.add_argument("--lang", default="all", choices=["en", "ru", "all"])
+    p.add_argument("--lang", default="all",
+                   help="language code from labels.json, or 'all'")
     a = p.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     charts = [sketch_rig, chart_sweep, chart_mismatch, chart_fabry_perot,
               chart_power_budget, chart_ook]
-    langs = ["en", "ru"] if a.lang == "all" else [a.lang]
+    langs = list(LABELS) if a.lang == "all" else [a.lang]
     n = 0
     for lang in langs:
-        L, sfx = LABELS[lang], SUFFIX[lang]
+        if lang not in LABELS:
+            raise SystemExit(f"no such language in labels.json: {lang}")
+        L, sfx = LABELS[lang], lang_suffix(lang)
         for chart in charts:
             chart(out, L, sfx)
             n += 1

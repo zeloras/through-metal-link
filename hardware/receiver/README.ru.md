@@ -1,6 +1,6 @@
 # Приёмник
 
-> [English (primary)](README.md)
+> [English (primary)](README.md) · Русский
 
 Схемы: [этап 1 — sch2](../schematics/sch2-receiver-stage1.ru.png) · [этап 4 — sch4](../schematics/sch4-receiver-node.ru.png) (генерируются [../schematics/render_schematics.py](../schematics/render_schematics.py))
 

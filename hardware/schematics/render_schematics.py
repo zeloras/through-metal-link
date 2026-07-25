@@ -26,8 +26,10 @@ import schemdraw.elements as elm
 
 OUT = Path(__file__).resolve().parent
 LABELS = json.loads((OUT / "labels.json").read_text(encoding="utf-8"))
-SUFFIX = {"en": "", "ru": ".ru"}
 FS = 10.5
+
+def lang_suffix(lang: str) -> str:
+    return "" if lang == "en" else f".{lang}"
 
 
 def save(d, name, sfx):
@@ -386,11 +388,14 @@ def sch4_receiver_node(L, sfx):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--lang", default="all", choices=["en", "ru", "all"])
+    p.add_argument("--lang", default="all",
+                   help="language code from labels.json, or 'all'")
     a = p.parse_args()
-    langs = ["en", "ru"] if a.lang == "all" else [a.lang]
+    langs = list(LABELS) if a.lang == "all" else [a.lang]
     for lang in langs:
-        L, sfx = LABELS[lang], SUFFIX[lang]
+        if lang not in LABELS:
+            raise SystemExit(f"no such language in labels.json: {lang}")
+        L, sfx = LABELS[lang], lang_suffix(lang)
         sch1_driver(L, sfx)
         sch2_receiver_stage1(L, sfx)
         sch3_stage1_wiring(L, sfx)

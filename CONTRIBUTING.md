@@ -1,6 +1,6 @@
 # How to Contribute
 
-> [Русская версия](CONTRIBUTING.ru.md)
+> English (primary) · [Русский](CONTRIBUTING.ru.md)
 
 Thank you for wanting to advance the open through-steel channel. The three rules below are not bureaucracy — they are the project's patent armor (see [LICENSES.md](LICENSES.md) for why).
 
@@ -40,3 +40,4 @@ English is primary; every doc has a Russian twin (`*.ru.md`), and every generate
 - Edit whichever language is comfortable. On push, the [Translation sync](.github/workflows/translate.yml) workflow finds pairs where only one side changed, translates the counterpart with GitHub Models (`meta/llama-3.3-70b-instruct`, no API keys needed), regenerates figures when the sync updates `labels.json`, and commits the result back with the `[translate-sync]` marker.
 - If you edited **both** sides of a pair yourself, the bot leaves them alone.
 - Machine translation gets committed — skim the bot's commit and touch up wording if it misses the tone; your fix won't be overwritten (the bot only reacts to new changes).
+- **Adding a language:** add its code and name to [i18n.json](i18n.json) (e.g. `"de": "Deutsch"`) and push — the pipeline translates every doc into `*.de.md`, adds a `de` section to each `labels.json`, regenerates the `.de` figure set and refreshes the language switchers everywhere.

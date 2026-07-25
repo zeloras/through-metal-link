@@ -1,6 +1,6 @@
 # data/
 
-> [Русская версия](README.ru.md)
+> English (primary) · [Русский](README.ru.md)
 
 Raw measurement logs: CSV and PNG output from `software/sweep-map/sweep_map.py`.
 

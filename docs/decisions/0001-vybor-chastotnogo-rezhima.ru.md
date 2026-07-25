@@ -1,6 +1,6 @@
 # ADR-0001: Выбор частотного режима для этапа 1
 
-> [English (primary)](0001-vybor-chastotnogo-rezhima.md)
+> [English (primary)](0001-vybor-chastotnogo-rezhima.md) · Русский
 
 - Статус: ПРИНЯТО (пересмотр после этапа 2)
 - Дата: 2026-07-24

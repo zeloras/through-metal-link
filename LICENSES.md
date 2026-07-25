@@ -1,6 +1,6 @@
 # Licensing and patent protection
 
-> [Русская версия](LICENSES.ru.md)
+> English (primary) · [Русский](LICENSES.ru.md)
 
 The goal of this scheme: the project is fully open, anyone can fork it and build on it (commercially included), while the patent-litigation risk is cut down to the bare minimum achievable by legal and procedural means at all.
 

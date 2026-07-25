@@ -12,6 +12,6 @@ SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contribu
 SPDX-License-Identifier = "CERN-OHL-W-2.0"
 
 [[annotations]]
-path = ["docs/**", "experiments/**", "data/**", "*.md", "NOTICE", "LICENSE", "CITATION.cff", ".gitignore", "REUSE.toml", ".github/**"]
+path = ["docs/**", "experiments/**", "data/**", "*.md", "NOTICE", "LICENSE", "CITATION.cff", ".gitignore", "REUSE.toml", ".github/**", "i18n.json"]
 SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
 SPDX-License-Identifier = "CC-BY-4.0"
