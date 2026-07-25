@@ -1,6 +1,6 @@
 # Принципиальные схемы стенда
 
-> [English (primary)](README.md) · Русский
+> [English (primary)](README.md) · Русский · [Deutsch](README.de.md)
 
 Схемы генерируются кодом — [render_schematics.py](render_schematics.py) и есть исходник дизайна (schemdraw); правки — в скрипт, потом перегенерация:
 

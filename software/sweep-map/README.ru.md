@@ -1,6 +1,6 @@
 # sweep-map
 
-> [English (primary)](README.md) · Русский
+> [English (primary)](README.md) · Русский · [Deutsch](README.de.md)
 
 Свип-карта АЧХ канала. См. шапку sweep_map.py: железо, подключение, запуск.
 

@@ -1,6 +1,6 @@
 # Experiment NNN: <title>
 
-> English (primary) · [Русский](TEMPLATE.ru.md)
+> English (primary) · [Русский](TEMPLATE.ru.md) · [Deutsch](TEMPLATE.de.md)
 
 - Date:
 - Goal (the one question this experiment answers):

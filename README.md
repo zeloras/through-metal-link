@@ -1,6 +1,6 @@
 # through-metal-link
 
-> English (primary) · [Русский](README.ru.md)
+> English (primary) · [Русский](README.ru.md) · [Deutsch](README.de.md)
 
 An open platform for ultrasonic power and data transfer through solid metal walls — "through steel without a single hole", built with garage-grade means.
 

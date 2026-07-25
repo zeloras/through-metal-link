@@ -1,6 +1,6 @@
 # Опыт NNN: <название>
 
-> [English (primary)](TEMPLATE.md) · Русский
+> [English (primary)](TEMPLATE.md) · Русский · [Deutsch](TEMPLATE.de.md)
 
 - Дата:
 - Цель (один вопрос, на который отвечает опыт):

@@ -1,6 +1,6 @@
 # data/
 
-> [English (primary)](README.md) · Русский
+> [English (primary)](README.md) · Русский · [Deutsch](README.de.md)
 
 Сырые логи измерений: CSV и PNG от `software/sweep-map/sweep_map.py`.
 

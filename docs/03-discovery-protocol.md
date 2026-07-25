@@ -1,6 +1,6 @@
 # Receiver discovery and auto-tuning protocol (sketch; implementation in stages 2–4)
 
-> English (primary) · [Русский](03-discovery-protocol.ru.md)
+> English (primary) · [Русский](03-discovery-protocol.ru.md) · [Deutsch](03-discovery-protocol.de.md)
 
 The goal: the device figures out on its own whether there is a receiver behind the wall, picks the frequency and power on its own, and doesn't roast the wall for nothing if someone "forgot to weld the receiver in".
 

@@ -1,6 +1,6 @@
 # Как вносить вклад
 
-> [English (primary)](CONTRIBUTING.md) · Русский
+> [English (primary)](CONTRIBUTING.md) · Русский · [Deutsch](CONTRIBUTING.de.md)
 
 Спасибо, что хотите развивать открытый канал «сквозь сталь». Правила ниже — не бюрократия, а патентная броня проекта (зачем — см. [LICENSES.ru.md](LICENSES.ru.md)).
 
