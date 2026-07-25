@@ -1,0 +1,10 @@
+through-metal-link is a multi-licensed project:
+
+  software/ and firmware/  —  Apache-2.0        (LICENSES/Apache-2.0.txt)
+  hardware/                —  CERN-OHL-W-2.0    (LICENSES/CERN-OHL-W-2.0.txt)
+  docs/, experiments/ and
+  everything else          —  CC-BY-4.0         (LICENSES/CC-BY-4.0.txt)
+
+Machine-readable coverage map: REUSE.toml
+Full scheme, patent grants and defensive-publication protocol: LICENSES.md
+Contribution terms (DCO + patent grant): CONTRIBUTING.md

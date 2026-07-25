@@ -1,0 +1,58 @@
+name: Translation sync
+
+on:
+  push:
+    branches: [master]
+    paths: ["**/*.md", "**/labels.json"]
+
+permissions:
+  contents: write
+  models: read
+
+concurrency:
+  group: translate-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync en - ru
+    # the bot's own pushes must not retrigger the loop
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Translate changed files (GitHub Models, open-weights LLM)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TRANSLATE_MODEL: meta/llama-3.3-70b-instruct
+        run: python tools/translate_sync.py --base "${{ github.event.before }}"
+
+      # regenerate figures ONLY when the sync itself translated labels.json:
+      # human pushes never trigger a cross-platform re-render (macOS and the
+      # runner produce different PNG bytes — that would be endless churn)
+      - name: Regenerate figures if the sync updated labels.json
+        run: |
+          if git status --porcelain | grep -q 'labels\.json'; then
+            pip install --quiet numpy matplotlib schemdraw
+            python software/simulator/channel_sim.py --out docs/img
+            python hardware/schematics/render_schematics.py
+          fi
+
+      - name: Commit the result
+        run: |
+          if ! git diff --quiet || [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -s -m "sync translations and figures [translate-sync]"
+            git push
+          else
+            echo "Nothing to sync"
+          fi

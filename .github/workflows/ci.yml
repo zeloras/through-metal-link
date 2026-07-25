@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  checks:
+    name: Scripts and generated assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dependencies
+        run: python -m pip install numpy matplotlib schemdraw
+
+      - name: Compile all scripts
+        run: python -m compileall -q software hardware
+
+      - name: Mock-mode sweep (full CSV + plot pipeline)
+        run: python software/sweep-map/sweep_map.py --mock --out /tmp/ci-sweep
+
+      - name: Expectation charts (channel simulator)
+        run: python software/simulator/channel_sim.py --out /tmp/ci-img
+
+      - name: Schematics
+        run: python hardware/schematics/render_schematics.py
+
+      - name: Artifacts (all generated figures)
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-figures
+          path: |
+            /tmp/ci-sweep/*.png
+            /tmp/ci-img/*.png
+            hardware/schematics/*.png
+          retention-days: 14

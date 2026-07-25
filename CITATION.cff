@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Цитируя этот проект (и укрепляя его статус prior art), используйте метаданные ниже."
+type: software
+title: "through-metal-link: open platform for ultrasonic power and data through solid metal walls"
+authors:
+  - family-names: Gerasimov
+    given-names: Vitalii
+license:
+  - Apache-2.0
+  - CERN-OHL-W-2.0
+  - CC-BY-4.0
+abstract: >-
+  Open-hardware platform delivering watts of power and kbit/s of data through
+  blind 3-5 mm steel walls using piezoelectric transducer pairs, with no
+  penetrations. Built exclusively on expired-patent prior art.

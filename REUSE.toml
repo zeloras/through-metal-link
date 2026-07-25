@@ -1,0 +1,17 @@
+version = 1
+SPDX-PackageName = "through-metal-link"
+
+[[annotations]]
+path = ["software/**", "firmware/**", "tools/**"]
+SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["hardware/**"]
+SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
+SPDX-License-Identifier = "CERN-OHL-W-2.0"
+
+[[annotations]]
+path = ["docs/**", "experiments/**", "data/**", "*.md", "NOTICE", "LICENSE", "CITATION.cff", ".gitignore", "REUSE.toml", ".github/**"]
+SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
+SPDX-License-Identifier = "CC-BY-4.0"
