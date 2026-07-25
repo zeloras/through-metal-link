@@ -14,6 +14,7 @@ The principle (a corollary of the "penetration paradox"): a wave gets through a 
 | Double wall with vacuum (thermos, cryostat, dewar) | LF magnetics (tens–hundreds of Hz) | µW–mW; bit/s | skin effect: in steel δ≈0.6 mm @1 kHz — push the frequency down |
 | Non-metal: glass, plastic, ceramics | Piezo-acoustics (easier than metal) | watts; kbit/s | + plain RF often gets through too — check that first |
 | Wall with a rubber/foam layer, composite | Honestly: nearly a dead end | — | the absorber eats everything; the workaround is a spot with no coating |
+| Liquid behind the wall (full tank) | Piezo-acoustics, degraded | power −a few dB; shorter ringing | liquid loading shifts/damps the resonance — re-sweep against the full vessel; keep continuous intensity ≲1 W/cm² to stay under cavitation ([theory](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
 | Bubbling liquid in the acoustic path | Architectural workaround | — | mount the receiver on the wall, keep the liquid out of the path |
 
 ## Hybrid node architecture

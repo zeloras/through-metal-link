@@ -23,5 +23,18 @@ Wavelength in steel: 148 mm @ 40 kHz; 5.9 mm @ 1 MHz.
 ## Main losses
 Resonance mismatch within the transducer pair (cheap Langevin transducers spread ±1 kHz), quality of the acoustic contact (epoxy > thick grease couplant + clamp > dry pressure), misalignment, resonance drift with temperature. The answer to all of it is the same: run a sweep map before every change to the setup.
 
+## Effect on the wall and the media behind it
+
+Short version: at platform power levels the wall and any gas behind it are untouched. A liquid behind the wall mostly affects *the channel*; the channel only starts affecting *the liquid* near the cavitation threshold. Ballpark numbers below are for mode A: 40 kHz, ~1 W/cm² into 3 mm steel.
+
+**Wall — no deformation, no fatigue, ever.** Particle velocity v = √(2I/ρc) ≈ 21 mm/s ⇒ displacement ≈ 80 nm, strain ≈ 3.5·10⁻⁶, stress ≈ 0.7 MPa. Steel yields at 250+ MPa and its fatigue endurance limit is ~200 MPa — a >300× margin, and below the endurance limit steel takes unlimited cycles. The mechanically fragile parts are elsewhere: the piezo ceramic (brittle, depoles when overheated) and the bond line (epoxy heats up and fatigues first) — see [02-safety](02-safety.md).
+
+**Gas behind the wall — zero effect.** The steel→air impedance mismatch (~4.6·10⁷ vs ~400 Pa·s/m) transmits a fraction of order 10⁻⁵ of the power. No measurable heating or agitation; electronics inside a sealed box don't notice nm-scale wall motion.
+
+**Liquid behind the wall — two directions:**
+
+- *Liquid → channel (always).* Water loads the far face with ~1.5 MRayl instead of air: part of the power radiates into the liquid, Q drops, the sweep peak shifts and broadens. Mode B is hit hardest — the thickness-resonance comb is computed for steel–air boundaries and moves with liquid loading. The standing rule covers this: **re-sweep against the real, full vessel**, never trust a sweep taken against an empty one. Side benefit: liquid damping shortens resonator ringing (τ), so the OOK eye opens at higher bitrates. Bubbles in the path (fermenting liquid!) scatter strongly — see the workaround in [04-hybrid-channels](04-hybrid-channels.md).
+- *Channel → liquid (only at high power).* Peak pressure radiated into water: p ≈ ρc·v ≈ 1.5 MRayl × 21 mm/s ≈ 30 kPa ≈ 0.3 atm. The inertial-cavitation threshold at 40 kHz in ordinary (gassy) water is ~1–2 atm, so at 1 W/cm² the margin is 3–10×. But p grows as √power, and standing waves in a closed vessel create local hot spots — tens of W/cm² continuous into a liquid-filled tank can reach the threshold. Crossing it means CO₂ degassing, sonochemistry (off-flavors in food products), and long-term cavitation erosion of the inner surface (exactly how ultrasonic cleaners clean). Practical ceiling for continuous power into liquid-backed walls: **≲1 W/cm²**. Mode B is exempt: at MHz the threshold is an order of magnitude higher and the powers are hundreds of mW.
+
 ## Receiver power budget (ballpark)
 LED 20 mW; ESP32 duty-cycled 1–5 mW average; BLE packet ~150 mW peak — buffer: a 1 F supercapacitor @ 3.3 V = 5.4 J ≈ 360 transmissions.

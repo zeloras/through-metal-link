@@ -21,6 +21,7 @@ The platform stack: an active power-and-data channel through blind walls — pie
 - Our stack: a node on the inner wall of a stainless tank, polled from outside with a handheld scanner or a fixed pair.
 - Who's already there: ordinary tapped-in sensors; no wireless through-wall solutions.
 - Maturity: literally within reach of a garage test (any craft brewery is a proving ground within walking distance).
+- Physics caveat: a full tank loads the wall — re-sweep against the full vessel, and keep continuous power ≲1 W/cm²; above that, cavitation in the product (CO₂ degassing, off-flavors, long-term wall erosion) — [theory](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
 
 ## 4. Pipelines, pressure vessels, industrial NDT
 - Pain: monitoring corrosion/parameters inside without a shutdown or a penetration; surfaces are hot, painted, dirty.
