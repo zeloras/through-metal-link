@@ -2,8 +2,11 @@
 
 > [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · Português
 
-- Objetivo: encontrar a ressonância de um par de transdutores Langevin através de uma placa de 3 mm; obter a primeira resposta de frequência do canal.
-- Hipótese: um pico em torno de 38-42 kHz (ressonância do transdutor Langevin), largura do pico de alguns kHz.
-- Procedimento: software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50
-- Critério de sucesso: um pico reprodutível (duas varreduras consecutivas, desvio do centro <200 Hz).
-- Medição bônus: a mesma varredura com "contato com couplante de graxa + clamp" versus "pressão seca" — o primeiro par de pontos de dados que não existem na literatura aberta.
+- **Etapa:** 1 (somente mapa de frequência — nenhum alvo de watt aqui; potência é [002](../../../../experiments/002-watts-3mm-steel/README.md)).
+- **Objetivo:** encontrar a ressonância de um par de transdutores Langevin através de uma placa de 3 mm; obter a primeira resposta de frequência do canal.
+- **Hipótese:** um pico em torno de 38–42 kHz (ressonância do transdutor Langevin), largura do pico de alguns kHz sob contato com graxa+clamp.
+- **Acionamento:** ligação de etapa 1 — AD9833 seno (~0,6 Vpp) para TX, **sem** ponte de meia onda ([sch3](../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../hardware/schematics/sch2-receiver-stage1.png)).
+- **Procedimento:** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (use `--mock` para executar o pipeline sem hardware).
+- **Critério de sucesso:** um pico reprodutível (duas varreduras consecutivas, desvio do centro <200 Hz). Salve CSV/PNG em `data/` e vincule-os a este arquivo quando reais.
+- **Medição bônus:** a mesma varredura com "couplante de graxa + clamp" versus "pressão seca" — somente amplitudes relativas; volts absolutos dependem do nível de acionamento e não são comparáveis à escala de placeholder do simulador até serem calibrados.
+- **Fora do escopo:** ≥0,5 W, LED-from-harvest, inicialização da ponte de meia onda → experimento 002.

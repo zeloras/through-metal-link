@@ -13,3 +13,4 @@ Phasen 1–2 verwenden Modus A. Gründe: günstiger ($10–30 pro Stück), leist
 
 ## Konsequenzen
 Daten in Phase 3 werden langsam sein (kbit/s) — ausreichend für ein Sensorknoten. Der ADS1115-ADC (860 SPS) ist für die Hüllkurve bei 40 kHz nach dem Gleichrichter geeignet, aber nicht für direktes Abtasten — direktes Abtasten wird auf Modus B verschoben (benötigt einen anderen ADC).
+Phase 1 (Sweep) verwendet nur den schwachen DDS-Antrieb; Phase 2 (Watt) ist ein separates Experiment und eine Inbetriebnahme ([experiments/002](../../../../experiments/002-watts-3mm-steel/README.md)). Simulator-Leistungsbänder bleiben Ziele, bis 002 gemessen wird.

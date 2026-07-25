@@ -51,17 +51,26 @@ Stahlplatte 3 mm ~150×150 — 2 Stück (Metallhof / Laser-Schneiden); F-Style-S
 
 ## Was Sie sehen werden (Simulator: software/simulator/channel_sim.py → docs/img)
 
-- `sim0-rig-sketch.png` — das gesamte Rigg in einer Skizze.
-- `sim1-sweep-contacts.png` — Sweep-Frequenzgang: ein schmaler Peak bei ~40 kHz; Schmiermittel + Spanner gibt ~4× mehr als ein trockener Pressfit und ~50× mehr als eine Luftlücke. Kein Peak — das Problem ist der Kontakt oder das Paar, siehe sim2.
-- `sim2-pair-mismatch.png` — warum 4 Langevin-Wandler und nicht 2: eine Resonanzmismatch von 1,5 kHz innerhalb eines Paares reduziert die Leistung um 10×; der Sweep wählt das beste Paar aus 4 aus.
-- `sim3-thickness-comb.png` — für später (Modus B, MHz): die Platte ist transparent als Kamm von Dickenresonanzen, so dass die Frequenz verfolgt werden muss.
-- `sim4-power-budget.png` — Zielwatt versus Lasten: Modus A speist alles bis zu Wi-Fi-Spitzen, Modus B speist einen ESP32 mit einem Supercap-Puffer.
-- `sim5-ook-datarate.png` — Stufe 3: warum OOK auf Langevin-Wandlern bei ~1–2 kbit/s tops out (Resonator-Ringdown τ≈0,3 ms), und warum das für einen Sensor-Knoten in Ordnung ist.
+Diese PNGs sind **Modellerwartungen**, nicht Labormessungen. Kontaktverhältnisse, beladene Q≈40 und Ketteneffizienz ≤40% sind explizite Annahmen in `channel_sim.py` — ersetzen Sie sie durch Sweep/Leistungsdaten, sobald das Rigg existiert.
+
+* `sim0-rig-sketch.png` — das gesamte Rigg in einer Skizze (Stufe-2-Kette; Stufe 1 omittiert die Halbbrücke und treibt den TX vom schwachen DDS-Sinus aus).
+* `sim1-sweep-contacts.png` — erwartete Sweep-Form: ein schmaler Peak bei ~40 kHz; das Modell verwendet Schmiermittel:trocken:Luftlücke ≈ 1 : 0,25 : 0,02 als Platzhalter. Kein Peak — debuggen Sie den Kontakt oder die Paarungsmismatch zuerst (sim2).
+* `sim2-pair-mismatch.png` — warum 4 Langevin-Wandler und nicht 2: mit Q≈40 reduziert eine Resonanzmismatch von 1,5 kHz innerhalb eines Paares die Modellleistung um ~10×; der Sweep wählt das beste Paar aus 4 aus.
+* `sim3-thickness-comb.png` — für später (Modus B, MHz): die Platte ist transparent als Kamm von Dickenresonanzen, so dass die Frequenz verfolgt werden muss.
+* `sim4-power-budget.png` — Lastaufnahme versus **Ziel**-Empfangsleistungsbänder. Modus-A-Band (0,5–5 W) ist das Stufe-2-Ambitionsziel, wenn Matching und Kontakt zusammenarbeiten; Modus B ist das untere Band. Kontinuierliches Wi-Fi ist ein Spitzenlasten-Marker, nicht ein Versprechen — duty-cycelte ESP32/BLE/LED sind die realistischen ersten Verbraucher.
+* `sim5-ook-datarate.png` — Stufe 3: warum OOK auf Langevin-Wandlern bei ~1–2 kbit/s unter Q≈40 (Resonator-Ringdown τ≈0,3 ms) tops out und warum das für einen Sensor-Knoten in Ordnung ist.
 
 ## Kriterien für "das Rigg funktioniert"
 
-1. Sweep 25–45 kHz in zwei aufeinanderfolgenden Läufen: der Peak reproduziert sich innerhalb von <200 Hz.
-2. Bei Resonanz ≥0,5 W in eine resistive Last durch 3 mm Stahl.
-3. Die LED hinter der Platte leuchtet. Foto in experiments/001 — und die Stufe ist abgeschlossen.
+Teilen Sie es nach Stufen auf — markieren Sie Stufe 1 nicht als abgeschlossen, wenn Sie Stufe-2-Zahlen haben.
 
-Sicherheit vor dem ersten Einschalten: docs/02-safety.md (TVS auf dem Empfänger, Netzgerät-Strombegrenzung bei 0,2 A, nie einen Langevin-Wandler ohne Klemmdruck antreiben).
+**Stufe 1 — Sweep-Map** ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)):
+1. Sweep 25–45 kHz in zwei aufeinanderfolgenden Läufen: der Peak-Zentrum reproduziert sich innerhalb von <200 Hz.
+2. Optionaler Bonus: Schmiermittel+Spanner vs. trockener Pressfit auf demselben Paar (relative Amplituden, nicht absolute Watt).
+
+**Stufe 2 — erste Watt** ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)):
+1. Halbbrücke + Matching-Transformator online; Netzgerät-Strombegrenzung bei der Inbetriebnahme gemäß [docs/02-safety.md](docs/02-safety.md) und [hardware/driver/](hardware/driver/README.md).
+2. Bei der Stufe-1-Resonanz ≥0,5 W in eine bekannte resistive Last durch 3 mm Stahl (messen Sie V und I auf der DC-Seite nach der RX-Brücke).
+3. Die LED hinter der Platte leuchtet von der geharvesteten Leistung; Foto + CSV in experiments/002.
+
+Sicherheit vor dem ersten Einschalten: [docs/02-safety.md](docs/02-safety.md) (TVS auf dem Empfänger, Netzgerät-Strombegrenzung bei 0,2 A für die Inbetriebnahme, nie einen Langevin-Wandler ohne Klemmdruck antreiben).

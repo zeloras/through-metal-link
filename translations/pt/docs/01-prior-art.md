@@ -20,5 +20,7 @@ Toda decisão técnica neste repositório deve ser rastreável a uma fonte da li
 - Yang et al., Sensors 2015 (10.3390/s151229870) — revisão, o melhor resumo dos números.
 - Ji et al., Phys. Rev. Applied 21, 014059 (2024) — metamaterial, 2%→66% através de 1 mm de inox (nenhuma patente encontrada até 07.2026).
 
+Esses artigos são a **base de física e higiene de patentes**. Os números de potência/taxa de bits utilizados transdutores de laboratório, ligação e acoplamento — não o Langevin do AliExpress + BOM de graxa em [QUICKSTART.md](../../../QUICKSTART.md). Cite-os como provas de existência; as próprias barras de passagem do projeto estão em [experiments/](../../../experiments/).
+
 ## O que não copiamos enquanto está vivo (apenas EUA, até ~2032; etapas 1–4 não precisam disso de qualquer forma)
 OFDM com subportadoras posicionadas para evitar as harmônicas do canal de potência (RPI US9054826); full-duplex "AM downlink + load-modulation uplink + frequency tracking" como um único esquema (RPI US9455791); transdutores conformes para superfícies curvas de acordo com a abordagem Drexel (US10594409).

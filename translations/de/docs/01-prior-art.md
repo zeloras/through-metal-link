@@ -19,5 +19,7 @@ Jede technische Entscheidung in diesem Repository muss auf eine Quelle aus der "
 - Yang et al., Sensors 2015 (10.3390/s151229870) — Übersicht, die beste Zusammenfassung der Zahlen.
 - Ji et al., Phys. Rev. Applied 21, 014059 (2024) — Metamaterial, 2%→66% durch 1 mm Edelstahl (kein Patent gefunden bis 07.2026).
 
+Diese Aufsätze sind die **physikalische und patenthygienische Grundlage**. Ihre Leistungs- und Bitratenzahlen wurden mit Labortransducern, Bonding und Matching ermittelt – nicht mit dem AliExpress-Langevin + Schmiermittel-BOM in [QUICKSTART.md](../QUICKSTART.md). Zitieren Sie sie als Existenzbeweise; die eigenen Pass-Balken des Projekts befinden sich in [experiments/](../experiments/).
+
 ## Was wir nicht kopieren, solange es aktiv ist (nur USA, bis ca. 2032; Stufen 1–4 benötigen es ohnehin nicht)
 OFDM mit Subträgern, die so platziert sind, dass sie die Harmoniken des Leistungskanals vermeiden (RPI US9054826); Voll-Duplex-"AM-Downlink + Lastmodulations-Uplink + Frequenzverfolgung" als einheitliches Schema (RPI US9455791); konforme Transducer für gekrümmte Oberflächen nach dem Drexel-Ansatz (US10594409).

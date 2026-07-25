@@ -51,17 +51,26 @@ Placa de aço 3 mm ~150×150 — 2 peças (metal yard / corte a laser); clampas 
 
 ## O que você verá (simulador: software/simulator/channel_sim.py → docs/img)
 
-- `sim0-rig-sketch.png` — o conjunto inteiro em um esboço.
-- `sim1-sweep-contacts.png` — resposta de frequência de varredura: um pico estreito perto de ~40 kHz; graxa + clampa dá ~4× mais do que um encaixe seco e ~50× mais do que uma lacuna de ar. Sem pico — o problema é o contato ou o par, veja sim2.
-- `sim2-pair-mismatch.png` — por que 4 transdutores Langevin e não 2: uma diferença de ressonância de 1,5 kHz dentro de um par diminui a potência 10×; a varredura escolhe o melhor par de 4.
+Estas PNGs são **expectativas do modelo**, não medições de laboratório. Razões de contato, Q carregado ≈40 e eficiência da cadeia ≤40% são suposições explícitas em `channel_sim.py` — substitua-as por dados de varredura/potência assim que o conjunto existir.
+
+- `sim0-rig-sketch.png` — o conjunto inteiro em um esboço (cadeia do estágio 2; o estágio 1 omite a meio-ponte e aciona o TX a partir do sinal senoidal fraco do DDS).
+- `sim1-sweep-contacts.png` — forma de onda de varredura esperada: um pico estreito perto de ~40 kHz; o modelo usa graxa:seco:fenda ≈ 1 : 0,25 : 0,02 como placeholders. Sem pico — depure o contato ou a diferença de par primeiro (sim2).
+- `sim2-pair-mismatch.png` — por que 4 transdutores Langevin e não 2: com Q≈40, uma diferença de ressonância de 1,5 kHz dentro de um par diminui a potência do modelo ~10×; a varredura escolhe o melhor par de 4.
 - `sim3-thickness-comb.png` — para mais tarde (modo B, MHz): a placa é transparente como um comb de ressonâncias de espessura, então a frequência precisa ser rastreada.
-- `sim4-power-budget.png` — watts de destino versus as cargas: modo A alimenta tudo até os picos Wi-Fi, modo B alimenta um ESP32 com um buffer de supercapacitor.
-- `sim5-ook-datarate.png` — estágio 3: por que OOK em transdutores Langevin atinge ~1–2 kbit/s (tempo de queda do anel do ressonador τ≈0,3 ms), e por que isso é suficiente para um nó de sensor.
+- `sim4-power-budget.png` — carga de corrente versus **bandas de potência recebida de destino**. A banda do modo A (0,5–5 W) é a ambição do estágio 2 se o acoplamento e o contato cooperarem; o modo B é a banda inferior. Wi-Fi contínuo é um marcador de carga de pico, não uma promessa — ESP32/BLE/LED duty-cycled são os consumidores realistas.
+- `sim5-ook-datarate.png` — estágio 3: por que OOK em transdutores Langevin atinge ~1–2 kbit/s sob Q≈40 (tempo de queda do anel do ressonador τ≈0,3 ms), e por que isso é suficiente para um nó de sensor.
 
 ## Critérios para "o conjunto funciona"
 
-1. Varredura 25–45 kHz em duas execuções consecutivas: o pico se reproduz dentro de <200 Hz.
-2. Em ressonância, ≥0,5 W em uma carga resistiva através de 3 mm de aço.
-3. O LED atrás da placa está aceso. Foto em experiments/001 — e o estágio é fechado.
+Dividido por estágio — não marque o estágio 1 como concluído com números do estágio 2.
 
-Segurança antes da primeira ligação: docs/02-safety.md (TVS no receptor, limite de corrente da fonte de alimentação em 0,2 A, nunca drive um transdutor Langevin sem pressão de clampagem).
+**Estágio 1 — mapa de varredura** ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)):
+1. Varredura 25–45 kHz em duas execuções consecutivas: o centro do pico se reproduz dentro de <200 Hz.
+2. Bônus opcional: graxa+clampa vs pressão seca no mesmo par (amplitudes relativas, não watts absolutos).
+
+**Estágio 2 — primeiros watts** ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)):
+1. Meio-ponte + transformador de acoplamento online; bring-up da fonte de alimentação com limite de corrente de acordo com [docs/02-safety.md](docs/02-safety.md) e [hardware/driver/](hardware/driver/README.md).
+2. Na ressonância do estágio 1, ≥0,5 W em uma carga resistiva conhecida através de 3 mm de aço (medida V e I no lado DC após a ponte do receptor).
+3. O LED atrás da placa é iluminado pela potência colhida; foto + CSV em experiments/002.
+
+Segurança antes da primeira ligação: [docs/02-safety.md](docs/02-safety.md) (TVS no receptor, limite de corrente da fonte de alimentação em 0,2 A para bring-up, nunca acione um transdutor Langevin sem pressão de clampagem).

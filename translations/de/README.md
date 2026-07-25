@@ -14,14 +14,14 @@ Dokumente sind multilingual: Englisch ist die primäre Sprache und lebt auf den 
 
 ## Die Idee in einem Absatz
 
-Radio-Wellen können nicht durch Metall (Faraday-Käfig) und eine Kabeldurchführung bedeutet ein Loch, ein Siegel und einen Fehlerpunkt. Ultraschall hingegen kann durch Metall ohne Probleme reisen: Ein Piezo-Element auf jeder Seite der Wand verwandelt es in einen Kanal für Energie (Watt durch 3–5 mm Stahl) und Daten (kbit/s). Die Physik ist bewiesen (RPI: 50 W + 12 Mbit/s durch 63 mm Stahl; NASA JPL: ~kW durch 5 mm Titan), die grundlegenden Patente sind abgelaufen und es gibt keine offene Plattform — dieses Repository baut eine auf.
+Radio-Wellen können nicht durch Metall (Faraday-Käfig) und eine Kabeldurchführung bedeutet ein Loch, ein Siegel und einen Fehlerpunkt. Ultraschall hingegen kann durch Metall ohne Probleme reisen: Ein Piezo-Element auf jeder Seite der Wand verwandelt es in einen Kanal für Energie und Daten. Labliteratur hat die Physik bereits auf hohem Niveau bewiesen (RPI: 50 W + 12 Mbit/s durch 63,5 mm Stahl; NASA JPL: bis zu ~kW durch 5 mm Titan) — das sind Existenzbeweise mit spezialisiertem Hardware, nicht dieser Repositorys Garage-BOM. Die grundlegenden Patente sind abgelaufen und es gibt keine offene, reproduzierbare Plattform — dieses Repository baut eine auf, beginnend mit **Watt-Klassen-Leistung und kbit/s-Daten durch 3–5 mm Stahl**, sobald Stadium 2 gemessen wird.
 
 ## Roadmap
 
 | Stadium | Lieferbare | Erfolgskriterium | Erwartung |
 |---|---|---|---|
 | 1. Sweep-Karte | Frequenzantwort des "Langevin–3 mm Stahl–Langevin"-Kanals | Paarresonanz gefunden, Plot in [experiments/001](experiments/001-sweep-map-3mm-steel/README.md) | [sim1](docs/img/sim1-sweep-contacts.png), [sim2](docs/img/sim2-pair-mismatch.png) |
-| 2. Watt | Leistung im Lastkreis bei Resonanz | ≥0,5 W durch 3 mm Stahl | [sim4](docs/img/sim4-power-budget.png) |
+| 2. Watt | Leistung im Lastkreis bei Resonanz | ≥0,5 W durch 3 mm Stahl, Protokoll in [experiments/002](../../experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
 | 3. Daten | FSK/OOK über das gleiche Paar | ≥1 kbit/s fehlerfrei | [sim5](docs/img/sim5-ook-datarate.png) |
 | 4. Knoten | ESP32 + Sensor in einer verschweißten Box, powered und telemetriert durch Schall allein | ≥1 h autonome Betrieb | [sim4](docs/img/sim4-power-budget.png) |
 | 5. Veröffentlichung | Repository wird öffentlich, Artikel/Anleitung | Reproduktion durch eine dritte Partei | — |
@@ -41,7 +41,7 @@ Jeder Block unten expandiert: Darin ist eine Zusammenfassung, die ausreicht, um 
 ```bash
 python3 software/sweep-map/sweep_map.py --mock
 ```
-**Der Rig gilt als funktionierend, wenn:** (1) der Sweep-Spitzenwert sich über zwei Durchläufe innerhalb von <200 Hz reproduziert; (2) ≥0,5 W in der Last durch 3 mm Stahl; (3) die LED hinter der Platte leuchtet, Foto in experiments/001.
+**Fertig, wenn (nach Stadium):** Stadium 1 — Sweep-Spitzenwert reproduziert sich über zwei Durchläufe innerhalb von <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); Stadium 2 — ≥0,5 W in die Last durch 3 mm Stahl und eine LED, die von der RX-Seite aus leuchtet ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)).
 
 </details>
 
@@ -64,18 +64,18 @@ Die Hauptverluste: Resonanzmismatch innerhalb des Paares (±1 kHz für billige L
 <details>
 <summary><b>📈 Was der Rig zeigen sollte: Erwartungsplots vom Simulator</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
 
-Ein semi-empirisches Kanalmodell (nicht FEM — Intuition für "was die Sweep-Karte zeigen und was zu erwarten ist"). Regenerieren mit: `python3 channel_sim.py --out ../../docs/img`.
+Ein semi-empirisches Kanalmodell (nicht FEM, **nicht Labordaten** — Intuition für "was die Sweep-Karte zeigen und was zu erwarten ist"). Annahmen sind explizit in `channel_sim.py` (geladener Q≈40, Kontakt-K-Faktoren, Ketten-η≤40%). Regenerieren mit: `python3 channel_sim.py --out ../../docs/img`.
 
-**Stadium 1 — Sweep.** Ein schmaler Peak nahe ~40 kHz; Schmiermittel + Klemme ergibt ~4× trockenen Druck und ~50× eine Luftlücke. Kein Peak bedeutet ein Problem mit dem Kontakt oder dem Paar:
+**Stadium 1 — Sweep.** Ein schmaler Peak nahe ~40 kHz; die Modell-Platzhalter-Kontaktmultiplikatoren sind Schmiermittel:Trocken:Luftlücke = 1 : 0,25 : 0,02 (d. h. Schmiermittel ≈4× trocken und ≈50× Luftlücke). Kein Peak bedeutet ein Problem mit dem Kontakt oder dem Paar:
 <img src="docs/img/sim1-sweep-contacts.png" width="720">
 
-**Warum 4 Langevin-Wandler, nicht 2.** Ein Resonanzmismatch von 1,5 kHz innerhalb des Paares reduziert die Leistung um den Faktor 10:
+**Warum 4 Langevin-Wandler, nicht 2.** Unter Q≈40 reduziert ein Resonanzmismatch von 1,5 kHz innerhalb des Paares die Modellleistung um ~10×:
 <img src="docs/img/sim2-pair-mismatch.png" width="720">
 
-**Stadium 3 — Daten.** OOK läuft in Resonator-Klingeln (Q~40 → τ≈0,3 ms): 1 kbit/s ist sauber, bei 5 kbit/s ist das Auge geschlossen. Schneller gehen bedeutet Modus B:
+**Stadium 3 — Daten.** OOK läuft in Resonator-Klingeln (Modell-Q~40 → τ≈0,3 ms): 1 kbit/s ist sauber, bei 5 kbit/s ist das Auge geschlossen. Schneller gehen bedeutet Modus B:
 <img src="docs/img/sim5-ook-datarate.png" width="720">
 
-**Empfänger-Leistungsbudget.** Modus A speist alles bis zu Wi-Fi-Spitzen; Modus B speist einen ESP32 mit einem Supercapacitor-Puffer:
+**Empfänger-Leistungsbudget.** Schattierte Bänder sind **Ziele** (Modus A 0,5–5 W, wenn Stadium 2 gelandet ist; Modus B niedriger). Realistische erste Lasten sind duty-cyclierte ESP32 / BLE / LED; Wi-Fi wird als Spitzenzielemarker und nicht als kontinuierliches Versprechen gezeigt:
 <img src="docs/img/sim4-power-budget.png" width="720">
 
 **Für später (Modus B).** Die Platte wird transparent bei einer Kamm von Dicken-Resonanzen — die Frequenz muss verfolgt werden:
@@ -86,13 +86,13 @@ Ein semi-empirisches Kanalmodell (nicht FEM — Intuition für "was die Sweep-Ka
 <details>
 <summary><b>⚠️ Sicherheit — lesen Sie vor dem ersten Einschalten</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
 
-1. **Hunderte von Volt auf dem Piezo** bei Resonanz — der TVS auf der Empfängerseite geht vor dem ersten Einschalten hinein; halten Sie Ihre Hände von den Leitungen fern.
+1. **Zehn bis Hunderte von Volt auf dem Piezo** sobald der Stadium-2-Treiber online ist — der TVS auf der Empfängerseite geht vor dem ersten betriebenen Lauf hinein; halten Sie Ihre Hände von den Leitungen fern.
 2. **Netz** — nur durch eine Labor-Netzgeräte / Isolation; Ultraschallreiniger-Steuerbretter sind galvanisch mit dem Netz verbunden.
-3. **Ohren** — betreiben Sie Wandler nur, wenn sie gegen Metall gedrückt sind; betreiben Sie nie hochleistungsfähigen Luftultraschall ohne Gehäuse.
-4. **Hitze** — ein ungesicherter Langevin-Wandler überhitzt in Minuten; überprüfen Sie die Sicherung vor dem Einschalten.
+3. **Ohren** — bei nicht-trivialer Leistung betreiben Sie Wandler, die gegen Metall gedrückt sind; betreiben Sie nie hochleistungsfähigen Luftultraschall ohne Gehäuse.
+4. **Hitze** — ein ungesicherter Langevin-Wandler überhitzt in Minuten bei Leistung; klemmen Sie vor dem Erhöhen des Stroms (kurze elektrische Inbetriebnahme nur — siehe Treiber-README).
 5. **Splitter** — Piezokeramik ist spröde: ein überzogener Bolzen oder ein Aufprall bedeutet Splitter; tragen Sie Schutzbrille für jede mechanische Arbeit.
 
-Erstes Einschalten des Treibers: Setzen Sie die Strombegrenzung der Labor-Netzgeräte auf 0,2 A.
+Erstes Einschalten des Treibers: Strombegrenzung der Labor-Netzgeräte auf 0,2 A; vollständige Sequenz in [hardware/driver/](hardware/driver/README.md) und [docs/02-safety.md](docs/02-safety.md).
 
 </details>
 
