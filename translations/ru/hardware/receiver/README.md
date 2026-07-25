@@ -2,7 +2,7 @@
 
 > [English (primary)](../../../../hardware/receiver/README.md) · Русский · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md)
 
-Схемы: [этап 1 — sch2](../schematics/sch2-receiver-stage1.png) · [этап 4 — sch4](../schematics/sch4-receiver-node.png) (генерируются [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+Схемы: [этап 1 — sch2](../schematics/sch2-receiver-stage1.png) · [этап 4 — sch4](../schematics/sch4-receiver-node.png) (генерируются [../../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 
 - Этап 1 (измерения): ланжевен-RX (оба вывода плавающие — не землить!) → мост Шоттки (4×SS14) → RC-фильтр (10к || 100н) → TVS 5В → **47 кОм последовательно** → ADS1115 A0 (резистор ограничивает ток в защитные диоды АЦП: кламп TVS ~9 В выше abs.max входа).
 - Этап 2 (ватты): RX → тот же мост → электронная/резистивная нагрузка, замер V и I.
