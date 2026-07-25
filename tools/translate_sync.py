@@ -123,16 +123,29 @@ def fix_asset_links(text: str, canon: str, lang: str) -> str:
     here = Path(tr_path(canon, lang)).parent
     canon_dir = Path(canon).parent
 
+    def by_basename(name: str):
+        # last resort for model-mangled relative paths: a unique basename
+        # match in the canonical tree wins; prefer its mirror twin if present
+        hits = [p for p in ROOT.rglob(name)
+                if ".git" not in p.parts and TR_DIR not in p.parts]
+        if len(hits) != 1:
+            return None
+        canon_hit = hits[0].relative_to(ROOT).as_posix()
+        mirror_hit = ROOT / tr_path(canon_hit, lang)
+        return mirror_hit if mirror_hit.exists() else hits[0]
+
     def sub(m):
         pre, target, post = m.groups()
         if target.startswith(("http", "mailto:", "/")):
             return m.group(0)
         if (ROOT / here / target).exists():
             return m.group(0)
-        cand = (canon_dir / target)
-        cand_norm = Path(os.path.normpath(ROOT / cand))
+        cand_norm = Path(os.path.normpath(ROOT / canon_dir / target))
         if cand_norm.exists():
             return pre + os.path.relpath(cand_norm, ROOT / here) + post
+        hit = by_basename(Path(target).name)
+        if hit is not None:
+            return pre + os.path.relpath(hit, ROOT / here) + post
         return m.group(0)
 
     return LINK_RE.sub(sub, text)

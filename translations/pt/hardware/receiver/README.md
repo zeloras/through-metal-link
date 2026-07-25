@@ -2,7 +2,7 @@
 
 > [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · Português
 
-Esquemáticos: [etapa 1 — sch2](../../schematics/sch2-receiver-stage1.png) · [etapa 4 — sch4](../../schematics/sch4-receiver-node.png) (gerado por [../../schematics/render_schematics.py](../../schematics/render_schematics.py))
+Esquemáticos: [etapa 1 — sch2](../schematics/sch2-receiver-stage1.png) · [etapa 4 — sch4](../schematics/sch4-receiver-node.png) (gerado por [../../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 
 - Etapa 1 (medidas): transdutor Langevin RX (ambos terminais flutuando — não aterre!) → ponte Schottky (4×SS14) → filtro RC (10k || 100n) → TVS 5 V → **47 kΩ em série** → ADS1115 A0 (o resistor limita a corrente nos diodos de proteção do ADC: o TVS limita ~9 V acima do máximo absoluto de entrada).
 - Etapa 2 (watts): RX → mesma ponte → carga eletrônica/resistiva, medir V e I.
