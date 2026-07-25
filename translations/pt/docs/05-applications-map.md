@@ -21,6 +21,7 @@ A pilha de plataforma: um canal ativo de energia e dados através de paredes ceg
 - Nossa pilha: um nó na parede interna de um tanque de aço inoxidável, sondado de fora com um scanner portátil ou um par fixo.
 - Quem já está lá: sensores comuns conectados; nenhuma solução sem fio através da parede.
 - Maturidade: literalmente ao alcance de um teste de garagem (qualquer cervejaria artesanal é um campo de teste dentro do alcance de uma caminhada).
+- Caveat físico: um tanque cheio carrega a parede — re-sweep contra o vaso cheio, e mantenha potência contínua ≲1 W/cm²; acima disso, cavitação no produto (degaseificação de CO₂, sabores desagradáveis, erosão da parede a longo prazo) — [teoria](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
 
 ## 4. Gasodutos, vasos de pressão, NDT industrial
 - Dor: monitoramento de corrosão/parâmetros dentro sem uma parada ou uma penetração; superfícies são quentes, pintadas, sujas.
@@ -42,4 +43,4 @@ A pilha de plataforma: um canal ativo de energia e dados através de paredes ceg
 2. **Próximo:** uma demonstração em um objeto vivo do nicho #3 (um tanque de cervejaria) — barato, fotogênico, um usuário real.
 3. **Meio alcance:** o cenário de bateria (nicho #1) como o caso de publicação de bandeira; o ramo EMAT para o nicho #4.
 
-*Visão passiva (radiografia de muão) foi separada em um projeto separado — veja muon-lab na base de conhecimento.*
+*Visão passiva (radiografia de muão) foi separada em um projeto separado — veja muon-lab na base de conhecimento.

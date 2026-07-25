@@ -14,6 +14,7 @@ Das Prinzip (eine Folge des "Penetrationsparadoxons"): Eine Welle durchdringt ei
 | Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetismus (Zehner–Hunderter Hz) | µW–mW; bit/s | Hauteffekt: in Stahl δ≈0.6 mm @1 kHz — Frequenz nach unten drücken |
 | Nicht-Metall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfacher RF kommt oft auch durch — prüfen Sie das zuerst |
 | Wand mit einer Gummischicht, Composite | Ehrlich: fast ein totes Ende | — | der Absorber frisst alles; die Umgehung ist ein Punkt ohne Beschichtung |
+| Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, abgeschwächt | Leistung − ein paar dB; kürzeres Klingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — erneutes Abtasten gegen den vollen Behälter; halte kontinuierliche Intensität ≲1 W/cm², um unter Kavitation zu bleiben ([Theorie](../../../00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
 | Blasenbildende Flüssigkeit im akustischen Pfad | Architektonische Umgehung | — | Empfänger an der Wand montieren, Flüssigkeit aus dem Pfad halten |
 
 ## Hybridknoten-Architektur

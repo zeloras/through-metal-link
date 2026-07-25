@@ -23,5 +23,18 @@ Wellenlänge in Stahl: 148 mm @ 40 kHz; 5,9 mm @ 1 MHz.
 ## Hauptverluste
 Resonanzmismatch innerhalb des Transduktoren-Paares (billige Langevin-Transduktoren haben eine Streuung von ±1 kHz), Qualität des akustischen Kontakts (Epoxy > dicke Schmiermittel-Koppel + Klemme > trockener Druck), Fehlausrichtung, Resonanzdrift mit der Temperatur. Die Antwort auf all dies ist dieselbe: vor jeder Änderung der Einrichtung eine Sweep-Karte ausführen.
 
+## Einfluss auf die Wand und die Medien dahinter
+
+Kurzversion: bei Plattformleistungen bleibt die Wand und jedes Gas dahinter unberührt. Ein Fluid dahinter beeinflusst hauptsächlich den *Kanal*; der Kanal beginnt erst, das *Fluid* zu beeinflussen, in der Nähe der Kavitationsgrenze. Die folgenden Schätzungen gelten für Modus A: 40 kHz, ~1 W/cm² in 3 mm Stahl.
+
+**Wand — keine Deformation, keine Ermüdung, nie.** Teilchengeschwindigkeit v = √(2I/ρc) ≈ 21 mm/s ⇒ Verschiebung ≈ 80 nm, Dehnung ≈ 3,5·10⁻⁶, Spannung ≈ 0,7 MPa. Stahl hat eine Streckgrenze von 250+ MPa und eine Ermüdungsgrenze von ~200 MPa — ein >300-facher Spielraum, und unter der Ermüdungsgrenze kann Stahl unbegrenzte Zyklen aushalten. Die mechanisch fragilen Teile sind woanders: das Piezokeramik (spröde, depolt, wenn es überhitzt wird) und die Bondlinie (Epoxy heizt sich auf und ermüdet zuerst) — siehe [02-Sicherheit](02-safety.md).
+
+**Gas hinter der Wand — keine Auswirkung.** Die Stahl-Luft-Impedanzmismatch (~4,6·10⁷ vs ~400 Pa·s/m) überträgt einen Bruchteil der Größenordnung 10⁻⁵ der Leistung. Keine messbare Erwärmung oder Bewegung; Elektronik in einer abgedichteten Box bemerkt keine nm-Skalen-Wandbewegung.
+
+**Fluid hinter der Wand — zwei Richtungen:**
+
+- *Fluid → Kanal (immer).* Wasser belastet die ferne Seite mit ~1,5 MRayl anstelle von Luft: ein Teil der Leistung strahlt in das Fluid aus, Q sinkt, der Sweep-Peak verschiebt und verbreitert sich. Modus B ist am stärksten betroffen — die Dickenresonanz-Kamm ist für Stahl-Luft-Grenzen berechnet und bewegt sich mit Fluidbelastung. Die stehende Regel deckt dies ab: **erneut Sweep gegen das reale, volle Gefäß**, nie vertrauen Sie einem Sweep, der gegen ein leeres Gefäß aufgenommen wurde. Nebeneffekt: Fluiddämpfung verkürzt das Resonator-Verklingen (τ), so dass das OOK-Auge bei höheren Bitraten geöffnet wird. Blasen im Pfad (gärendes Fluid!) streuen stark — siehe die Lösung in [04-Hybridkanälen](04-hybrid-channels.md).
+- *Kanal → Fluid (nur bei hoher Leistung).* Maximaler Druck, der in Wasser ausgestrahlt wird: p ≈ ρc·v ≈ 1,5 MRayl × 21 mm/s ≈ 30 kPa ≈ 0,3 atm. Die inertielle Kavitationsgrenze bei 40 kHz in normalem (gasreichem) Wasser liegt bei ~1-2 atm, so dass bei 1 W/cm² der Spielraum 3-10× beträgt. Aber p wächst wie √Leistung, und stehende Wellen in einem geschlossenen Gefäß erzeugen lokale Hotspots — Zehner von W/cm² kontinuierlich in ein flüssigkeitsgefülltes Gefäß können die Grenze erreichen. Das Überschreiten bedeutet CO₂-Entgasung, Sonochemie (unangenehme Aromen in Lebensmittelprodukten) und langfristige Kavitationserosion der Innenoberfläche (genau so reinigen Ultraschallreiniger). Praktische Obergrenze für kontinuierliche Leistung in flüssigkeitsgefüllte Wände: **≲1 W/cm²**. Modus B ist ausgenommen: bei MHz liegt die Grenze eine Größenordnung höher und die Leistungen betragen Hunderte von mW.
+
 ## Empfänger-Leistungsbudget (grobe Schätzung)
-LED 20 mW; ESP32 mit Zykluszeit 1-5 mW Durchschnitt; BLE-Paket ~150 mW Spitze — Puffer: ein 1 F-Ionistoren @ 3,3 V = 5,4 J ≈ 360 Übertragungen.
+LED 20 mW; ESP32 mit Zykluszeit 1-5 mW Durchschnitt; BLE-Paket ~150 mW Spitze — Puffer: ein 1 F-Supercapacitor @ 3,3 V = 5,4 J ≈ 360 Übertragungen.
