@@ -8,6 +8,8 @@ An open platform for ultrasonic power and data transfer through solid metal wall
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
+Docs are bilingual: English is primary, Russian twins live in `*.ru.md` files. Edit either language — CI translates and commits the other (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+
 <p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
 
 ## The idea in one paragraph
