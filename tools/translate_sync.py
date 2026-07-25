@@ -245,32 +245,56 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) 
         label_files = sorted({p.relative_to(ROOT).as_posix() for p in ROOT.rglob("labels.json")})
     for f in label_files:
         cur = json.loads((ROOT / f).read_text(encoding="utf-8"))
+        # frozen snapshot: all deltas are computed against the human-pushed
+        # state, never against sections the bot itself just rewrote
+        cur0 = json.loads(json.dumps(cur))
         old_raw = git_show(f, base)
         old = json.loads(old_raw) if old_raw.strip() else {}
         dirty = False
+
+        def translate(a: str, b: str, delta: dict) -> None:
+            nonlocal n, dirty
+            print(f"  -> {f}: {a} -> {b}, keys: {len(delta)}")
+            n += 1
+            if dry:
+                return
+            out = json.loads(chat(SYSTEM_JSON, json.dumps(
+                {"source_language": a, "target_language": b, "strings": delta},
+                ensure_ascii=False)))
+            cur.setdefault(b, {}).update(out.get("strings", out))
+            dirty = True
+
+        # phase 1: a changed non-primary section propagates into primary —
+        # only keys where primary itself was untouched by the human
+        src_of: dict[str, str] = {}
         for a in LANGS:
-            if a not in cur:
+            if a == PRIMARY or a in new_langs or a not in cur0:
                 continue
-            for b in LANGS:
-                if b == a:
-                    continue
-                if b in cur and b not in new_langs:
-                    delta = {k: v for k, v in cur[a].items()
-                             if old.get(a, {}).get(k) != v
-                             and old.get(b, {}).get(k) == cur[b].get(k)}
-                else:  # bootstrap: whole section from the primary language
-                    delta = dict(cur[a]) if a == PRIMARY and b in new_langs else {}
-                if not delta:
-                    continue
-                print(f"  -> {f}: {a} -> {b}, keys: {len(delta)}")
-                n += 1
-                if dry:
-                    continue
-                out = json.loads(chat(SYSTEM_JSON, json.dumps(
-                    {"source_language": a, "target_language": b, "strings": delta},
-                    ensure_ascii=False)))
-                cur.setdefault(b, {}).update(out.get("strings", out))
-                dirty = True
+            delta = {k: v for k, v in cur0[a].items()
+                     if old.get(a, {}).get(k) != v
+                     and old.get(PRIMARY, {}).get(k) == cur0.get(PRIMARY, {}).get(k)}
+            if delta:
+                for k in delta:
+                    src_of[k] = a
+                translate(a, PRIMARY, delta)
+
+        # phase 2: every key whose primary value is new (edited by the human or
+        # just updated in phase 1) goes to the remaining languages
+        primary_now = cur.get(PRIMARY, {})
+        pk = {k: v for k, v in primary_now.items()
+              if old.get(PRIMARY, {}).get(k) != v}
+        for b in LANGS:
+            if b == PRIMARY:
+                continue
+            if b in new_langs:  # bootstrap: the whole section from primary
+                delta = dict(primary_now)
+            else:
+                delta = {k: v for k, v in pk.items()
+                         if src_of.get(k) != b
+                         and old.get(b, {}).get(k) == cur0.get(b, {}).get(k)}
+            if delta:
+                translate(PRIMARY, b, delta)
+
         if dirty:
             (ROOT / f).write_text(
                 json.dumps(cur, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
