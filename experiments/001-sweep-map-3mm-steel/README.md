@@ -1,6 +1,6 @@
 # Experiment 001: Channel Sweep Map, 3 mm Steel (PLANNED)
 
-> English (primary) · [Русский](README.ru.md) · [Deutsch](README.de.md)
+> English (primary) · [Русский](../../translations/ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../translations/de/experiments/001-sweep-map-3mm-steel/README.md)
 
 - Goal: find the resonance of a Langevin transducer pair through a 3 mm plate; get the first frequency response of the channel.
 - Hypothesis: a peak around 38-42 kHz (Langevin transducer resonance), peak width of a few kHz.

@@ -3,7 +3,7 @@ name: Translation sync
 on:
   push:
     branches: [master]
-    paths: ["**/*.md", "**/labels.json", "i18n.json"]
+    paths: ["**/*.md", "**/*.csv", "**/labels.json", "i18n.json"]
 
 permissions:
   contents: write

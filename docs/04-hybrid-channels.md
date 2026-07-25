@@ -1,6 +1,6 @@
 # Hybrid channels: barrier → physics → numbers
 
-> English (primary) · [Русский](04-hybrid-channels.ru.md) · [Deutsch](04-hybrid-channels.de.md)
+> English (primary) · [Русский](../translations/ru/docs/04-hybrid-channels.md) · [Deutsch](../translations/de/docs/04-hybrid-channels.md)
 
 The principle (a corollary of the "penetration paradox"): a wave gets through a barrier exactly to the extent that it interacts weakly with it — which is why no universal channel exists. The platform doesn't chase a single channel; for each barrier it picks the physics that the barrier is transparent to and the receiver is resonantly "greedy" for.
 

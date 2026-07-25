@@ -1,13 +1,13 @@
-poz,naimenovanie,kolvo,orientir_cena_usd,istochnik,primechanie
-1,Ланжевен 40 кГц 50-60 Вт,4,40,AliExpress,разброс резонансов ±1 кГц — брать 4 из ОДНОЙ партии; свип выберет лучшую пару (docs/img/sim2)
-2,Модуль DDS AD9833,2,8,AliExpress,SPI с Raspberry Pi; второй — запас
-3,IR2110 + 2x IRF540 (или модуль EGS002),1,10,AliExpress/eBay,полумост драйвера; EGS002 закрывает и формирователь с мёртвым временем
-4,Ферритовое кольцо + обмоточный провод,1,3,локально,согласующий трансформатор
-5,АЦП ADS1115,2,4,AliExpress,I2C; у Pi нет своего АЦП! второй — запас / канал тока TX (docs/03)
-6,Мост Шоттки (4x SS14) + ионистор 1Ф 5.5В,1,3,AliExpress,приёмная сторона
-7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — DC-вход АЦП (sch2); 15CA двунаправленный — поперёк пьезо узла (sch4)
-8,Модуль GY-LTC3588,1,7,AliExpress,харвестер для этапа 4 (опционально на этапе 1)
-9,Стальная пластина 3-5 мм ~150x150 мм,2,5,металлобаза,вторая - запас/другая толщина
-10,Густая консистентная смазка + струбцины,1,5,локально,акустический контакт без эпоксидки
-11,"Обвязка (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ом x2, 10 кОм, 47 кОм, 100 нФ x6, 10 мкФ, 1 мкФ плёнка, 470 мкФ",1,4,AliExpress/локально,без неё драйвер и приёмник из рассыпухи не собрать; не нужна при EGS002 (кроме приёмной части)
-12,2N7002 x3 + шунт 0.1 Ом 1 Вт,1,1,AliExpress,этап 4: нагрузочная модуляция (sch4) и канал тока TX (docs/03)
+pos,item,qty,approx_price_usd,source,notes
+1,Langevin transducer 40 kHz 50-60 W,4,40,AliExpress,resonance spread ±1 kHz — buy 4 from ONE batch; the sweep picks the best pair (docs/img/sim2)
+2,AD9833 DDS module,2,8,AliExpress,SPI with the Raspberry Pi; the second one is a spare
+3,IR2110 + 2x IRF540 (or an EGS002 module),1,10,AliExpress/eBay,driver half-bridge; EGS002 also covers the shaper with dead time
+4,Ferrite toroid + magnet wire,1,3,local,matching transformer
+5,ADS1115 ADC,2,4,AliExpress,I2C; the Pi has no ADC of its own! second one — spare / TX current channel (docs/03)
+6,Schottky bridge (4x SS14) + supercapacitor 1F 5.5V,1,3,AliExpress,receiver side
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — ADC DC input (sch2); 15CA bidirectional — across the node's piezo (sch4)
+8,GY-LTC3588 module,1,7,AliExpress,harvester for stage 4 (optional at stage 1)
+9,Steel plate 3-5 mm ~150x150 mm,2,5,metal yard,second one — spare/another thickness
+10,Thick consistent grease + clamps,1,5,local,acoustic contact without epoxy
+11,"Support passives (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF film, 470 uF",1,4,AliExpress/local,without these the driver and receiver cannot be built from discrete parts; not needed with EGS002 (except the receiver part)
+12,2N7002 x3 + 0.1 Ohm 1 W shunt,1,1,AliExpress,stage 4: load modulation (sch4) and TX current channel (docs/03)

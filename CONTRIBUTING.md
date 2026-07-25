@@ -1,6 +1,6 @@
 # How to Contribute
 
-> English (primary) · [Русский](CONTRIBUTING.ru.md) · [Deutsch](CONTRIBUTING.de.md)
+> English (primary) · [Русский](translations/ru/CONTRIBUTING.md) · [Deutsch](translations/de/CONTRIBUTING.md)
 
 Thank you for wanting to advance the open through-steel channel. The three rules below are not bureaucracy — they are the project's patent armor (see [LICENSES.md](LICENSES.md) for why).
 
@@ -31,13 +31,15 @@ PRs without a sign-off do not get merged; the check is automatic — the CI job 
 - Every technical decision must trace back to a free source — an expired patent or a paper from [docs/01-prior-art.md](docs/01-prior-art.md). Implementations of live claims (listed there as well) are not accepted until those claims expire.
 - Experimental results — only via the [experiments/TEMPLATE.md](experiments/TEMPLATE.md) template: a dated, reproducible protocol is precisely what constitutes our prior art.
 - Architecture decisions go through ADRs in [docs/decisions/](docs/decisions/).
-- Code comments, docstrings, identifiers, and commit messages are English-only. Docs are bilingual (see below); user-visible figure labels live in `labels.json`.
+- Code comments, docstrings, identifiers, and commit messages are English-only. Docs are multilingual (see below); user-visible figure labels live in `labels.json`.
 
-## 4. Bilingual docs: edit one language, CI syncs the other
+## 4. Multilingual docs: edit one language, CI syncs the rest
 
-English is primary; every doc has a Russian twin (`*.ru.md`), and every generated figure has a `.ru.png` twin driven by `labels.json`. You do **not** have to maintain both by hand:
+English is primary and owns the canonical paths. Every other language is a mirror tree under [translations/](translations/) with identical file names — markdown, the BOM CSV and generated figures included; figure text is driven by `labels.json`. You do **not** have to maintain the mirrors by hand:
 
-- Edit whichever language is comfortable. On push, the [Translation sync](.github/workflows/translate.yml) workflow finds pairs where only one side changed, translates the counterpart with GitHub Models (`meta/llama-3.3-70b-instruct`, no API keys needed), regenerates figures when the sync updates `labels.json`, and commits the result back with the `[translate-sync]` marker.
-- If you edited **both** sides of a pair yourself, the bot leaves them alone.
+- Edit whichever language is comfortable. On push, the [Translation sync](.github/workflows/translate.yml) workflow finds docs where only one language changed, translates the counterparts with GitHub Models (`meta/llama-3.3-70b-instruct`, no API keys needed), regenerates figures when the sync updates `labels.json`, and commits the result back with the `[translate-sync]` marker.
+- If you edited **several** languages of a doc yourself, the bot leaves that doc alone.
 - Machine translation gets committed — skim the bot's commit and touch up wording if it misses the tone; your fix won't be overwritten (the bot only reacts to new changes).
-- **Adding a language:** add its code and name to [i18n.json](i18n.json) (e.g. `"de": "Deutsch"`) and push — the pipeline translates every doc into `*.de.md`, adds a `de` section to each `labels.json`, regenerates the `.de` figure set and refreshes the language switchers everywhere.
+- **External PRs:** the bot runs on `master`, so a PR may change just one language — the mirrors (including English) catch up automatically right after the merge. You do not need to know English to contribute docs.
+- **Adding a language:** add its code and name to [i18n.json](i18n.json) (e.g. `"fr": "Français"`) and push — the pipeline builds the whole `translations/fr/` mirror: every doc, a `fr` section in each `labels.json`, the figure set, and the language switchers everywhere.
+- **Non-Latin scripts (CJK etc.):** figure rendering currently ships Latin + Cyrillic fonts only; before adding e.g. Japanese to i18n.json, a CJK font has to be wired into the render scripts — open an issue first.

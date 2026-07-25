@@ -11,11 +11,11 @@ to expect". Physics inside:
   Mode B (MHz): a comb of plate thickness resonances (Fabry-Perot):
   T(f) = 1 / (1 + ((r - 1/r)/2 · sin(2πfd/v))²), r — impedance step.
 
-All display strings live in labels.json (en + ru). Each run renders BOTH
-language sets: English = canonical names (sim1-....png), Russian = .ru suffix
-(sim1-....ru.png).
+All display strings live in labels.json (one section per language). Each run
+renders every language: the primary (en) set goes to --out, every other
+language goes to translations/<lang>/docs/img/ with the same file names.
 
-Run: python3 channel_sim.py --out ../../docs/img [--lang en|ru|all]
+Run: python3 channel_sim.py --out ../../docs/img [--lang <code>|all]
 Dependencies: numpy, matplotlib.
 """
 
@@ -29,10 +29,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
 LABELS = json.loads((Path(__file__).resolve().parent / "labels.json").read_text(encoding="utf-8"))
-
-def lang_suffix(lang: str) -> str:
-    return "" if lang == "en" else f".{lang}"
 
 # ---------- palette (light mode, validated) ----------
 SURFACE = "#fcfcfb"
@@ -67,7 +65,7 @@ F = np.linspace(25e3, 45e3, 2000)
 Q_LOADED = 40
 F_TX, F_RX = 39.8e3, 40.4e3          # real spread of a cheap pair, ~0.6 kHz
 
-def chart_sweep(out, L, sfx):
+def chart_sweep(out, L):
     """What sweep_map.py will show at stage 1 (drive ~1 Vpp, no amplifier)."""
     contacts = [(L["sim1.contact.grease"], 1.00, S1),
                 (L["sim1.contact.dry"],    0.25, S2),
@@ -87,10 +85,10 @@ def chart_sweep(out, L, sfx):
                 (40.1, 0.35), xytext=(26.5, 1.15), color=MUTED, fontsize=9,
                 arrowprops=dict(arrowstyle="-", color=MUTED, lw=0.8))
     fig.tight_layout()
-    fig.savefig(out / f"sim1-sweep-contacts{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim1-sweep-contacts.png", dpi=160)
     plt.close(fig)
 
-def chart_mismatch(out, L, sfx):
+def chart_mismatch(out, L):
     """Power into the load vs frequency for a mismatched resonance pair."""
     fig, ax = plt.subplots(figsize=(9, 5))
     p_drive, eff_max = 10.0, 0.40      # watts of drive, max chain efficiency
@@ -108,12 +106,12 @@ def chart_mismatch(out, L, sfx):
     ax.legend(frameon=False, labelcolor=INK2, fontsize=9)
     ax.annotate(L["sim2.note"], (32, 2.6), color=MUTED, fontsize=9)
     fig.tight_layout()
-    fig.savefig(out / f"sim2-pair-mismatch{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim2-pair-mismatch.png", dpi=160)
     plt.close(fig)
 
 # ---------- Mode B ----------
 
-def chart_fabry_perot(out, L, sfx):
+def chart_fabry_perot(out, L):
     """Comb of thickness resonances of the steel plate (MHz mode)."""
     fig, ax = plt.subplots(figsize=(9, 5))
     v_steel = 5900.0
@@ -132,12 +130,12 @@ def chart_fabry_perot(out, L, sfx):
     ax.legend(frameon=False, labelcolor=INK2, fontsize=9, loc="lower right")
     ax.annotate(L["sim3.note"], (0.33, 1.16), color=MUTED, fontsize=9)
     fig.tight_layout()
-    fig.savefig(out / f"sim3-thickness-comb{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim3-thickness-comb.png", dpi=160)
     plt.close(fig)
 
 # ---------- Stage 3: data (OOK) ----------
 
-def chart_ook(out, L, sfx):
+def chart_ook(out, L):
     """OOK rate is limited by resonator ring-down: τ = Q/(π·f0) ≈ 0.3 ms."""
     f0 = 40.1e3
     tau = Q_LOADED / (np.pi * f0)
@@ -171,12 +169,12 @@ def chart_ook(out, L, sfx):
     fig.suptitle(L["sim5.title"].format(q=Q_LOADED, tau=f"{tau*1e3:.1f}"),
                  x=0.02, ha="left", fontsize=13, color=INK)
     fig.tight_layout(rect=(0, 0, 1, 0.95))
-    fig.savefig(out / f"sim5-ook-datarate{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim5-ook-datarate.png", dpi=160)
     plt.close(fig)
 
 # ---------- Receiver power budget ----------
 
-def chart_power_budget(out, L, sfx):
+def chart_power_budget(out, L):
     consumers = [  # (load, watts)
         (L["sim4.rtc"],    50e-6),
         (L["sim4.charge"], 1.5e-3),
@@ -210,12 +208,12 @@ def chart_power_budget(out, L, sfx):
     ax.grid(True, axis="x", color=GRID, linewidth=0.8)
     ax.grid(False, axis="y")
     fig.tight_layout()
-    fig.savefig(out / f"sim4-power-budget{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim4-power-budget.png", dpi=160)
     plt.close(fig)
 
 # ---------- Rig sketch ----------
 
-def sketch_rig(out, L, sfx):
+def sketch_rig(out, L):
     fig, ax = plt.subplots(figsize=(11, 4.6))
     fig.set_facecolor(SURFACE)
     ax.set_facecolor(SURFACE)
@@ -269,7 +267,7 @@ def sketch_rig(out, L, sfx):
 
     ax.text(2, 2, L["sim0.footer"], fontsize=9, color=MUTED)
     fig.tight_layout()
-    fig.savefig(out / f"sim0-rig-sketch{sfx}.png", dpi=160)
+    fig.savefig(out / f"sim0-rig-sketch.png", dpi=160)
     plt.close(fig)
 
 if __name__ == "__main__":
@@ -287,8 +285,10 @@ if __name__ == "__main__":
     for lang in langs:
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
-        L, sfx = LABELS[lang], lang_suffix(lang)
+        L = LABELS[lang]
+        out_l = out if lang == "en" else REPO_ROOT / "translations" / lang / "docs" / "img"
+        out_l.mkdir(parents=True, exist_ok=True)
         for chart in charts:
-            chart(out, L, sfx)
+            chart(out_l, L)
             n += 1
     print(f"OK: {n} PNG ({'+'.join(langs)}) → {out.resolve()}")

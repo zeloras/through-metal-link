@@ -1,6 +1,6 @@
 # Test-rig schematics
 
-> English (primary) · [Русский](README.ru.md) · [Deutsch](README.de.md)
+> English (primary) · [Русский](../../translations/ru/hardware/schematics/README.md) · [Deutsch](../../translations/de/hardware/schematics/README.md)
 
 The schematics are generated from code — [render_schematics.py](render_schematics.py) doubles as the design source (schemdraw); to make changes, edit the script, then regenerate:
 

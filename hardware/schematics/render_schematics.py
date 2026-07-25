@@ -9,12 +9,13 @@ sch2 — stage 1 receiver: 4×SS14 bridge → RC → TVS → ADS1115.
 sch3 — stage 1 wiring: Raspberry Pi ↔ AD9833 ↔ piezo ↔ ADS1115.
 sch4 — stage 4 node: RX → GY-LTC3588 (bridge built in) → supercap → ESP32.
 
-All display strings live in labels.json (en + ru). Each run renders BOTH
-languages: English = canonical names (sch1-....png), Russian = .ru suffix
-(sch1-....ru.png).
+All display strings live in labels.json (one section per language). Each run
+renders every language: the primary (en) set lands next to the script, every
+other language goes to translations/<lang>/hardware/schematics/ with the same
+file names.
 
-Run: uv run --with schemdraw --with matplotlib python render_schematics.py [--lang en|ru|all]
-Output: PNG+SVG next to the script.
+Run: uv run --with schemdraw --with matplotlib python render_schematics.py [--lang <code>|all]
+Output: PNG+SVG.
 """
 
 import argparse
@@ -25,22 +26,20 @@ import schemdraw
 import schemdraw.elements as elm
 
 OUT = Path(__file__).resolve().parent
+REPO_ROOT = OUT.parents[1]
 LABELS = json.loads((OUT / "labels.json").read_text(encoding="utf-8"))
 FS = 10.5
 
-def lang_suffix(lang: str) -> str:
-    return "" if lang == "en" else f".{lang}"
 
-
-def save(d, name, sfx):
+def save(d, name, out):
     for ext in ("png", "svg"):
-        d.save(str(OUT / f"{name}{sfx}.{ext}"), dpi=200)
-    print(f"{name}{sfx}: png+svg")
+        d.save(str(out / f"{name}.{ext}"), dpi=200)
+    print(f"{out / name}: png+svg")
 
 
 # ---------- sch1: driver (stage 2) ----------
 
-def sch1_driver(L, sfx):
+def sch1_driver(L, out):
     d = schemdraw.Drawing(show=False)
     d.config(unit=2.0, fontsize=FS)
 
@@ -147,12 +146,12 @@ def sch1_driver(L, sfx):
 
     d.add(elm.Label().at((-4.5, vbus_y + 2.4)).label(
         L["sch1.title"], fontsize=12, halign="left"))
-    save(d, "sch1-driver-halfbridge", sfx)
+    save(d, "sch1-driver-halfbridge", out)
 
 
 # ---------- sch2: stage 1 receiver ----------
 
-def sch2_receiver_stage1(L, sfx):
+def sch2_receiver_stage1(L, out):
     d = schemdraw.Drawing(show=False)
     d.config(unit=2.0, fontsize=FS)
 
@@ -208,12 +207,12 @@ def sch2_receiver_stage1(L, sfx):
 
     d.add(elm.Label().at((0, y_dcp + 1.3)).label(
         L["sch2.title"], fontsize=12, halign="left"))
-    save(d, "sch2-receiver-stage1", sfx)
+    save(d, "sch2-receiver-stage1", out)
 
 
 # ---------- sch3: stage 1 wiring ----------
 
-def sch3_stage1_wiring(L, sfx):
+def sch3_stage1_wiring(L, out):
     d = schemdraw.Drawing(show=False)
     d.config(unit=2.0, fontsize=FS)
 
@@ -306,12 +305,12 @@ def sch3_stage1_wiring(L, sfx):
 
     d.add(elm.Label().at((-2.2, pi.V33[1] + 2.2)).label(
         L["sch3.title"], fontsize=12, halign="left"))
-    save(d, "sch3-stage1-wiring", sfx)
+    save(d, "sch3-stage1-wiring", out)
 
 
 # ---------- sch4: stage 4 node ----------
 
-def sch4_receiver_node(L, sfx):
+def sch4_receiver_node(L, out):
     d = schemdraw.Drawing(show=False)
     d.config(unit=2.0, fontsize=FS)
 
@@ -383,7 +382,7 @@ def sch4_receiver_node(L, sfx):
 
     d.add(elm.Label().at((0, topn[1] + 1.6)).label(
         L["sch4.title"], fontsize=12, halign="left"))
-    save(d, "sch4-receiver-node", sfx)
+    save(d, "sch4-receiver-node", out)
 
 
 if __name__ == "__main__":
@@ -395,9 +394,11 @@ if __name__ == "__main__":
     for lang in langs:
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
-        L, sfx = LABELS[lang], lang_suffix(lang)
-        sch1_driver(L, sfx)
-        sch2_receiver_stage1(L, sfx)
-        sch3_stage1_wiring(L, sfx)
-        sch4_receiver_node(L, sfx)
+        L = LABELS[lang]
+        out = OUT if lang == "en" else REPO_ROOT / "translations" / lang / "hardware" / "schematics"
+        out.mkdir(parents=True, exist_ok=True)
+        sch1_driver(L, out)
+        sch2_receiver_stage1(L, out)
+        sch3_stage1_wiring(L, out)
+        sch4_receiver_node(L, out)
     print(f"OK ({'+'.join(langs)}) → {OUT}")

@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Langevin-Wandler 40 kHz 50-60 W,4,40,AliExpress,Resonanzverbreiterung ±1 kHz — 4 von EINEM Charge kaufen; der Sweep wählt das beste Paar (docs/img/sim2)
+2,AD9833-DDS-Modul,2,8,AliExpress,SPI mit dem Raspberry Pi; das zweite ist ein Ersatz
+3,IR2110 + 2x IRF540 (oder ein EGS002-Modul),1,10,AliExpress/eBay,Treiber-Halbbrücke; EGS002 deckt auch den Former mit Totzeit ab
+4,Ferrit-Toroid + Magnetdraht,1,3,lokal,Anpassungstransformator
+5,ADS1115-ADC,2,4,AliExpress,I2C; der Pi hat keinen eigenen ADC! zweites — Ersatz / TX-Stromkanal (docs/03)
+6,Schottky-Brücke (4x SS14) + Supercap 1F 5,5V,1,3,AliExpress,Empfänger-Seite
+7,TVS: SMBJ5,0A x3 + SMBJ15CA x2,1,2,AliExpress,5,0A — ADC-DC-Eingang (sch2); 15CA bidirektional — über das Piezo des Knotens (sch4)
+8,GY-LTC3588-Modul,1,7,AliExpress,Harvester für Stufe 4 (optional bei Stufe 1)
+9,Stahlplatte 3-5 mm ~150x150 mm,2,5,Metallhof,zweites — Ersatz/andere Dicke
+10,Dicke konsistente Schmiermittel + Schraubzwingen,1,5,lokal,akustischer Kontakt ohne Epoxid
+11,"Unterstützende Passive (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF Folie, 470 uF",1,4,AliExpress/lokal,ohne diese kann der Treiber und Empfänger nicht aus diskreten Teilen gebaut werden; nicht benötigt mit EGS002 (außer dem Empfänger-Teil)
+12,2N7002 x3 + 0,1 Ohm 1 W Shunt,1,1,AliExpress,Stufe 4: Lastmodulation (sch4) und TX-Stromkanal (docs/03)

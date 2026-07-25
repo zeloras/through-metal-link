@@ -1,6 +1,6 @@
 # sweep-map
 
-> English (primary) · [Русский](README.ru.md) · [Deutsch](README.de.md)
+> English (primary) · [Русский](../../translations/ru/software/sweep-map/README.md) · [Deutsch](../../translations/de/software/sweep-map/README.md)
 
 Sweep map of the channel frequency response. See the header of sweep_map.py for the hardware, wiring, and how to run it.
 

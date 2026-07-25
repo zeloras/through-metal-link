@@ -40,4 +40,6 @@ jobs:
             /tmp/ci-sweep/*.png
             /tmp/ci-img/*.png
             hardware/schematics/*.png
+            translations/*/docs/img/*.png
+            translations/*/hardware/schematics/*.png
           retention-days: 14

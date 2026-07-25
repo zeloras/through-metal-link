@@ -3,21 +3,21 @@
 """
 translate_sync.py — keeps all language versions of the docs in sync.
 
-Languages live in i18n.json: the primary language owns the canonical file
-names (X.md), every other language gets a suffixed twin (X.<lang>.md); the
-same suffix scheme applies to generated figures (name.<lang>.png).
+Structure: the primary language (i18n.json) owns the canonical paths; every
+other language is a mirror tree under translations/<lang>/ with identical
+file names — markdown, the BOM CSV and generated figures included.
 
 Logic per push:
-  1. If only one side of a language pair changed — translate the change into
-     the others: non-primary edits propagate to primary first, then primary
-     propagates to every remaining language. Pairs where a human touched both
-     sides are left alone.
+  1. If only one language of a doc changed — translate the change into the
+     others: non-primary edits propagate to primary first, then primary
+     propagates to every remaining language. Docs where a human touched
+     several languages are left alone.
   2. labels.json: only the keys that changed in one section are translated
-     into the sections that did not change.
-  3. Adding a language to i18n.json bootstraps it: every canonical doc and the
-     labels.json section are translated, figures follow via the workflow.
-  4. The language-switcher line under every H1 is rewritten deterministically
-     (not by the model) from i18n.json.
+     into the sections that did not change (two-phase, frozen snapshot).
+  3. Adding a language to i18n.json bootstraps its whole mirror tree.
+  4. The language-switcher line under every H1 and all links to files that
+     are not part of the mirror are rewritten deterministically, not by the
+     model.
 
 Model: GitHub Models in CI (free with GITHUB_TOKEN), default is the
 open-weights meta/llama-3.3-70b-instruct. A different OpenAI-compatible
@@ -41,12 +41,14 @@ CFG = json.loads((ROOT / "i18n.json").read_text(encoding="utf-8"))
 PRIMARY = CFG["primary"]
 NAMES = CFG["names"]
 LANGS = list(NAMES)
+TR_DIR = "translations"
+DOC_EXTS = (".md", ".csv")
 
 ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://models.github.ai/inference")
 MODEL = os.environ.get("TRANSLATE_MODEL", "meta/llama-3.3-70b-instruct")
 TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("OPENAI_API_KEY") or "none"
 MAX_CHARS = 40_000
-MAX_TASKS = 60
+MAX_TASKS = 80
 
 GLOSSARY = (
     "ланжевен = Langevin transducer; свип-карта = sweep map; АЧХ = frequency response; "
@@ -58,38 +60,39 @@ GLOSSARY = (
 )
 
 
-def suf(lang: str) -> str:
-    return "" if lang == PRIMARY else f".{lang}"
+def tr_path(canon: str, lang: str) -> str:
+    return canon if lang == PRIMARY else f"{TR_DIR}/{lang}/{canon}"
 
 
-def md_name(base: str, lang: str) -> str:
-    return f"{base}{suf(lang)}.md"
-
-
-def parse_md(f: str):
-    """Return (base, lang) for a repo .md path, or None if not a doc file."""
-    if not f.endswith(".md") or f.startswith("LICENSES/"):
+def parse_doc(f: str):
+    """Return (canonical_path, lang) for a repo doc path, or None."""
+    # .github/ holds GitHub UI text (PR template etc.) — English only
+    if not f.endswith(DOC_EXTS) or f.startswith(("LICENSES/", ".github/")):
         return None
-    for l in LANGS:
-        if l != PRIMARY and f.endswith(f".{l}.md"):
-            return f[: -(len(l) + 4)], l
-    return f[:-3], PRIMARY
+    if f.startswith(TR_DIR + "/"):
+        parts = f.split("/", 2)
+        if len(parts) == 3 and parts[1] in LANGS:
+            return parts[2], parts[1]
+        return None
+    return f, PRIMARY
 
 
-def langbar(base: str, lang: str) -> str:
+def langbar(canon: str, lang: str) -> str:
+    here = Path(tr_path(canon, lang)).parent
     parts = []
     for l in LANGS:
         label = NAMES[l] + (" (primary)" if l == PRIMARY else "")
         if l == lang:
             parts.append(label)
         else:
-            parts.append(f"[{label}]({Path(md_name(base, l)).name})")
+            rel = os.path.relpath(tr_path(canon, l), here)
+            parts.append(f"[{label}]({rel})")
     return "> " + " · ".join(parts)
 
 
-def apply_langbar(text: str, base: str, lang: str) -> str:
+def apply_langbar(text: str, canon: str, lang: str) -> str:
     lines = text.splitlines()
-    bar = langbar(base, lang)
+    bar = langbar(canon, lang)
     for i, line in enumerate(lines):
         if line.startswith("# "):
             j = i + 1
@@ -102,6 +105,37 @@ def apply_langbar(text: str, base: str, lang: str) -> str:
                 lines.insert(i + 2, bar)
             break
     return "\n".join(lines).rstrip() + "\n"
+
+
+LINK_RE = re.compile(r'(\]\(|src=")([^)#"\s]+)([)"])')
+
+
+def fix_asset_links(text: str, canon: str, lang: str) -> str:
+    """Repoint relative links whose target is not part of the mirror tree.
+
+    Inside a mirror the relative structure matches the canonical tree, so doc
+    and figure links keep working as-is. Links to code, CSVs that are not
+    mirrored, license texts etc. must climb out of translations/<lang>/ — that
+    rewrite is mechanical, so the model is never trusted with it.
+    """
+    if lang == PRIMARY:
+        return text
+    here = Path(tr_path(canon, lang)).parent
+    canon_dir = Path(canon).parent
+
+    def sub(m):
+        pre, target, post = m.groups()
+        if target.startswith(("http", "mailto:", "/")):
+            return m.group(0)
+        if (ROOT / here / target).exists():
+            return m.group(0)
+        cand = (canon_dir / target)
+        cand_norm = Path(os.path.normpath(ROOT / cand))
+        if cand_norm.exists():
+            return pre + os.path.relpath(cand_norm, ROOT / here) + post
+        return m.group(0)
+
+    return LINK_RE.sub(sub, text)
 
 
 def sh(*args) -> str:
@@ -118,12 +152,12 @@ def udiff(old: str, new: str, name: str) -> str:
         fromfile=f"old/{name}", tofile=f"new/{name}"))[:8000]
 
 
-def system_md(dst_lang: str) -> str:
-    s = suf(dst_lang)
+def system_doc(dst_lang: str) -> str:
     return f"""You are the translation-sync bot of an open-hardware repository
 (ultrasonic power/data through steel walls). The primary language is
-{NAMES[PRIMARY]}; other languages live in suffixed twin files. Terminology
-(ru = en): {GLOSSARY}.
+{NAMES[PRIMARY]}; every other language is a mirror tree under
+translations/<lang>/ with identical file names. Terminology (ru = en):
+{GLOSSARY}.
 
 Target language now: {NAMES[dst_lang]} ({dst_lang}).
 
@@ -132,10 +166,10 @@ Rules:
   new source content. Keep the lively engineering tone.
 - Preserve markdown structure, tables, code blocks (do not translate commands),
   numbers, part numbers, file paths.
-- In the target file, links to the repository's translated .md docs must point
-  to their twins for the target language: `X{s}.md`; generated images use the
-  `name{s}.png` / `name{s}.svg` twins. Links to code, CSV, directories and
-  external URLs stay as they are.
+- Keep ALL relative links exactly as they are in the source — the mirror tree
+  makes them resolve; the pipeline fixes the rest afterwards.
+- For CSV files: keep the column count, order and quoting; translate only
+  human-readable text (item names, notes); numbers and part numbers unchanged.
 - The user message includes the diff of what changed in the source: EVERY
   added, removed or reworded fragment there must be reflected in the target.
   Do not make unrelated edits. If the target already reflects all the changes,
@@ -174,7 +208,7 @@ def chat(system: str, user: str) -> str:
     return out
 
 
-def translate_md(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) -> bool:
+def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) -> bool:
     src_p, dst_p = ROOT / src, ROOT / dst
     if not src_p.exists():
         return False  # source deleted — a human removes the twins
@@ -186,55 +220,57 @@ def translate_md(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) -> 
     if dry:
         return True
     old_dst = dst_p.read_text(encoding="utf-8") if dst_p.exists() else "(missing)"
-    out = chat(system_md(dst_lang), (
+    out = chat(system_doc(dst_lang), (
         f"Source file `{src}` — NEW content:\n<<<\n{text}\n>>>\n\n"
         f"What changed in the source (unified diff):\n<<<\n{udiff(old_src, text, src)}\n>>>\n\n"
         f"Target file `{dst}` — CURRENT (possibly outdated or missing) content:\n"
         f"<<<\n{old_dst}\n>>>\n\n"
         "Produce the full updated target file, reflecting every change from the diff."))
-    base, _ = parse_md(dst)
-    dst_p.write_text(apply_langbar(out, base, dst_lang), encoding="utf-8")
+    canon, _ = parse_doc(dst)
+    if dst.endswith(".md"):
+        out = apply_langbar(out, canon, dst_lang)
+        out = fix_asset_links(out, canon, dst_lang)
+    dst_p.parent.mkdir(parents=True, exist_ok=True)
+    dst_p.write_text(out.rstrip() + "\n", encoding="utf-8")
     return True
 
 
 def canonical_docs() -> list[str]:
     docs = []
-    for p in ROOT.rglob("*.md"):
-        rel = p.relative_to(ROOT).as_posix()
-        if rel.startswith((".git", "LICENSES/")):
-            continue
-        parsed = parse_md(rel)
-        if parsed and parsed[1] == PRIMARY:
+    for ext in DOC_EXTS:
+        for p in ROOT.rglob(f"*{ext}"):
+            rel = p.relative_to(ROOT).as_posix()
+            if rel.startswith((".git", "LICENSES/", TR_DIR + "/")):
+                continue
             docs.append(rel)
     return sorted(docs)
 
 
-def plan_markdown(changed: list[str], base: str, new_langs: list[str]):
+def plan_docs(changed: list[str], base: str, new_langs: list[str]):
     """Return (src, dst, dst_lang, old_src) translation tasks."""
     touched: dict[str, set[str]] = {}
     for f in changed:
-        parsed = parse_md(f)
+        parsed = parse_doc(f)
         if parsed:
             touched.setdefault(parsed[0], set()).add(parsed[1])
 
     tasks = []
     # phase 1: a single non-primary edit propagates to the primary file
-    for b, langs in sorted(touched.items()):
+    for c, langs in sorted(touched.items()):
         if PRIMARY not in langs and len(langs) == 1:
             l = next(iter(langs))
-            src = md_name(b, l)
-            tasks.append((src, md_name(b, PRIMARY), PRIMARY, git_show(src, base)))
+            src = tr_path(c, l)
+            tasks.append((src, c, PRIMARY, git_show(src, base)))
     # phase 2: primary (freshly edited or just updated) propagates to the rest
-    for b, langs in sorted(touched.items()):
+    for c, langs in sorted(touched.items()):
         if PRIMARY in langs or (PRIMARY not in langs and len(langs) == 1):
-            src = md_name(b, PRIMARY)
             for l in LANGS:
                 if l != PRIMARY and l not in langs:
-                    tasks.append((src, md_name(b, l), l, git_show(src, base)))
-    # bootstrap: a new language gets every canonical doc translated
+                    tasks.append((c, tr_path(c, l), l, git_show(c, base)))
+    # bootstrap: a new language gets the whole mirror tree
     for l in new_langs:
-        for src in canonical_docs():
-            tasks.append((src, md_name(src[:-3], l), l, ""))
+        for c in canonical_docs():
+            tasks.append((c, tr_path(c, l), l, ""))
     return tasks
 
 
@@ -242,7 +278,8 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) 
     n = 0
     label_files = sorted({c for c in changed if c.endswith("labels.json")})
     if new_langs:
-        label_files = sorted({p.relative_to(ROOT).as_posix() for p in ROOT.rglob("labels.json")})
+        label_files = sorted({p.relative_to(ROOT).as_posix() for p in ROOT.rglob("labels.json")
+                              if TR_DIR + "/" not in p.as_posix()})
     for f in label_files:
         cur = json.loads((ROOT / f).read_text(encoding="utf-8"))
         # frozen snapshot: all deltas are computed against the human-pushed
@@ -302,16 +339,17 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) 
 
 
 def refresh_langbars(dry: bool) -> int:
-    """Deterministically rewrite the switcher line in every doc of every language."""
+    """Deterministically rewrite bars and asset links in every language tree."""
     n = 0
-    for src in canonical_docs():
-        b = src[:-3]
+    for c in canonical_docs():
+        if not c.endswith(".md"):
+            continue
         for l in LANGS:
-            p = ROOT / md_name(b, l)
+            p = ROOT / tr_path(c, l)
             if not p.exists():
                 continue
             text = p.read_text(encoding="utf-8")
-            new = apply_langbar(text, b, l)
+            new = fix_asset_links(apply_langbar(text, c, l), c, l)
             if new != text:
                 n += 1
                 if not dry:
@@ -337,7 +375,7 @@ if __name__ == "__main__":
         old_langs = list(json.loads(old_raw)["names"]) if old_raw.strip() else LANGS
         new_langs = [l for l in LANGS if l not in old_langs]
 
-    tasks = plan_markdown(changed, base, new_langs)
+    tasks = plan_docs(changed, base, new_langs)
     if len(tasks) > MAX_TASKS:
         print(f"{len(tasks)} translation tasks — over the {MAX_TASKS} cap, sync skipped")
         sys.exit(0)
@@ -346,7 +384,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     print(f"Base: {base}; model: {MODEL} @ {ENDPOINT}; languages: {', '.join(LANGS)}")
-    total = sum(translate_md(*t, a.dry_run) for t in tasks)
+    total = sum(translate_doc(*t, a.dry_run) for t in tasks)
     total += sync_labels(changed, base, new_langs, a.dry_run)
     if new_langs:
         total += refresh_langbars(a.dry_run)

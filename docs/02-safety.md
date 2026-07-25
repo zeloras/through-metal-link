@@ -1,6 +1,6 @@
 # Safety
 
-> English (primary) · [Русский](02-safety.ru.md) · [Deutsch](02-safety.de.md)
+> English (primary) · [Русский](../translations/ru/docs/02-safety.md) · [Deutsch](../translations/de/docs/02-safety.md)
 
 1. **High voltage on the piezo.** At resonance the transducer terminals carry hundreds of volts. The TVS/Zener on the receive side goes in BEFORE the first power-up. Do not touch the terminals while it is running.
 2. **Mains.** Ultrasonic-cleaner drivers are galvanically coupled to the mains. Work only through a lab power supply / isolation transformer.
