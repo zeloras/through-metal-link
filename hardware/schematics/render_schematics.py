@@ -9,10 +9,10 @@ sch2 — stage 1 receiver: 4×SS14 bridge → RC → TVS → ADS1115.
 sch3 — stage 1 wiring: Raspberry Pi ↔ AD9833 ↔ piezo ↔ ADS1115.
 sch4 — stage 4 node: RX → GY-LTC3588 (bridge built in) → supercap → ESP32.
 
-All display strings live in labels.json (one section per language). Each run
-renders every language: the primary (en) set lands next to the script, every
-other language goes to translations/<lang>/hardware/schematics/ with the same
-file names.
+All display strings live in labels.json (one section per language, matching
+i18n.json). Each run renders every language: the primary set lands next to the
+script, every other language goes to translations/<lang>/hardware/schematics/
+with the same file names.
 
 Run: uv run --with schemdraw --with matplotlib python render_schematics.py [--lang <code>|all]
 Output: PNG+SVG.
@@ -28,6 +28,8 @@ import schemdraw.elements as elm
 OUT = Path(__file__).resolve().parent
 REPO_ROOT = OUT.parents[1]
 LABELS = json.loads((OUT / "labels.json").read_text(encoding="utf-8"))
+I18N = json.loads((REPO_ROOT / "i18n.json").read_text(encoding="utf-8"))
+PRIMARY = I18N["primary"]
 FS = 10.5
 
 
@@ -390,12 +392,16 @@ if __name__ == "__main__":
     p.add_argument("--lang", default="all",
                    help="language code from labels.json, or 'all'")
     a = p.parse_args()
+    missing = sorted(set(I18N["names"]) - set(LABELS))
+    if missing:
+        raise SystemExit(f"labels.json has no section for: {', '.join(missing)} "
+                         "(declared in i18n.json) — run tools/translate_sync.py")
     langs = list(LABELS) if a.lang == "all" else [a.lang]
     for lang in langs:
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
         L = LABELS[lang]
-        out = OUT if lang == "en" else REPO_ROOT / "translations" / lang / "hardware" / "schematics"
+        out = OUT if lang == PRIMARY else REPO_ROOT / "translations" / lang / "hardware" / "schematics"
         out.mkdir(parents=True, exist_ok=True)
         sch1_driver(L, out)
         sch2_receiver_stage1(L, out)
