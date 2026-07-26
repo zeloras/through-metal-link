@@ -14,7 +14,7 @@ O princípio (um corolário do "paradoxo de penetração"): uma onda passa por u
 | Parede dupla com vácuo (termos, criostato, dewar) | Magnéticos de baixa frequência (dezenas–centenas de Hz) | µW–mW; bit/s | efeito de pele: no aço δ≈0.6 mm @1 kHz — reduza a frequência |
 | Não-metal: vidro, plástico, cerâmica | Piezo-acústica (mais fácil do que metal) | watts; kbit/s | + RF simples frequentemente passa também — verifique isso primeiro |
 | Parede com uma camada de borracha/espuma, compósito | Honestamente: quase um beco sem saída | — | o absorvedor consome tudo; a solução é um local sem revestimento |
-| Líquido atrás da parede (tanque cheio) | Piezo-acústica, degradada | potência −alguns dB; anelamento mais curto | carga líquida desloca/amortece a ressonância — faça uma varredura novamente contra o vaso cheio; mantenha a intensidade contínua ≲1 W/cm² para ficar abaixo da cavitação ([teoria](00-theory.md#efeito-na-parede-e-nos-meios-atrás-dela)) |
+| Líquido atrás da parede (tanque cheio) | Piezo-acústica, degradada | potência − alguns dB; anelamento mais curto | carga líquida desloca/amortece a ressonância — faça uma varredura novamente contra o vaso cheio; mantenha a intensidade contínua ≲1 W/cm² para ficar abaixo da cavitação ([teoria](00-theory.md#efeito-na-parede-e-nos-meios-atrás-dela)) |
 | Líquido borbulhante no caminho acústico | Solução arquitetônica | — | monte o receptor na parede, mantenha o líquido fora do caminho |
 
 ## Arquitetura de nó híbrido

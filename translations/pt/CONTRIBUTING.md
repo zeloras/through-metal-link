@@ -37,9 +37,24 @@ PRs sem assinatura não são mesclados; a verificação é automática — o tra
 
 Inglês é primário e possui os caminhos canônicos. Cada outra língua é uma árvore de espelho sob [translations/](..) com nomes de arquivo idênticos — markdown, CSV de BOM e figuras geradas incluídas; o texto da figura é impulsionado por `labels.json`. Você **não** precisa manter os espelhos manualmente:
 
-- Edite qualquer língua que seja confortável. Ao enviar, o fluxo de trabalho [Sincronização de tradução](../../.github/workflows/translate.yml) encontra docs onde apenas uma língua mudou, traduz os contrapartes com Modelos do GitHub (`meta/llama-3.3-70b-instruct`, sem chaves de API necessárias), regenera figuras quando a sincronização atualiza `labels.json` e comita o resultado de volta com o marcador `[translate-sync]`.
-- Se você editou **várias** línguas de um doc por conta própria, o bot deixa esse doc sozinho.
-- A tradução automática é commitada — verifique o commit do bot e toque no wording se ele perder o tom; sua correção não será sobrescrita (o bot reage apenas a novas alterações).
+- Edite qualquer língua que seja confortável. Ao enviar, o fluxo de trabalho [Sincronização de tradução](../../.github/workflows/translate.yml) traduz os contrapartes com Modelos do GitHub (`meta/llama-3.3-70b-instruct`, sem chaves de API necessárias), regenera figuras quando a sincronização atualiza `labels.json` e comita o resultado de volta com o marcador `[translate-sync]`.
+- O que ainda deve ser trabalhado é rastreado em `translations/.sync-state.json`, que registra o conteúdo primário de cada tradução feita. Uma execução interrompida por uma cota ou um tempo limite, portanto, não perde nada: os pares incompletos permanecem marcados como estale e são retomados pela próxima envio ou pela execução noturna. Não edite manualmente esse arquivo.
+- Se você editou **várias** línguas de um doc por conta própria, cada versão que você tocou é mantida como você a escreveu; o bot apenas preenche as línguas que você não tocou.
+- A tradução automática é commitada — verifique o commit do bot e toque no wording se ele perder o tom; sua correção não será sobrescrita (o bot registra sua versão como a atual).
+- Uma resposta que retornou truncada ou com espaços reservados `labels.json` misturados é descartada em vez de commitada, e o par é retried — então uma lacuna estranha em um espelho é um par estale, não uma decisão.
 - **PRs externos:** o bot é executado em `master`, então um PR pode alterar apenas uma língua — os espelhos (incluindo inglês) são atualizados automaticamente logo após a mesclagem. Você não precisa saber inglês para contribuir com docs.
 - **Adicionar uma língua:** adicione seu código e nome a [i18n.json](../../i18n.json) (por exemplo, `"fr": "Français"`) e envie — o pipeline constrói o espelho completo `translations/fr/`: cada doc, uma seção `fr` em cada `labels.json`, o conjunto de figuras e os comutadores de idioma em todos os lugares.
 - **Scripts não latinos (CJK etc.):** a renderização de figuras atualmente envia apenas fontes latinas + cirílicas; antes de adicionar, por exemplo, japonês a i18n.json, uma fonte CJK precisa ser conectada aos scripts de renderização — abra uma issue primeiro.
+
+## 5. Verificações que você pode executar antes de enviar
+
+```bash
+python tools/check_repo.py
+```
+
+Verifica o que o bot de tradução é capaz de quebrar e nada mais seria capturado: cada link relativo resolve, cada seção `labels.json` corresponde a `i18n.json` e carrega as mesmas chaves e os mesmos espaços reservados `str.format` que o primário, cada doc canônico tem um espelho em cada língua, e cada arquivo markdown tem sua barra de idioma. O CI executa isso em ambos os fluxos de trabalho; ele não precisa de dependências.
+
+O restante do CI ([ci.yml](../../.github/workflows/ci.yml)) compila os scripts e executa toda a pipeline de figuras. Para reproduzir exatamente — incluindo as figuras commitadas — instale a cadeia de ferramentas fixada, não a solta:
+
+```bash
+python -m pip install -r tools/requirements-ci.txt

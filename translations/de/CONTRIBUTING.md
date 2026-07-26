@@ -2,7 +2,7 @@
 
 > [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · Deutsch · [Português](../pt/CONTRIBUTING.md)
 
-Vielen Dank, dass Sie den offenen Durch-Stahl-Kanal vorantreiben möchten. Die vier Regeln unten sind keine Bürokratie — sie sind die Patentrüstung des Projekts (siehe [LICENSES.md](../../LICENSES.md) für den Grund).
+Vielen Dank, dass Sie den offenen Durch-Stahl-Kanal vorantreiben möchten. Die drei Regeln unten sind keine Bürokratie — sie sind die Patentrüstung des Projekts (siehe [LICENSES.md](../../LICENSES.md) für den Grund).
 
 ## 1. Beitragslizenzen (inbound = outbound)
 
@@ -37,9 +37,24 @@ Pull-Requests ohne Signatur werden nicht zusammengeführt; die Überprüfung ist
 
 Englisch ist primär und besitzt die kanonischen Pfade. Jede andere Sprache ist ein Spiegelbaum unter [translations/](..) mit identischen Dateinamen — Markdown, die BOM-CSV und generierte Abbildungen eingeschlossen; Abbildungstext wird von `labels.json` gesteuert. Sie müssen **nicht** die Spiegel manuell pflegen:
 
-- Bearbeiten Sie die Sprache, die Ihnen am bequemsten ist. Bei Push findet der [Übersetzungs-Sync](../../.github/workflows/translate.yml)-Workflow Dokumente, bei denen nur eine Sprache geändert wurde, übersetzt die Gegenstücke mit GitHub-Modellen (`meta/llama-3.3-70b-instruct`, keine API-Schlüssel erforderlich), regeneriert Abbildungen, wenn der Sync `labels.json` aktualisiert, und committet das Ergebnis zurück mit dem `[translate-sync]`-Marker.
-- Wenn Sie **mehrere** Sprachen eines Dokuments selbst bearbeitet haben, lässt der Bot es in Ruhe.
-- Maschinelle Übersetzungen werden committet — überprüfen Sie den Commit des Bots und korrigieren Sie die Formulierung, wenn er den Ton verfehlt; Ihre Korrektur wird nicht überschrieben (der Bot reagiert nur auf neue Änderungen).
+- Bearbeiten Sie die Sprache, die Ihnen am bequemsten ist. Bei Push übersetzt der [Übersetzungs-Sync](../../.github/workflows/translate.yml)-Workflow die Gegenstücke mit GitHub-Modellen (`meta/llama-3.3-70b-instruct`, keine API-Schlüssel erforderlich), regeneriert Abbildungen, wenn der Sync `labels.json` aktualisiert, und committet das Ergebnis zurück mit dem `[translate-sync]`-Marker.
+- Was noch Arbeit benötigt, wird in `translations/.sync-state.json` verfolgt, das den primären Inhalt jeder Übersetzung aufzeichnet. Ein Lauf, der durch eine Quote oder einen Timeout abgebrochen wird, verliert daher nichts: die unvollständigen Paare bleiben als veraltet markiert und werden vom nächsten Push oder vom nächtlichen Lauf aufgegriffen. Bitte bearbeiten Sie diese Datei nicht manuell.
+- Wenn Sie **mehrere** Sprachen eines Dokuments selbst bearbeitet haben, wird jede Version, die Sie bearbeitet haben, so beibehalten, wie Sie sie geschrieben haben; der Bot füllt nur die Sprachen aus, die Sie nicht bearbeitet haben.
+- Maschinelle Übersetzungen werden committet — überprüfen Sie den Commit des Bots und korrigieren Sie die Formulierung, wenn er den Ton verfehlt; Ihre Korrektur wird nicht überschrieben (der Bot nimmt Ihre Version als die aktuelle auf).
+- Eine Antwort, die zurückgekommen ist, aber verkürzt oder mit verunglückten `labels.json`-Platzhaltern, wird verworfen, anstatt committet zu werden, und das Paar wird erneut versucht — daher ist eine ungewöhnliche Lücke in einem Spiegel ein veraltetes Paar, keine Entscheidung.
 - **Externe Pull-Requests:** der Bot läuft auf `master`, sodass ein Pull-Request nur eine Sprache ändern kann — die Spiegel (einschließlich Englisch) werden automatisch nach dem Merge aktualisiert. Sie müssen kein Englisch sprechen, um Dokumentation beizutragen.
 - **Hinzufügen einer Sprache:** fügen Sie den Code und den Namen zu [i18n.json](../../i18n.json) hinzu (z. B. `"fr": "Französisch"`) und pushen Sie — die Pipeline baut den gesamten `translations/fr/`-Spiegel: jedes Dokument, einen `fr`-Abschnitt in jedem `labels.json`, die Abbildungssammlung und die Sprachumschalter überall.
 - **Nicht-lateinische Schriften (CJK usw.):** die Abbildungswiedergabe enthält derzeit nur lateinische und kyrillische Schriften; bevor Sie z. B. Japanisch zu i18n.json hinzufügen, muss eine CJK-Schrift in die Render-Skripte eingebunden werden — eröffnen Sie zuerst ein Issue.
+
+## 5. Checks, die Sie vor dem Pushen ausführen können
+
+```bash
+python tools/check_repo.py
+```
+
+Überprüft, was der Übersetzungs-Bot brechen kann und was nichts anderes auffangen würde: jeder relative Link wird aufgelöst, jeder `labels.json`-Abschnitt entspricht `i18n.json` und enthält die gleichen Schlüssel und die gleichen `str.format`-Platzhalter wie der primäre, jedes kanonische Dokument hat einen Spiegel in jeder Sprache, und jede Markdown-Datei hat ihre Sprachleiste. Der CI läuft es auf beiden Workflows; es benötigt keine Abhängigkeiten.
+
+Der Rest des CI ([ci.yml](../../.github/workflows/ci.yml)) kompiliert die Skripte und läuft die gesamte Abbildungspipeline. Um es genau zu reproduzieren — einschließlich der committeten Abbildungen — installieren Sie die festgelegte Toolchain, nicht die lose:
+
+```bash
+python -m pip install -r tools/requirements-ci.txt
