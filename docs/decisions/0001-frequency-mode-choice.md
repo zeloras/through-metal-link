@@ -1,6 +1,6 @@
 # ADR-0001: Frequency Mode Selection for Stage 1
 
-> English (primary) · [Русский](../../translations/ru/docs/decisions/0001-vybor-chastotnogo-rezhima.md) · [Deutsch](../../translations/de/docs/decisions/0001-vybor-chastotnogo-rezhima.md) · [Português](../../translations/pt/docs/decisions/0001-vybor-chastotnogo-rezhima.md)
+> English (primary) · [Русский](../../translations/ru/docs/decisions/0001-frequency-mode-choice.md) · [Deutsch](../../translations/de/docs/decisions/0001-frequency-mode-choice.md) · [Português](../../translations/pt/docs/decisions/0001-frequency-mode-choice.md)
 
 - Status: ACCEPTED (to be revisited after Stage 2)
 - Date: 2026-07-24

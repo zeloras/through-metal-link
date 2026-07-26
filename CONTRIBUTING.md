@@ -37,9 +37,25 @@ PRs without a sign-off do not get merged; the check is automatic — the CI job 
 
 English is primary and owns the canonical paths. Every other language is a mirror tree under [translations/](translations/) with identical file names — markdown, the BOM CSV and generated figures included; figure text is driven by `labels.json`. You do **not** have to maintain the mirrors by hand:
 
-- Edit whichever language is comfortable. On push, the [Translation sync](.github/workflows/translate.yml) workflow finds docs where only one language changed, translates the counterparts with GitHub Models (`meta/llama-3.3-70b-instruct`, no API keys needed), regenerates figures when the sync updates `labels.json`, and commits the result back with the `[translate-sync]` marker.
-- If you edited **several** languages of a doc yourself, the bot leaves that doc alone.
-- Machine translation gets committed — skim the bot's commit and touch up wording if it misses the tone; your fix won't be overwritten (the bot only reacts to new changes).
+- Edit whichever language is comfortable. On push, the [Translation sync](.github/workflows/translate.yml) workflow translates the counterparts with GitHub Models (`meta/llama-3.3-70b-instruct`, no API keys needed), regenerates figures when the sync updates `labels.json`, and commits the result back with the `[translate-sync]` marker.
+- What still owes work is tracked in `translations/.sync-state.json`, which records the primary content every translation was made from. A run cut short by a quota or a timeout therefore loses nothing: the unfinished pairs stay marked stale and are picked up by the next push or by the nightly run. Do not hand-edit that file.
+- If you edited **several** languages of a doc yourself, every version you touched is kept as you wrote it; the bot only fills in the languages you did not touch.
+- Machine translation gets committed — skim the bot's commit and touch up wording if it misses the tone; your fix won't be overwritten (the bot records your version as the current one).
+- A reply that came back truncated or with mangled `labels.json` placeholders is discarded rather than committed, and the pair is retried — so an odd-looking gap in a mirror is a stale pair, not a decision.
 - **External PRs:** the bot runs on `master`, so a PR may change just one language — the mirrors (including English) catch up automatically right after the merge. You do not need to know English to contribute docs.
 - **Adding a language:** add its code and name to [i18n.json](i18n.json) (e.g. `"fr": "Français"`) and push — the pipeline builds the whole `translations/fr/` mirror: every doc, a `fr` section in each `labels.json`, the figure set, and the language switchers everywhere.
 - **Non-Latin scripts (CJK etc.):** figure rendering currently ships Latin + Cyrillic fonts only; before adding e.g. Japanese to i18n.json, a CJK font has to be wired into the render scripts — open an issue first.
+
+## 5. Checks you can run before pushing
+
+```bash
+python tools/check_repo.py
+```
+
+Verifies what the translation bot is capable of breaking and nothing else would catch: every relative link resolves, every `labels.json` section matches `i18n.json` and carries the same keys and the same `str.format` placeholders as the primary one, every canonical doc has a mirror in every language, and every markdown file has its language bar. CI runs it on both workflows; it needs no dependencies.
+
+The rest of CI ([ci.yml](.github/workflows/ci.yml)) compiles the scripts and runs the whole figure pipeline. To reproduce it exactly — including the committed figures — install the pinned toolchain, not the loose one:
+
+```bash
+python -m pip install -r tools/requirements-ci.txt
+```

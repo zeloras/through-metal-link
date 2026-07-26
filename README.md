@@ -56,7 +56,7 @@ Two operating modes:
 
 | Mode | Frequency | Resonance set by | Yields | Status |
 |---|---|---|---|---|
-| **A** — Langevin transducers | 40 kHz | the transducer pair (wall ≪ λ — a "membrane") | watts, kbit/s | starting mode (stages 1–4, [ADR-0001](docs/decisions/0001-vybor-chastotnogo-rezhima.md)) |
+| **A** — Langevin transducers | 40 kHz | the transducer pair (wall ≪ λ — a "membrane") | watts, kbit/s | starting mode (stages 1–4, [ADR-0001](docs/decisions/0001-frequency-mode-choice.md)) |
 | **B** — discs | 0.6–1 MHz | thickness resonance of the wall ([comb](docs/img/sim3-thickness-comb.png)) | hundreds of mW, hundreds of kbit/s | branch after the first watts; needs automatic frequency tracking |
 
 The main losses: resonance mismatch within the pair (±1 kHz for cheap Langevin transducers), acoustic contact quality (epoxy > grease couplant + clamp > dry pressure), misalignment, resonance drift with temperature. The answer to all of them is the same: **a sweep map before every change to the setup**.
@@ -110,7 +110,7 @@ Every technical decision must trace back to a "free" source (expired patents, pa
 
 Not to be copied while still alive (US-only, until ~2032; stages 1–4 don't need it): RPI's OFDM allocation, RPI's full-duplex scheme, Drexel's conformal transducers.
 
-Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-vybor-chastotnogo-rezhima.md) (ADR).
+Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) (ADR).
 
 </details>
 
@@ -162,7 +162,7 @@ data/            raw logs (large files stay out of git)
 
 1. **Reproducibility from zero.** Anyone with a soldering iron and ~$210 can reproduce the result from this repo alone.
 2. **Every experiment is a protocol.** No "it kind of worked": [experiments/TEMPLATE.md](experiments/TEMPLATE.md) is mandatory.
-3. **Patent hygiene.** We build on the expired layer ([docs/01-prior-art.md](docs/01-prior-art.md)); decisions are recorded in [docs/decisions/](docs/decisions/0001-vybor-chastotnogo-rezhima.md).
+3. **Patent hygiene.** We build on the expired layer ([docs/01-prior-art.md](docs/01-prior-art.md)); decisions are recorded in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md).
 4. **Measurement first, opinion second.** A sweep map before any conclusions about the channel.
 
 ## Licenses and patents

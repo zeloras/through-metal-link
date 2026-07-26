@@ -54,7 +54,7 @@ Zwei Betriebsmodi:
 
 | Modus | Frequenz | Resonanz festgelegt durch | Ertrag | Status |
 |---|---|---|---|---|
-| **A** — Langevin-Wandler | 40 kHz | das Wandlerpaar (Wand ≪ λ — eine "Membran") | Watt, kbit/s | Startmodus (Stadien 1–4, [ADR-0001](docs/decisions/0001-vybor-chastotnogo-rezhima.md)) |
+| **A** — Langevin-Wandler | 40 kHz | das Wandlerpaar (Wand ≪ λ — eine "Membran") | Watt, kbit/s | Startmodus (Stadien 1–4, [ADR-0001](docs/decisions/0001-frequency-mode-choice.md)) |
 | **B** — Scheiben | 0,6–1 MHz | Dicke-Resonanz der Wand ([Kamm](docs/img/sim3-thickness-comb.png)) | Hunderte von mW, Hunderte von kbit/s | Zweig nach den ersten Watt; benötigt automatische Frequenzverfolgung |
 
 Die Hauptverluste: Resonanzmismatch innerhalb des Paares (±1 kHz für billige Langevin-Wandler), akustische Kontaktqualität (Epoxy > Schmiermittel + Klemme > trockener Druck), Fehlausrichtung, Resonanzdrift mit Temperatur. Die Antwort auf all dies ist dieselbe: **eine Sweep-Karte vor jeder Änderung der Einrichtung**.
@@ -103,7 +103,7 @@ Jede technische Entscheidung muss auf eine "freie" Quelle (abgelaufene Patente, 
 
 Nicht zu kopieren, solange sie noch leben (US-only, bis ~2032; Stadien 1–4 benötigen es nicht): RPI-OFDM-Zuweisung, RPI-Voll_duplex-Schema, Drexel-Konformalwandler.
 
-Architektur-Entscheidungen werden in [docs/decisions/](docs/decisions/0001-vybor-chastotnogo-rezhima.md) (ADR) aufgezeichnet.
+Architektur-Entscheidungen werden in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) (ADR) aufgezeichnet.
 
 </details>
 
@@ -155,7 +155,7 @@ data/            Roh-Logs (große Dateien bleiben außerhalb von Git)
 
 1. **Reproduzierbarkeit von Null.** Jeder mit einem Lötkolben und ~210 $ kann das Ergebnis aus diesem Repository allein reproduzieren.
 2. **Jedes Experiment ist ein Protokoll.** Kein "es funktioniert irgendwie": [experiments/TEMPLATE.md](experiments/TEMPLATE.md) ist obligatorisch.
-3. **Patentreinheit.** Wir bauen auf der abgelaufenen Schicht ([docs/01-prior-art.md](docs/01-prior-art.md)); Entscheidungen werden in [docs/decisions/](docs/decisions/0001-vybor-chastotnogo-rezhima.md) aufgezeichnet.
+3. **Patentreinheit.** Wir bauen auf der abgelaufenen Schicht ([docs/01-prior-art.md](docs/01-prior-art.md)); Entscheidungen werden in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) aufgezeichnet.
 4. **Messung vor Meinung.** Eine Sweep-Karte vor jedem Schluss über den Kanal.
 
 ## Lizenzen und Patente
