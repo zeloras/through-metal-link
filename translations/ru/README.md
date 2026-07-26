@@ -4,13 +4,13 @@
 
 Открытая платформа передачи энергии и данных ультразвуком через глухие металлические стенки — «сквозь сталь без единого отверстия», в гаражных условиях.
 
-**Статус:** этап 0 — подготовка · репозиторий приватный до первых воспроизводимых результатов · закупка: [QUICKSTART.md](../../QUICKSTART.md)
+**Статус:** этап 0 — подготовка · репозиторий приватный до первых воспроизводимых результатов · закупка: [QUICKSTART.md](QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
-Документация многоязычна: английский — основной и живёт на канонических путях; каждый другой язык — зеркальное дерево в `translations/`. Правьте любой язык — CI переведёт и закоммитит остальные (см. [CONTRIBUTING.md](../../CONTRIBUTING.md)).
+Документация многоязычна: английский — основной и живёт на канонических путях; каждый другой язык — зеркальное дерево в `translations/`. Правьте любой язык — CI переведёт и закоммитит остальные (см. [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="../../docs/img/sim0-rig-sketch.png" alt="Стенд этапа 1: Pi → DDS → полумост → транс → пьезо-TX | сталь | пьезо-RX → мост → АЦП → Pi" width="900"></p>
+<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Стенд этапа 1: Pi → DDS → полумост → транс → пьезо-TX | сталь | пьезо-RX → мост → АЦП → Pi" width="900"></p>
 
 ## Идея в одном абзаце
 
@@ -20,10 +20,10 @@
 
 | Этап | Результат | Критерий успеха | Ожидание |
 |---|---|---|---|
-| 1. Свип-карта | АЧХ канала «ланжевен–3 мм сталь–ланжевен» | найден резонанс пары, график в [experiments/001](../../experiments/001-sweep-map-3mm-steel/README.md) | [sim1](../../docs/img/sim1-sweep-contacts.png), [sim2](../../docs/img/sim2-pair-mismatch.png) |
-| 2. Ватты | мощность в нагрузку на резонансе | ≥0,5 Вт через 3 мм стали, протокол в [experiments/002](../../experiments/002-watts-3mm-steel/README.md) | [sim4](../../docs/img/sim4-power-budget.png) |
-| 3. Данные | FSK/OOK через ту же пару | ≥1 кбит/с без ошибок | [sim5](../../docs/img/sim5-ook-datarate.png) |
-| 4. Узел | ESP32+датчик в заваренной коробке, питание и телеметрия только звуком | автономная работа ≥1 ч | [sim4](../../docs/img/sim4-power-budget.png) |
+| 1. Свип-карта | АЧХ канала «ланжевен–3 мм сталь–ланжевен» | найден резонанс пары, график в [experiments/001](experiments/001-sweep-map-3mm-steel/README.md) | [sim1](docs/img/sim1-sweep-contacts.png), [sim2](docs/img/sim2-pair-mismatch.png) |
+| 2. Ватты | мощность в нагрузку на резонансе | ≥0,5 Вт через 3 мм стали, протокол в [experiments/002](../../experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
+| 3. Данные | FSK/OOK через ту же пару | ≥1 кбит/с без ошибок | [sim5](docs/img/sim5-ook-datarate.png) |
+| 4. Узел | ESP32+датчик в заваренной коробке, питание и телеметрия только звуком | автономная работа ≥1 ч | [sim4](docs/img/sim4-power-budget.png) |
 | 5. Публикация | открытие репо, статья/инструкция | воспроизведение третьим лицом | — |
 
 ## Карта репозитория
@@ -31,11 +31,11 @@
 Каждый блок ниже раскрывается: внутри — выжимка, достаточная для работы, и ссылка на полный документ.
 
 <details>
-<summary><b>🛒 С нуля до стенда: что купить и в каком порядке</b> — <a href="../../QUICKSTART.md">QUICKSTART.md</a></summary>
+<summary><b>🛒 С нуля до стенда: что купить и в каком порядке</b> — <a href="QUICKSTART.md">QUICKSTART.md</a></summary>
 
-**Бюджет:** минимум ~$210, комфорт ~$300 (если уже есть Pi, паяльник и лабораторный БП — минус ~$120). Три корзины: инструменты (~$120), электроника стенда (~$70, [полный BOM](../../hardware/bom/bom-stage1.csv)), механика (~$20). Опционально, но сильно рекомендуется: USB-осциллограф (~$60–80).
+**Бюджет:** минимум ~$210, комфорт ~$300 (если уже есть Pi, паяльник и лабораторный БП — минус ~$120). Три корзины: инструменты (~$120), электроника стенда (~$70, [полный BOM](hardware/bom/bom-stage1.csv)), механика (~$20). Опционально, но сильно рекомендуется: USB-осциллограф (~$60–80).
 
-**Критический путь — доставка с Ali (3–4 недели):** электронику заказывать в первый же день. Ключевое решение: ланжевены брать **4 штуки из одной партии** — свип выберет лучшую пару ([почему](../../docs/img/sim2-pair-mismatch.png)).
+**Критический путь — доставка с Ali (3–4 недели):** электронику заказывать в первый же день. Ключевое решение: ланжевены брать **4 штуки из одной партии** — свип выберет лучшую пару ([почему](docs/img/sim2-pair-mismatch.png)).
 
 **Пока едет:** прогнать пайплайн без железа —
 
@@ -43,12 +43,12 @@
 python3 software/sweep-map/sweep_map.py --mock
 ```
 
-**Готово, когда (по этапам):** этап 1 — пик свипа воспроизводится двумя прогонами с точностью <200 Гц ([experiments/001](../../experiments/001-sweep-map-3mm-steel/README.md)); этап 2 — ≥0,5 Вт в нагрузку через 3 мм стали и светодиод на стороне RX ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)).
+**Готово, когда (по этапам):** этап 1 — пик свипа воспроизводится двумя прогонами с точностью <200 Гц ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); этап 2 — ≥0,5 Вт в нагрузку через 3 мм стали и светодиод на стороне RX ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)).
 
 </details>
 
 <details>
-<summary><b>📚 Теория за минуту</b> — <a href="../../docs/00-theory.md">docs/00-theory.md</a></summary>
+<summary><b>📚 Теория за минуту</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
 
 Пьезо-TX прижат к стенке и возбуждает в ней продольную волну; пьезо-RX с другой стороны превращает её обратно в электричество. Скорость звука в стали ~5900 м/с.
 
@@ -56,42 +56,42 @@ python3 software/sweep-map/sweep_map.py --mock
 
 | Режим | Частота | Резонанс задаёт | Даёт | Статус |
 |---|---|---|---|---|
-| **А** — ланжевены | 40 кГц | пара трансдьюсеров (стенка ≪ λ — «мембрана») | ватты, кбит/с | стартовый (этапы 1–4, [ADR-0001](../../docs/decisions/0001-frequency-mode-choice.md)) |
-| **Б** — диски | 0,6–1 МГц | толщинный резонанс стенки ([гребёнка](../../docs/img/sim3-thickness-comb.png)) | сотни мВт, сотни кбит/с | ветка после первых ватт; нужен автотрекинг частоты |
+| **А** — ланжевены | 40 кГц | пара трансдьюсеров (стенка ≪ λ — «мембрана») | ватты, кбит/с | стартовый (этапы 1–4, [ADR-0001](docs/decisions/0001-frequency-mode-choice.md)) |
+| **Б** — диски | 0,6–1 МГц | толщинный резонанс стенки ([гребёнка](docs/img/sim3-thickness-comb.png)) | сотни мВт, сотни кбит/с | ветка после первых ватт; нужен автотрекинг частоты |
 
 Главные потери: рассовпадение резонансов пары (±1 кГц у дешёвых ланжевенов), качество акустического контакта (эпоксидка > смазка+струбцина > сухой прижим), рассоосность, уход резонанса с температурой. Ответ на всё один: **свип-карта перед каждым изменением сетапа**.
 
 </details>
 
 <details>
-<summary><b>📈 Что покажет стенд: графики-ожидания из симулятора</b> — <a href="../../software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+<summary><b>📈 Что покажет стенд: графики-ожидания из симулятора</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
 
 Полуэмпирическая модель канала (не FEM, **не данные лаборатории** — интуиция «что покажет свип и на что рассчитывать»). Предположения явно описаны в `channel_sim.py` (загруженный Q≈40, коэффициенты контакта, η≤40% цепи). Перегенерация: `python3 channel_sim.py --out ../../docs/img`.
 
 **Этап 1 — свип.** Узкий пик ~40 кГц; модельные коэффициенты контакта grease:dry:gap = 1 : 0,25 : 0,02 (т.е. смазка ≈4× сухого прижима и ≈50× зазора). Нет пика — проблема в контакте или паре:
 
-<img src="../../docs/img/sim1-sweep-contacts.png" width="720">
+<img src="docs/img/sim1-sweep-contacts.png" width="720">
 
 **Почему 4 ланжевена, а не 2.** При Q≈40 рассовпадение резонансов пары на 1,5 кГц роняет мощность модели ~10×:
 
-<img src="../../docs/img/sim2-pair-mismatch.png" width="720">
+<img src="docs/img/sim2-pair-mismatch.png" width="720">
 
 **Этап 3 — данные.** OOK упирается в звон резонатора (модель Q~40 → τ≈0,3 мс): 1 кбит/с — чисто, 5 кбит/с — глаз закрыт. Быстрее — только в режиме Б:
 
-<img src="../../docs/img/sim5-ook-datarate.png" width="720">
+<img src="docs/img/sim5-ook-datarate.png" width="720">
 
 **Бюджет приёмника.** Защadowанные полосы — **цели** (режим А 0,5–5 Вт, если этап 2 успешен; режим Б — ниже). Реальные первые нагрузки — дискретный ESP32 / BLE / светодиод; Wi-Fi показан как маркер пикового потребления, а не непрерывной мощности:
 
-<img src="../../docs/img/sim4-power-budget.png" width="720">
+<img src="docs/img/sim4-power-budget.png" width="720">
 
 **На будущее (режим Б).** Пластина прозрачна гребёнкой толщинных резонансов — частоту надо трекать:
 
-<img src="../../docs/img/sim3-thickness-comb.png" width="720">
+<img src="docs/img/sim3-thickness-comb.png" width="720">
 
 </details>
 
 <details>
-<summary><b>⚠️ Безопасность — прочитать до первого включения</b> — <a href="../../docs/02-safety.md">docs/02-safety.md</a></summary>
+<summary><b>⚠️ Безопасность — прочитать до первого включения</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
 
 1. **Десяти до сотен вольт на пьезо** после включения драйвера этапа 2 — TVS на приёмной стороне ставится ДО первого включения; выводы не трогать.
 2. **Сеть** — только через лабораторный БП / развязку; драйверы УЗ-ванн гальванически связаны с сетью.
@@ -99,29 +99,29 @@ python3 software/sweep-map/sweep_map.py --mock
 4. **Нагрев** — ланжевен без прижима перегревается за минуты при мощности; прижимать до увеличения тока (кратковременное электрическое включение на низком токе — см. README драйвера).
 5. **Осколки** — пьезокерамика хрупкая: перетянутый болт или удар = осколки; очки при механических работах.
 
-Первое включение драйвера: ограничение тока БП на 0,2 А; полная последовательность в [hardware/driver/](../../hardware/driver/README.md) и [docs/02-safety.md](../../docs/02-safety.md).
+Первое включение драйвера: ограничение тока БП на 0,2 А; полная последовательность в [hardware/driver/](hardware/driver/README.md) и [docs/02-safety.md](docs/02-safety.md).
 
 </details>
 
 <details>
-<summary><b>🧭 Prior art и патентная гигиена</b> — <a href="../../docs/01-prior-art.md">docs/01-prior-art.md</a></summary>
+<summary><b>🧭 Prior art и патентная гигиена</b> — <a href="docs/01-prior-art.md">docs/01-prior-art.md</a></summary>
 
 Каждое техническое решение должно прослеживаться к «свободному» источнику (истёкшие патенты, статьи). Фундамент: **US5982297** (Aerospace Corp — базовый рецепт пьезо-пары через стенку), **US7902943** (Caltech/JPL — feed-through Sherrit), **US9361877** (Univ. Oklahoma — полная система трансиверов); все умерли. Ключевые статьи: Lawry 2013 (50 Вт + 12,4 Мбит/с через сталь 63,5 мм), Sherrit/NASA (100-Вт лампа), Yang 2015 (обзор).
 
 Не копируем, пока живо (US-only, до ~2032; этапам 1–4 не нужно): OFDM-расстановка RPI, full-duplex схема RPI, конформные трансдьюсеры Drexel.
 
-Архитектурные решения фиксируются в [docs/decisions/](../../docs/decisions/0001-frequency-mode-choice.md) (ADR).
+Архитектурные решения фиксируются в [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) (ADR).
 
 </details>
 
 <details>
 <summary><b>🔌 Железо и прошивки</b> — hardware/, firmware/</summary>
 
-- [hardware/bom/bom-stage1.csv](../../hardware/bom/bom-stage1.csv) — закупка этапа 1.
-- [hardware/schematics/](../../hardware/schematics/README.md) — **принципиальные схемы** (генерируются кодом): драйвер, приёмник, пиновка Pi, узел-харвестер.
-- [hardware/driver/](../../hardware/driver/README.md) — драйвер TX: полумост IR2110 + 2×IRF540, согласующий трансформатор (ланжевен — ёмкостная нагрузка!). KiCad-плата — после проверки макета.
-- [hardware/receiver/](../../hardware/receiver/README.md) — приёмник по этапам: мост Шоттки → АЦП (этап 1) → нагрузка (этап 2) → LTC3588 + ионистор + ESP32 (этап 4).
-- [firmware/node-esp32/](../../firmware/node-esp32/README.md) — узел этапа 4 (заглушка): deep sleep, замер датчика, BLE-advertising, бюджет 1–5 мВт средних.
+- [hardware/bom/bom-stage1.csv](hardware/bom/bom-stage1.csv) — закупка этапа 1.
+- [hardware/schematics/](hardware/schematics/README.md) — **принципиальные схемы** (генерируются кодом): драйвер, приёмник, пиновка Pi, узел-харвестер.
+- [hardware/driver/](hardware/driver/README.md) — драйвер TX: полумост IR2110 + 2×IRF540, согласующий трансформатор (ланжевен — ёмкостная нагрузка!). KiCad-плата — после проверки макета.
+- [hardware/receiver/](hardware/receiver/README.md) — приёмник по этапам: мост Шоттки → АЦП (этап 1) → нагрузка (этап 2) → LTC3588 + ионистор + ESP32 (этап 4).
+- [firmware/node-esp32/](firmware/node-esp32/README.md) — узел этапа 4 (заглушка): deep sleep, замер датчика, BLE-advertising, бюджет 1–5 мВт средних.
 
 </details>
 
@@ -130,16 +130,16 @@ python3 software/sweep-map/sweep_map.py --mock
 
 - [software/sweep-map/sweep_map.py](../../software/sweep-map/sweep_map.py) — рабочая лошадка этапа 1: свип DDS → замер АЦП → CSV + АЧХ-график. Есть `--mock` для прогона без железа. На Pi: `raspi-config` → включить SPI и I2C; `pip install spidev smbus2 matplotlib`.
 - [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py) — генератор графиков-ожиданий (`pip install numpy matplotlib`).
-- [data/](../../data/README.md) — сырые логи; CSV/PNG вне git, в git идут отобранные графики в каталоге опыта.
+- [data/](data/README.md) — сырые логи; CSV/PNG вне git, в git идут отобранные графики в каталоге опыта.
 
 </details>
 
 <details>
-<summary><b>🗺️ Куда это применять: барьеры, каналы, ниши</b> — <a href="../../docs/04-hybrid-channels.md">docs/04</a>, <a href="../../docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ Куда это применять: барьеры, каналы, ниши</b> — <a href="docs/04-hybrid-channels.md">docs/04</a>, <a href="docs/05-applications-map.md">docs/05</a></summary>
 
 Универсального канала не существует — платформа подбирает физику под барьер: пьезо-акустика (основной: сталь/алюминий с контактом — ватты и кбит/с), EMAT (грязный/горячий металл без контакта — данные), НЧ-магнитка (вакуумные сэндвичи дьюаров — биты/с). Честные тупики: обрезиненные/композитные стенки, пузырящаяся жидкость в пути.
 
-Приоритет ниш: **(1)** лабораторные вакуумные камеры и криостаты — аудитория open-source-железа, без сертификаций; **(2)** ферментационные танки — полигон в шаговой доступности; **(3)** герметичные аккумуляторные сборки — флагманский кейс (детекция теплового разгона без врезки в пак). Протокол обнаружения приёмника и автоподстройки (аналог Qi) — [docs/03-discovery-protocol.md](../../docs/03-discovery-protocol.md).
+Приоритет ниш: **(1)** лабораторные вакуумные камеры и криостаты — аудитория open-source-железа, без сертификаций; **(2)** ферментационные танки — полигон в шаговой доступности; **(3)** герметичные аккумуляторные сборки — флагманский кейс (детекция теплового разгона без врезки в пак). Протокол обнаружения приёмника и автоподстройки (аналог Qi) — [docs/03-discovery-protocol.md](docs/03-discovery-protocol.md).
 
 </details>
 
@@ -161,10 +161,10 @@ data/            сырые логи (крупные файлы — вне git)
 ## Принципы
 
 1. **Воспроизводимость с нуля.** Любой человек с паяльником и ~$210 повторяет результат по одному только этому репо.
-2. **Каждый опыт — протокол.** Никаких «вроде работало»: [experiments/TEMPLATE.md](../../experiments/TEMPLATE.md) обязателен.
-3. **Патентная гигиена.** Строим от истёкшего слоя ([docs/01-prior-art.md](../../docs/01-prior-art.md)); решения фиксируем в [docs/decisions/](../../docs/decisions/0001-frequency-mode-choice.md).
+2. **Каждый опыт — протокол.** Никаких «вроде работало»: [experiments/TEMPLATE.md](experiments/TEMPLATE.md) обязателен.
+3. **Патентная гигиена.** Строим от истёкшего слоя ([docs/01-prior-art.md](docs/01-prior-art.md)); решения фиксируем в [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md).
 4. **Сначала измерение, потом мнение.** Свип-карта раньше любых выводов о канале.
 
 ## Лицензии и патенты
 
-Код — Apache-2.0, железо — CERN-OHL-W v2, документация — CC-BY-4.0; тексты — в [LICENSES/](../../LICENSES). Любой может форкнуть и развивать, в том числе коммерчески; патентная защита — гранты и retaliation в лицензиях + стратегия prior art. Полная схема и протокол defensive publication: [LICENSES.md](../../LICENSES.md), правила вклада: [CONTRIBUTING.md](../../CONTRIBUTING.md).
+Код — Apache-2.0, железо — CERN-OHL-W v2, документация — CC-BY-4.0; тексты — в [LICENSES/](../../LICENSES). Любой может форкнуть и развивать, в том числе коммерчески; патентная защита — гранты и retaliation в лицензиях + стратегия prior art. Полная схема и протокол defensive publication: [LICENSES.md](LICENSES.md), правила вклада: [CONTRIBUTING.md](CONTRIBUTING.md).
