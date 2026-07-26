@@ -8,7 +8,7 @@
 - **Pré-requisitos:**
   - Experimento 001 fechado (pico reprodutível, frequência registrada).
   - TVS instalado na cadeia RX antes de qualquer potência do driver ([docs/02-safety.md](../../docs/02-safety.md)).
-  - Sequência de inicialização do driver seguida ([hardware/driver/README.md](../../../hardware/driver/README.md)).
+  - Sequência de inicialização do driver seguida ([hardware/driver/README.md](../../hardware/driver/README.md)).
 - **Configuração (mínima):**
   - TX: Pi → AD9833 quadrado → formador de tempo morto → IR2110 ponte semicircular → transformador de acoplamento → Langevin preso à placa ([sch1](../../hardware/schematics/sch1-driver-halfbridge.png)).
   - Parede: aço de 3 mm, método de contato registrado (graxa+clamp / epóxi / outro).
