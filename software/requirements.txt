@@ -2,6 +2,12 @@
 numpy
 matplotlib
 
+# Schematics renderer (hardware/schematics/render_schematics.py)
+schemdraw
+
+# CI uses pinned versions of the three above — see tools/requirements-ci.txt.
+# Match them locally if you intend to commit regenerated figures.
+
 # Raspberry Pi only (rig hardware) — uncomment on the Pi:
 # spidev
 # smbus2
