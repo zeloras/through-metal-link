@@ -16,8 +16,21 @@ path = ["docs/**", "experiments/**", "data/**", "*.md", "NOTICE", "LICENSE", "CI
 SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
 SPDX-License-Identifier = "CC-BY-4.0"
 
-# translations of hardware docs are derivatives of CERN-OHL-W material
+# A translation is a derivative of the document it mirrors, so it has to carry
+# that document's license — not the license of the translations/ tree it happens
+# to live in. One block per source license.
 [[annotations]]
 path = ["translations/*/hardware/**"]
 SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
 SPDX-License-Identifier = "CERN-OHL-W-2.0"
+
+[[annotations]]
+path = ["translations/*/software/**", "translations/*/firmware/**"]
+SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+# bookkeeping for tools/translate_sync.py, not documentation
+[[annotations]]
+path = ["translations/.sync-state.json"]
+SPDX-FileCopyrightText = "2026 Vitalii Gerasimov and through-metal-link contributors"
+SPDX-License-Identifier = "Apache-2.0"
