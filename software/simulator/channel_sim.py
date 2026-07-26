@@ -14,11 +14,12 @@ Physics inside:
   Mode B (MHz): a comb of plate thickness resonances (Fabry-Perot):
   T(f) = 1 / (1 + ((r - 1/r)/2 · sin(2πfd/v))²), r — impedance step.
 
-All display strings live in labels.json (one section per language). Each run
-renders every language: the primary (en) set goes to --out, every other
-language goes to translations/<lang>/docs/img/ with the same file names.
+All display strings live in labels.json (one section per language, matching
+i18n.json). Each run renders every language: the primary set goes to --out,
+every other language goes to translations/<lang>/docs/img/ with the same file
+names.
 
-Run: python3 channel_sim.py --out ../../docs/img [--lang <code>|all]
+Run: python3 channel_sim.py [--out docs/img] [--lang <code>|all]
 Dependencies: numpy, matplotlib.
 """
 
@@ -34,6 +35,8 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 LABELS = json.loads((Path(__file__).resolve().parent / "labels.json").read_text(encoding="utf-8"))
+I18N = json.loads((REPO_ROOT / "i18n.json").read_text(encoding="utf-8"))
+PRIMARY = I18N["primary"]
 
 # ---------- palette (light mode, validated) ----------
 SURFACE = "#fcfcfb"
@@ -285,10 +288,17 @@ def sketch_rig(out, L):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--out", default="../../docs/img")
+    # anchored at the repo root, not at cwd: the old cwd-relative default wrote
+    # outside the repository when the script was run from anywhere but its own
+    # directory
+    p.add_argument("--out", default=str(REPO_ROOT / "docs" / "img"))
     p.add_argument("--lang", default="all",
                    help="language code from labels.json, or 'all'")
     a = p.parse_args()
+    missing = sorted(set(I18N["names"]) - set(LABELS))
+    if missing:
+        raise SystemExit(f"labels.json has no section for: {', '.join(missing)} "
+                         "(declared in i18n.json) — run tools/translate_sync.py")
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     charts = [sketch_rig, chart_sweep, chart_mismatch, chart_fabry_perot,
@@ -299,7 +309,7 @@ if __name__ == "__main__":
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
         L = LABELS[lang]
-        out_l = out if lang == "en" else REPO_ROOT / "translations" / lang / "docs" / "img"
+        out_l = out if lang == PRIMARY else REPO_ROOT / "translations" / lang / "docs" / "img"
         out_l.mkdir(parents=True, exist_ok=True)
         for chart in charts:
             chart(out_l, L)

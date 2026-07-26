@@ -8,7 +8,7 @@
 - **Voraussetzungen:**
   - Experiment 001 abgeschlossen (reproduzierbare Spitze, Frequenz aufgezeichnet).
   - TVS auf der RX-Kette vor jeder Treiberleistung installiert ([docs/02-safety.md](../../docs/02-safety.md)).
-  - Treiber-Bring-up-Sequenz befolgt ([hardware/driver/README.md](../../../hardware/driver/README.md)).
+  - Treiber-Bring-up-Sequenz befolgt ([hardware/driver/README.md](../../hardware/driver/README.md)).
 - **Aufbau (mindestens):**
   - TX: Pi → AD9833 Quadrat → Totzeit-Formung → IR2110 Halbbrücke → abgestimmter Transformator → Langevin auf einer Platte geklemmt ([sch1](../../hardware/schematics/sch1-driver-halfbridge.png)).
   - Wand: 3 mm Stahl, Kontaktmethode aufgezeichnet (Schmiermittel+Klemme / Epoxid / andere).

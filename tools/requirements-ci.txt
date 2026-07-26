@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: Apache-2.0
+# Pinned toolchain for CI.
+#
+# The generated figures are committed to the repository, so the renderer's
+# dependencies are part of the output: an unpinned matplotlib bump silently
+# changes the PNG bytes and every later run re-commits them. Bump these
+# deliberately, in a commit that also carries the re-rendered figures.
+numpy==2.5.1
+matplotlib==3.11.1
+schemdraw==0.23

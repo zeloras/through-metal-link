@@ -7,17 +7,24 @@ Structure: the primary language (i18n.json) owns the canonical paths; every
 other language is a mirror tree under translations/<lang>/ with identical
 file names — markdown, the BOM CSV and generated figures included.
 
-Logic per push:
-  1. If only one language of a doc changed — translate the change into the
-     others: non-primary edits propagate to primary first, then primary
-     propagates to every remaining language. Docs where a human touched
-     several languages are left alone.
-  2. labels.json: only the keys that changed in one section are translated
-     into the sections that did not change (two-phase, frozen snapshot).
+What drives the work is translations/.sync-state.json: for every
+(document, language) pair it records the hash of the primary content the
+translation was made from, and for every labels.json key the primary value it
+was translated from. A pair is stale when those no longer match. The push diff
+is used only to tell WHO edited WHAT (so a human edit is never overwritten and
+a non-primary edit can propagate back to the primary) — never to decide what
+still owes work. That is what makes an interrupted run resumable: whatever did
+not get done stays stale and is picked up by the next push or the nightly run.
+
+Logic per run:
+  1. A doc edited in exactly one non-primary language propagates to the primary
+     first; then the primary propagates to every language the human did not
+     touch in this push.
+  2. labels.json: same two phases, per key.
   3. Adding a language to i18n.json bootstraps its whole mirror tree.
-  4. The language-switcher line under every H1 and all links to files that
-     are not part of the mirror are rewritten deterministically, not by the
-     model.
+  4. The language-switcher line under every H1 and all links to files that are
+     not part of the mirror are rewritten deterministically, not by the model,
+     on every run.
 
 Model: GitHub Models in CI (free with GITHUB_TOKEN), default is the
 open-weights meta/llama-3.3-70b-instruct. A different OpenAI-compatible
@@ -27,12 +34,16 @@ Usage: python tools/translate_sync.py [--base <sha>] [--dry-run]
 """
 
 import argparse
+import copy
 import difflib
+import hashlib
 import json
 import os
 import re
+import socket
 import subprocess
 import sys
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -44,11 +55,17 @@ LANGS = list(NAMES)
 TR_DIR = "translations"
 DOC_EXTS = (".md", ".csv")
 
+STATE_PATH = ROOT / TR_DIR / ".sync-state.json"
+STATE_VERSION = 1
+
 ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://models.github.ai/inference")
 MODEL = os.environ.get("TRANSLATE_MODEL", "meta/llama-3.3-70b-instruct")
 TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("OPENAI_API_KEY") or "none"
+TIMEOUT_S = 300
+MAX_TOKENS = 8192
 MAX_CHARS = 40_000
 MAX_TASKS = 80
+MIN_LENGTH_RATIO = 0.55  # a translation this much shorter than its source lost content
 
 GLOSSARY = (
     "ланжевен = Langevin transducer; свип-карта = sweep map; АЧХ = frequency response; "
@@ -59,6 +76,29 @@ GLOSSARY = (
     "истёкшие патенты = expired patents; стенд = test rig; макет = breadboard prototype"
 )
 
+
+class ModelUnavailable(Exception):
+    """The endpoint could not be reached at all — nothing after this will work.
+
+    Raised instead of exiting on the spot: main() catches it, saves the state of
+    whatever DID get translated and returns cleanly, so the next run resumes
+    from exactly there.
+    """
+
+
+class BadReply(Exception):
+    """This one answer is unusable — a truncated completion, a non-JSON label
+    batch, an unexpected envelope. Only the current item is skipped; it stays
+    stale and gets another go next run. Never written to disk: that is how
+    translations/pt/README.md ended up a 478-byte stub cut off mid-link.
+    """
+
+
+class GitError(Exception):
+    pass
+
+
+# ---------- paths ----------
 
 def tr_path(canon: str, lang: str) -> str:
     return canon if lang == PRIMARY else f"{TR_DIR}/{lang}/{canon}"
@@ -76,6 +116,52 @@ def parse_doc(f: str):
         return None
     return f, PRIMARY
 
+
+def canonical_docs() -> list[str]:
+    docs = []
+    for ext in DOC_EXTS:
+        for p in ROOT.rglob(f"*{ext}"):
+            rel = p.relative_to(ROOT).as_posix()
+            if rel.startswith((".git", "LICENSES/", TR_DIR + "/")):
+                continue
+            docs.append(rel)
+    return sorted(docs)
+
+
+def label_files() -> list[str]:
+    return sorted(p.relative_to(ROOT).as_posix() for p in ROOT.rglob("labels.json")
+                  if TR_DIR + "/" not in p.as_posix() and ".git" not in p.parts)
+
+
+_TREE: dict[str, list[str]] | None = None
+
+
+def tree_index() -> dict[str, list[str]]:
+    """basename -> canonical paths. Built once; no globbing, so a model-supplied
+    name full of glob metacharacters is just a dict miss."""
+    global _TREE
+    if _TREE is None:
+        _TREE = {}
+        skip_top = {".git", TR_DIR, "LICENSES"}
+        for dirpath, dirnames, filenames in os.walk(ROOT):
+            rel = Path(dirpath).relative_to(ROOT)
+            at_root = rel == Path(".")
+            dirnames[:] = [d for d in dirnames
+                           if d != "__pycache__" and not (at_root and d in skip_top)]
+            for fn in filenames:
+                _TREE.setdefault(fn, []).append(fn if at_root else (rel / fn).as_posix())
+    return _TREE
+
+
+def _inside(p: Path) -> bool:
+    try:
+        p.relative_to(ROOT)
+        return True
+    except ValueError:
+        return False
+
+
+# ---------- language bar ----------
 
 def langbar(canon: str, lang: str) -> str:
     here = Path(tr_path(canon, lang)).parent
@@ -104,60 +190,215 @@ def apply_langbar(text: str, canon: str, lang: str) -> str:
                 lines.insert(i + 1, "")
                 lines.insert(i + 2, bar)
             break
+    else:
+        print(f"  ! {tr_path(canon, lang)}: no H1 — language bar not inserted")
     return "\n".join(lines).rstrip() + "\n"
 
 
-LINK_RE = re.compile(r'(\]\(|src=")([^)#"\s]+)([)"])')
+# ---------- link repair ----------
+
+# Two destination forms: a markdown ](...) and an html src="...". The markdown
+# branch deliberately swallows everything up to the closing paren — a model that
+# leaves a space in a file name must still be seen, otherwise the broken link is
+# invisible to both the repair pass and the position alignment below.
+LINK_RE = re.compile(r'\]\(([^)]*)\)|src="([^"]*)"')
 
 
-def fix_asset_links(text: str, canon: str, lang: str) -> str:
-    """Repoint relative links whose target is not part of the mirror tree.
+def _split_dest(raw: str) -> tuple[str, str]:
+    """Split a link destination into (path, suffix).
+
+    The suffix carries the #fragment and an optional ' "title"' verbatim so a
+    rewrite of the path cannot lose them.
+    """
+    title = ""
+    m = re.search(r'(\s+"[^"]*")\s*$', raw)
+    if m:
+        title, raw = m.group(1), raw[:m.start()]
+    raw = raw.strip()
+    if raw.startswith("<") and raw.endswith(">"):
+        raw = raw[1:-1]
+    path, sep, frag = raw.partition("#")
+    return path, sep + frag + title
+
+
+def _strip_updirs(target: str) -> str:
+    parts = list(Path(target).parts)
+    i = 0
+    while i < len(parts) and parts[i] in ("..", "."):
+        i += 1
+    return "/".join(parts[i:])
+
+
+def fix_asset_links(text: str, canon: str, lang: str, src_text: str | None = None) -> str:
+    """Repoint relative links whose target does not resolve from the mirror.
 
     Inside a mirror the relative structure matches the canonical tree, so doc
     and figure links keep working as-is. Links to code, CSVs that are not
     mirrored, license texts etc. must climb out of translations/<lang>/ — that
     rewrite is mechanical, so the model is never trusted with it.
+
+    Repair ladder, first hit wins:
+      a. the model kept the canonical path — resolve it against the canonical
+         directory and repoint;
+      b. the model miscounted `../` — the tail resolves from the repo root;
+      c. unique basename in the canonical tree;
+      d. same position in the primary source (only when both files hold the
+         same number of links). This is what survives a model that translated
+         the file name itself, which no path arithmetic can undo.
+    Whenever a canonical file is picked, its mirror twin wins if it exists, so a
+    German reader is not bounced into the English tree.
     """
     if lang == PRIMARY:
         return text
     here = Path(tr_path(canon, lang)).parent
     canon_dir = Path(canon).parent
 
-    def by_basename(name: str):
-        # last resort for model-mangled relative paths: a unique basename
-        # match in the canonical tree wins; prefer its mirror twin if present
-        hits = [p for p in ROOT.rglob(name)
-                if ".git" not in p.parts and TR_DIR not in p.parts]
-        if len(hits) != 1:
-            return None
-        canon_hit = hits[0].relative_to(ROOT).as_posix()
-        mirror_hit = ROOT / tr_path(canon_hit, lang)
-        return mirror_hit if mirror_hit.exists() else hits[0]
+    def rel(p: Path) -> str:
+        return Path(os.path.relpath(p, ROOT / here)).as_posix()
+
+    def mirror_or_canon(canon_rel: str) -> Path:
+        m = ROOT / tr_path(canon_rel, lang)
+        return m if m.exists() else ROOT / canon_rel
+
+    def resolve(target: str) -> str | None:
+        if not target or target.startswith(("http", "mailto:", "/")):
+            return target
+        if (ROOT / here / target).exists():
+            return target
+        cand = Path(os.path.normpath(ROOT / canon_dir / target))
+        if _inside(cand) and cand.exists():
+            return rel(mirror_or_canon(cand.relative_to(ROOT).as_posix()))
+        tail = _strip_updirs(target)
+        if tail and (ROOT / tail).exists():
+            return rel(mirror_or_canon(tail))
+        hits = tree_index().get(Path(target).name, [])
+        if len(hits) == 1:
+            return rel(mirror_or_canon(hits[0]))
+        return None
+
+    src_dests = None
+    if src_text is not None:
+        src_dests = [_split_dest(m.group(1) if m.group(1) is not None else m.group(2))[0]
+                     for m in LINK_RE.finditer(src_text)]
+        if len(src_dests) != len(LINK_RE.findall(text)):
+            src_dests = None  # shapes diverged — position alignment is meaningless
+
+    idx = -1
 
     def sub(m):
-        pre, target, post = m.groups()
-        if target.startswith(("http", "mailto:", "/")):
+        nonlocal idx
+        idx += 1
+        md = m.group(1) is not None
+        path, suffix = _split_dest(m.group(1) if md else m.group(2))
+        out = resolve(path)
+        if out is None and src_dests is not None:
+            out = resolve(src_dests[idx])
+        if out is None or out == path:
             return m.group(0)
-        if (ROOT / here / target).exists():
-            return m.group(0)
-        cand_norm = Path(os.path.normpath(ROOT / canon_dir / target))
-        if cand_norm.exists():
-            return pre + os.path.relpath(cand_norm, ROOT / here) + post
-        hit = by_basename(Path(target).name)
-        if hit is not None:
-            return pre + os.path.relpath(hit, ROOT / here) + post
-        return m.group(0)
+        return f"]({out}{suffix})" if md else f'src="{out}{suffix}"'
 
     return LINK_RE.sub(sub, text)
 
 
+# ---------- git ----------
+
 def sh(*args) -> str:
-    return subprocess.run(args, capture_output=True, text=True, cwd=ROOT).stdout
+    r = subprocess.run(args, capture_output=True, text=True, cwd=ROOT)
+    if r.returncode != 0:
+        raise GitError(f"{' '.join(args)}: {r.stderr.strip()[:200]}")
+    return r.stdout
 
 
-def git_show(path: str, base: str) -> str:
-    return sh("git", "show", f"{base}:{path}")
+def git_show(path: str, base: str) -> str | None:
+    """Content of `path` at `base`, or None when it was not there / base is gone.
 
+    None and "" are different answers and callers rely on that: an empty file is
+    not the same as an unreachable base commit.
+    """
+    r = subprocess.run(["git", "show", f"{base}:{path}"],
+                       capture_output=True, text=True, cwd=ROOT)
+    return r.stdout if r.returncode == 0 else None
+
+
+def changed_files(base: str) -> list[str]:
+    try:
+        out = sh("git", "diff", "--name-only", "--diff-filter=ACMR", f"{base}..HEAD")
+    except GitError as e:
+        print(f"::warning::cannot diff against {base} ({e}) — "
+              "falling back to the sync state alone")
+        return []
+    return [l for l in out.splitlines() if l.strip()]
+
+
+# ---------- state ----------
+
+def sha(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def seed_state() -> dict:
+    """First run: treat every translation that already exists as up to date.
+
+    Without this the first run would call the model on the entire mirror tree
+    to reproduce files that are already correct — except for the mirrors that
+    are visibly NOT correct. A file that lost headings or whole tables relative
+    to its source is the residue of an earlier interrupted sync; leaving it
+    unseeded marks it stale so the pipeline regenerates it.
+    """
+    st = {"version": STATE_VERSION, "docs": {}, "labels": {}}
+    for c in canonical_docs():
+        src = ROOT / c
+        if not src.exists():
+            continue
+        text = src.read_text(encoding="utf-8")
+        h = sha(text)
+        for l in LANGS:
+            if l == PRIMARY:
+                continue
+            twin = ROOT / tr_path(c, l)
+            if not twin.exists():
+                continue
+            bad = implausible(text, twin.read_text(encoding="utf-8"), c)
+            if bad:
+                print(f"  ! {tr_path(c, l)}: {bad} — queued for re-translation")
+                continue
+            st["docs"][f"{c}|{l}"] = h
+    for f in label_files():
+        cur = json.loads((ROOT / f).read_text(encoding="utf-8"))
+        prim = cur.get(PRIMARY, {})
+        st["labels"][f] = {l: {k: v for k, v in prim.items() if k in cur[l]}
+                           for l in cur if l != PRIMARY}
+    return st
+
+
+def load_state() -> dict:
+    if STATE_PATH.exists():
+        try:
+            st = json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            print("::warning::sync state is unreadable — reseeding from the working tree")
+            st = {}
+        if st.get("version") == STATE_VERSION:
+            st.setdefault("docs", {})
+            st.setdefault("labels", {})
+            return st
+    return seed_state()
+
+
+def save_state(state: dict, dry: bool) -> None:
+    if dry:
+        return
+    live = {f"{c}|{l}" for c in canonical_docs() for l in LANGS if l != PRIMARY}
+    state["docs"] = {k: v for k, v in state["docs"].items() if k in live}
+    files = set(label_files())
+    state["labels"] = {k: v for k, v in state["labels"].items() if k in files}
+    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    STATE_PATH.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8")
+
+
+# ---------- model ----------
 
 def udiff(old: str, new: str, name: str) -> str:
     return "".join(difflib.unified_diff(
@@ -179,8 +420,9 @@ Rules:
   new source content. Keep the lively engineering tone.
 - Preserve markdown structure, tables, code blocks (do not translate commands),
   numbers, part numbers, file paths.
-- Keep ALL relative links exactly as they are in the source — the mirror tree
-  makes them resolve; the pipeline fixes the rest afterwards.
+- Keep ALL relative links exactly as they are in the source, byte for byte —
+  the mirror tree makes them resolve. NEVER translate a file name inside a link
+  target; translate only the visible link text in square brackets.
 - For CSV files: keep the column count, order and quoting; translate only
   human-readable text (item names, notes); numbers and part numbers unchanged.
 - The user message includes the diff of what changed in the source: EVERY
@@ -194,31 +436,71 @@ SYSTEM_JSON = f"""You translate UI label strings for an open-hardware project
 (ultrasonic power through steel). Terminology (ru = en): {GLOSSARY}.
 Input: a JSON object with strings in the source language. Return ONLY a JSON
 object with the same keys and translated values. Keep placeholders like {{d}},
-{{r}}, {{q}}, {{tau}}, units and part numbers intact. No code fences."""
+{{r}}, {{q}}, {{tau}}, units and part numbers intact — same placeholders, same
+spelling, no new ones. No code fences."""
 
 
 def chat(system: str, user: str) -> str:
     req = urllib.request.Request(
         ENDPOINT.rstrip("/") + "/chat/completions",
         data=json.dumps({
-            "model": MODEL, "temperature": 0.2,
+            "model": MODEL, "temperature": 0.2, "max_tokens": MAX_TOKENS,
             "messages": [{"role": "system", "content": system},
                          {"role": "user", "content": user}],
         }).encode(),
         headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
     )
     try:
-        with urllib.request.urlopen(req, timeout=600) as r:
-            out = json.loads(r.read())["choices"][0]["message"]["content"]
-    except urllib.error.HTTPError as e:
-        body = e.read().decode(errors="replace")[:300]
-        # model unavailable (budget/quota/permissions) — do not fail the
-        # pipeline: whatever was translated stays, the rest syncs next time
-        print(f"::warning::Model unavailable ({e.code}): {body} — sync postponed")
-        sys.exit(0)
-    out = out.strip()
-    out = re.sub(r"^```[a-z]*\n|\n```$", "", out)  # guard against code fences
-    return out
+        with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
+            payload = json.loads(r.read())
+    except urllib.error.HTTPError as e:  # subclass of URLError — must come first
+        raise ModelUnavailable(
+            f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}") from e
+    except (urllib.error.URLError, socket.timeout, TimeoutError, OSError) as e:
+        raise ModelUnavailable(f"transport error: {e}") from e
+    except json.JSONDecodeError as e:
+        raise ModelUnavailable(f"response body is not JSON: {e}") from e
+    try:
+        choice = payload["choices"][0]
+        out = choice["message"]["content"]
+    except (KeyError, IndexError, TypeError) as e:
+        raise BadReply(f"unexpected response shape: {str(payload)[:300]}") from e
+    # the single most damaging failure mode: the completion hit the token
+    # ceiling and the tail of the document simply is not there
+    if choice.get("finish_reason") not in (None, "stop"):
+        raise BadReply(f"completion did not finish (finish_reason="
+                       f"{choice.get('finish_reason')!r}) — output would be truncated")
+    if not isinstance(out, str) or not out.strip():
+        raise BadReply("empty completion")
+    return re.sub(r"^```[a-z]*\n|\n```$", "", out.strip())  # guard against code fences
+
+
+# ---------- documents ----------
+
+def doc_shape(text: str) -> tuple[int, int]:
+    """(headings, table rows) — the part of a document a translation must keep.
+
+    Deliberately blind to wording and to link count: a translator legitimately
+    rewrites prose and may inline a link differently, but it never drops half
+    the headings or an entire table. Those are the fingerprints of a truncated
+    or half-generated reply.
+    """
+    return (len(re.findall(r"(?m)^#{1,6} ", text)),
+            len(re.findall(r"(?m)^\|", text)))
+
+
+def implausible(src_text: str, out: str, name: str) -> str | None:
+    """Reason the reply must not be written, or None when it looks like a real
+    translation."""
+    if len(out) < MIN_LENGTH_RATIO * len(src_text):
+        return (f"{len(out)} chars against {len(src_text)} in the source "
+                f"(<{MIN_LENGTH_RATIO:.0%}) — content is missing")
+    if name.endswith(".md"):
+        want, got = doc_shape(src_text), doc_shape(out)
+        if want != got:
+            return (f"structure {got} != source {want} "
+                    "(headings, table rows) — content is missing")
+    return None
 
 
 def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) -> bool:
@@ -232,87 +514,133 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
     print(f"  -> {src} -> {dst}")
     if dry:
         return True
-    old_dst = dst_p.read_text(encoding="utf-8") if dst_p.exists() else "(missing)"
-    out = chat(system_doc(dst_lang), (
-        f"Source file `{src}` — NEW content:\n<<<\n{text}\n>>>\n\n"
-        f"What changed in the source (unified diff):\n<<<\n{udiff(old_src, text, src)}\n>>>\n\n"
-        f"Target file `{dst}` — CURRENT (possibly outdated or missing) content:\n"
-        f"<<<\n{old_dst}\n>>>\n\n"
-        "Produce the full updated target file, reflecting every change from the diff."))
+    old_dst = dst_p.read_text(encoding="utf-8")[:MAX_CHARS] if dst_p.exists() else "(missing)"
+    try:
+        out = chat(system_doc(dst_lang), (
+            f"Source file `{src}` — NEW content:\n<<<\n{text}\n>>>\n\n"
+            f"What changed in the source (unified diff):\n<<<\n{udiff(old_src, text, src)}\n>>>\n\n"
+            f"Target file `{dst}` — CURRENT (possibly outdated or missing) content:\n"
+            f"<<<\n{old_dst}\n>>>\n\n"
+            "Produce the full updated target file, reflecting every change from the diff."))
+    except BadReply as e:
+        print(f"  ! {dst}: {e} — left stale, will be retried")
+        return False
+    bad = implausible(text, out, dst)
+    if bad:
+        print(f"  ! {dst}: {bad} — not written, will be retried")
+        return False
     canon, _ = parse_doc(dst)
     if dst.endswith(".md"):
+        primary_text = (ROOT / canon).read_text(encoding="utf-8") if (ROOT / canon).exists() else None
         out = apply_langbar(out, canon, dst_lang)
-        out = fix_asset_links(out, canon, dst_lang)
+        out = fix_asset_links(out, canon, dst_lang, primary_text)
     dst_p.parent.mkdir(parents=True, exist_ok=True)
     dst_p.write_text(out.rstrip() + "\n", encoding="utf-8")
     return True
 
 
-def canonical_docs() -> list[str]:
-    docs = []
-    for ext in DOC_EXTS:
-        for p in ROOT.rglob(f"*{ext}"):
-            rel = p.relative_to(ROOT).as_posix()
-            if rel.startswith((".git", "LICENSES/", TR_DIR + "/")):
-                continue
-            docs.append(rel)
-    return sorted(docs)
-
-
-def plan_docs(changed: list[str], base: str, new_langs: list[str]):
-    """Return (src, dst, dst_lang, old_src) translation tasks."""
-    touched: dict[str, set[str]] = {}
-    for f in changed:
-        parsed = parse_doc(f)
-        if parsed:
-            touched.setdefault(parsed[0], set()).add(parsed[1])
-
+def reverse_tasks(touched: dict[str, set[str]], base: str):
+    """A doc edited in exactly one non-primary language propagates to primary."""
     tasks = []
-    # phase 1: a single non-primary edit propagates to the primary file
     for c, langs in sorted(touched.items()):
         if PRIMARY not in langs and len(langs) == 1:
             l = next(iter(langs))
             src = tr_path(c, l)
-            tasks.append((src, c, PRIMARY, git_show(src, base)))
-    # phase 2: primary (freshly edited or just updated) propagates to the rest
-    for c, langs in sorted(touched.items()):
-        if PRIMARY in langs or (PRIMARY not in langs and len(langs) == 1):
-            for l in LANGS:
-                if l != PRIMARY and l not in langs:
-                    tasks.append((c, tr_path(c, l), l, git_show(c, base)))
-    # bootstrap: a new language gets the whole mirror tree
-    for l in new_langs:
-        for c in canonical_docs():
-            tasks.append((c, tr_path(c, l), l, ""))
+            tasks.append((src, c, PRIMARY, git_show(src, base) or ""))
     return tasks
 
 
-def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) -> int:
+def stale_pairs(touched: dict[str, set[str]], state: dict):
+    """(canon, lang) pairs whose translation no longer matches the primary.
+
+    A language the human edited in this push is accepted as-is and recorded, so
+    hand-written translations are never overwritten and never stay stale.
+    """
+    tasks = []
+    for c in canonical_docs():
+        src = ROOT / c
+        if not src.exists():
+            continue
+        h = sha(src.read_text(encoding="utf-8"))
+        for l in LANGS:
+            if l == PRIMARY:
+                continue
+            key = f"{c}|{l}"
+            if l in touched.get(c, set()):
+                state["docs"][key] = h
+                continue
+            if state["docs"].get(key) != h or not (ROOT / tr_path(c, l)).exists():
+                tasks.append((c, l, h))
+    return tasks
+
+
+# ---------- labels ----------
+
+def placeholders(s: str) -> set[str]:
+    return set(re.findall(r"\{([^{}]*)\}", s))
+
+
+def vet_labels(source: dict, out: dict) -> dict:
+    """Keep only translations that are safe to render.
+
+    labels.json values are fed to str.format() by the figure renderers, so a
+    dropped, renamed or invented placeholder is not a typo — it is a crash in
+    CI. Anything that does not match the source placeholder set keeps its old
+    value and stays stale, to be retried next run.
+    """
+    good = {}
+    for k, src in source.items():
+        v = out.get(k)
+        if not isinstance(v, str) or not v.strip():
+            print(f"     ! {k}: missing in the reply — keeping the old value")
+            continue
+        if placeholders(v) != placeholders(src):
+            print(f"     ! {k}: placeholders {sorted(placeholders(src))} -> "
+                  f"{sorted(placeholders(v))} — keeping the old value")
+            continue
+        good[k] = v
+    return good
+
+
+def sync_labels(changed: list[str], base: str, new_langs: list[str],
+                state: dict, dry: bool) -> int:
     n = 0
-    label_files = sorted({c for c in changed if c.endswith("labels.json")})
-    if new_langs:
-        label_files = sorted({p.relative_to(ROOT).as_posix() for p in ROOT.rglob("labels.json")
-                              if TR_DIR + "/" not in p.as_posix()})
-    for f in label_files:
+    for f in label_files():
         cur = json.loads((ROOT / f).read_text(encoding="utf-8"))
         # frozen snapshot: all deltas are computed against the human-pushed
         # state, never against sections the bot itself just rewrote
-        cur0 = json.loads(json.dumps(cur))
+        cur0 = copy.deepcopy(cur)
+        rec = state["labels"].setdefault(f, {})
         old_raw = git_show(f, base)
-        old = json.loads(old_raw) if old_raw.strip() else {}
+        old = json.loads(old_raw) if old_raw and old_raw.strip() else {}
         dirty = False
 
-        def translate(a: str, b: str, delta: dict) -> None:
+        def translate(a: str, b: str, delta: dict) -> dict:
             nonlocal n, dirty
             print(f"  -> {f}: {a} -> {b}, keys: {len(delta)}")
             n += 1
             if dry:
-                return
-            out = json.loads(chat(SYSTEM_JSON, json.dumps(
-                {"source_language": a, "target_language": b, "strings": delta},
-                ensure_ascii=False)))
-            cur.setdefault(b, {}).update(out.get("strings", out))
-            dirty = True
+                return {}
+            try:
+                raw = chat(SYSTEM_JSON, json.dumps(
+                    {"source_language": a, "target_language": b, "strings": delta},
+                    ensure_ascii=False))
+            except BadReply as e:
+                print(f"     ! {e} — section left stale")
+                return {}
+            try:
+                parsed = json.loads(raw)
+            except json.JSONDecodeError:
+                print(f"     ! reply is not JSON ({raw[:120]!r}) — section left stale")
+                return {}
+            if not isinstance(parsed, dict):
+                print("     ! reply is not an object — section left stale")
+                return {}
+            good = vet_labels(delta, parsed.get("strings", parsed))
+            if good:
+                cur.setdefault(b, {}).update(good)
+                dirty = True
+            return good
 
         # phase 1: a changed non-primary section propagates into primary —
         # only keys where primary itself was untouched by the human
@@ -326,24 +654,29 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) 
             if delta:
                 for k in delta:
                     src_of[k] = a
-                translate(a, PRIMARY, delta)
+                for k in translate(a, PRIMARY, delta):
+                    # `a` is the source of truth for this key now
+                    rec.setdefault(a, {})[k] = cur[PRIMARY][k]
 
-        # phase 2: every key whose primary value is new (edited by the human or
-        # just updated in phase 1) goes to the remaining languages
+        # phase 2: staleness comes from the recorded primary value, not from
+        # this push's diff — that is what makes an interrupted run resumable
         primary_now = cur.get(PRIMARY, {})
-        pk = {k: v for k, v in primary_now.items()
-              if old.get(PRIMARY, {}).get(k) != v}
         for b in LANGS:
             if b == PRIMARY:
                 continue
+            done = rec.setdefault(b, {})
+            # a section the human edited by hand is accepted, not overwritten
+            for k, v in primary_now.items():
+                if old.get(b, {}).get(k) != cur0.get(b, {}).get(k):
+                    done[k] = v
             if b in new_langs:  # bootstrap: the whole section from primary
                 delta = dict(primary_now)
             else:
-                delta = {k: v for k, v in pk.items()
-                         if src_of.get(k) != b
-                         and old.get(b, {}).get(k) == cur0.get(b, {}).get(k)}
+                delta = {k: v for k, v in primary_now.items()
+                         if done.get(k) != v and src_of.get(k) != b}
             if delta:
-                translate(PRIMARY, b, delta)
+                for k, v in translate(PRIMARY, b, delta).items():
+                    done[k] = primary_now[k]
 
         if dirty:
             (ROOT / f).write_text(
@@ -351,26 +684,47 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str], dry: bool) 
     return n
 
 
+def detect_new_langs() -> list[str]:
+    """A language with no labels.json section anywhere has never been bootstrapped."""
+    new = []
+    for l in LANGS:
+        if l == PRIMARY:
+            continue
+        for f in label_files():
+            if l not in json.loads((ROOT / f).read_text(encoding="utf-8")):
+                new.append(l)
+                break
+    return new
+
+
+# ---------- deterministic pass ----------
+
 def refresh_langbars(dry: bool) -> int:
-    """Deterministically rewrite bars and asset links in every language tree."""
+    """Rewrite bars and asset links in every language tree. Runs every time:
+    it is cheap, deterministic, and it is what heals links the model mangled."""
     n = 0
     for c in canonical_docs():
         if not c.endswith(".md"):
             continue
+        src = ROOT / c
+        primary_text = src.read_text(encoding="utf-8") if src.exists() else None
         for l in LANGS:
             p = ROOT / tr_path(c, l)
             if not p.exists():
                 continue
             text = p.read_text(encoding="utf-8")
-            new = fix_asset_links(apply_langbar(text, c, l), c, l)
+            new = fix_asset_links(apply_langbar(text, c, l), c, l, primary_text)
             if new != text:
                 n += 1
+                print(f"  ~ {tr_path(c, l)}")
                 if not dry:
                     p.write_text(new, encoding="utf-8")
     return n
 
 
-if __name__ == "__main__":
+# ---------- main ----------
+
+def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--base", default="HEAD~1", help="commit to diff against")
     p.add_argument("--dry-run", action="store_true")
@@ -379,26 +733,50 @@ if __name__ == "__main__":
     if not base or set(base) == {"0"}:  # first push of a branch
         base = "HEAD~1"
 
-    changed = [l for l in sh("git", "diff", "--name-only", "--diff-filter=ACMR",
-                             f"{base}..HEAD").splitlines() if l.strip()]
+    state = load_state()
+    changed = changed_files(base)
+    touched: dict[str, set[str]] = {}
+    for f in changed:
+        parsed = parse_doc(f)
+        if parsed:
+            touched.setdefault(parsed[0], set()).add(parsed[1])
 
-    new_langs = []
-    if "i18n.json" in changed:
-        old_raw = git_show("i18n.json", base)
-        old_langs = list(json.loads(old_raw)["names"]) if old_raw.strip() else LANGS
-        new_langs = [l for l in LANGS if l not in old_langs]
-
-    tasks = plan_docs(changed, base, new_langs)
-    if len(tasks) > MAX_TASKS:
-        print(f"{len(tasks)} translation tasks — over the {MAX_TASKS} cap, sync skipped")
-        sys.exit(0)
-    if len(changed) > 40 and not new_langs:
-        print(f"{len(changed)} files changed — looks like a bulk edit, sync skipped")
-        sys.exit(0)
-
+    new_langs = detect_new_langs()
     print(f"Base: {base}; model: {MODEL} @ {ENDPOINT}; languages: {', '.join(LANGS)}")
-    total = sum(translate_doc(*t, a.dry_run) for t in tasks)
-    total += sync_labels(changed, base, new_langs, a.dry_run)
     if new_langs:
+        print(f"Bootstrapping: {', '.join(new_langs)}")
+
+    total = 0
+    try:
+        # phase 1 — non-primary edits flow back into the primary file first, so
+        # phase 2 hashes below are taken from the up-to-date primary
+        for t in reverse_tasks(touched, base):
+            if translate_doc(*t, a.dry_run):
+                total += 1
+
+        # phase 2 — everything the state says is stale, this push or older
+        pending = stale_pairs(touched, state)
+        if len(pending) > MAX_TASKS:
+            print(f"{len(pending)} stale pairs — doing {MAX_TASKS} now, "
+                  f"{len(pending) - MAX_TASKS} left for the next run")
+            pending = pending[:MAX_TASKS]
+        for c, l, h in pending:
+            if translate_doc(c, tr_path(c, l), l, git_show(c, base) or "", a.dry_run):
+                total += 1
+                state["docs"][f"{c}|{l}"] = h
+
+        total += sync_labels(changed, base, new_langs, state, a.dry_run)
+    except ModelUnavailable as e:
+        # keep everything already translated; the state file still marks the
+        # rest as stale, so the next push or the nightly run picks it up
+        print(f"::warning::Model unavailable ({e}) — {total} synced, the rest stays queued")
+    finally:
         total += refresh_langbars(a.dry_run)
+        save_state(state, a.dry_run)
+
     print(f"Synced: {total}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

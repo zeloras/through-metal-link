@@ -1,14 +1,21 @@
 cff-version: 1.2.0
-message: "Цитируя этот проект (и укрепляя его статус prior art), используйте метаданные ниже."
+message: "If you cite this project (and thereby strengthen its standing as prior art), please use the metadata below."
 type: software
 title: "through-metal-link: open platform for ultrasonic power and data through solid metal walls"
 authors:
   - family-names: Gerasimov
     given-names: Vitalii
+repository-code: "https://github.com/zeloras/through-metal-link"
+url: "https://github.com/zeloras/through-metal-link"
 license:
   - Apache-2.0
   - CERN-OHL-W-2.0
   - CC-BY-4.0
+keywords:
+  - ultrasonic power transfer
+  - through-metal communication
+  - piezoelectric transducer
+  - open hardware
 abstract: >-
   Open-hardware platform delivering watts of power and kbit/s of data through
   blind 3-5 mm steel walls using piezoelectric transducer pairs, with no
