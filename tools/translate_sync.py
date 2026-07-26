@@ -66,6 +66,7 @@ MAX_TOKENS = 8192
 MAX_CHARS = 40_000
 MAX_TASKS = 80
 MIN_LENGTH_RATIO = 0.55  # a translation this much shorter than its source lost content
+BOT_MARKER = "[bot]"     # matches github-actions[bot] in both %an and %ae
 
 GLOSSARY = (
     "ланжевен = Langevin transducer; свип-карта = sweep map; АЧХ = frequency response; "
@@ -247,9 +248,11 @@ def fix_asset_links(text: str, canon: str, lang: str, src_text: str | None = Non
          the file name itself, which no path arithmetic can undo.
     Whenever a canonical file is picked, its mirror twin wins if it exists, so a
     German reader is not bounced into the English tree.
+
+    This runs for the primary language too. A doc translated back into the
+    primary arrives carrying the mirror's `../../` prefixes, and the primary
+    tree used to have no repair pass at all to notice.
     """
-    if lang == PRIMARY:
-        return text
     here = Path(tr_path(canon, lang)).parent
     canon_dir = Path(canon).parent
 
@@ -321,13 +324,32 @@ def git_show(path: str, base: str) -> str | None:
 
 
 def changed_files(base: str) -> list[str]:
+    """Files touched by HUMAN commits in base..HEAD.
+
+    The bot's own commits must never read as human intent. A sync commit that
+    updated only translations/pt/README.md looks exactly like "a human edited
+    just the Portuguese file", so it gets propagated back into the English
+    primary — carrying the mirror's ../../ link prefixes with it. That is how
+    README.md acquired 39 broken links on the first scheduled run: for a
+    schedule there is no push range, HEAD~1 is simply the previous sync commit.
+    """
     try:
-        out = sh("git", "diff", "--name-only", "--diff-filter=ACMR", f"{base}..HEAD")
+        revs = sh("git", "rev-list", f"{base}..HEAD").split()
     except GitError as e:
-        print(f"::warning::cannot diff against {base} ({e}) — "
+        print(f"::warning::cannot walk {base}..HEAD ({e}) — "
               "falling back to the sync state alone")
         return []
-    return [l for l in out.splitlines() if l.strip()]
+    files: set[str] = set()
+    for r in revs:
+        if BOT_MARKER in sh("git", "log", "-1", "--format=%an%ae", r):
+            continue
+        try:
+            # first parent, so a merge commit reports what it brought in
+            out = sh("git", "diff", "--name-only", "--diff-filter=ACMR", f"{r}^", r)
+        except GitError:
+            continue  # root commit — nothing to compare against
+        files.update(l.strip() for l in out.splitlines() if l.strip())
+    return sorted(files)
 
 
 # ---------- state ----------
