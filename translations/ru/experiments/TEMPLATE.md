@@ -1,6 +1,6 @@
 # Опыт NNN: <название>
 
-> [English (primary)](../../../experiments/TEMPLATE.md) · Русский · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md)
+> [English (primary)](../../../experiments/TEMPLATE.md) · Русский · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md) · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md)
 
 - Дата:
 - Цель (один вопрос, на который отвечает опыт):

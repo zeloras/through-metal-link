@@ -1,6 +1,6 @@
 # Experimento 001: Mapa de Varredura do Canal, Aço 3 mm (PLANEJADO)
 
-> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · Português
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · Português · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md)
 
 - **Etapa:** 1 (somente mapa de frequência — nenhum alvo de watt aqui; potência é [002](../../../../experiments/002-watts-3mm-steel/README.md)).
 - **Objetivo:** encontrar a ressonância de um par de transdutores Langevin através de uma placa de 3 mm; obter a primeira resposta de frequência do canal.

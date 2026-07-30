@@ -1,6 +1,6 @@
 # Empfänger-Entdeckungs- und Autoabstimmungsprotokoll (Skizze; Implementierung in den Stufen 2–4)
 
-> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · Deutsch · [Português](../../pt/docs/03-discovery-protocol.md)
+> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · Deutsch · [Português](../../pt/docs/03-discovery-protocol.md) · [中文](03-discovery-protocol.md) · [日本語](03-discovery-protocol.md)
 
 Das Ziel: Das Gerät stellt selbstständig fest, ob sich ein Empfänger hinter der Wand befindet, wählt die Frequenz und Leistung selbst aus und verbraucht nicht unnötig Energie, wenn jemand "vergessen hat, den Empfänger einzuschweißen".
 

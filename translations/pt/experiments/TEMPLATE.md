@@ -1,6 +1,6 @@
 # Experimento NNN: <título>
 
-> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · Português
+> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · Português · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md)
 
 - Data:
 - Objetivo (a uma pergunta que este experimento responde):

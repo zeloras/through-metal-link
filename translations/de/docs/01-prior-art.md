@@ -1,5 +1,5 @@
 # Vorhandene Erfindungen: was wir nutzen
-> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · Deutsch · [Português](../../pt/docs/01-prior-art.md)
+> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · Deutsch · [Português](../../pt/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · [日本語](../../ja/docs/01-prior-art.md)
 
 ## Die Regel
 Jede technische Entscheidung in diesem Repository muss auf eine Quelle aus der "freien" Liste (abgelaufene Patente, Aufsätze) zurückverfolgbar sein. Lebende Patente sind schreibgeschützt – sie dienen als Informationsquelle für die Probleme, ihre Ansprüche dürfen jedoch nicht kopiert werden (das ist für die Kommerzialisierung in den USA wichtig; siehe die Patentkarte im Projekt).

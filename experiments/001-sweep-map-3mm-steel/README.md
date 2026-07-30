@@ -1,6 +1,6 @@
 # Experiment 001: Channel Sweep Map, 3 mm Steel (PLANNED)
 
-> English (primary) · [Русский](../../translations/ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../translations/de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../translations/pt/experiments/001-sweep-map-3mm-steel/README.md)
+> English (primary) · [Русский](../../translations/ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../translations/de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../translations/pt/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../translations/zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../translations/ja/experiments/001-sweep-map-3mm-steel/README.md)
 
 - **Stage:** 1 (frequency map only — no watt target here; power is [002](../002-watts-3mm-steel/README.md)).
 - **Goal:** find the resonance of a Langevin transducer pair through a 3 mm plate; get the first frequency response of the channel.

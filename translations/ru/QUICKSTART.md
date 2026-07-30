@@ -1,6 +1,6 @@
 # QUICKSTART: с абсолютного нуля до стенда этапа 1–2
 
-> [English (primary)](../../QUICKSTART.md) · Русский · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md)
+> [English (primary)](../../QUICKSTART.md) · Русский · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · [日本語](QUICKSTART.md)
 
 Сценарий: нет ничего, кроме стола и денег. Всё ниже — до рабочего стенда «свип-карта + первые ватты через сталь». Цены ориентировочные, USD.
 

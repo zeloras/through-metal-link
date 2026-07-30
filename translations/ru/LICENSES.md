@@ -1,6 +1,6 @@
 # Лицензирование и патентная защита
 
-> [English (primary)](../../LICENSES.md) · Русский · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md)
+> [English (primary)](../../LICENSES.md) · Русский · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md) · [中文](LICENSES.md) · [日本語](../ja/LICENSES.md)
 
 Цель схемы: проект полностью открыт, любой может форкнуть и развивать (в том числе коммерчески), а риск патентных исков сведён к минимуму, который вообще достижим юридическими и процедурными средствами.
 

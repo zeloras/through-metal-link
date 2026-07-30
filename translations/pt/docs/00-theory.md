@@ -1,6 +1,6 @@
 # Teoria do canal (o mínimo necessário para trabalhar)
 
-> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · Português
+> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · Português · [中文](00-theory.md) · [日本語](../../ja/docs/00-theory.md)
 
 ## Princípio
 Um elemento piezoelétrico TX pressionado/colado contra a parede excita uma onda longitudinal nela; um piezoelétrico RX do outro lado a transforma de volta em eletricidade. A parede é um ressonador: nas ressonâncias de espessura (múltiplos de um meio-comprimento de onda) a transmissão está no seu máximo.

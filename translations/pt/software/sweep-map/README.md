@@ -1,6 +1,6 @@
 # sweep-map
 
-> [English (primary)](../../../../software/sweep-map/README.md) · [Русский](../../../ru/software/sweep-map/README.md) · [Deutsch](../../../de/software/sweep-map/README.md) · Português
+> [English (primary)](../../../../software/sweep-map/README.md) · [Русский](../../../ru/software/sweep-map/README.md) · [Deutsch](../../../de/software/sweep-map/README.md) · Português · [中文](../../../zh/software/sweep-map/README.md) · [日本語](../../../ja/software/sweep-map/README.md)
 
 Mapa de varredura da resposta de frequência do canal. Veja o cabeçalho do sweep_map.py para o hardware, fios e como executá-lo.
 

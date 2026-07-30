@@ -1,6 +1,6 @@
 # Принципиальные схемы стенда
 
-> [English (primary)](../../../../hardware/schematics/README.md) · Русский · [Deutsch](../../../de/hardware/schematics/README.md) · [Português](../../../pt/hardware/schematics/README.md)
+> [English (primary)](../../../../hardware/schematics/README.md) · Русский · [Deutsch](../../../de/hardware/schematics/README.md) · [Português](../../../pt/hardware/schematics/README.md) · [中文](../../../zh/hardware/schematics/README.md) · [日本語](../../../ja/hardware/schematics/README.md)
 
 Схемы генерируются кодом — [render_schematics.py](../../../../hardware/schematics/render_schematics.py) и есть исходник дизайна (schemdraw); правки — в скрипт, потом перегенерация:
 

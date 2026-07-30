@@ -1,6 +1,6 @@
 # Test-Rig-Schematics
 
-> [English (primary)](../../../../hardware/schematics/README.md) · [Русский](../../../ru/hardware/schematics/README.md) · Deutsch · [Português](../../../pt/hardware/schematics/README.md)
+> [English (primary)](../../../../hardware/schematics/README.md) · [Русский](../../../ru/hardware/schematics/README.md) · Deutsch · [Português](../../../pt/hardware/schematics/README.md) · [中文](../../../zh/hardware/schematics/README.md) · [日本語](../../../ja/hardware/schematics/README.md)
 
 Die Schematics werden aus Code generiert – [render_schematics.py](../../../../hardware/schematics/render_schematics.py) dient als Design-Quelle (schemdraw); um Änderungen vorzunehmen, bearbeiten Sie das Skript und regenerieren Sie es dann:
 

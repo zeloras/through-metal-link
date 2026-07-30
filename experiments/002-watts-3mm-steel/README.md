@@ -1,6 +1,6 @@
 # Experiment 002: First Watts Through 3 mm Steel (PLANNED)
 
-> English (primary) · [Русский](../../translations/ru/experiments/002-watts-3mm-steel/README.md) · [Deutsch](../../translations/de/experiments/002-watts-3mm-steel/README.md) · [Português](../../translations/pt/experiments/002-watts-3mm-steel/README.md)
+> English (primary) · [Русский](../../translations/ru/experiments/002-watts-3mm-steel/README.md) · [Deutsch](../../translations/de/experiments/002-watts-3mm-steel/README.md) · [Português](../../translations/pt/experiments/002-watts-3mm-steel/README.md) · [中文](../../translations/zh/experiments/002-watts-3mm-steel/README.md) · [日本語](../../translations/ja/experiments/002-watts-3mm-steel/README.md)
 
 - **Stage:** 2 (power into a known load at the resonance found in [001](../001-sweep-map-3mm-steel/README.md)).
 - **Goal:** measure real DC power delivered through 3 mm steel with the half-bridge driver and matching transformer.

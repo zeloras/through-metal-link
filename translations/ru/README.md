@@ -1,6 +1,6 @@
 # through-metal-link
 
-> [English (primary)](../../README.md) · Русский · [Deutsch](../de/README.md) · [Português](../pt/README.md)
+> [English (primary)](../../README.md) · Русский · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [中文](../zh/README.md) · [日本語](../ja/README.md)
 
 Открытая платформа передачи энергии и данных ультразвуком через глухие металлические стенки — «сквозь сталь без единого отверстия», в гаражных условиях.
 

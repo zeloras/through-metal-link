@@ -1,6 +1,6 @@
 # Receptor
 
-> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · Português
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · Português · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md)
 
 Esquemáticos: [etapa 1 — sch2](../schematics/sch2-receiver-stage1.png) · [etapa 4 — sch4](../schematics/sch4-receiver-node.png) (gerado por [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

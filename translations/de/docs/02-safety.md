@@ -1,6 +1,6 @@
 # Sicherheit
 
-> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · Deutsch · [Português](../../pt/docs/02-safety.md)
+> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · Deutsch · [Português](../../pt/docs/02-safety.md) · [中文](02-safety.md) · [日本語](../../ja/docs/02-safety.md)
 
 1. **Hohe Spannung am Piezo.** Bei Resonanz liegen an den Transducer-Anschlüssen Zehner bis Hunderte von Volt, sobald der Stage-2-Treiber online ist. Der TVS/Zener auf der Empfangsseite wird VOR dem ersten Betrieb installiert. Berühren Sie die Anschlüssen nicht, während es läuft.
 2. **Netzspannung.** Ultrschallreiniger-Treiber sind galvanisch mit der Netzspannung verbunden. Arbeiten Sie nur über eine Labornetzgerät/Isolationstransformator. Der Halbbrückentreiber dieses Projekts ist dafür ausgelegt, von einem strombegrenzten Labornetzgerät und nicht von einem netzgebundenen Reiniger-Board betrieben zu werden.

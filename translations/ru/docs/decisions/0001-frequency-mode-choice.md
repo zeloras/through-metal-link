@@ -1,6 +1,6 @@
 # ADR-0001: Выбор частотного режима для этапа 1
 
-> [English (primary)](../../../../docs/decisions/0001-frequency-mode-choice.md) · Русский · [Deutsch](../../../de/docs/decisions/0001-frequency-mode-choice.md) · [Português](../../../pt/docs/decisions/0001-frequency-mode-choice.md)
+> [English (primary)](../../../../docs/decisions/0001-frequency-mode-choice.md) · Русский · [Deutsch](../../../de/docs/decisions/0001-frequency-mode-choice.md) · [Português](../../../pt/docs/decisions/0001-frequency-mode-choice.md) · [中文](0001-frequency-mode-choice.md) · [日本語](../../../ja/docs/decisions/0001-frequency-mode-choice.md)
 
 - Статус: ПРИНЯТО (пересмотр после этапа 2)
 - Дата: 2026-07-24

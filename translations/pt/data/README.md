@@ -1,6 +1,6 @@
 # dados/
 
-> [English (primary)](../../../data/README.md) · [Русский](../../ru/data/README.md) · [Deutsch](../../de/data/README.md) · Português
+> [English (primary)](../../../data/README.md) · [Русский](../../ru/data/README.md) · [Deutsch](../../de/data/README.md) · Português · [中文](../../zh/data/README.md) · [日本語](../../ja/data/README.md)
 
 Registros de medição brutos: saída CSV e PNG do `software/sweep-map/sweep_map.py`.
 

@@ -1,6 +1,6 @@
 # Canais híbridos: barreira → física → números
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · Português
+> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · Português · [中文](04-hybrid-channels.md) · [日本語](04-hybrid-channels.md)
 
 O princípio (um corolário do "paradoxo de penetração"): uma onda passa por uma barreira exatamente na medida em que interage fracamente com ela — é por isso que não existe um canal universal. A plataforma não procura um canal único; para cada barreira, ela escolhe a física que a barreira é transparente e o receptor é ressonantemente "ganancioso" por.
 

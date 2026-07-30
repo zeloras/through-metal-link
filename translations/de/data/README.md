@@ -1,6 +1,6 @@
 # data/
  
-> [English (primary)](../../../data/README.md) · [Русский](../../ru/data/README.md) · Deutsch · [Português](../../pt/data/README.md)
+> [English (primary)](../../../data/README.md) · [Русский](../../ru/data/README.md) · Deutsch · [Português](../../pt/data/README.md) · [中文](../../zh/data/README.md) · [日本語](../../ja/data/README.md)
 
 Rohmessungsprotokolle: CSV- und PNG-Ausgaben von `software/sweep-map/sweep_map.py`.
 

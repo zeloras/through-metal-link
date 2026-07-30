@@ -1,6 +1,6 @@
 # Driver (stage 2): IR2110 half-bridge
 
-> [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · [Deutsch](../../../de/hardware/driver/README.md) · Português
+> [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · [Deutsch](../../../de/hardware/driver/README.md) · Português · [中文](../../../zh/hardware/driver/README.md) · [日本語](../../../ja/hardware/driver/README.md)
 
 **Esquemático:** [../schematics/sch1-driver-halfbridge.png](../schematics/sch1-driver-halfbridge.png) (gerado por [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

@@ -1,6 +1,6 @@
 # Protocolo de descoberta e auto-ajuste do receptor (esboço; implementação em estágios 2–4)
 
-> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · [Deutsch](../../de/docs/03-discovery-protocol.md) · Português
+> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · [Deutsch](../../de/docs/03-discovery-protocol.md) · Português · [中文](03-discovery-protocol.md) · [日本語](03-discovery-protocol.md)
 
 O objetivo: o dispositivo descobre sozinho se há um receptor atrás da parede, escolhe a frequência e a potência sozinho e não aquece a parede em vão se alguém "esqueceu de soldar o receptor".
 

@@ -1,6 +1,6 @@
 # Treiber (Stufe 2): IR2110 Halbbrücke
 
-> [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · Deutsch · [Português](../../../pt/hardware/driver/README.md)
+> [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · Deutsch · [Português](../../../pt/hardware/driver/README.md) · [中文](../../../zh/hardware/driver/README.md) · [日本語](../../../ja/hardware/driver/README.md)
 
 **Schaltplan:** [../schematics/sch1-driver-halfbridge.png](../schematics/sch1-driver-halfbridge.png) (generiert von [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

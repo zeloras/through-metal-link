@@ -1,6 +1,6 @@
 # QUICKSTART: from absolute zero to the stage 1–2 test rig
 
-> English (primary) · [Русский](translations/ru/QUICKSTART.md) · [Deutsch](translations/de/QUICKSTART.md) · [Português](translations/pt/QUICKSTART.md)
+> English (primary) · [Русский](translations/ru/QUICKSTART.md) · [Deutsch](translations/de/QUICKSTART.md) · [Português](translations/pt/QUICKSTART.md) · [中文](translations/zh/QUICKSTART.md) · [日本語](QUICKSTART.md)
 
 Scenario: you have nothing but a desk and some money. Everything below gets you to a working rig — "sweep map + first watts through steel". Prices are ballpark, USD.
 

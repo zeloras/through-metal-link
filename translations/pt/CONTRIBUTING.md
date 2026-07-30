@@ -1,6 +1,6 @@
 # Como Contribuir
 
-> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · Português
+> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · Português · [中文](CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md)
 
 Obrigado por querer avançar o canal aberto através do aço. As três regras abaixo não são burocracia — elas são a armadura de patente do projeto (veja [LICENSES.md](../../LICENSES.md) para saber por quê).
 

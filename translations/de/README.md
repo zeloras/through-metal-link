@@ -1,6 +1,6 @@
 # through-metal-link
 
-> [English (primary)](../../README.md) · [Русский](../ru/README.md) · Deutsch · [Português](../pt/README.md)
+> [English (primary)](../../README.md) · [Русский](../ru/README.md) · Deutsch · [Português](../pt/README.md) · [中文](../zh/README.md) · [日本語](../ja/README.md)
 
 Eine offene Plattform für die Übertragung von ultrasonischer Energie und Daten durch feste Metallwände — "durch Stahl ohne ein einziges Loch", erstellt mit garage-gradigen Mitteln.
 

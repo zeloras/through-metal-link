@@ -1,6 +1,6 @@
 # Experiment 001: Kanal-Sweep-Karte, 3 mm Stahl (GEPLANT)
 
-> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · Deutsch · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md)
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · Deutsch · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md)
 
 - **Stufe:** 1 (nur Frequenzkarte — kein Watt-Ziel hier; Leistung ist [002](../../../../experiments/002-watts-3mm-steel/README.md)).
 - **Ziel:** Resonanz eines Langevin-Wandler-Paares durch eine 3 mm Platte finden; erste Frequenzantwort des Kanals erhalten.

@@ -1,6 +1,6 @@
 # Esquemas do teste
 
-> [English (primary)](../../../../hardware/schematics/README.md) · [Русский](../../../ru/hardware/schematics/README.md) · [Deutsch](../../../de/hardware/schematics/README.md) · Português
+> [English (primary)](../../../../hardware/schematics/README.md) · [Русский](../../../ru/hardware/schematics/README.md) · [Deutsch](../../../de/hardware/schematics/README.md) · Português · [中文](../../../zh/hardware/schematics/README.md) · [日本語](../../../ja/hardware/schematics/README.md)
 
 Os esquemas são gerados a partir de código — [render_schematics.py](../../../../hardware/schematics/render_schematics.py) serve como fonte de design (schemdraw); para fazer alterações, edite o script e, em seguida, regenere:
 

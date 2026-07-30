@@ -1,6 +1,6 @@
 # Эксперимент 002: Первые Ватты Через 3 мм Сталь (ПЛАНИРУЕТСЯ)
 
-> [English (primary)](../../../../experiments/002-watts-3mm-steel/README.md) · Русский · [Deutsch](../../../de/experiments/002-watts-3mm-steel/README.md) · [Português](../../../pt/experiments/002-watts-3mm-steel/README.md)
+> [English (primary)](../../../../experiments/002-watts-3mm-steel/README.md) · Русский · [Deutsch](../../../de/experiments/002-watts-3mm-steel/README.md) · [Português](../../../pt/experiments/002-watts-3mm-steel/README.md) · [中文](../../../zh/experiments/002-watts-3mm-steel/README.md) · [日本語](../../../ja/experiments/002-watts-3mm-steel/README.md)
 
 - **Стадия:** 2 (питание в известную нагрузку на резонансе, найденном в [001](../../../../experiments/001-sweep-map-3mm-steel/README.md)).
 - **Цель:** измерить реальную мощность постоянного тока, передаваемую через 3 мм сталь с помощью полумостового драйвера и согласующего трансформатора.
