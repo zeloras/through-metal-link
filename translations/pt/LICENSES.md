@@ -10,7 +10,7 @@ O objetivo deste esquema: o projeto é totalmente aberto, qualquer pessoa pode b
 |---|---|---|---|
 | `software/`, `firmware/` | Apache-2.0 | [LICENSES/Apache-2.0.txt](../../LICENSES/Apache-2.0.txt) | §3: todo contribuidor concede automaticamente uma licença de patente para sua contribuição; ingressar com uma ação de patente e você perde a **licença de patente** (retaliação; a licença de direitos autorais em §2 é irrevogável e sobrevive à ação) |
 | `hardware/` | CERN-OHL-W v2 | [LICENSES/CERN-OHL-W-2.0.txt](../../LICENSES/CERN-OHL-W-2.0.txt) | §7.1: uma licença de patente (Fabricar / ter Fabricado / usar / vender / importar…) de cada licenciador — mas apenas para reivindicações necessariamente violadas pela Fonte Coberta dada; §7.2: uma ação de patente (incluindo uma tentativa de invalidar a patente de outra pessoa) termina **todos** os direitos sob a licença |
-| `docs/`, `experiments/` | CC-BY-4.0 | [LICENSES/CC-BY-4.0.txt](../../LICENSES/CC-BY-4.0.txt) | concede **nenhum** direito de patente (§2(b)(2)) — a lacuna é fechada pela concessão explícita de patente em [CONTRIBUTING.md](CONTRIBUTING.md) |
+| `docs/`, `experiments/` | CC-BY-4.0 | [LICENSES/CC-BY-4.0.txt](../../LICENSES/CC-BY-4.0.txt) | concede **nenhum** direito de patente (§2(b)(2)) — a lacuna é fechada pela concessão explícita de patente em [CONTRIBUTING.md](../../CONTRIBUTING.md) |
 | tudo o mais (raiz `README.md`, `QUICKSTART.md`, este arquivo, `data/`, etc.) | CC-BY-4.0 | — | fallback: nenhum arquivo no repositório é deixado "todos os direitos reservados" |
 
 Os arquivos de código levam cabeçalhos SPDX (Apache-2.0); o mapa de cobertura legível por máquina é [REUSE.toml](../../REUSE.toml). A linha de direitos autorais vive em [NOTICE](../../NOTICE); a raiz [LICENSE](../../LICENSE) é um ponteiro para este esquema.
@@ -42,6 +42,6 @@ Todo resultado publicado é uma prior art datada que bloqueia todas as solicita�
 
 ## Para contribuidores
 
-As regras vivem em [CONTRIBUTING.md](CONTRIBUTING.md): DCO sign-off, inbound=outbound, uma concessão explícita de patente em cada contribuição independentemente do diretório, rastreabilidade de decisões de design para prior art livre.
+As regras vivem em [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO sign-off, inbound=outbound, uma concessão explícita de patente em cada contribuição independentemente do diretório, rastreabilidade de decisões de design para prior art livre.
 
 Até que ele abra, o repositório permanece privado — publicar antes dos primeiros resultados reprodutíveis enfraqueceria tanto a posição científica quanto a de patente.

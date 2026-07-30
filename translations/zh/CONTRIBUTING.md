@@ -28,14 +28,14 @@ Signed-off-by: Firstname Lastname <email@example.com>
 
 ## 3. 专利卫生和实验协议
 
-- 每个技术决策必须追溯到一个免费的来源 —— 一个过期的专利或 [docs/01-prior-art.md](docs/01-prior-art.md) 中的一篇论文。直到这些权利要求过期之前，不接受对活权利的实现。
-- 实验结果 —— 仅通过 [experiments/TEMPLATE.md](experiments/TEMPLATE.md) 模板：一个有日期、可复制的协议正是构成了我们的先前艺术。
+- 每个技术决策必须追溯到一个免费的来源 —— 一个过期的专利或 [docs/01-prior-art.md](../../docs/01-prior-art.md) 中的一篇论文。直到这些权利要求过期之前，不接受对活权利的实现。
+- 实验结果 —— 仅通过 [experiments/TEMPLATE.md](../../experiments/TEMPLATE.md) 模板：一个有日期、可复制的协议正是构成了我们的先前艺术。
 - 体系结构决策通过 [docs/decisions/](../../docs/decisions) 中的 ADR 进行。
 - 代码注释、文档字符串、标识符和提交消息仅为英语。文档是多语言的（见下文）；用户可见的图形标签位于 `labels.json` 中。
 
 ## 4. 多语言文档：编辑一种语言，CI 同步其余语言
 
-英语是主要语言，拥有规范路径。每种其他语言都是 [translations/](..) 下具有相同文件名的镜像树 —— 包括 markdown、BOM CSV 和生成的图形；图形文本由 `labels.json` 驱动。你不需要手动维护镜像：
+英语是主要语言，拥有规范路径。每种其他语言都是 [translations/](../) 下具有相同文件名的镜像树 —— 包括 markdown、BOM CSV 和生成的图形；图形文本由 `labels.json` 驱动。你不需要手动维护镜像：
 
 - 编辑您感到舒适的语言。在推送时，[翻译同步](../../.github/workflows/translate.yml) 工作流使用 GitHub 模型（`meta/llama-3.3-70b-instruct`，无需 API 密钥）翻译对应语言，更新 `labels.json` 时重新生成图形，并使用 `[translate-sync]` 标记将结果提交回去。
 - 仍然需要工作的内容在 `translations/.sync-state.json` 中跟踪，该文件记录了每个翻译所使用的主要内容。因此，中断的运行不会丢失任何内容：未完成的对将保持为过时状态，并将在下一次推送或每晚运行时被拾取。请勿手动编辑该文件。

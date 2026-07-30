@@ -68,7 +68,7 @@ Dividido por estágio — não marque o estágio 1 como concluído com números 
 1. Varredura 25–45 kHz em duas execuções consecutivas: o centro do pico se reproduz dentro de <200 Hz.
 2. Bônus opcional: graxa+clampa vs pressão seca no mesmo par (amplitudes relativas, não watts absolutos).
 
-**Estágio 2 — primeiros watts** ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)):
+**Estágio 2 — primeiros watts** ([experiments/002](experiments/002-watts-3mm-steel/README.md)):
 1. Meio-ponte + transformador de acoplamento online; bring-up da fonte de alimentação com limite de corrente de acordo com [docs/02-safety.md](docs/02-safety.md) e [hardware/driver/](hardware/driver/README.md).
 2. Na ressonância do estágio 1, ≥0,5 W em uma carga resistiva conhecida através de 3 mm de aço (medida V e I no lado DC após a ponte do receptor).
 3. O LED atrás da placa é iluminado pela potência colhida; foto + CSV em experiments/002.
