@@ -65,7 +65,13 @@ TIMEOUT_S = 300
 MAX_TOKENS = 8192
 MAX_CHARS = 40_000
 MAX_TASKS = 80
-MIN_LENGTH_RATIO = 0.55  # a translation this much shorter than its source lost content
+# A translation much shorter than its source has lost content — but the floor
+# is per-script: CJK packs the same content into roughly half the Latin
+# character count (the zh/ja bootstrap measured 45-51% on good translations),
+# so the generic floor would reject every CJK document forever.
+MIN_LENGTH_RATIO = 0.55
+MIN_LENGTH_RATIO_CJK = 0.25
+CJK_LANGS = {"zh", "ja", "ko"}
 BOT_MARKER = "[bot]"     # matches github-actions[bot] in both %an and %ae
 
 GLOSSARY = (
@@ -380,7 +386,7 @@ def seed_state() -> dict:
             twin = ROOT / tr_path(c, l)
             if not twin.exists():
                 continue
-            bad = implausible(text, twin.read_text(encoding="utf-8"), c)
+            bad = implausible(text, twin.read_text(encoding="utf-8"), c, l)
             if bad:
                 print(f"  ! {tr_path(c, l)}: {bad} — queued for re-translation")
                 continue
@@ -511,12 +517,13 @@ def doc_shape(text: str) -> tuple[int, int]:
             len(re.findall(r"(?m)^\|", text)))
 
 
-def implausible(src_text: str, out: str, name: str) -> str | None:
+def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
-    if len(out) < MIN_LENGTH_RATIO * len(src_text):
+    ratio = MIN_LENGTH_RATIO_CJK if lang in CJK_LANGS else MIN_LENGTH_RATIO
+    if len(out) < ratio * len(src_text):
         return (f"{len(out)} chars against {len(src_text)} in the source "
-                f"(<{MIN_LENGTH_RATIO:.0%}) — content is missing")
+                f"(<{ratio:.0%}) — content is missing")
     if name.endswith(".md"):
         want, got = doc_shape(src_text), doc_shape(out)
         if want != got:
@@ -547,15 +554,19 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
     except BadReply as e:
         print(f"  ! {dst}: {e} — left stale, will be retried")
         return False
-    bad = implausible(text, out, dst)
+    bad = implausible(text, out, dst, dst_lang)
     if bad:
         print(f"  ! {dst}: {bad} — not written, will be retried")
         return False
     canon, _ = parse_doc(dst)
     if dst.endswith(".md"):
         primary_text = (ROOT / canon).read_text(encoding="utf-8") if (ROOT / canon).exists() else None
-        out = apply_langbar(out, canon, dst_lang)
+        # repair first, bar last: the deterministic bar must never go through
+        # the repair ladder — a bar link into a not-yet-bootstrapped mirror is
+        # "broken", and the ladder repoints it at whatever exists (usually the
+        # document itself)
         out = fix_asset_links(out, canon, dst_lang, primary_text)
+        out = apply_langbar(out, canon, dst_lang)
     dst_p.parent.mkdir(parents=True, exist_ok=True)
     dst_p.write_text(out.rstrip() + "\n", encoding="utf-8")
     return True
@@ -735,7 +746,8 @@ def refresh_langbars(dry: bool) -> int:
             if not p.exists():
                 continue
             text = p.read_text(encoding="utf-8")
-            new = fix_asset_links(apply_langbar(text, c, l), c, l, primary_text)
+            # same order as translate_doc: the bar goes on after link repair
+            new = apply_langbar(fix_asset_links(text, c, l, primary_text), c, l)
             if new != text:
                 n += 1
                 print(f"  ~ {tr_path(c, l)}")

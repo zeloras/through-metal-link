@@ -14,7 +14,10 @@ produced or can produce, and that nothing else in CI would notice:
             The figure renderers call str.format() on these values, so a
             renamed placeholder is a crash, not a typo.
   mirror  — every canonical doc has a twin in every language, and every
-            markdown file carries a language bar under its H1.
+            markdown file carries a language bar under its H1. A twin the
+            sync has never recorded in translations/.sync-state.json is a
+            bootstrap still in flight (a freshly declared language), not
+            breakage — the nightly sync drains it.
 
 Usage: python tools/check_repo.py [--only links|labels|mirror]
 Exit code 1 if anything failed.
@@ -66,12 +69,32 @@ def canonical_docs() -> list[str]:
     return sorted(docs)
 
 
+def langbar_lineno(lines: list[str]) -> int | None:
+    """1-based line number of the language bar under the H1, if present."""
+    for i, l in enumerate(lines):
+        if l.startswith("# "):
+            j = i + 1
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            if j < len(lines) and lines[j].startswith("> ") and "·" in lines[j]:
+                return j + 1
+            return None
+    return None
+
+
 def check_links() -> list[str]:
     bad = []
     for md in markdown_files():
         rel_md = md.relative_to(ROOT).as_posix()
         text = md.read_text(encoding="utf-8")
-        for i, line in enumerate(text.splitlines(), 1):
+        lines = text.splitlines()
+        # the bar is machine-generated every sync and may legitimately point
+        # at a mirror the bootstrap has not written yet; mirror completeness
+        # (with its pending-bootstrap tolerance) governs those targets
+        bar = langbar_lineno(lines)
+        for i, line in enumerate(lines, 1):
+            if i == bar:
+                continue
             for m in LINK_RE.finditer(line):
                 dest = split_dest(m.group(1) if m.group(1) is not None else m.group(2))
                 if not dest or dest.startswith(("http", "mailto:", "/")):
@@ -115,13 +138,26 @@ def check_labels() -> list[str]:
     return bad
 
 
+def synced_pairs() -> set[str]:
+    """'<canon>|<lang>' pairs the sync bot has actually written at least once."""
+    try:
+        state = json.loads(
+            (ROOT / TR_DIR / ".sync-state.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return set()
+    return set(state.get("docs", {}))
+
+
 def check_mirror() -> list[str]:
     bad = []
+    synced = synced_pairs()
     for c in canonical_docs():
         for lang in LANGS:
             if lang == PRIMARY:
                 continue
             if not (ROOT / TR_DIR / lang / c).exists():
+                if f"{c}|{lang}" not in synced:
+                    continue  # bootstrap in flight — the nightly sync drains it
                 bad.append(f"{TR_DIR}/{lang}/{c}: missing mirror of {c}")
     for md in markdown_files():
         rel = md.relative_to(ROOT).as_posix()
