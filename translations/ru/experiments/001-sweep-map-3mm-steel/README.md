@@ -2,7 +2,7 @@
 
 > [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · Русский · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md)
 
-- **Этап:** 1 (только карта частот — нет целевого значения мощности здесь; мощность в [002](../../../../experiments/002-watts-3mm-steel/README.md)).
+- **Этап:** 1 (только карта частот — нет целевого значения мощности здесь; мощность в [002](../002-watts-3mm-steel/README.md)).
 - **Цель:** найти резонанс пары ланжевенов через пластину 3 мм; получить первую АЧХ канала.
 - **Гипотеза:** пик в районе 38–42 кГц (резонанс ланжевенов), ширина пика единицы кГц под контактом смазка+струбцина.
 - **Привод:** подключение этапа 1 — сигнал AD9833 (~0,6 Впп) на TX, **без** полумоста ([sch3](../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../hardware/schematics/sch2-receiver-stage1.png)).

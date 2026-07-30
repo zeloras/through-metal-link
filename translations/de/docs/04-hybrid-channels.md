@@ -11,7 +11,7 @@ Das Prinzip (eine Folge des "Penetrationsparadoxons"): Eine Welle durchdringt ei
 | Stahl/Aluminum 1–60 mm, Kontakt möglich | Piezo-Akustik (unser primärer) | Watt; kbit/s (bis Mbit/s im MHz-Modus) | benötigt akustischen Kontakt (Schmiermittel/Kupplungsepoxyd) |
 | Metall: schmutzig, lackiert, heiß, Kontakt unerwünscht | EMAT (Magnetismus → Schall in der Wand) | mW; kbit/s; Spalt bis zu ~3 mm | leitende Wände nur; Daten, nicht Leistung |
 | Ferromagnetische Wand ohne Piezo | Magnetostriction (eine Spule treibt den Stahl selbst an) | Krümel; bit/s–kbit/s | experimenteller Zweig, billig zu testen |
-| Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetismus (Zehner–Hunderter Hz) | µW–mW; bit/s | Hauteffekt: in Stahl δ≈0.6 mm @1 kHz — Frequenz nach unten drücken |
+| Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetismus (Zehner–Hunderter Hz) | µW–mW; bit/s | Hauteffekt: in Stahl δ≈0,6 mm @1 kHz — Frequenz nach unten drücken |
 | Nicht-Metall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfacher RF kommt oft auch durch — prüfen Sie das zuerst |
 | Wand mit einer Gummischicht, Composite | Ehrlich: fast ein totes Ende | — | der Absorber frisst alles; die Umgehung ist ein Punkt ohne Beschichtung |
 | Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, abgeschwächt | Leistung − ein paar dB; kürzeres Klingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — erneutes Abtasten gegen den vollen Behälter; halte kontinuierliche Intensität ≲1 W/cm², um unter Kavitation zu bleiben ([Theorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |

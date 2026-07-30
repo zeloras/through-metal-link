@@ -2,7 +2,7 @@
 
 > [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · Deutsch · [Português](../pt/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · [日本語](../ja/QUICKSTART.md)
 
-Szenario: Sie haben nichts als einen Schreibtisch und etwas Geld. Alles unten bringt Sie zu einem funktionierenden Rigg — "Sweep-Map + erste Watt durch Stahl". Preise sind Schätzungen, USD.
+Szenario: Sie haben nichts als einen Schreibtisch und etwas Geld. Alles unten bringt Sie zu einem funktionierenden Rigg — "Sweep-Karte + erste Watt durch Stahl". Preise sind Schätzungen, USD.
 
 ## Korb 1 — Werkzeuge (eine Basis für Jahre, ~120 $)
 
@@ -64,11 +64,11 @@ Diese PNGs sind **Modellerwartungen**, nicht Labormessungen. Kontaktverhältniss
 
 Teilen Sie es nach Stufen auf — markieren Sie Stufe 1 nicht als abgeschlossen, wenn Sie Stufe-2-Zahlen haben.
 
-**Stufe 1 — Sweep-Map** ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)):
+**Stufe 1 — Sweep-Karte** ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)):
 1. Sweep 25–45 kHz in zwei aufeinanderfolgenden Läufen: der Peak-Zentrum reproduziert sich innerhalb von <200 Hz.
 2. Optionaler Bonus: Schmiermittel+Spanner vs. trockener Pressfit auf demselben Paar (relative Amplituden, nicht absolute Watt).
 
-**Stufe 2 — erste Watt** ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)):
+**Stufe 2 — erste Watt** ([experiments/002](experiments/002-watts-3mm-steel/README.md)):
 1. Halbbrücke + Matching-Transformator online; Netzgerät-Strombegrenzung bei der Inbetriebnahme gemäß [docs/02-safety.md](docs/02-safety.md) und [hardware/driver/](hardware/driver/README.md).
 2. Bei der Stufe-1-Resonanz ≥0,5 W in eine bekannte resistive Last durch 3 mm Stahl (messen Sie V und I auf der DC-Seite nach der RX-Brücke).
 3. Die LED hinter der Platte leuchtet von der geharvesteten Leistung; Foto + CSV in experiments/002.

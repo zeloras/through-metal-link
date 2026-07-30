@@ -8,11 +8,11 @@
 - **前提条件:**
   - 実験 001 を閉じる（再現可能なピーク、周波数を記録）。
   - RX チェーンに TVS を装着する ([docs/02-safety.md](../../docs/02-safety.md))。
-  - ドライバーのブリングアップシーケンスに従う ([hardware/driver/README.md](../../../../hardware/driver/README.md))。
+  - ドライバーのブリングアップシーケンスに従う ([hardware/driver/README.md](../../hardware/driver/README.md))。
 - **設定 (最小):**
-  - TX: Pi → AD9833 平方 → デッドタイム シェイパー → IR2110 ハーフブリッジ → マッチング トランスフォーマー → プレートにクランプされたランジュバン ([sch1](../../../../hardware/schematics/sch1-driver-halfbridge.png))。
+  - TX: Pi → AD9833 平方 → デッドタイム シェイパー → IR2110 ハーフブリッジ → マッチング トランスフォーマー → プレートにクランプされたランジュバン ([sch1](../../hardware/schematics/sch1-driver-halfbridge.png))。
   - ウォール: 3 mm 鋼板、接触方法を記録する (グリース+クランプ / エポキシ / その他)。
-  - RX: ランジュバン → ショットキー ブリッジ →既知の R_load (電力抵抗) および/または LED; ブリッジ後の V_dc と I_dc を測定 ([sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) トポロジー、負荷を ADC のみではなく使用)。
+  - RX: ランジュバン → ショットキー ブリッジ →既知の R_load (電力抵抗) および/または LED; ブリッジ後の V_dc と I_dc を測定 ([sch2](../../hardware/schematics/sch2-receiver-stage1.png) トポロジー、負荷を ADC のみではなく使用)。
 - **手順 (アウトライン):**
   1. 電気的ブリングアップを 0.2 A PSU リミットで行うが、音響電力を主張しない。
   2. TX/RX をクランプし、駆動周波数を実験 001 のピークに設定する。

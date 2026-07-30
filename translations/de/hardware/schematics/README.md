@@ -15,4 +15,4 @@ uv run --with schemdraw --with matplotlib python render_schematics.py
 | [sch3-stage1-wiring](sch3-stage1-wiring.png) | Pinout: Pi ↔ AD9833 ↔ Piezo-Paar ↔ ADS1115 | 1 |
 | [sch4-receiver-node](sch4-receiver-node.png) | Knoten: RX → GY-LTC3588 → Supercapacitor → ESP32 (+ Lastmodulation) | 4 |
 
-Dies sind **Breadboard-Prototyp**-Schematics (Werte der Bauteile sind Ausgangspunkte, markiert mit `*`, wo sie am Oszilloskop eingestellt werden). Ein KiCad-Projekt mit dem PCB-Layout wird kommen, sobald der Prototyp in der Praxis verifiziert wurde – wie in [driver/README.md](../driver/README.md) versprochen.
+Diese sind **Breadboard-Prototyp**-Schematics (Werte der Bauteile sind Ausgangspunkte, markiert mit `*`, wo sie am Oszilloskop eingestellt werden). Ein KiCad-Projekt mit dem PCB-Layout wird kommen, sobald der Prototyp in der Praxis verifiziert wurde – wie in [driver/README.md](../driver/README.md) versprochen.

@@ -14,4 +14,4 @@ As Etapas 1–2 executam o modo A. Razões: mais barato ($10–30 cada), mais po
 ## Consequências
 Os dados na Etapa 3 serão lentos (kbit/s) — suficientes para um nó de sensor. O ADC ADS1115 (860 SPS) é adequado para o envelope a 40 kHz após o retificador, mas não para amostragem direta — a amostragem direta é adiada para o modo B (necessita de um ADC diferente).
 
-A Etapa 1 (varredura) usa apenas a drive DDS fraca; a Etapa 2 (watts) é um experimento e inicialização separados ([experiments/002](../../../../experiments/002-watts-3mm-steel/README.md)). As bandas de potência do simulador permanecem como alvos até que 002 seja medido.
+A Etapa 1 (varredura) usa apenas a drive DDS fraca; a Etapa 2 (watts) é um experimento e inicialização separados ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)). As bandas de potência do simulador permanecem como alvos até que 002 seja medido.

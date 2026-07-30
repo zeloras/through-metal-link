@@ -8,7 +8,7 @@
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
-ドキュメントはマルチリンガルです。英語はプライマリ言語であり、カノニカルパスにあります。他の言語は、[translations/](..) の下に同一のファイル名でミラーリングされています。任意の言語を編集すると、CI が翻訳してコミットします (詳細は [CONTRIBUTING.md](CONTRIBUTING.md) を参照してください)。
+ドキュメントはマルチリンガルです。英語はプライマリ言語であり、カノニカルパスにあります。他の言語は、[translations/](..) の下に同一のファイル名でミラーリングされています。任意の言語を編集すると、CI が翻訳してコミットします (詳細は [CONTRIBUTING.md](../../CONTRIBUTING.md) を参照してください)。
 
 <p align="center"><img src="../../docs/img/sim0-rig-sketch.png" alt="ステージ 1 ラック: Pi → DDS → ハーフブリッジ → トランスフォーマー → ピエゾ TX | ステール | ピエゾ RX → ブリッジ → ADC → Pi" width="900"></p>
 
@@ -84,7 +84,7 @@ TX 側のピエゾ要素はウォールに押し付けられており、ロン�
 
 <img src="../../docs/img/sim4-power-budget.png" width="720">
 
-**後で (モード B)。** プレートは厚さ共鳴のコームで透明になります — 周波数を追跡する必要があります:
+**後で (モード B).** プレートは厚さ共鳴のコームで透明になります — 周波数を追跡する必要があります:
 
 <img src="../../docs/img/sim3-thickness-comb.png" width="720">
 
@@ -167,4 +167,4 @@ data/            生ログ (大きなファイルは Git に含まれず)
 
 ## ライセンスと特許
 
-コード — Apache-2.0、ハードウェア — CERN-OHL-W v2、ドキュメント — CC-BY-4.0; フルテキストは [LICENSES/](../../LICENSES) にあります。誰でもフォークしてビルドできます。商業的に含めます。特許保護は、ライセンスの付与と報復条項、および先行技術戦略から来ます。スキームと防御公開プロトコル: [LICENSES.md](LICENSES.md); 貢献ルール: [CONTRIBUTING.md](CONTRIBUTING.md)。
+コード — Apache-2.0、ハードウェア — CERN-OHL-W v2、ドキュメント — CC-BY-4.0; フルテキストは [LICENSES/](../../LICENSES) にあります。誰でもフォークしてビルドできます。商業的に含めます。特許保護は、ライセンスの付与と報復条項、および先行技術戦略から来ます。スキームと防御公開プロトコル: [LICENSES.md](../../LICENSES.md); 貢献ルール: [CONTRIBUTING.md](../../CONTRIBUTING.md)。

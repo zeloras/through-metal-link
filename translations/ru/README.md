@@ -21,7 +21,7 @@
 | Этап | Результат | Критерий успеха | Ожидание |
 |---|---|---|---|
 | 1. Свип-карта | АЧХ канала «ланжевен–3 мм сталь–ланжевен» | найден резонанс пары, график в [experiments/001](experiments/001-sweep-map-3mm-steel/README.md) | [sim1](docs/img/sim1-sweep-contacts.png), [sim2](docs/img/sim2-pair-mismatch.png) |
-| 2. Ватты | мощность в нагрузку на резонансе | ≥0,5 Вт через 3 мм стали, протокол в [experiments/002](../../experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
+| 2. Ватты | мощность в нагрузку на резонансе | ≥0,5 Вт через 3 мм стали, протокол в [experiments/002](experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
 | 3. Данные | FSK/OOK через ту же пару | ≥1 кбит/с без ошибок | [sim5](docs/img/sim5-ook-datarate.png) |
 | 4. Узел | ESP32+датчик в заваренной коробке, питание и телеметрия только звуком | автономная работа ≥1 ч | [sim4](docs/img/sim4-power-budget.png) |
 | 5. Публикация | открытие репо, статья/инструкция | воспроизведение третьим лицом | — |
@@ -43,7 +43,7 @@
 python3 software/sweep-map/sweep_map.py --mock
 ```
 
-**Готово, когда (по этапам):** этап 1 — пик свипа воспроизводится двумя прогонами с точностью <200 Гц ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); этап 2 — ≥0,5 Вт в нагрузку через 3 мм стали и светодиод на стороне RX ([experiments/002](../../experiments/002-watts-3mm-steel/README.md)).
+**Готово, когда (по этапам):** этап 1 — пик свипа воспроизводится двумя прогонами с точностью <200 Гц ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); этап 2 — ≥0,5 Вт в нагрузку через 3 мм стали и светодиод на стороне RX ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
 </details>
 

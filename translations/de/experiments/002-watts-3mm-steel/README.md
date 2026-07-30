@@ -2,7 +2,7 @@
 
 > [English (primary)](../../../../experiments/002-watts-3mm-steel/README.md) · [Русский](../../../ru/experiments/002-watts-3mm-steel/README.md) · Deutsch · [Português](../../../pt/experiments/002-watts-3mm-steel/README.md) · [中文](../../../zh/experiments/002-watts-3mm-steel/README.md) · [日本語](../../../ja/experiments/002-watts-3mm-steel/README.md)
 
-- **Stufe:** 2 (Leistung in eine bekannte Last bei der Resonanz, die in [001](../../../../experiments/001-sweep-map-3mm-steel/README.md) gefunden wurde).
+- **Stufe:** 2 (Leistung in eine bekannte Last bei der Resonanz, die in [001](../001-sweep-map-3mm-steel/README.md) gefunden wurde).
 - **Ziel:** Messen der realen Gleichstromleistung, die durch 3 mm Stahl mit dem Halbbrückentreiber und dem abgestimmten Transformator geleitet wird.
 - **Hypothese:** Mit einem Langevin-Paar aus dem gleichen Los, Schmiermittel+Klemme (oder Epoxid) Kontakt und einem abgestimmten Transformator ist eine Leistung von ≥0,5 W in eine resistive Last bei der Spitze der Stufe 1 erreichbar. (Literaturwerte mit mehreren Watt/kW verwendeten unterschiedliche Wandlersysteme und Bonding – behandeln Sie sie als Obergrenze, nicht als Erfolgskriterium.)
 - **Voraussetzungen:**

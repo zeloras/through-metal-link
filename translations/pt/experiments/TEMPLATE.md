@@ -16,7 +16,7 @@ Passo a passo, para que possa ser repetido exatamente.
 Links para arquivos CSV/PNG em data/ (nomes de arquivos com carimbo de data/hora).
 
 ## Resultado
-Números. Um gráfico. Resposta à pergunta do objetivo: sim/não-parcial.
+Números. Um gráfico. Resposta à pergunta do objetivo: sim/não/partialmente.
 
 ## Conclusões e próximos passos
 O que mudamos no próximo experimento. O que foi incluído em um ADR.

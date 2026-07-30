@@ -10,9 +10,9 @@ uv run --with schemdraw --with matplotlib python render_schematics.py
 
 | ファイル | 内容 | ステージ |
 |---|---|---|
-| [sch1-driver-halfbridge](../../../../hardware/schematics/sch1-driver-halfbridge.png) | ドライバ: IR2110 + 2×IRF540, ブートストラップ, マッチングトランス | 2 |
-| [sch2-receiver-stage1](../../../../hardware/schematics/sch2-receiver-stage1.png) | 受信機: 4×SS14 ブリッジ → RC → TVS → ADS1115 A0 | 1 |
-| [sch3-stage1-wiring](../../../../hardware/schematics/sch3-stage1-wiring.png) | ピンアウト: Pi ↔ AD9833 ↔ ピエゾペア ↔ ADS1115 | 1 |
-| [sch4-receiver-node](../../../../hardware/schematics/sch4-receiver-node.png) | ノード: RX → GY-LTC3588 → イオンストール → ESP32 (+ ロードモジュレーション) | 4 |
+| [sch1-driver-halfbridge](sch1-driver-halfbridge.png) | ドライバ: IR2110 + 2×IRF540, ブートストラップ, マッチングトランス | 2 |
+| [sch2-receiver-stage1](sch2-receiver-stage1.png) | 受信機: 4×SS14 ブリッジ → RC → TVS → ADS1115 A0 | 1 |
+| [sch3-stage1-wiring](sch3-stage1-wiring.png) | ピンアウト: Pi ↔ AD9833 ↔ ピエゾペア ↔ ADS1115 | 1 |
+| [sch4-receiver-node](sch4-receiver-node.png) | ノード: RX → GY-LTC3588 → イオンストール → ESP32 (+ ロードモジュレーション) | 4 |
 
 これらは **ブレッドボードプロトタイプ** 回路図です (コンポーネント値は開始点であり、オシロスコープで調整される場所は `*` でマークされています)。KiCad プロジェクトに基づく PCB レイアウトは、プロトタイプが実際に検証された後、[driver/README.md](../driver/README.md) で約束したように提供されます。

@@ -1,8 +1,8 @@
-# ドライバー "(ステージ 2): IR2110 ハーフブリッジ"
+# ドライバー (ステージ 2): IR2110 ハーフブリッジ
 
 > [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · [Deutsch](../../../de/hardware/driver/README.md) · [Português](../../../pt/hardware/driver/README.md) · [中文](../../../zh/hardware/driver/README.md) · 日本語
 
-**回路図:** [../schematics/sch1-driver-halfbridge.png](../../../../hardware/schematics/sch1-driver-halfbridge.png) (生成元: [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+**回路図:** [../schematics/sch1-driver-halfbridge.png](../schematics/sch1-driver-halfbridge.png) (生成元: [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 
 連携: Pi (SPI) → AD9833 **正方形波モード** (OPBITEN ビット: MSB が出力にルーティングされ、レールツーレールのスイング — 比較器は必要ありません) → **74HC14 + RC + 1N4148** シェイパー (補完的な HIN/LIN で約 1 µs のデッドタイム) → IR2110 → 2×IRF540 (ハーフブリッジ) → 1 µF DC ブロッキング キャップ → マッチング トランス (フェライト、約 1:3..1:5、ベンチで調整) → ランジュバン トランスデューサー TX。
 
@@ -23,4 +23,4 @@ AD9833 の正弦出力 (~0.6 Vpp) は、IR2110 のロジックには適してい
   2. マッチング トランス + TX ランジュバン **鋼板に固定** (または厚い犠牲金属 ブロック) を装着します。まだ 0.2 A 制限です。ステージ 1 のピーク周波数でのみ、電流と RX 電圧を確認するのに十分な時間をかけてください。
   3. 電流制限を逐渐に上げながら、MOSFET とトランスフォーマーの温度を監視します。ランジュバンが固定されていない場合、電源を入れないでください — フリーエア フルパワーランは、セラミックが破損し、ドライバーが故障する原因となります。
 
-TODO: ブレッドボード (またはデッドバグ) プロトタイプが確認され次第、KiCad プロジェクト (PCB) を作成します。そのまでに、[`../schematics/`](../../../../hardware/schematics) の回路図は設計のソース オブ トゥルースです。
+TODO: ブレッドボード (またはデッドバグ) プロトタイプが確認され次第、KiCad プロジェクト (PCB) を作成します。そのまでに、[`../schematics/`](../schematics/) の回路図は設計のソース オブ トゥルースです。

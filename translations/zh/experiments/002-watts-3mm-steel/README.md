@@ -7,12 +7,12 @@
 - **假设：** 使用同批次的朗兹文转ducer，grease+clamp（或环氧树脂）接触，以及调谐的匹配变压器，在阶段 1 的峰值处可以实现 ≥0.5 W 的功率输入到阻性负载。（文献中的多瓦/千瓦数值使用了不同的转ducer和键合方式——将其视为上限，而不是合格标准。）
 - **先决条件：**
   - Experiment 001 已完成（可重复的峰值，记录的频率）。
-  - 在驱动器供电之前，在 RX 链上安装了 TVS ([docs/02-safety.md](../../../../docs/02-safety.md))。
+  - 在驱动器供电之前，在 RX 链上安装了 TVS ([docs/02-safety.md](../../docs/02-safety.md))。
   - 遵循驱动器启动顺序 ([hardware/driver/README.md](../../../../hardware/driver/README.md))。
 - **设置（最低）：**
-  - TX：Pi → AD9833 方波 → 死区整形器 → IR2110 半桥 → 匹配变压器 → 朗兹文转ducer夹在板上 ([sch1](../../../../hardware/schematics/sch1-driver-halfbridge.png))。
+  - TX：Pi → AD9833 方波 → 死区整形器 → IR2110 半桥 → 匹配变压器 → 朗兹文转ducer夹在板上 ([sch1](../../hardware/schematics/sch1-driver-halfbridge.png))。
   - 墙：3 mm 钢，记录接触方法（grease+clamp / 环氧树脂 / 其他）。
-  - RX：朗兹文转ducer → 肖特基桥 → 已知 R_load（功率电阻）和/或 LED；在桥后测量 V_dc 和 I_dc ([sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) 拓扑，负载代替仅 ADC）。
+  - RX：朗兹文转ducer → 肖特基桥 → 已知 R_load（功率电阻）和/或 LED；在桥后测量 V_dc 和 I_dc ([sch2](../../hardware/schematics/sch2-receiver-stage1.png) 拓扑，负载代替仅 ADC）。
 - **过程（大纲）：**
   1. 在 0.2 A PSU 限制下进行电气启动，不声称声学功率。
   2. 夹紧 TX/RX，设置驱动频率为实验 001 的峰值。
