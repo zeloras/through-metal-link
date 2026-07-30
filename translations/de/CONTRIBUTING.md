@@ -1,6 +1,6 @@
 # Wie man beiträgt
 
-> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · Deutsch · [Português](../pt/CONTRIBUTING.md) · [中文](CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md)
+> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · Deutsch · [Português](../pt/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md)
 
 Vielen Dank, dass Sie den offenen Durch-Stahl-Kanal vorantreiben möchten. Die drei Regeln unten sind keine Bürokratie — sie sind die Patentrüstung des Projekts (siehe [LICENSES.md](../../LICENSES.md) für den Grund).
 

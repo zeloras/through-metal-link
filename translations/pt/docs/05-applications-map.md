@@ -1,6 +1,6 @@
 # Mapa de aplicações: quem precisa dessa pilha de tecnologia e por quê
 
-> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · Português · [中文](05-applications-map.md) · [日本語](05-applications-map.md)
+> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · Português · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md)
 
 A pilha de plataforma: um canal ativo de energia e dados através de paredes cegas — piezo-acústica / EMAT / magnética de baixa frequência. Abaixo: onde isso é necessário no mundo real, quem já está lá e o que resta para nós.
 

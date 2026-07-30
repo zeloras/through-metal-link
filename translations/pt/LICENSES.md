@@ -1,6 +1,6 @@
 # Licenciamento e proteção de patentes
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · Português · [中文](LICENSES.md) · [日本語](../ja/LICENSES.md)
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · Português · [中文](../zh/LICENSES.md) · [日本語](../ja/LICENSES.md)
 
 O objetivo deste esquema: o projeto é totalmente aberto, qualquer pessoa pode bifurcá-lo e construir sobre ele (inclusivamente comercialmente), enquanto o risco de litígio de patentes é reduzido ao mínimo alcançável por meios legais e procedimentais.
 

@@ -1,6 +1,6 @@
 # QUICKSTART：从零开始到阶段 1-2 测试台
 
-> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · 中文 · [日本語](QUICKSTART.md)
+> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · 中文 · [日本語](../ja/QUICKSTART.md)
 
 场景：您只有一个桌子和一些钱。以下所有内容都将帮助您建立一个工作台——“扫描图 + 首次通过钢板的瓦特”。价格是近似值，美元。
 

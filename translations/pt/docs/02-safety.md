@@ -1,6 +1,6 @@
 # Segurança
 
-> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · Português · [中文](02-safety.md) · [日本語](../../ja/docs/02-safety.md)
+> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · Português · [中文](../../zh/docs/02-safety.md) · [日本語](../../ja/docs/02-safety.md)
 
 1. **Alta voltagem no piezo.** Em ressonância, os terminais do transdutor carregam dezenas a centenas de volts, uma vez que o driver de estágio 2 estiver online. O TVS/Zener no lado de recebimento é instalado ANTES do primeiro funcionamento com energia. Não toque os terminais enquanto estiver em funcionamento.
 2. **Mains.** Drivers de limpeza ultrassônica estão acoplados galvanicamente à rede. Trabalhe apenas através de um laboratório de suprimento de energia / transformador de isolamento. Este projeto de ponte semicircular é projetado para funcionar a partir de uma fonte de alimentação de bancada limitada por corrente, e não a partir de uma placa de limpeza ligada à rede.

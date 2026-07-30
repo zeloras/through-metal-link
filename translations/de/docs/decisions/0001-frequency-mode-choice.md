@@ -1,6 +1,6 @@
 # ADR-0001: Frequenzmodus-Auswahl für Phase 1
 
-> [English (primary)](../../../../docs/decisions/0001-frequency-mode-choice.md) · [Русский](../../../ru/docs/decisions/0001-frequency-mode-choice.md) · Deutsch · [Português](../../../pt/docs/decisions/0001-frequency-mode-choice.md) · [中文](0001-frequency-mode-choice.md) · [日本語](../../../ja/docs/decisions/0001-frequency-mode-choice.md)
+> [English (primary)](../../../../docs/decisions/0001-frequency-mode-choice.md) · [Русский](../../../ru/docs/decisions/0001-frequency-mode-choice.md) · Deutsch · [Português](../../../pt/docs/decisions/0001-frequency-mode-choice.md) · [中文](../../../zh/docs/decisions/0001-frequency-mode-choice.md) · [日本語](../../../ja/docs/decisions/0001-frequency-mode-choice.md)
 
 - Status: AKZEPTIERT (wird nach Phase 2 überarbeitet)
 - Datum: 2026-07-24

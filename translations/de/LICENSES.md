@@ -1,16 +1,16 @@
 # Lizenzen und Patentschutz
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch · [Português](../pt/LICENSES.md) · [中文](LICENSES.md) · [日本語](../ja/LICENSES.md)
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch · [Português](../pt/LICENSES.md) · [中文](../zh/LICENSES.md) · [日本語](../ja/LICENSES.md)
 
 Das Ziel dieses Schemas: Das Projekt ist vollständig offen, jeder kann es forken und darauf aufbauen (einschließlich kommerzieller Nutzung), während das Risiko von Patentstreitigkeiten auf das absolute Minimum reduziert wird, das durch rechtliche und prozedurale Mittel erreichbar ist.
 
-## Das Schema (drei Schichten; vollständige Texte in [LICENSES/](../../LICENSES))
+## Das Schema (drei Schichten; vollständige Texte in [LICENSES/](../../LICENSES/))
 
 | Bereich | Lizenz | Text | Patentschutzbestimmungen |
 |---|---|---|---|
 | `software/`, `firmware/` | Apache-2.0 | [LICENSES/Apache-2.0.txt](../../LICENSES/Apache-2.0.txt) | §3: Jeder Beitragende gewährt automatisch eine Patentschutzlizenz für seinen Beitrag; eine Patentklage einreichen und man verliert die **Patentschutz**-Lizenz (Vergeltung; die Urheberrechtslizenz in §2 ist unwiderruflich und überlebt die Klage) |
 | `hardware/` | CERN-OHL-W v2 | [LICENSES/CERN-OHL-W-2.0.txt](../../LICENSES/CERN-OHL-W-2.0.txt) | §7.1: Eine Patentschutzlizenz (Herstellen / herstellen lassen / verwenden / verkaufen / importieren…) von jedem Lizenzgeber — aber nur für Ansprüche, die notwendigerweise durch die gegebenen Covered Source verletzt werden; §7.2: Eine Patentklage (einschließlich eines Versuchs, jemand anderes' Patent ungültig zu machen) beendet **alle** Rechte unter der Lizenz |
-| `docs/`, `experiments/` | CC-BY-4.0 | [LICENSES/CC-BY-4.0.txt](../../LICENSES/CC-BY-4.0.txt) | gewährt **keine** Patentschutzrechte (§2(b)(2)) — die Lücke wird durch die explizite Patentschutzlizenz in [CONTRIBUTING.md](CONTRIBUTING.md) geschlossen |
+| `docs/`, `experiments/` | CC-BY-4.0 | [LICENSES/CC-BY-4.0.txt](../../LICENSES/CC-BY-4.0.txt) | gewährt **keine** Patentschutzrechte (§2(b)(2)) — die Lücke wird durch die explizite Patentschutzlizenz in [CONTRIBUTING.md](../../CONTRIBUTING.md) geschlossen |
 | alles andere (root `README.md`, `QUICKSTART.md`, diese Datei, `data/` usw.) | CC-BY-4.0 | — | Fallback: Keine Datei im Repository ist "alle Rechte vorbehalten" |
 
 Code-Dateien enthalten SPDX-Header (Apache-2.0); die maschinenlesbare Abdeckungskarte ist [REUSE.toml](../../REUSE.toml). Die Urheberrechtszeile befindet sich in [NOTICE](../../NOTICE); die root [LICENSE](../../LICENSE) ist ein Pointer zu diesem Schema.
@@ -42,6 +42,6 @@ Jedes veröffentlichte Ergebnis ist eine datierte Prior Art, die alle späteren 
 
 ## Für Beitragende
 
-Die Regeln leben in [CONTRIBUTING.md](CONTRIBUTING.md): DCO-Sign-off, inbound=outbound, eine explizite Patentschutzlizenz für jeden Beitrag unabhängig vom Verzeichnis, Nachvollziehbarkeit von Designentscheidungen zu freier Prior Art.
+Die Regeln leben in [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO-Sign-off, inbound=outbound, eine explizite Patentschutzlizenz für jeden Beitrag unabhängig vom Verzeichnis, Nachvollziehbarkeit von Designentscheidungen zu freier Prior Art.
 
 Bis es öffnet, bleibt das Repository privat — Veröffentlichen vor den ersten reproduzierbaren Ergebnissen würde sowohl die wissenschaftliche als auch die Patentschutzposition schwächen.

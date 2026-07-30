@@ -1,6 +1,6 @@
 # チャネル理論 (作業に必要な最小限の知識)
 
-> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · [中文](00-theory.md) · 日本語
+> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · 日本語
 
 ## 原理
 TX圧電素子を壁に押したり接着したりして、壁内に縦波を励起し、反対側のRX圧電素子でこれを電気に戻す。壁は共振器であるため、厚みの共振 (半波長の倍数) で伝達は最大になる。
