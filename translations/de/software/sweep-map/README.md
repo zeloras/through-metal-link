@@ -1,4 +1,5 @@
 # Sweep-Karte
+
 > [English (primary)](../../../../software/sweep-map/README.md) · [Русский](../../../ru/software/sweep-map/README.md) · Deutsch · [Português](../../../pt/software/sweep-map/README.md) · [中文](../../../zh/software/sweep-map/README.md) · [日本語](../../../ja/software/sweep-map/README.md)
 
 Sweep-Karte der Kanal-Frequenzantwort. Siehe den Header von sweep_map.py für die Hardware, Verkabelung und Anleitung zur Ausführung.
