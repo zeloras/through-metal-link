@@ -26,9 +26,11 @@ Logic per run:
      not part of the mirror are rewritten deterministically, not by the model,
      on every run.
 
-Model: GitHub Models in CI (free with GITHUB_TOKEN), default is the
-open-weights meta/llama-3.3-70b-instruct. A different OpenAI-compatible
-endpoint/model can be substituted via OPENAI_BASE_URL / TRANSLATE_MODEL.
+Model: any OpenAI-compatible chat-completions endpoint. The default is Ollama
+Cloud (OLLAMA_API_KEY) with the open-weights glm-5.2; GitHub Models was the
+original provider and was retired on 2026-07-30. Substitute another endpoint or
+model via OPENAI_BASE_URL / TRANSLATE_MODEL — for a local daemon that is
+OPENAI_BASE_URL=http://localhost:11434/v1 with no key.
 
 Usage: python tools/translate_sync.py [--base <sha>] [--dry-run]
 """
@@ -58,9 +60,11 @@ DOC_EXTS = (".md", ".csv")
 STATE_PATH = ROOT / TR_DIR / ".sync-state.json"
 STATE_VERSION = 1
 
-ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://models.github.ai/inference")
-MODEL = os.environ.get("TRANSLATE_MODEL", "meta/llama-3.3-70b-instruct")
-TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("OPENAI_API_KEY") or "none"
+ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://ollama.com/v1")
+MODEL = os.environ.get("TRANSLATE_MODEL", "glm-5.2")
+# Deliberately no GITHUB_TOKEN fallback: the endpoint is now a third party, and
+# a GitHub token must never be sent to it.
+TOKEN = os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY") or "none"
 TIMEOUT_S = 300
 MAX_TOKENS = 8192
 MAX_CHARS = 40_000

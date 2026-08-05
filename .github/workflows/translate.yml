@@ -13,7 +13,6 @@ on:
 
 permissions:
   contents: write
-  models: read
 
 concurrency:
   group: translate-${{ github.ref }}
@@ -25,6 +24,8 @@ jobs:
     # the bot's own pushes must not retrigger the loop
     if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    # OLLAMA_API_KEY is an environment secret, so the job must name it
+    environment: "1"
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -39,10 +40,13 @@ jobs:
       - name: Dependencies
         run: python -m pip install -r tools/requirements-ci.txt
 
-      - name: Translate stale files (GitHub Models, open-weights LLM)
+      # Without OLLAMA_API_KEY the run reaches no endpoint, saves the state of
+      # whatever was already done and exits cleanly — stale files stay stale
+      # and the next run picks them up.
+      - name: Translate stale files (Ollama Cloud, open-weights LLM)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TRANSLATE_MODEL: meta/llama-3.3-70b-instruct
+          OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
+          TRANSLATE_MODEL: glm-5.2
         run: python tools/translate_sync.py --base "${{ github.event.before }}"
 
       # regenerate figures ONLY when the sync itself translated labels.json:
