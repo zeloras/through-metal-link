@@ -4,7 +4,7 @@
 
 An open platform for ultrasonic power and data transfer through solid metal walls — "through steel without a single hole", built with garage-grade means.
 
-**Status:** stage 0 — preparation · repository stays private until the first reproducible results · shopping list: [QUICKSTART.md](QUICKSTART.md)
+**Status:** stage 0 — preparation · 💰 **[$250 bounty for the first independent build](https://github.com/zeloras/through-metal-link/issues)** · shopping list: [QUICKSTART.md](QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
