@@ -4,7 +4,7 @@
 
 Uma plataforma aberta para transferência de energia e dados ultrassônicos através de paredes de metal sólidas — "através do aço sem um único buraco", construída com meios de garagem.
 
-**Status:** estágio 0 — preparação · repositório permanece privado até os primeiros resultados reproduzíveis · lista de compras: [QUICKSTART.md](../../QUICKSTART.md)
+**Status:** estágio 0 — preparação · 💰 **[recompensa de $250 para a primeira construção independente](https://github.com/zeloras/through-metal-link/issues)** · lista de compras: [QUICKSTART.md](../../QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 

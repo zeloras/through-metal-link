@@ -4,7 +4,7 @@
 
 Открытая платформа передачи энергии и данных ультразвуком через глухие металлические стенки — «сквозь сталь без единого отверстия», в гаражных условиях.
 
-**Статус:** этап 0 — подготовка · репозиторий приватный до первых воспроизводимых результатов · закупка: [QUICKSTART.md](QUICKSTART.md)
+**Статус:** этап 0 — подготовка · 💰 **[$250 награда за первую независимую сборку](https://github.com/zeloras/through-metal-link/issues)** · закупка: [QUICKSTART.md](QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
@@ -80,7 +80,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 <img src="docs/img/sim5-ook-datarate.png" width="720">
 
-**Бюджет приёмника.** Защadowанные полосы — **цели** (режим А 0,5–5 Вт, если этап 2 успешен; режим Б — ниже). Реальные первые нагрузки — дискретный ESP32 / BLE / светодиод; Wi-Fi показан как маркер пикового потребления, а не непрерывной мощности:
+**Бюджет приёмника.** Затенённые полосы — **цели** (режим А 0,5–5 Вт, если этап 2 успешен; режим Б — ниже). Реальные первые нагрузки — дискретный ESP32 / BLE / светодиод; Wi-Fi показан как маркер пикового потребления, а не непрерывной мощности:
 
 <img src="docs/img/sim4-power-budget.png" width="720">
 

@@ -4,7 +4,7 @@
 
 Eine offene Plattform für die Übertragung von ultrasonischer Energie und Daten durch feste Metallwände — "durch Stahl ohne ein einziges Loch", erstellt mit garage-gradigen Mitteln.
 
-**Status:** Stadium 0 — Vorbereitung · Repository bleibt privat, bis die ersten reproduzierbaren Ergebnisse vorliegen · Einkaufsliste: [QUICKSTART.md](../../QUICKSTART.md)
+**Status:** Stadium 0 — Vorbereitung · 💰 **[$250 Kopfgeld für den ersten unabhängigen Aufbau](https://github.com/zeloras/through-metal-link/issues)** · Einkaufsliste: [QUICKSTART.md](../../QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 

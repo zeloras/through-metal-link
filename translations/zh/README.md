@@ -4,7 +4,7 @@
 
 一个开放的平台，用于通过实心金属壁传输超声波能量和数据——“无需打孔”，使用车库级设备。
 
-**状态：** 阶段 0 — 准备 · 仓库在获得第一批可复制结果之前保持私有 · 购买清单：[QUICKSTART.md](../../QUICKSTART.md)
+**状态：** 阶段 0 — 准备 · 💰 **[$250 首次独立构建悬赏](https://github.com/zeloras/through-metal-link/issues)** · 购买清单：[QUICKSTART.md](../../QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 

@@ -4,7 +4,7 @@
 
 ガレージグレードの手段を使用して、固体メタルウォールを貫く超音波パワーおよびデータ転送のオープンプラットフォーム — 「鋼材に単一の穴なし」。
 
-**ステータス:** ステージ 0 — 準備中 · リポジトリは最初の再現可能な結果が出るまで非公開 · ショッピングリスト: [QUICKSTART.md](../../QUICKSTART.md)
+**ステータス:** ステージ 0 — 準備中 · 💰 **[最初の独立したビルドに$250の報奨金](https://github.com/zeloras/through-metal-link/issues)** · ショッピングリスト: [QUICKSTART.md](../../QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
 
