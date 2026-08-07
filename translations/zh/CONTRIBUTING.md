@@ -37,7 +37,7 @@ Signed-off-by: Firstname Lastname <email@example.com>
 
 英语是主要语言，拥有规范路径。每种其他语言都是 [translations/](../) 下具有相同文件名的镜像树 —— 包括 markdown、BOM CSV 和生成的图形；图形文本由 `labels.json` 驱动。你不需要手动维护镜像：
 
-- 编辑您感到舒适的语言。在推送时，[翻译同步](../../.github/workflows/translate.yml) 工作流使用 GitHub 模型（`meta/llama-3.3-70b-instruct`，无需 API 密钥）翻译对应语言，更新 `labels.json` 时重新生成图形，并使用 `[translate-sync]` 标记将结果提交回去。
+- 编辑您感到舒适的语言。在推送时，[翻译同步](../../.github/workflows/translate.yml) 工作流使用开源权重 LLM（Ollama Cloud 上的 `glm-5.2`）翻译对应语言，更新 `labels.json` 时重新生成图形，并使用 `[translate-sync]` 标记将结果提交回去。任何 OpenAI 兼容的端点都可以 —— 设置 `OPENAI_BASE_URL` 和 `TRANSLATE_MODEL`。
 - 仍然需要工作的内容在 `translations/.sync-state.json` 中跟踪，该文件记录了每个翻译所使用的主要内容。因此，中断的运行不会丢失任何内容：未完成的对将保持为过时状态，并将在下一次推送或每晚运行时被拾取。请勿手动编辑该文件。
 - 如果您编辑了文档的 **多种** 语言，则您触摸的每个版本都将保持您编写的状态；机器人只填充您未触摸的语言。
 - 提交机器翻译；如果机器人错过语气，请浏览机器人的提交并调整措辞；您的修复不会被覆盖（机器人将您的版本记录为当前版本）。

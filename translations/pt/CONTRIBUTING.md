@@ -14,7 +14,7 @@ Ao submeter uma contribuição, você concorda que ela é licenciada da mesma fo
 
 **Concessão de patente.** Além disso — desde que CC-BY-4.0 não licencia patentes — você concede ao projeto e a todos os destinatários de seus materiais uma licença de patente perpétua, irrevogável, mundial, gratuita, não exclusiva para fabricar, ter fabricado, usar, oferecer para venda, vender, importar e transferir de outra forma sua contribuição, tanto por si só quanto como parte do projeto — na medida em que suas reivindicações de patente sejam necessariamente infringidas pela contribuição por si só ou por sua combinação com o projeto ao qual foi submetida. Os termos seguem §3 do Apache-2.0, independentemente do diretório em que a contribuição foi inserida. Se você instituir litígio de patente contra alguém (incluindo uma contrarreclamação) alegando que os materiais do projeto infringem sua patente, então todas as **licenças de patente** concedidas a você pelo projeto e seus contribuintes sob esta cláusula e sob as licenças do projeto são rescindidas a partir da data em que tal litígio é arquivado.
 
-## 2. DCO: uma assinatura na provenança
+## 2. DCO: uma assinatura na proveniência
 
 Cada confirmação leva uma assinatura (`git commit -s`), significando concordância com o [Certificado de Origem do Desenvolvedor 1.1](https://developercertificate.org/): você confirma que tem o direito de submeter essa contribuição sob a licença do projeto.
 
@@ -37,7 +37,7 @@ PRs sem assinatura não são mesclados; a verificação é automática — o tra
 
 Inglês é primário e possui os caminhos canônicos. Cada outra língua é uma árvore de espelho sob [translations/](..) com nomes de arquivo idênticos — markdown, CSV de BOM e figuras geradas incluídas; o texto da figura é impulsionado por `labels.json`. Você **não** precisa manter os espelhos manualmente:
 
-- Edite qualquer língua que seja confortável. Ao enviar, o fluxo de trabalho [Sincronização de tradução](../../.github/workflows/translate.yml) traduz os contrapartes com Modelos do GitHub (`meta/llama-3.3-70b-instruct`, sem chaves de API necessárias), regenera figuras quando a sincronização atualiza `labels.json` e comita o resultado de volta com o marcador `[translate-sync]`.
+- Edite qualquer língua que seja confortável. Ao enviar, o fluxo de trabalho [Sincronização de tradução](../../.github/workflows/translate.yml) traduz os contrapartes com um LLM de pesos abertos (`glm-5.2` no Ollama Cloud), regenera figuras quando a sincronização atualiza `labels.json` e comita o resultado de volta com o marcador `[translate-sync]`. Qualquer endpoint compatível com OpenAI funciona — defina `OPENAI_BASE_URL` e `TRANSLATE_MODEL`.
 - O que ainda deve ser trabalhado é rastreado em `translations/.sync-state.json`, que registra o conteúdo primário de cada tradução feita. Uma execução interrompida por uma cota ou um tempo limite, portanto, não perde nada: os pares incompletos permanecem marcados como estale e são retomados pela próxima envio ou pela execução noturna. Não edite manualmente esse arquivo.
 - Se você editou **várias** línguas de um doc por conta própria, cada versão que você tocou é mantida como você a escreveu; o bot apenas preenche as línguas que você não tocou.
 - A tradução automática é commitada — verifique o commit do bot e toque no wording se ele perder o tom; sua correção não será sobrescrita (o bot registra sua versão como a atual).
