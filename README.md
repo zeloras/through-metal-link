@@ -1,3 +1,5 @@
+
+
 # through-metal-link
 
 > English (primary) · [Русский](translations/ru/README.md) · [Deutsch](translations/de/README.md) · [Português](translations/pt/README.md) · [中文](translations/zh/README.md) · [日本語](translations/ja/README.md)
@@ -135,7 +137,7 @@ Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-fre
 </details>
 
 <details>
-<summary><b>🗺️ Where to apply this: barriers, channels, niches</b> — <a href="docs/04-hybrid-channels.md">docs/04</a>, <a href="docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ Where to apply this: barriers, channels, niches</b> — [docs/04-hybrid-channels.md](docs/04-hybrid-channels.md), <a href="docs/05-applications-map.md">docs/05</a></summary>
 
 There is no universal channel — the platform matches the physics to the barrier: piezo-acoustics (primary: steel/aluminum with contact — watts and kbit/s), EMAT (dirty/hot metal, no contact — data), low-frequency magnetics (vacuum sandwich walls of dewars — bits/s). Honest dead ends: rubber-lined/composite walls, bubbling liquid in the path.
 
