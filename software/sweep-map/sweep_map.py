@@ -66,6 +66,10 @@ _FSR_CONFIG = {6.144: 0x0000, 4.096: 0x0200, 2.048: 0x0400, 1.024: 0x0600}
 
 def ads1115_read_v(bus, channel: int = 0, fsr: float = 4.096) -> float:
     """Single-shot measurement, channel AINx against GND, 128 SPS."""
+    if not 0 <= channel <= 3:
+        raise ValueError(f"ADS1115 channel must be 0-3, got {channel}")
+    if fsr not in _FSR_CONFIG:
+        raise ValueError(f"ADS1115 fsr must be one of {sorted(_FSR_CONFIG)}, got {fsr}")
     config = 0x8000 | (0x4000 | (channel << 12)) | _FSR_CONFIG[fsr] | 0x0100 | 0x0080 | 0x0003
     bus.write_i2c_block_data(ADS1115_ADDR, 0x01, [(config >> 8) & 0xFF, config & 0xFF])
     time.sleep(0.010)
@@ -144,6 +148,8 @@ def run_sweep(f_start, f_stop, f_step, settle_s, samples, out_dir, mock=False):
         if not mock:
             bus.close()
 
+    if not rows:
+        raise SystemExit("No sweep points generated — check --start/--stop/--step")
     peak_f, peak_v = max(rows, key=lambda r: r[1])
     print(f"\nPeak: {peak_f:.0f} Hz, {peak_v:.3f} V  →  working-frequency candidate")
     print(f"CSV: {out_path}")

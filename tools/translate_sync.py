@@ -45,6 +45,7 @@ import re
 import socket
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -64,7 +65,7 @@ ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://ollama.com/v1")
 MODEL = os.environ.get("TRANSLATE_MODEL", "glm-5.2")
 # Deliberately no GITHUB_TOKEN fallback: the endpoint is now a third party, and
 # a GitHub token must never be sent to it.
-TOKEN = os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY") or "none"
+TOKEN = os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY")
 TIMEOUT_S = 300
 MAX_TOKENS = 8192
 MAX_CHARS = 40_000
@@ -482,16 +483,25 @@ def chat(system: str, user: str) -> str:
         }).encode(),
         headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"},
     )
-    try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
-            payload = json.loads(r.read())
-    except urllib.error.HTTPError as e:  # subclass of URLError — must come first
-        raise ModelUnavailable(
-            f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}") from e
-    except (urllib.error.URLError, socket.timeout, TimeoutError, OSError) as e:
-        raise ModelUnavailable(f"transport error: {e}") from e
-    except json.JSONDecodeError as e:
-        raise ModelUnavailable(f"response body is not JSON: {e}") from e
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
+                payload = json.loads(r.read())
+            break
+        except urllib.error.HTTPError as e:  # subclass of URLError — must come first
+            if e.code in (429, 503) and attempt < 2:
+                wait = 2 ** attempt * 5
+                print(f"  ! HTTP {e.code}, retrying in {wait}s...")
+                time.sleep(wait)
+                continue
+            raise ModelUnavailable(
+                f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}") from e
+        except (urllib.error.URLError, socket.timeout, TimeoutError, OSError) as e:
+            raise ModelUnavailable(f"transport error: {e}") from e
+        except json.JSONDecodeError as e:
+            raise ModelUnavailable(f"response body is not JSON: {e}") from e
+    else:
+        raise ModelUnavailable("exhausted all retry attempts")
     try:
         choice = payload["choices"][0]
         out = choice["message"]["content"]
@@ -783,6 +793,18 @@ def main() -> int:
     print(f"Base: {base}; model: {MODEL} @ {ENDPOINT}; languages: {', '.join(LANGS)}")
     if new_langs:
         print(f"Bootstrapping: {', '.join(new_langs)}")
+
+    if not TOKEN:
+        print("::warning::No OLLAMA_API_KEY or OPENAI_API_KEY set — "
+              "translations will not run, stale files stay queued")
+        # still refresh langbars and save state so the repo invariants pass
+        total = 0
+        try:
+            total += refresh_langbars(a.dry_run)
+        finally:
+            save_state(state, a.dry_run)
+        print(f"Synced: {total}")
+        return 0
 
     total = 0
     try:

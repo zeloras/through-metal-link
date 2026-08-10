@@ -72,7 +72,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add translations/ hardware/schematics/labels.json software/simulator/labels.json translations/.sync-state.json
           git commit -s -m "sync translations and figures [translate-sync]"
           # a second push to master while this job was running left our checkout
           # one commit behind: rebase onto it instead of failing the sync
