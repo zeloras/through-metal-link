@@ -24,7 +24,7 @@ This policy covers:
 - Repository configuration issues that could lead to unauthorized access
 
 **Physical safety** of the hardware rig is covered separately in
-[docs/02-safety.md](docs/02-safety.md) — the high-voltage driver and piezo
+[docs/02-safety.md](../docs/02-safety.md) — the high-voltage driver and piezo
 transducer handling guidelines are not part of this software security policy.
 
 ## Disclosure
