@@ -27,10 +27,26 @@ import schemdraw.elements as elm
 
 OUT = Path(__file__).resolve().parent
 REPO_ROOT = OUT.parents[1]
-LABELS = json.loads((OUT / "labels.json").read_text(encoding="utf-8"))
-I18N = json.loads((REPO_ROOT / "i18n.json").read_text(encoding="utf-8"))
-PRIMARY = I18N["primary"]
 FS = 10.5
+
+# ---------- lazy-loaded i18n data ----------
+
+_LABELS: dict | None = None
+_I18N: dict | None = None
+
+
+def _load_labels() -> dict:
+    global _LABELS
+    if _LABELS is None:
+        _LABELS = json.loads((OUT / "labels.json").read_text(encoding="utf-8"))
+    return _LABELS
+
+
+def _load_i18n() -> dict:
+    global _I18N
+    if _I18N is None:
+        _I18N = json.loads((REPO_ROOT / "i18n.json").read_text(encoding="utf-8"))
+    return _I18N
 
 
 def save(d, name, out):
@@ -392,6 +408,9 @@ if __name__ == "__main__":
     p.add_argument("--lang", default="all",
                    help="language code from labels.json, or 'all'")
     a = p.parse_args()
+    LABELS = _load_labels()
+    I18N = _load_i18n()
+    PRIMARY = I18N["primary"]
     missing = sorted(set(I18N["names"]) - set(LABELS))
     if missing:
         raise SystemExit(f"labels.json has no section for: {', '.join(missing)} "

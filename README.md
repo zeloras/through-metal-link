@@ -4,9 +4,11 @@
 
 An open platform for ultrasonic power and data transfer through solid metal walls — "through steel without a single hole", built with garage-grade means.
 
+**Try it now (no hardware needed):** `python3 software/sweep-map/sweep_map.py --mock`
+
 **Status:** stage 0 — preparation · 💰 **[$250 bounty for the first independent build](https://github.com/zeloras/through-metal-link/issues)** · shopping list: [QUICKSTART.md](QUICKSTART.md)
 
-[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
+[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](LICENSES.md)
 
 Docs are multilingual: English is primary and lives at the canonical paths; every other language mirrors the tree under [translations/](translations/). Edit any language — CI translates and commits the rest (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
