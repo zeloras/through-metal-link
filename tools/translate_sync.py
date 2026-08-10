@@ -67,7 +67,7 @@ MODEL = os.environ.get("TRANSLATE_MODEL", "glm-5.2")
 # a GitHub token must never be sent to it.
 TOKEN = os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY")
 TIMEOUT_S = 300
-MAX_TOKENS = 8192
+MAX_TOKENS = 16384
 MAX_CHARS = 40_000
 MAX_TASKS = 80
 # A translation much shorter than its source has lost content — but the floor
@@ -79,14 +79,21 @@ MIN_LENGTH_RATIO_CJK = 0.25
 CJK_LANGS = {"zh", "ja", "ko"}
 BOT_MARKER = "[bot]"     # matches github-actions[bot] in both %an and %ae
 
-GLOSSARY = (
+GLOSSARY_RU = (
     "ланжевен = Langevin transducer; свип-карта = sweep map; АЧХ = frequency response; "
     "гребёнка толщинных резонансов = comb of thickness resonances; ионистор = supercapacitor; "
     "мост Гретца/Шоттки = full-wave/Schottky bridge; нагрузочная модуляция = load modulation; "
     "обвязка = support passives; мёртвое время = dead time; струбцина = clamp; "
     "смазка = grease couplant; заваренная коробка = welded-shut box; врезка = penetration; "
-    "истёкшие патенты = expired patents; стенд = test rig; макет = breadboard prototype"
+    "истёкшиеся патенты = expired patents; стенд = test rig; макет = breadboard prototype"
 )
+
+
+def glossary_for(src_lang: str, dst_lang: str) -> str:
+    """Return the glossary block only when Russian is involved in the pair."""
+    if "ru" in (src_lang, dst_lang):
+        return GLOSSARY_RU
+    return ""
 
 
 class ModelUnavailable(Exception):
@@ -150,7 +157,12 @@ _TREE: dict[str, list[str]] | None = None
 
 def tree_index() -> dict[str, list[str]]:
     """basename -> canonical paths. Built once; no globbing, so a model-supplied
-    name full of glob metacharacters is just a dict miss."""
+    name full of glob metacharacters is just a dict miss.
+
+    Excludes the entire translations/ subtree (not just the root entry) so the
+    unique-basename fallback never resolves to a translation file instead of
+    the canonical original.
+    """
     global _TREE
     if _TREE is None:
         _TREE = {}
@@ -158,8 +170,11 @@ def tree_index() -> dict[str, list[str]]:
         for dirpath, dirnames, filenames in os.walk(ROOT):
             rel = Path(dirpath).relative_to(ROOT)
             at_root = rel == Path(".")
+            # prune __pycache__ everywhere; prune translations/ at any depth
             dirnames[:] = [d for d in dirnames
-                           if d != "__pycache__" and not (at_root and d in skip_top)]
+                           if d != "__pycache__"
+                           and not (at_root and d in skip_top)
+                           and TR_DIR not in rel.parts]
             for fn in filenames:
                 _TREE.setdefault(fn, []).append(fn if at_root else (rel / fn).as_posix())
     return _TREE
@@ -436,15 +451,16 @@ def save_state(state: dict, dry: bool) -> None:
 def udiff(old: str, new: str, name: str) -> str:
     return "".join(difflib.unified_diff(
         old.splitlines(keepends=True), new.splitlines(keepends=True),
-        fromfile=f"old/{name}", tofile=f"new/{name}"))[:8000]
+        fromfile=f"old/{name}", tofile=f"new/{name}"))[:20000]
 
 
 def system_doc(dst_lang: str) -> str:
+    glossary = glossary_for(PRIMARY, dst_lang)
+    glossary_line = f" Terminology (ru = en): {glossary}." if glossary else ""
     return f"""You are the translation-sync bot of an open-hardware repository
 (ultrasonic power/data through steel walls). The primary language is
 {NAMES[PRIMARY]}; every other language is a mirror tree under
-translations/<lang>/ with identical file names. Terminology (ru = en):
-{GLOSSARY}.
+translations/<lang>/ with identical file names.{glossary_line}
 
 Target language now: {NAMES[dst_lang]} ({dst_lang}).
 
@@ -465,8 +481,11 @@ Rules:
 - Return ONLY the full content of the target file. No code fences, no comments."""
 
 
-SYSTEM_JSON = f"""You translate UI label strings for an open-hardware project
-(ultrasonic power through steel). Terminology (ru = en): {GLOSSARY}.
+def system_json(src_lang: str, dst_lang: str) -> str:
+    glossary = glossary_for(src_lang, dst_lang)
+    glossary_line = f" Terminology (ru = en): {glossary}." if glossary else ""
+    return f"""You translate UI label strings for an open-hardware project
+(ultrasonic power through steel).{glossary_line}
 Input: a JSON object with strings in the source language. Return ONLY a JSON
 object with the same keys and translated values. Keep placeholders like {{d}},
 {{r}}, {{q}}, {{tau}}, units and part numbers intact — same placeholders, same
@@ -514,7 +533,7 @@ def chat(system: str, user: str) -> str:
                        f"{choice.get('finish_reason')!r}) — output would be truncated")
     if not isinstance(out, str) or not out.strip():
         raise BadReply("empty completion")
-    return re.sub(r"^```[a-z]*\n|\n```$", "", out.strip())  # guard against code fences
+    return re.sub(r"^.*?```[a-z]*\n|\n```\S*$", "", out.strip(), flags=re.DOTALL)  # guard against code fences
 
 
 # ---------- documents ----------
@@ -535,9 +554,14 @@ def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
     ratio = MIN_LENGTH_RATIO_CJK if lang in CJK_LANGS else MIN_LENGTH_RATIO
-    if len(out) < ratio * len(src_text):
+    # absolute floor: very short docs can legitimately compress heavily in
+    # concise languages, so the ratio check is skipped below this threshold
+    if len(out) >= 30 and len(out) < ratio * len(src_text):
         return (f"{len(out)} chars against {len(src_text)} in the source "
                 f"(<{ratio:.0%}) — content is missing")
+    if len(out) < 30 and len(src_text) > 0 and len(out) < len(src_text) * 0.1:
+        return (f"{len(out)} chars against {len(src_text)} in the source "
+                f"(severe truncation) — content is missing")
     if name.endswith(".md"):
         want, got = doc_shape(src_text), doc_shape(out)
         if want != got:
@@ -669,7 +693,7 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str],
             if dry:
                 return {}
             try:
-                raw = chat(SYSTEM_JSON, json.dumps(
+                raw = chat(system_json(a, b), json.dumps(
                     {"source_language": a, "target_language": b, "strings": delta},
                     ensure_ascii=False))
             except BadReply as e:
