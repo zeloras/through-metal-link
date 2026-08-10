@@ -4,9 +4,11 @@
 
 Uma plataforma aberta para transferência de energia e dados ultrassônicos através de paredes de metal sólidas — "através do aço sem um único buraco", construída com meios de garagem.
 
+**Experimente agora (sem hardware):** `python3 software/sweep-map/sweep_map.py --mock`
+
 **Status:** estágio 0 — preparação · 💰 **[recompensa de $250 para a primeira construção independente](https://github.com/zeloras/through-metal-link/issues)** · lista de compras: [QUICKSTART.md](../../QUICKSTART.md)
 
-[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
+[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](../../CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](../../LICENSES.md)
 
 Docs são multilíngues: Inglês é o primário e vive nos caminhos canônicos; cada outro idioma espelha a árvore em [translations/](../). Edite qualquer idioma — CI traduz e commit os demais (veja [CONTRIBUTING.md](../../CONTRIBUTING.md)).
 

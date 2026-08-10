@@ -4,9 +4,11 @@
 
 ガレージグレードの手段を使用して、固体メタルウォールを貫く超音波パワーおよびデータ転送のオープンプラットフォーム — 「鋼材に単一の穴なし」。
 
+**今すぐ試す (ハードウェア不要):** `python3 software/sweep-map/sweep_map.py --mock`
+
 **ステータス:** ステージ 0 — 準備中 · 💰 **[最初の独立したビルドに$250の報奨金](https://github.com/zeloras/through-metal-link/issues)** · ショッピングリスト: [QUICKSTART.md](../../QUICKSTART.md)
 
-[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
+[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](../../CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](../../LICENSES.md)
 
 ドキュメントはマルチリンガルです。英語はプライマリ言語であり、カノニカルパスにあります。他の言語は、[translations/](..) の下に同一のファイル名でミラーリングされています。任意の言語を編集すると、CI が翻訳してコミットします (詳細は [CONTRIBUTING.md](../../CONTRIBUTING.md) を参照してください)。
 

@@ -4,9 +4,11 @@
 
 一个开放的平台，用于通过实心金属壁传输超声波能量和数据——“无需打孔”，使用车库级设备。
 
+**立即尝试（无需硬件）：** `python3 software/sweep-map/sweep_map.py --mock`
+
 **状态：** 阶段 0 — 准备 · 💰 **[$250 首次独立构建悬赏](https://github.com/zeloras/through-metal-link/issues)** · 购买清单：[QUICKSTART.md](../../QUICKSTART.md)
 
-[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
+[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](../../CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](../../LICENSES.md)
 
 文档是多语言的：英语是主要语言，位于规范路径；其他语言在 [translations/](../../translations/) 下镜像树。编辑任何语言 — CI 翻译并提交其余部分（请参阅 [CONTRIBUTING.md](../../CONTRIBUTING.md)）。
 
@@ -20,7 +22,7 @@
 
 | 阶段 | 交付物 | 成功标准 | 预期 |
 |---|---|---|---|
-| 1. 扫描图 | “Langevin–3 mm 钢–Langevin” 通道的频率响应 | 对称谐振找到，图表在 [experiments/001](../../experiments/001-sweep-map-3mm-steel/README.md) 中 | [sim1](../../docs/img/sim1-sweep-contacts.png)，[sim2](../../docs/img/sim2-pair-mismatch.png) |
+| 1. 扫描图 | "Langevin–3 mm 钢–Langevin" 通道的频率响应 | 对称谐振找到，图表在 [experiments/001](../../experiments/001-sweep-map-3mm-steel/README.md) 中 | [sim1](../../docs/img/sim1-sweep-contacts.png)，[sim2](../../docs/img/sim2-pair-mismatch.png) |
 | 2. 瓦特 | 负载在谐振时的功率 | ≥0.5 W 通过 3 mm 的钢，协议在 [experiments/002](../../experiments/002-watts-3mm-steel/README.md) 中 | [sim4](../../docs/img/sim4-power-budget.png) |
 | 3. 数据 | FSK/OOK 在同一对设备上 | ≥1 kbit/s 无错误 | [sim5](../../docs/img/sim5-ook-datarate.png) |
 | 4. 节点 | ESP32 + 传感器在焊接的盒子中，仅通过声音供电和遥测 | ≥1 小时的自主运行 | [sim4](../../docs/img/sim4-power-budget.png) |
@@ -56,7 +58,7 @@ python3 ../../software/sweep-map/sweep_map.py --mock
 
 | 模式 | 频率 | 谐振由以下设置 | 得到 | 状态 |
 |---|---|---|---|---|
-| **A** — Langevin 转换器 | 40 kHz | 转换器对（墙 ≪ λ — 一个“膜”） | 瓦特，kbit/s | 启动模式（阶段 1–4，[ADR-0001](../../docs/decisions/0001-frequency-mode-choice.md)） |
+| **A** — Langevin 转换器 | 40 kHz | 转换器对（墙 ≪ λ — 一个"膜"） | 瓦特，kbit/s | 启动模式（阶段 1–4，[ADR-0001](../../docs/decisions/0001-frequency-mode-choice.md)） |
 | **B** — 圆盘 | 0.6–1 MHz | 墙的厚度谐振 ([梳状](../../docs/img/sim3-thickness-comb.png)) | 数百毫瓦，数百 kbit/s | 分支后第一次获得瓦特；需要自动频率跟踪 |
 
 主要损失：对内的谐振不匹配（±1 kHz 低于廉价的 Langevin 转换器），声学接触质量（环氧树脂 >润滑剂耦合 + 夹子 > 干压），错位，谐振随温度漂移。所有这些问题的答案都是相同的：**每次设置更改之前的扫描图**。
@@ -66,7 +68,7 @@ python3 ../../software/sweep-map/sweep_map.py --mock
 <details>
 <summary><b>📈 设备应该显示的内容：模拟器的预期图</b> — <a href="../../software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
 
-一个半经验的通道模型（不是 FEM，**不是实验室数据** —— 对“扫描应该是什么样子以及应该瞄准什么”的直觉）。假设在 `channel_sim.py` 中是明确的（载入 Q≈40，接触 k 因子，链 η≤40%）。使用 `python3 channel_sim.py --out ../../docs/img` 重新生成。
+一个半经验的通道模型（不是 FEM，**不是实验室数据** —— 对"扫描应该是什么样子以及应该瞄准什么"的直觉）。假设在 `channel_sim.py` 中是明确的（载入 Q≈40，接触 k 因子，链 η≤40%）。使用 `python3 channel_sim.py --out ../../docs/img` 重新生成。
 
 **第一阶段 — 扫描。** 一个在 ~40 kHz 附近的窄峰；模型的占位符接触乘数是润滑剂：干燥：间隙 = 1 : 0.25 : 0.02（即润滑剂 ≈4× 干燥和 ≈50× 空气间隙）。没有峰值意味着接触或对的故障：
 
@@ -106,7 +108,7 @@ python3 ../../software/sweep-map/sweep_map.py --mock
 <details>
 <summary><b>🧭 先前的艺术和专利卫生</b> — <a href="../../docs/01-prior-art.md">docs/01-prior-art.md</a></summary>
 
-每个技术决策必须追溯到“免费”的来源（过期专利，论文）。基础：**US5982297**（航空航天公司 —— 通过墙壁压电对的基本配方），**US7902943**（加州理工学院 / JPL —— Sherrit 的馈通），**US9361877**（俄克拉荷马大学 —— 一个完整的收发器系统）；所有这些都已死亡。关键论文：Lawry 2013 年（50 W + 12.4 Mbit/s 通过 63.5 mm 的钢），Sherrit/NASA（100 W 灯），Yang 2015 年（调查）。
+每个技术决策必须追溯到"免费"的来源（过期专利，论文）。基础：**US5982297**（航空航天公司 —— 通过墙壁压电对的基本配方），**US7902943**（加州理工学院 / JPL —— Sherrit 的馈通），**US9361877**（俄克拉荷马大学 —— 一个完整的收发器系统）；所有这些都已死亡。关键论文：Lawry 2013 年（50 W + 12.4 Mbit/s 通过 63.5 mm 的钢），Sherrit/NASA（100 W 灯），Yang 2015 年（调查）。
 
 在 ~2032 年之前不应被复制（仅限美国；阶段 1–4 不需要）：RPI 的 OFDM 分配，RPI 的全双工方案，Drexel 的符合性转换器。
 
@@ -161,7 +163,7 @@ data/            原始日志（大文件保持在 git 之外）
 ## 原则
 
 1. **从零开始的可复制性。** 任何拥有焊接铁和 ~210 美元的人都可以仅从这个仓库中复制结果。
-2. **每个实验都是一个协议。** 没有“它大致有效”的说法：[experiments/TEMPLATE.md](../../experiments/TEMPLATE.md) 是强制性的。
+2. **每个实验都是一个协议。** 没有"它大致有效"的说法：[experiments/TEMPLATE.md](../../experiments/TEMPLATE.md) 是强制性的。
 3. **专利卫生。** 我们建立在过期的层上 ([docs/01-prior-art.md](../../docs/01-prior-art.md))；决策记录在 [docs/decisions/](../../docs/decisions/0001-frequency-mode-choice.md) 中。
 4. **测量优先于意见。** 每次设置更改之前的扫描图。
 

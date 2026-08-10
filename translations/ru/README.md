@@ -4,9 +4,11 @@
 
 Открытая платформа передачи энергии и данных ультразвуком через глухие металлические стенки — «сквозь сталь без единого отверстия», в гаражных условиях.
 
+**Попробуйте сейчас (без железа):** `python3 software/sweep-map/sweep_map.py --mock`
+
 **Статус:** этап 0 — подготовка · 💰 **[$250 награда за первую независимую сборку](https://github.com/zeloras/through-metal-link/issues)** · закупка: [QUICKSTART.md](QUICKSTART.md)
 
-[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml)
+[![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](LICENSES.md)
 
 Документация многоязычна: английский — основной и живёт на канонических путях; каждый другой язык — зеркальное дерево в `translations/`. Правьте любой язык — CI переведёт и закоммитит остальные (см. [CONTRIBUTING.md](CONTRIBUTING.md)).
 
