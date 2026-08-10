@@ -135,7 +135,7 @@ python3 ../../software/sweep-map/sweep_map.py --mock
 </details>
 
 <details>
-<summary><b>🗺️ 应用此技术的位置：屏障，通道，市场</b> — <a href="../../docs/04-hybrid-channels.md">docs/04</a>，<a href="../../docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ 应用此技术的位置：屏障，通道，市场</b> — [docs/04-hybrid-channels.md](../../docs/04-hybrid-channels.md)，<a href="../../docs/05-applications-map.md">docs/05</a></summary>
 
 没有通用的通道 —— 该平台将物理学与屏障相匹配：压电声学（主要：钢/铝与接触 —— 瓦特和 kbit/s），EMAT（脏/热金属，无接触 —— 数据），低频磁性（真空夹层墙 —— 位/s）。诚实的死胡同：橡胶衬里/复合墙，路径中的气泡液体。
 

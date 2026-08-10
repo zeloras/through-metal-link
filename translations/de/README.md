@@ -128,7 +128,7 @@ Architektur-Entscheidungen werden in [docs/decisions/](../../docs/decisions/0001
 </details>
 
 <details>
-<summary><b>🗺️ Wo man dies anwenden kann: Barrieren, Kanäle, Nischen</b> — <a href="../../docs/04-hybrid-channels.md">docs/04</a>, <a href="../../docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ Wo man dies anwenden kann: Barrieren, Kanäle, Nischen</b> — [docs/04-hybrid-channels.md](../../docs/04-hybrid-channels.md), <a href="../../docs/05-applications-map.md">docs/05</a></summary>
 
 Es gibt keinen universellen Kanal — die Plattform passt die Physik an die Barriere an: piezo-akustisch (primär: Stahl/Aluminium mit Kontakt — Watt und kbit/s), EMAT (schmutziges/heißes Metall, kein Kontakt — Daten), niedrige Frequenz-Magnetik (Vakuum-Sandwich-Wände von Dewars — Bits/s). Ehrliche Sackgassen: gummierte/verbundene Wände, sprudelnde Flüssigkeit im Weg.
 

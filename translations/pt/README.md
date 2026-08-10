@@ -135,7 +135,7 @@ Decisões de arquitetura são registradas em [docs/decisions/](../../docs/decisi
 </details>
 
 <details>
-<summary><b>🗺️ Onde aplicar isso: barreiras, canais, nichos</b> — <a href="../../docs/04-hybrid-channels.md">docs/04</a>, <a href="../../docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ Onde aplicar isso: barreiras, canais, nichos</b> — [docs/04-hybrid-channels.md](../../docs/04-hybrid-channels.md), <a href="../../docs/05-applications-map.md">docs/05</a></summary>
 
 Não há um canal universal — a plataforma combina a física com a barreira: piezo-acústica (primária: aço/alumínio com contato — watts e kbit/s), EMAT (metal sujo/quente, sem contato — dados), magnetismo de baixa frequência (paredes de dewars com areia de vácuo — bits/s). Fim honesto: paredes revestidas de borracha/compostas, líquido borbulhante no caminho.
 

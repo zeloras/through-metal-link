@@ -1,4 +1,4 @@
-# メタルウォールを貫く超音波パワーおよびデータ転送プラットフォーム
+# メタルウォールを貫通する超音波パワーおよびデータ転送プラットフォーム
 
 > [English (primary)](../../README.md) · [Русский](../ru/README.md) · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [中文](../zh/README.md) · 日本語
 
@@ -135,7 +135,7 @@ TX 側のピエゾ要素はウォールに押し付けられており、ロン�
 </details>
 
 <details>
-<summary><b>🗺️ どこに適用するか: バリア、チャネル、ニッチ</b> — <a href="docs/04-hybrid-channels.md">docs/04</a>, <a href="docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ どこに適用するか: バリア、チャネル、ニッチ</b> — [docs/04-hybrid-channels.md](docs/04-hybrid-channels.md), <a href="docs/05-applications-map.md">docs/05</a></summary>
 
 ユニバーサルチャネルはありません。プラットフォームは物理学をバリアに合わせます: ピエゾアクースティクス (プライマリ: 鋼材/アルミニウムとの接触 — ワットと kbit/s)、EMAT (汚れた/熱した金属、接触なし — データ)、低周波磁気 (真空サンドイッチ壁のデュワール — ビット/秒)。誠実な死角: ゴムライニング/複合材の壁、パスの途中の気泡液。
 

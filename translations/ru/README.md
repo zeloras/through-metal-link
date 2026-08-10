@@ -135,7 +135,7 @@ python3 software/sweep-map/sweep_map.py --mock
 </details>
 
 <details>
-<summary><b>🗺️ Куда это применять: барьеры, каналы, ниши</b> — <a href="docs/04-hybrid-channels.md">docs/04</a>, <a href="docs/05-applications-map.md">docs/05</a></summary>
+<summary><b>🗺️ Куда это применять: барьеры, каналы, ниши</b> — [docs/04-hybrid-channels.md](docs/04-hybrid-channels.md), <a href="docs/05-applications-map.md">docs/05</a></summary>
 
 Универсального канала не существует — платформа подбирает физику под барьер: пьезо-акустика (основной: сталь/алюминий с контактом — ватты и кбит/с), EMAT (грязный/горячий металл без контакта — данные), НЧ-магнитка (вакуумные сэндвичи дьюаров — биты/с). Честные тупики: обрезиненные/композитные стенки, пузырящаяся жидкость в пути.
 
