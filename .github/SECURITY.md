@@ -5,7 +5,7 @@
 If you discover a security vulnerability in this repository, please report it
 **privately** rather than opening a public issue.
 
-Send your report to: vitalii.gerasimov@improvado.io
+Send your report to: zeloras@devjcat.com
 
 Please include:
 - A description of the vulnerability and its potential impact
