@@ -613,18 +613,48 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
     if dry:
         return True
     old_dst = dst_p.read_text(encoding="utf-8")[:MAX_CHARS] if dst_p.exists() else "(missing)"
-    try:
-        out = chat(system_doc(dst_lang), (
-            f"Source file `{src}` — NEW content:\n<<<\n{text}\n>>>\n\n"
-            f"What changed in the source (unified diff):\n<<<\n{udiff(old_src, text, src)}\n>>>\n\n"
-            f"Target file `{dst}` — CURRENT (possibly outdated or missing) content:\n"
-            f"<<<\n{old_dst}\n>>>\n\n"
-            "Produce the full updated target file, reflecting every change from the diff."))
-    except BadReply as e:
-        print(f"  ! {dst}: {e} — left stale, will be retried")
-        return False
-    bad = implausible(text, out, dst, dst_lang)
-    if bad:
+    # A bootstrap has no previous source, so udiff() re-emits the entire file as
+    # additions: the document goes into the prompt twice and is then framed as a
+    # change set to "reflect". The two largest documents came back as summaries
+    # in all fourteen languages because of it — README.md at a ~27 kB prompt and
+    # CONTRIBUTING.md at ~17 kB, while everything at 13 kB and below translated
+    # cleanly. With no previous version there is nothing to diff against, so ask
+    # for a plain full translation and send the source once.
+    diff = udiff(old_src, text, src) if old_src.strip() else ""
+    if diff:
+        task = (f"What changed in the source (unified diff):\n<<<\n{diff}\n>>>\n\n"
+                f"Target file `{dst}` — CURRENT (possibly outdated) content:\n"
+                f"<<<\n{old_dst}\n>>>\n\n"
+                "Produce the full updated target file, reflecting every change "
+                "from the diff.")
+    else:
+        task = ("Translate the source file above into the target language in "
+                "full. Reproduce every heading, table row, list item and code "
+                "block: the result must mirror the structure of the source, "
+                "not summarise it.")
+
+    out = None
+    for attempt in (1, 2):
+        try:
+            out = chat(system_doc(dst_lang),
+                       f"Source file `{src}` — content:\n<<<\n{text}\n>>>\n\n{task}")
+        except BadReply as e:
+            print(f"  ! {dst}: {e} — left stale, will be retried")
+            return False
+        bad = implausible(text, out, dst, dst_lang)
+        if not bad:
+            break
+        if attempt == 1:
+            # one corrective attempt naming the shortfall, rather than burning
+            # the pair until a nightly run happens to get a better sample
+            print(f"  ~ {dst}: {bad} — retrying with the structure spelled out")
+            want = doc_shape(text)
+            task = (f"Translate the source file above in full. Your previous "
+                    f"reply was rejected: {bad}. The source has {want[0]} "
+                    f"markdown heading(s) and {want[1]} table row(s); the "
+                    f"translation must have exactly the same. Translate every "
+                    f"section — do not summarise, omit or merge any of them.")
+            continue
         print(f"  ! {dst}: {bad} — not written, will be retried")
         return False
     canon, _ = parse_doc(dst)
