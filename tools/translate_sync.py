@@ -69,7 +69,8 @@ ENDPOINT = os.environ.get("OPENAI_BASE_URL", "https://ollama.com/v1")
 MODEL = os.environ.get("TRANSLATE_MODEL", "glm-5.2")
 # Deliberately no GITHUB_TOKEN fallback: the endpoint is now a third party, and
 # a GitHub token must never be sent to it.
-TOKEN = os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY")
+TOKEN = (os.environ.get("OLLAMA_API_KEY") or os.environ.get("OPENAI_API_KEY")
+         or "").strip()  # a secret pasted with stray whitespace still authenticates
 TIMEOUT_S = 300
 MAX_TOKENS = 16384
 MAX_CHARS = 40_000
@@ -114,6 +115,17 @@ class BadReply(Exception):
     batch, an unexpected envelope. Only the current item is skipped; it stays
     stale and gets another go next run. Never written to disk: that is how
     translations/pt/README.md ended up a 478-byte stub cut off mid-link.
+    """
+
+
+class AuthRejected(Exception):
+    """The endpoint rejected the credentials (401/403).
+
+    Kept apart from ModelUnavailable on purpose. An outage is weather: warn,
+    keep the queue, exit 0, and the next run resumes. A key the provider
+    refuses is a misconfiguration that will refuse every future run too, and
+    reporting it as success is how three days of translating nothing looked
+    like three days of green checks.
     """
 
 
@@ -530,8 +542,10 @@ def chat(system: str, user: str) -> str:
                 print(f"  ! HTTP {e.code}, retrying in {wait}s...")
                 time.sleep(wait)
                 continue
-            raise ModelUnavailable(
-                f"HTTP {e.code}: {e.read().decode(errors='replace')[:300]}") from e
+            body = e.read().decode(errors="replace")[:300]
+            if e.code in (401, 403):
+                raise AuthRejected(f"HTTP {e.code}: {body}") from e
+            raise ModelUnavailable(f"HTTP {e.code}: {body}") from e
         except (urllib.error.URLError, socket.timeout, TimeoutError, OSError) as e:
             raise ModelUnavailable(f"transport error: {e}") from e
         except json.JSONDecodeError as e:
@@ -888,6 +902,7 @@ def main() -> int:
         return 1
 
     total = 0
+    auth_failed: AuthRejected | None = None
     try:
         # phase 1 — non-primary edits flow back into the primary file first, so
         # phase 2 hashes below are taken from the up-to-date primary
@@ -907,6 +922,8 @@ def main() -> int:
                 state["docs"][f"{c}|{l}"] = h
 
         total += sync_labels(changed, base, new_langs, state, a.dry_run)
+    except AuthRejected as e:
+        auth_failed = e
     except ModelUnavailable as e:
         # keep everything already translated; the state file still marks the
         # rest as stale, so the next push or the nightly run picks it up
@@ -920,6 +937,13 @@ def main() -> int:
             print(f"Touched {len(WRITTEN)} path(s) -> {a.touched_list}")
 
     print(f"Synced: {total}")
+    if auth_failed is not None:
+        print(f"::error::{ENDPOINT} rejected the credentials ({auth_failed}). "
+              "Nothing was translated and every stale pair stays queued. The key "
+              "reached the job, so this is the value itself — check that the "
+              "secret holds a current key for this endpoint and that "
+              "TRANSLATE_MODEL is one the account may use.")
+        return 1
     return 0
 
 
