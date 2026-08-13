@@ -1,36 +1,36 @@
-# Hybridkanäle: Barrier → Physik → Zahlen
+# Hybridkanäle: Barriere → Physik → Zahlen
 
 > [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · Deutsch · [Português](../../pt/docs/04-hybrid-channels.md) · [Español](../../es/docs/04-hybrid-channels.md) · [Français](../../fr/docs/04-hybrid-channels.md) · [Italiano](../../it/docs/04-hybrid-channels.md) · [Polski](../../pl/docs/04-hybrid-channels.md) · [Türkçe](../../tr/docs/04-hybrid-channels.md) · [Українська](../../uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../../vi/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · [日本語](../../ja/docs/04-hybrid-channels.md) · [한국어](../../ko/docs/04-hybrid-channels.md) · [हिन्दी](../../hi/docs/04-hybrid-channels.md)
 
-Das Prinzip (eine Folge des "Penetrationsparadoxons"): Eine Welle durchdringt eine Barriere genau in dem Maße, in dem sie schwach mit ihr interagiert — daher existiert kein universeller Kanal. Die Plattform verfolgt keinen einzelnen Kanal; für jede Barriere wählt sie die Physik, die die Barriere durchlässig ist, und der Empfänger ist resonant "gierig" danach.
+Das Prinzip (eine Folgerung aus dem „Penetrationsparadoxon"): Eine Welle dringt durch eine Barriere genau in dem Maße, in dem sie schwach mit ihr wechselwirkt — deshalb gibt es keinen universellen Kanal. Die Plattform jagt nicht einem einzigen Kanal hinterher; für jede Barriere wählt sie die Physik, für die die Barriere transparent ist und der Empfänger resonant „gierig" ist.
 
-## Kanal-Auswahl-Tabelle
+## Kanalauswahl-Tabelle
 
-| Barriere | Funktionskanal | Erwartet (Größenordnungen) | Notizen |
+| Barriere | Arbeitskanal | Erwartet (Größenordnungen) | Hinweise |
 |---|---|---|---|
-| Stahl/Aluminum 1–60 mm, Kontakt möglich | Piezo-Akustik (unser primärer) | Watt; kbit/s (bis Mbit/s im MHz-Modus) | benötigt akustischen Kontakt (Schmiermittel/Kupplungsepoxyd) |
-| Metall: schmutzig, lackiert, heiß, Kontakt unerwünscht | EMAT (Magnetismus → Schall in der Wand) | mW; kbit/s; Spalt bis zu ~3 mm | leitende Wände nur; Daten, nicht Leistung |
-| Ferromagnetische Wand ohne Piezo | Magnetostriction (eine Spule treibt den Stahl selbst an) | Krümel; bit/s–kbit/s | experimenteller Zweig, billig zu testen |
-| Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetismus (Zehner–Hunderter Hz) | µW–mW; bit/s | Hauteffekt: in Stahl δ≈0,6 mm @1 kHz — Frequenz nach unten drücken |
-| Nicht-Metall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfacher RF kommt oft auch durch — prüfen Sie das zuerst |
-| Wand mit einer Gummischicht, Composite | Ehrlich: fast ein totes Ende | — | der Absorber frisst alles; die Umgehung ist ein Punkt ohne Beschichtung |
-| Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, abgeschwächt | Leistung − ein paar dB; kürzeres Klingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — erneutes Abtasten gegen den vollen Behälter; halte kontinuierliche Intensität ≲1 W/cm², um unter Kavitation zu bleiben ([Theorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
-| Blasenbildende Flüssigkeit im akustischen Pfad | Architektonische Umgehung | — | Empfänger an der Wand montieren, Flüssigkeit aus dem Pfad halten |
+| Stahl/Aluminium 1–60 mm, Kontakt möglich | Piezo-Akustik (unser Primärkanal) | Watt; kbit/s (bis Mbit/s im MHz-Modus) | akustischer Kontakt nötig (Kopplungsgel/Epoxy) |
+| Metall: schmutzig, lackiert, heiß, Kontakt unerwünscht | EMAT (Magnetik → Schall in der Wand) | mW; kbit/s; Spalt bis ~3 mm | nur leitfähige Wände; Daten, keine Leistung |
+| Ferromagnetische Wand ganz ohne Piezo | Magnetostriktion (eine Spule treibt den Stahl selbst an) | Krümel; bit/s–kbit/s | experimenteller Zweig, günstig zu testen |
+| Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetik (Zehner–Hunderter Hz) | µW–mW; bit/s | Skin-Effekt: in Stahl δ≈0,6 mm @1 kHz — Frequenz runterdrücken |
+| Nichtmetall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfaches RF kommt oft auch durch — zuerst das prüfen |
+| Wand mit Gummi-/Schaumstoffschicht, Verbund | Ehrlich: fast eine Sackgasse | — | der Absorber schluckt alles; Workaround ist eine Stelle ohne Beschichtung |
+| Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, degradiert | Leistung − wenige dB; kürzeres Nachschwingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — neu sweepen gegen das volle Gefäß; kontinuierliche Intensität ≲1 W/cm² einhalten, um unter der Kavitationsschwelle zu bleiben ([Theorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
+| Blasenbildung in der Flüssigkeit im akustischen Pfad | Architektonischer Workaround | — | Empfänger an der Wand montieren, Flüssigkeit aus dem Pfad heraushalten |
 
 ## Hybridknoten-Architektur
 
-- Leistungsschicht: Piezo-Paar bei Resonanz (Stufen 1–4).
-- Berührungslose Datenschicht: ein EMAT-Kopf als abnehmbare "Scanner-Pistole" (Stufe ~6).
-- Fallback-Schicht: LF-Spulen für Vakuum-Sandwiches (wenn die Aufgabe es erfordert).
-- Das Entdeckungsprotokoll (docs/03) erweitert sich von "Sweep über Frequenz" zu "Sweep über Physik": ping Piezo → ping EMAT → ping LF; der Knoten wählt den Kanal, der von selbst durchkommt, und meldet, welche Barriere er sieht.
+- Leistungsebene: Piezopaar bei Resonanz (Stufen 1–4).
+- Kontaktfreie Datenebene: ein EMAT-Kopf als abnehmbare „Scanner-Pistole" (Stufe ~6).
+- Fallback-Ebene: LF-Spulen für Vakuum-Sandwiches (wenn die Aufgabe es verlangt).
+- Das Discovery-Protokoll (docs/03) wird von „Sweep über Frequenz" zu „Sweep über Physik" erweitert: Piezo pingen → EMAT pingen → LF pingen; der Knoten wählt selbst den Kanal, der durchkommt, und meldet, welche Barriere er sieht.
 
 ## Beispielanwendungen nach Kanal
 
-1. **Geschlossene Batteriepacks (EV/Speicher):** T/Gas-Sensor innerhalb einer verklebten Verkleidung; Leistung+Daten via Piezo-Paar durch 2–3 mm Aluminium. Der Markt boomt, und eine Penetration in eine Batterieverkleidung = Zertifizierungshölle.
-2. **Kryostat/Dewar:** ein Temperaturregler innerhalb, der ein Bit-Paket einmal pro Minute via LF-Magnetismus durch die Vakuumjacke sendet. Grundlegend außer Reichweite für Akustik — hier ist das Hybrid-System unersetzlich.
-3. **Rohr/Druckbehälter unter Druck:** ein EMAT-Scanner, der gegen eine heiße lackierte Rohrleitung mit null Oberflächenpräparierung gepresst wird — liest ein passives resonantes Signal von innen.
-4. **Gärbehälter (Bier/Wein, Edelstahl):** ein Dichte/T-Sensor innerhalb des Behälters ohne eine einzige Penetration — sanitäre Vorschriften lieben das Fehlen von Löchern.
-5. **Seehafen-Container/Safe:** "ist die Ladung am Leben" — ein Piezo-Paar durch gewellten Stahl, abgefragt mit einem Handscanner.
+1. **Versiegelte Batteriepacks (EV/Speicher):** T/Gas-Sensor in einem vergossenen Gehäuse; Leistung+Daten über ein Piezopaar durch 2–3 mm Aluminium. Der Markt boomt, und eine Penetration in ein Batteriegehäuse = Zertifizierungshölle.
+2. **Kryostat/Dewar:** ein Temperatur-Logger innen, der einmal pro Minute ein Bit-Paket über LF-Magnetik durch die Vakuum-Mantelung schickt. Für Akustik grundsätzlich unerreichbar — hier ist das Hybrid-System unersetzlich.
+3. **Pipeline/Autoklav unter Druck:** ein EMAT-Scanner, gegen ein heißes lackiertes Rohr gedrückt ohne jegliche Oberflächenvorbereitung — liest ein passives Resonanz-Beacon von innen.
+4. **Gärtanks (Bier/Wein, Edelstahl):** ein Dichte/T-Sensor im Tankinneren ohne eine einzige Penetration — Hygienevorschriften lieben das Fehlen von Löchern.
+5. **Seecontainer/Tresor:** „Ist die Ladung am Leben" — ein Piezopaar durch Wellblech-Stahl, abgefragt mit einem Handscanner.
 
-## Einschränkungen, die keine Schicht lösen kann
-Leistung — Kontakt-Piezo nur (EMAT und LF-Magnetismus sind Größenordnungen schwächer). Composite/Gummischicht-Wände sind außerhalb der Plattform. LF-Kanalgeschwindigkeit ist Bits pro Sekunde — das ist Telemetrie, nicht Streaming.
+## Grenzen, die keine Ebene lösen kann
+Leistung — nur Kontakt-Piezo (EMAT und LF-Magnetik sind um Größenordnungen schwächer). Verbund-/Gummiausgekleidete Wände liegen außerhalb der Plattform. Die LF-Kanalgeschwindigkeit beträgt Bits pro Sekunde — das ist Telemetrie, kein Streaming.
