@@ -2,7 +2,7 @@
 
 > [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · [Español](../es/QUICKSTART.md) · [Français](../fr/QUICKSTART.md) · [Italiano](../it/QUICKSTART.md) · [Polski](../pl/QUICKSTART.md) · [Türkçe](../tr/QUICKSTART.md) · [Українська](../uk/QUICKSTART.md) · [Tiếng Việt](../vi/QUICKSTART.md) · 中文 · [日本語](../ja/QUICKSTART.md) · [한국어](../ko/QUICKSTART.md) · [हिन्दी](../hi/QUICKSTART.md)
 
-场景：您只有一个桌子和一些钱。以下所有内容都将帮助您建立一个工作台——“扫描图 + 首次通过钢板的瓦特”。价格是近似值，美元。
+场景：您只有一个桌子和一些钱。以下所有内容都将帮助您建立一个工作台——"扫描图 + 首次通过钢板的瓦特"。价格是近似值，美元。
 
 ## 篮子 1 — 工具（基础，~$120）
 
@@ -60,7 +60,7 @@
 - `sim4-power-budget.png` — 负载吸收与 **目标** 接收功率带。模式 A 带（0.5-5 W）是第 2 阶段的雄心，如果匹配和接触合作；模式 B 是较低的带。持续 Wi-Fi 是峰值负载标记，而不是承诺 — Duty 循环 ESP32/BLE/LED 是现实的第一消费者。
 - `sim5-ook-datarate.png` — 第 3 阶段：为什么 OOK 在朗兹文换能器上最高可达 ~1-2 kbit/s（Q≈40，环下降 τ≈0.3 ms），以及为什么这对于传感器节点来说已经足够。
 
-## “测试台工作”标准
+## "测试台工作"标准
 
 按阶段划分 — 不要用第 2 阶段的数字标记第 1 阶段完成。
 
