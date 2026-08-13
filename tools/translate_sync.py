@@ -50,6 +50,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+import i18n_render  # sibling module in tools/
+
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "i18n.json").read_text(encoding="utf-8"))
 PRIMARY = CFG["primary"]
@@ -708,20 +710,40 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str],
                 print("     ! reply is not an object — section left stale")
                 return {}
             good = vet_labels(delta, parsed.get("strings", parsed))
+            # the ja sections of both labels.json files shipped filled with
+            # Russian: every placeholder matched and every length was sane, so
+            # the script is the only thing left that can tell
+            off = i18n_render.wrong_script(b, " ".join(good.values()))
+            if off:
+                print(f"     ! reply {off} — section left stale, will be retried")
+                return {}
             if good:
                 cur.setdefault(b, {}).update(good)
                 dirty = True
             return good
 
-        # phase 1: a changed non-primary section propagates into primary —
-        # only keys where primary itself was untouched by the human
+        # phase 1: a changed non-primary section propagates into primary — only
+        # keys where primary itself was untouched by the human AND which the
+        # state does not already record as translated from the current primary.
+        #
+        # In practice that means a hand edit to a label the bot has already
+        # produced stays local: labels flow primary -> mirrors, and to change
+        # what a label SAYS you edit the primary section. Prose docs keep the
+        # bidirectional contract; labels do not, deliberately. A label edit is
+        # almost always someone fixing the machine's wording, and letting that
+        # rewrite the primary would silently redefine the source that all
+        # fourteen mirrors are generated from — which is how a back-propagated
+        # Portuguese README once rewrote the English one. Keys the bot has
+        # never touched still flow back, so hand-authored labels are not
+        # trapped in one language.
         src_of: dict[str, str] = {}
         for a in LANGS:
             if a == PRIMARY or a in new_langs or a not in cur0:
                 continue
             delta = {k: v for k, v in cur0[a].items()
                      if old.get(a, {}).get(k) != v
-                     and old.get(PRIMARY, {}).get(k) == cur0.get(PRIMARY, {}).get(k)}
+                     and old.get(PRIMARY, {}).get(k) == cur0.get(PRIMARY, {}).get(k)
+                     and rec.get(a, {}).get(k) != cur0.get(PRIMARY, {}).get(k)}
             if delta:
                 for k in delta:
                     src_of[k] = a

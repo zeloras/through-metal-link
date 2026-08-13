@@ -29,6 +29,8 @@ import re
 import sys
 from pathlib import Path
 
+import i18n_render  # sibling module in tools/; its script half needs no deps
+
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "i18n.json").read_text(encoding="utf-8"))
 PRIMARY = CFG["primary"]
@@ -115,7 +117,12 @@ def check_labels() -> list[str]:
         if TR_DIR + "/" in rel or ".git" in lf.parts:
             continue
         data = json.loads(lf.read_text(encoding="utf-8"))
+        synced = synced_langs()
         for missing in sorted(set(LANGS) - set(data)):
+            # same tolerance as check_mirror: a language the sync has never
+            # written is a bootstrap still in flight, not breakage
+            if missing not in synced:
+                continue
             bad.append(f"{rel}: no section for '{missing}' (declared in i18n.json)")
         for extra in sorted(set(data) - set(LANGS)):
             bad.append(f"{rel}: section '{extra}' is not in i18n.json")
@@ -135,6 +142,11 @@ def check_labels() -> list[str]:
                     bad.append(
                         f"{rel}: {lang}/{k} placeholders {sorted(placeholders(base[k]))}"
                         f" != {sorted(placeholders(section[k]))} — str.format() would fail")
+            # a section can be perfectly well-formed and still be the wrong
+            # language: ja shipped filled with Russian
+            off = i18n_render.wrong_script(lang, " ".join(map(str, section.values())))
+            if off:
+                bad.append(f"{rel}: section '{lang}' {off}")
     return bad
 
 
@@ -146,6 +158,11 @@ def synced_pairs() -> set[str]:
     except (OSError, ValueError):
         return set()
     return set(state.get("docs", {}))
+
+
+def synced_langs() -> set[str]:
+    """Languages the sync bot has written at least one file for."""
+    return {p.split("|", 1)[1] for p in synced_pairs() if "|" in p}
 
 
 def check_mirror() -> list[str]:

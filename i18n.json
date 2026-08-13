@@ -5,7 +5,29 @@
     "ru": "Русский",
     "de": "Deutsch",
     "pt": "Português",
+    "es": "Español",
+    "fr": "Français",
+    "it": "Italiano",
+    "pl": "Polski",
+    "tr": "Türkçe",
+    "uk": "Українська",
+    "vi": "Tiếng Việt",
     "zh": "中文",
-    "ja": "日本語"
+    "ja": "日本語",
+    "ko": "한국어",
+    "hi": "हिन्दी"
+  },
+  "render": {
+    "fonts": [
+      "DejaVu Sans",
+      "Noto Sans",
+      "Noto Sans CJK JP",
+      "Noto Sans CJK SC",
+      "Noto Sans CJK KR",
+      "Hiragino Sans",
+      "Apple SD Gothic Neo",
+      "Arial Unicode MS"
+    ],
+    "skip_figures": ["hi"]
   }
 }

@@ -40,6 +40,11 @@ jobs:
       - name: Dependencies
         run: python -m pip install -r tools/requirements-ci.txt
 
+      # this job re-renders the figures, so it needs the same non-Latin
+      # coverage as ci.yml — see the note there
+      - name: Fonts for non-Latin figures
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-core fonts-noto-cjk
+
       # Without OLLAMA_API_KEY the run reaches no endpoint, saves the state of
       # whatever was already done and exits cleanly — stale files stay stale
       # and the next run picks them up.
