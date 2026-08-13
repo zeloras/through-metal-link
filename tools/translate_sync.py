@@ -119,6 +119,21 @@ class GitError(Exception):
     pass
 
 
+# Every path this run wrote. The workflow stages exactly this list rather than
+# guessing at a pathspec: the previous hand-written `git add translations/ ...`
+# left out the primary tree, so the language bars the deterministic pass
+# rewrites in README.md and the other canonical docs were produced on the
+# runner, never staged, and thrown away with the workspace — the mirrors listed
+# fifteen languages while English still listed six.
+WRITTEN: set[str] = set()
+
+
+def write_out(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    WRITTEN.add(path.relative_to(ROOT).as_posix())
+
+
 # ---------- paths ----------
 
 def tr_path(canon: str, lang: str) -> str:
@@ -442,10 +457,8 @@ def save_state(state: dict, dry: bool) -> None:
     state["docs"] = {k: v for k, v in state["docs"].items() if k in live}
     files = set(label_files())
     state["labels"] = {k: v for k, v in state["labels"].items() if k in files}
-    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(
-        json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8")
+    write_out(STATE_PATH,
+              json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
 
 
 # ---------- model ----------
@@ -607,8 +620,7 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
         # document itself)
         out = fix_asset_links(out, canon, dst_lang, primary_text)
         out = apply_langbar(out, canon, dst_lang)
-    dst_p.parent.mkdir(parents=True, exist_ok=True)
-    dst_p.write_text(out.rstrip() + "\n", encoding="utf-8")
+    write_out(dst_p, out.rstrip() + "\n")
     return True
 
 
@@ -772,8 +784,8 @@ def sync_labels(changed: list[str], base: str, new_langs: list[str],
                     done[k] = primary_now[k]
 
         if dirty:
-            (ROOT / f).write_text(
-                json.dumps(cur, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            write_out(ROOT / f,
+                      json.dumps(cur, ensure_ascii=False, indent=2) + "\n")
     return n
 
 
@@ -812,7 +824,7 @@ def refresh_langbars(dry: bool) -> int:
                 n += 1
                 print(f"  ~ {tr_path(c, l)}")
                 if not dry:
-                    p.write_text(new, encoding="utf-8")
+                    write_out(p, new)
     return n
 
 
@@ -822,6 +834,9 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--base", default="HEAD~1", help="commit to diff against")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--touched-list", metavar="PATH",
+                   help="write the newline-separated list of paths this run "
+                        "modified, for `git add --pathspec-from-file`")
     a = p.parse_args()
     base = a.base
     if not base or set(base) == {"0"}:  # first push of a branch
@@ -849,6 +864,9 @@ def main() -> int:
             total += refresh_langbars(a.dry_run)
         finally:
             save_state(state, a.dry_run)
+            if a.touched_list and not a.dry_run:
+                Path(a.touched_list).write_text(
+                    "".join(f"{p}\n" for p in sorted(WRITTEN)), encoding="utf-8")
         print(f"Synced: {total}")
         return 0
 
@@ -879,6 +897,10 @@ def main() -> int:
     finally:
         total += refresh_langbars(a.dry_run)
         save_state(state, a.dry_run)
+        if a.touched_list and not a.dry_run:
+            Path(a.touched_list).write_text(
+                "".join(f"{p}\n" for p in sorted(WRITTEN)), encoding="utf-8")
+            print(f"Touched {len(WRITTEN)} path(s) -> {a.touched_list}")
 
     print(f"Synced: {total}")
     return 0
