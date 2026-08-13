@@ -1,6 +1,6 @@
 # 混合通道：屏障 → 物理 → 数字
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · 中文 · [日本語](../../ja/docs/04-hybrid-channels.md)
+> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · [Español](../../es/docs/04-hybrid-channels.md) · [Français](../../fr/docs/04-hybrid-channels.md) · [Italiano](../../it/docs/04-hybrid-channels.md) · [Polski](../../pl/docs/04-hybrid-channels.md) · [Türkçe](../../tr/docs/04-hybrid-channels.md) · [Українська](../../uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../../vi/docs/04-hybrid-channels.md) · 中文 · [日本語](../../ja/docs/04-hybrid-channels.md) · [한국어](../../ko/docs/04-hybrid-channels.md) · [हिन्दी](../../hi/docs/04-hybrid-channels.md)
 
 原理（“穿透悖论”的一个推论）：波通过屏障的程度恰好与它与屏障的相互作用弱度成正比 —— 这就是为什么没有通用通道的原因。平台不追求单一通道；对于每个屏障，它选择屏障对其透明的物理学和接收器对其产生共振的“贪婪”物理学。
 

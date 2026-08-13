@@ -1,6 +1,6 @@
 # 通道理论（您需要了解的最少内容）
 
-> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · 中文 · [日本語](../../ja/docs/00-theory.md)
+> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · [Español](../../es/docs/00-theory.md) · [Français](../../fr/docs/00-theory.md) · [Italiano](../../it/docs/00-theory.md) · [Polski](../../pl/docs/00-theory.md) · [Türkçe](../../tr/docs/00-theory.md) · [Українська](../../uk/docs/00-theory.md) · [Tiếng Việt](../../vi/docs/00-theory.md) · 中文 · [日本語](../../ja/docs/00-theory.md) · [한국어](../../ko/docs/00-theory.md) · [हिन्दी](../../hi/docs/00-theory.md)
 
 ## 原理
 TX压电元件压在或粘在墙上，激发了其中的纵波；另一侧的RX压电元件将其转换回电力。墙壁是一个谐振器：在厚度谐振（半波长的倍数）时，传输处于最大值。

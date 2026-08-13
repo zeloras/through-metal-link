@@ -1,6 +1,6 @@
 # INÍCIO RÁPIDO: do zero absoluto ao estágio 1–2 do teste do conjunto
 
-> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · Português · [中文](../zh/QUICKSTART.md) · [日本語](../ja/QUICKSTART.md)
+> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · Português · [Español](../es/QUICKSTART.md) · [Français](../fr/QUICKSTART.md) · [Italiano](../it/QUICKSTART.md) · [Polski](../pl/QUICKSTART.md) · [Türkçe](../tr/QUICKSTART.md) · [Українська](../uk/QUICKSTART.md) · [Tiếng Việt](../vi/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · [日本語](../ja/QUICKSTART.md) · [한국어](../ko/QUICKSTART.md) · [हिन्दी](../hi/QUICKSTART.md)
 
 Cenário: você tem nada além de uma mesa e algum dinheiro. Tudo abaixo o leva a um conjunto de trabalho — "mapa de varredura + primeiros watts através do aço". Os preços são aproximados, em USD.
 

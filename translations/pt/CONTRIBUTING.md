@@ -1,6 +1,6 @@
 # Como Contribuir
 
-> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · Português · [中文](../zh/CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md)
+> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · Português · [Español](../es/CONTRIBUTING.md) · [Français](../fr/CONTRIBUTING.md) · [Italiano](../it/CONTRIBUTING.md) · [Polski](../pl/CONTRIBUTING.md) · [Türkçe](../tr/CONTRIBUTING.md) · [Українська](../uk/CONTRIBUTING.md) · [Tiếng Việt](../vi/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md) · [한국어](../ko/CONTRIBUTING.md) · [हिन्दी](../hi/CONTRIBUTING.md)
 
 Obrigado por querer avançar o canal aberto através do aço. As três regras abaixo não são burocracia — elas são a armadura de patente do projeto (veja [LICENSES.md](../../LICENSES.md) para saber por quê).
 

@@ -1,6 +1,6 @@
 # Prior art: на чём строим
 
-> [English (primary)](../../../docs/01-prior-art.md) · Русский · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · [日本語](../../ja/docs/01-prior-art.md)
+> [English (primary)](../../../docs/01-prior-art.md) · Русский · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · [Español](../../es/docs/01-prior-art.md) · [Français](../../fr/docs/01-prior-art.md) · [Italiano](../../it/docs/01-prior-art.md) · [Polski](../../pl/docs/01-prior-art.md) · [Türkçe](../../tr/docs/01-prior-art.md) · [Українська](../../uk/docs/01-prior-art.md) · [Tiếng Việt](../../vi/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · [日本語](../../ja/docs/01-prior-art.md) · [한국어](../../ko/docs/01-prior-art.md) · [हिन्दी](../../hi/docs/01-prior-art.md)
 
 ## Правило
 Каждое техническое решение в этом репо должно быть прослеживаемо к источнику из списка «свободных» (истёкшие патенты, статьи). Живые патенты — только для чтения идей о проблемах, не для копирования claims (актуально при коммерциализации в США; см. патентную карту в проекте).

@@ -1,6 +1,6 @@
 # 先行技術: 我々が基づくもの
 
-> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · 日本語
+> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · [Español](../../es/docs/01-prior-art.md) · [Français](../../fr/docs/01-prior-art.md) · [Italiano](../../it/docs/01-prior-art.md) · [Polski](../../pl/docs/01-prior-art.md) · [Türkçe](../../tr/docs/01-prior-art.md) · [Українська](../../uk/docs/01-prior-art.md) · [Tiếng Việt](../../vi/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · 日本語 · [한국어](../../ko/docs/01-prior-art.md) · [हिन्दी](../../hi/docs/01-prior-art.md)
 
 ## ルール
 このリポジトリ内のすべての技術的決定は、「無料」のリスト (期限切れの特許、論文) からソースに遡ることができる必要があります。生存中の特許は読み取り専用です。問題に対する洞察を得るためにそれらを掘り下げてください。ただし、請求項をコピーしないでください (これは米国での商業化に重要です。プロジェクトの特許マップを参照してください)。

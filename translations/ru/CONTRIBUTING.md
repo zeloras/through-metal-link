@@ -1,6 +1,6 @@
 # Как вносить вклад
 
-> [English (primary)](../../CONTRIBUTING.md) · Русский · [Deutsch](../de/CONTRIBUTING.md) · [Português](../pt/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md)
+> [English (primary)](../../CONTRIBUTING.md) · Русский · [Deutsch](../de/CONTRIBUTING.md) · [Português](../pt/CONTRIBUTING.md) · [Español](../es/CONTRIBUTING.md) · [Français](../fr/CONTRIBUTING.md) · [Italiano](../it/CONTRIBUTING.md) · [Polski](../pl/CONTRIBUTING.md) · [Türkçe](../tr/CONTRIBUTING.md) · [Українська](../uk/CONTRIBUTING.md) · [Tiếng Việt](../vi/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · [日本語](../ja/CONTRIBUTING.md) · [한국어](../ko/CONTRIBUTING.md) · [हिन्दी](../hi/CONTRIBUTING.md)
 
 Спасибо, что хотите развивать открытый канал «сквозь сталь». Правила ниже — не бюрократия, а патентная броня проекта (зачем — см. [LICENSES.md](LICENSES.md)).
 

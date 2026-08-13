@@ -1,6 +1,6 @@
 # 实验 NNN: <标题>
 
-> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md) · 中文 · [日本語](../../ja/experiments/TEMPLATE.md)
+> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md) · [Español](../../es/experiments/TEMPLATE.md) · [Français](../../fr/experiments/TEMPLATE.md) · [Italiano](../../it/experiments/TEMPLATE.md) · [Polski](../../pl/experiments/TEMPLATE.md) · [Türkçe](../../tr/experiments/TEMPLATE.md) · [Українська](../../uk/experiments/TEMPLATE.md) · [Tiếng Việt](../../vi/experiments/TEMPLATE.md) · 中文 · [日本語](../../ja/experiments/TEMPLATE.md) · [한국어](../../ko/experiments/TEMPLATE.md) · [हिन्दी](../../hi/experiments/TEMPLATE.md)
 
 - 日期：
 - 目标（本实验回答的一个问题）：

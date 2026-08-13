@@ -1,6 +1,6 @@
 # ハイブリッドチャンネル: バリアー → 物理 → 数値
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · 日本語
+> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · [Español](../../es/docs/04-hybrid-channels.md) · [Français](../../fr/docs/04-hybrid-channels.md) · [Italiano](../../it/docs/04-hybrid-channels.md) · [Polski](../../pl/docs/04-hybrid-channels.md) · [Türkçe](../../tr/docs/04-hybrid-channels.md) · [Українська](../../uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../../vi/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · 日本語 · [한국어](../../ko/docs/04-hybrid-channels.md) · [हिन्दी](../../hi/docs/04-hybrid-channels.md)
 
 原理（「貫通パラドックス」の帰結）：波は、バリアーと弱く相互作用する程度にのみバリアーを通過することができる — これが、汎用チャンネルが存在しない理由である。プラットフォームは、単一のチャンネルを追求しない；各バリアーに対して、バリアーが透過性を持つ物理と、受信機が共鳴して「貪欲」になる物理を選択する。
 

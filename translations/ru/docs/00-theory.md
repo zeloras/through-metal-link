@@ -1,6 +1,6 @@
 # Теория канала (минимум для работы)
 
-> [English (primary)](../../../docs/00-theory.md) · Русский · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md)
+> [English (primary)](../../../docs/00-theory.md) · Русский · [Deutsch](../../de/docs/00-theory.md) · [Português](../../pt/docs/00-theory.md) · [Español](../../es/docs/00-theory.md) · [Français](../../fr/docs/00-theory.md) · [Italiano](../../it/docs/00-theory.md) · [Polski](../../pl/docs/00-theory.md) · [Türkçe](../../tr/docs/00-theory.md) · [Українська](../../uk/docs/00-theory.md) · [Tiếng Việt](../../vi/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md) · [한국어](../../ko/docs/00-theory.md) · [हिन्दी](../../hi/docs/00-theory.md)
 
 ## Принцип
 Пьезоэлемент-TX, прижатый/приклеенный к стенке, возбуждает в ней продольную волну; пьезо-RX на другой стороне превращает её обратно в электричество. Стенка — резонатор: на толщинных резонансах (кратных полуволне) пропускание максимально.

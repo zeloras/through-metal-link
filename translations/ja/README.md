@@ -1,6 +1,6 @@
 # メタルウォールを貫通する超音波パワーおよびデータ転送プラットフォーム
 
-> [English (primary)](../../README.md) · [Русский](../ru/README.md) · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [中文](../zh/README.md) · 日本語
+> [English (primary)](../../README.md) · [Русский](../ru/README.md) · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [Español](../es/README.md) · [Français](../fr/README.md) · [Italiano](../it/README.md) · [Polski](../pl/README.md) · [Türkçe](../tr/README.md) · [Українська](../uk/README.md) · [Tiếng Việt](../vi/README.md) · [中文](../zh/README.md) · 日本語 · [한국어](../ko/README.md) · [हिन्दी](../hi/README.md)
 
 ガレージグレードの手段を使用して、固体メタルウォールを貫く超音波パワーおよびデータ転送のオープンプラットフォーム — 「鋼材に単一の穴なし」。
 

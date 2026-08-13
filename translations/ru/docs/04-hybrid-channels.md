@@ -1,6 +1,6 @@
 # Гибридные каналы: барьер → физика → цифры
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · Русский · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · [日本語](../../ja/docs/04-hybrid-channels.md)
+> [English (primary)](../../../docs/04-hybrid-channels.md) · Русский · [Deutsch](../../de/docs/04-hybrid-channels.md) · [Português](../../pt/docs/04-hybrid-channels.md) · [Español](../../es/docs/04-hybrid-channels.md) · [Français](../../fr/docs/04-hybrid-channels.md) · [Italiano](../../it/docs/04-hybrid-channels.md) · [Polski](../../pl/docs/04-hybrid-channels.md) · [Türkçe](../../tr/docs/04-hybrid-channels.md) · [Українська](../../uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../../vi/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · [日本語](../../ja/docs/04-hybrid-channels.md) · [한국어](../../ko/docs/04-hybrid-channels.md) · [हिन्दी](../../hi/docs/04-hybrid-channels.md)
 
 Принцип (следствие «парадокса проникновения»): волна проникает через барьер ровно настолько, насколько слабо с ним взаимодействует — поэтому универсального канала не существует. Платформа не ищет один канал, а подбирает под каждый барьер ту физику, для которой барьер прозрачен, а приёмник — резонансно «жаден».
 

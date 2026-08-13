@@ -1,6 +1,6 @@
 # Приёмник
 
-> [English (primary)](../../../../hardware/receiver/README.md) · Русский · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md)
+> [English (primary)](../../../../hardware/receiver/README.md) · Русский · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [Español](../../../es/hardware/receiver/README.md) · [Français](../../../fr/hardware/receiver/README.md) · [Italiano](../../../it/hardware/receiver/README.md) · [Polski](../../../pl/hardware/receiver/README.md) · [Türkçe](../../../tr/hardware/receiver/README.md) · [Українська](../../../uk/hardware/receiver/README.md) · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
 
 Схемы: [этап 1 — sch2](../schematics/sch2-receiver-stage1.png) · [этап 4 — sch4](../schematics/sch4-receiver-node.png) (генерируются [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 

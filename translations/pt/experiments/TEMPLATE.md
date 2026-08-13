@@ -1,6 +1,6 @@
 # Experimento NNN: <título>
 
-> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · Português · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md)
+> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · Português · [Español](../../es/experiments/TEMPLATE.md) · [Français](../../fr/experiments/TEMPLATE.md) · [Italiano](../../it/experiments/TEMPLATE.md) · [Polski](../../pl/experiments/TEMPLATE.md) · [Türkçe](../../tr/experiments/TEMPLATE.md) · [Українська](../../uk/experiments/TEMPLATE.md) · [Tiếng Việt](../../vi/experiments/TEMPLATE.md) · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md) · [한국어](../../ko/experiments/TEMPLATE.md) · [हिन्दी](../../hi/experiments/TEMPLATE.md)
 
 - Data:
 - Objetivo (a uma pergunta que este experimento responde):

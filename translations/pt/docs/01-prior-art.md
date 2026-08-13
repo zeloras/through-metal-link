@@ -1,6 +1,6 @@
 # Arte anterior: o que construímos
 
-> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · Português · [中文](../../zh/docs/01-prior-art.md) · [日本語](../../ja/docs/01-prior-art.md)
+> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · Português · [Español](../../es/docs/01-prior-art.md) · [Français](../../fr/docs/01-prior-art.md) · [Italiano](../../it/docs/01-prior-art.md) · [Polski](../../pl/docs/01-prior-art.md) · [Türkçe](../../tr/docs/01-prior-art.md) · [Українська](../../uk/docs/01-prior-art.md) · [Tiếng Việt](../../vi/docs/01-prior-art.md) · [中文](../../zh/docs/01-prior-art.md) · [日本語](../../ja/docs/01-prior-art.md) · [한국어](../../ko/docs/01-prior-art.md) · [हिन्दी](../../hi/docs/01-prior-art.md)
 
 ## A regra
 Toda decisão técnica neste repositório deve ser rastreável a uma fonte da lista "livre" (patentes expiradas, artigos). Patentes vivas são de leitura apenas — extraia insights dos problemas, nunca copie as reivindicações (isso importa para comercialização nos EUA; veja o mapa de patentes no projeto).

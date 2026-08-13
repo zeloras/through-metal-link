@@ -1,6 +1,6 @@
 # 貢献の方法
 
-> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · [Português](../pt/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · 日本語
+> [English (primary)](../../CONTRIBUTING.md) · [Русский](../ru/CONTRIBUTING.md) · [Deutsch](../de/CONTRIBUTING.md) · [Português](../pt/CONTRIBUTING.md) · [Español](../es/CONTRIBUTING.md) · [Français](../fr/CONTRIBUTING.md) · [Italiano](../it/CONTRIBUTING.md) · [Polski](../pl/CONTRIBUTING.md) · [Türkçe](../tr/CONTRIBUTING.md) · [Українська](../uk/CONTRIBUTING.md) · [Tiếng Việt](../vi/CONTRIBUTING.md) · [中文](../zh/CONTRIBUTING.md) · 日本語 · [한국어](../ko/CONTRIBUTING.md) · [हिन्दी](../hi/CONTRIBUTING.md)
 
 鋼材の壁を貫くオープン チャネルを進歩させるために貢献したいと思っていただき、ありがとうございます。以下の 3 つのルールは、官僚主義ではありません。プロジェクトの特許の盾 (なぜそうなるのかについては、[LICENSES.md](../../LICENSES.md) を参照してください) です。
 

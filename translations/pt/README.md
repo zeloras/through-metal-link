@@ -1,6 +1,6 @@
 # through-metal-link
 
-> [English (primary)](../../README.md) · [Русский](../ru/README.md) · [Deutsch](../de/README.md) · Português · [中文](../zh/README.md) · [日本語](../ja/README.md)
+> [English (primary)](../../README.md) · [Русский](../ru/README.md) · [Deutsch](../de/README.md) · Português · [Español](../es/README.md) · [Français](../fr/README.md) · [Italiano](../it/README.md) · [Polski](../pl/README.md) · [Türkçe](../tr/README.md) · [Українська](../uk/README.md) · [Tiếng Việt](../vi/README.md) · [中文](../zh/README.md) · [日本語](../ja/README.md) · [한국어](../ko/README.md) · [हिन्दी](../hi/README.md)
 
 Uma plataforma aberta para transferência de energia e dados ultrassônicos através de paredes de metal sólidas — "através do aço sem um único buraco", construída com meios de garagem.
 

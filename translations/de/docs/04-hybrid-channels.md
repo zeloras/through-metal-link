@@ -1,6 +1,6 @@
 # Hybridkanäle: Barrier → Physik → Zahlen
 
-> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · Deutsch · [Português](../../pt/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · [日本語](../../ja/docs/04-hybrid-channels.md)
+> [English (primary)](../../../docs/04-hybrid-channels.md) · [Русский](../../ru/docs/04-hybrid-channels.md) · Deutsch · [Português](../../pt/docs/04-hybrid-channels.md) · [Español](../../es/docs/04-hybrid-channels.md) · [Français](../../fr/docs/04-hybrid-channels.md) · [Italiano](../../it/docs/04-hybrid-channels.md) · [Polski](../../pl/docs/04-hybrid-channels.md) · [Türkçe](../../tr/docs/04-hybrid-channels.md) · [Українська](../../uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../../vi/docs/04-hybrid-channels.md) · [中文](../../zh/docs/04-hybrid-channels.md) · [日本語](../../ja/docs/04-hybrid-channels.md) · [한국어](../../ko/docs/04-hybrid-channels.md) · [हिन्दी](../../hi/docs/04-hybrid-channels.md)
 
 Das Prinzip (eine Folge des "Penetrationsparadoxons"): Eine Welle durchdringt eine Barriere genau in dem Maße, in dem sie schwach mit ihr interagiert — daher existiert kein universeller Kanal. Die Plattform verfolgt keinen einzelnen Kanal; für jede Barriere wählt sie die Physik, die die Barriere durchlässig ist, und der Empfänger ist resonant "gierig" danach.
 

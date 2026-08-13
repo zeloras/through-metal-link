@@ -1,6 +1,6 @@
 # QUICKSTART: 絶対ゼロからステージ 1–2 のテスト リグまで
 
-> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · 日本語
+> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · [Deutsch](../de/QUICKSTART.md) · [Português](../pt/QUICKSTART.md) · [Español](../es/QUICKSTART.md) · [Français](../fr/QUICKSTART.md) · [Italiano](../it/QUICKSTART.md) · [Polski](../pl/QUICKSTART.md) · [Türkçe](../tr/QUICKSTART.md) · [Українська](../uk/QUICKSTART.md) · [Tiếng Việt](../vi/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · 日本語 · [한국어](../ko/QUICKSTART.md) · [हिन्दी](../hi/QUICKSTART.md)
 
 シナリオ: 机とお金だけがあれば、以下のすべてが動作するリグに到達します — 「スイープ マップ + ステールを介した最初のワット」。価格は概算であり、USD です。
 

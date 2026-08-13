@@ -1,6 +1,6 @@
 # Протокол обнаружения приёмника и автоподстройки (эскиз; реализация — этапы 2–4)
 
-> [English (primary)](../../../docs/03-discovery-protocol.md) · Русский · [Deutsch](../../de/docs/03-discovery-protocol.md) · [Português](../../pt/docs/03-discovery-protocol.md) · [中文](../../zh/docs/03-discovery-protocol.md) · [日本語](../../ja/docs/03-discovery-protocol.md)
+> [English (primary)](../../../docs/03-discovery-protocol.md) · Русский · [Deutsch](../../de/docs/03-discovery-protocol.md) · [Português](../../pt/docs/03-discovery-protocol.md) · [Español](../../es/docs/03-discovery-protocol.md) · [Français](../../fr/docs/03-discovery-protocol.md) · [Italiano](../../it/docs/03-discovery-protocol.md) · [Polski](../../pl/docs/03-discovery-protocol.md) · [Türkçe](../../tr/docs/03-discovery-protocol.md) · [Українська](../../uk/docs/03-discovery-protocol.md) · [Tiếng Việt](../../vi/docs/03-discovery-protocol.md) · [中文](../../zh/docs/03-discovery-protocol.md) · [日本語](../../ja/docs/03-discovery-protocol.md) · [한국어](../../ko/docs/03-discovery-protocol.md) · [हिन्दी](../../hi/docs/03-discovery-protocol.md)
 
 Задача: устройство само находит, есть ли за стенкой приёмник, само подбирает частоту и мощность, и не жарит стенку впустую, если приёмник «забыли заварить».
 

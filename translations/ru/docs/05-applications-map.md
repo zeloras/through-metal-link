@@ -1,6 +1,6 @@
 # Карта применений: кому и зачем нужен этот набор технологий
 
-> [English (primary)](../../../docs/05-applications-map.md) · Русский · [Deutsch](../../de/docs/05-applications-map.md) · [Português](../../pt/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md)
+> [English (primary)](../../../docs/05-applications-map.md) · Русский · [Deutsch](../../de/docs/05-applications-map.md) · [Português](../../pt/docs/05-applications-map.md) · [Español](../../es/docs/05-applications-map.md) · [Français](../../fr/docs/05-applications-map.md) · [Italiano](../../it/docs/05-applications-map.md) · [Polski](../../pl/docs/05-applications-map.md) · [Türkçe](../../tr/docs/05-applications-map.md) · [Українська](../../uk/docs/05-applications-map.md) · [Tiếng Việt](../../vi/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md) · [한국어](../../ko/docs/05-applications-map.md) · [हिन्दी](../../hi/docs/05-applications-map.md)
 
 Стек платформы: активный канал энергии и данных через глухие стенки — пьезо-акустика / EMAT / НЧ-магнитка. Ниже — где это нужно в реальном мире, кто там уже есть, и что остаётся нам.
 

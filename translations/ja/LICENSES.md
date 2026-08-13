@@ -1,6 +1,6 @@
 # ライセンスと特許保護
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md) · [中文](../zh/LICENSES.md) · 日本語
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md) · [Español](../es/LICENSES.md) · [Français](../fr/LICENSES.md) · [Italiano](../it/LICENSES.md) · [Polski](../pl/LICENSES.md) · [Türkçe](../tr/LICENSES.md) · [Українська](../uk/LICENSES.md) · [Tiếng Việt](../vi/LICENSES.md) · [中文](../zh/LICENSES.md) · 日本語 · [한국어](../ko/LICENSES.md) · [हिन्दी](../hi/LICENSES.md)
 
 このスキームの目的: プロジェクトは完全にオープンであり、誰でもフォークしてビルドできます (商用を含む)。同時に、法的および手続き上の手段によって、特許訴訟のリスクを最小限に抑える。
 

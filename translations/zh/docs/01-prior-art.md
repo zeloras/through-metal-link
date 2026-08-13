@@ -1,6 +1,6 @@
 # 先前的艺术：我们所建立的基础
 
-> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · 中文 · [日本語](../../ja/docs/01-prior-art.md)
+> [English (primary)](../../../docs/01-prior-art.md) · [Русский](../../ru/docs/01-prior-art.md) · [Deutsch](../../de/docs/01-prior-art.md) · [Português](../../pt/docs/01-prior-art.md) · [Español](../../es/docs/01-prior-art.md) · [Français](../../fr/docs/01-prior-art.md) · [Italiano](../../it/docs/01-prior-art.md) · [Polski](../../pl/docs/01-prior-art.md) · [Türkçe](../../tr/docs/01-prior-art.md) · [Українська](../../uk/docs/01-prior-art.md) · [Tiếng Việt](../../vi/docs/01-prior-art.md) · 中文 · [日本語](../../ja/docs/01-prior-art.md) · [한국어](../../ko/docs/01-prior-art.md) · [हिन्दी](../../hi/docs/01-prior-art.md)
 
 ## 规则
 本仓库中的每个技术决策必须能够追溯到“免费”列表（已过期的专利、论文）中的来源。活跃的专利仅供阅读——从中获取对问题的洞察力，但永远不要复制其声明（这对于在美国的商业化至关重要；请参阅项目中的专利地图）。

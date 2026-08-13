@@ -1,6 +1,6 @@
 # 许可和专利保护
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md) · 中文 · [日本語](../ja/LICENSES.md)
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · [Deutsch](../de/LICENSES.md) · [Português](../pt/LICENSES.md) · [Español](../es/LICENSES.md) · [Français](../fr/LICENSES.md) · [Italiano](../it/LICENSES.md) · [Polski](../pl/LICENSES.md) · [Türkçe](../tr/LICENSES.md) · [Українська](../uk/LICENSES.md) · [Tiếng Việt](../vi/LICENSES.md) · 中文 · [日本語](../ja/LICENSES.md) · [한국어](../ko/LICENSES.md) · [हिन्दी](../hi/LICENSES.md)
 
 该方案的目标：项目完全开放，任何人都可以分叉并在其基础上进行建设（包括商业用途），同时通过法律和程序手段将专利诉讼风险降至最低。
 

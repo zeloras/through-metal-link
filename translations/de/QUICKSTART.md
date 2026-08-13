@@ -1,6 +1,6 @@
 # QUICKSTART: von absolutem Nullpunkt zum Testrigg der Stufe 1–2
 
-> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · Deutsch · [Português](../pt/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · [日本語](../ja/QUICKSTART.md)
+> [English (primary)](../../QUICKSTART.md) · [Русский](../ru/QUICKSTART.md) · Deutsch · [Português](../pt/QUICKSTART.md) · [Español](../es/QUICKSTART.md) · [Français](../fr/QUICKSTART.md) · [Italiano](../it/QUICKSTART.md) · [Polski](../pl/QUICKSTART.md) · [Türkçe](../tr/QUICKSTART.md) · [Українська](../uk/QUICKSTART.md) · [Tiếng Việt](../vi/QUICKSTART.md) · [中文](../zh/QUICKSTART.md) · [日本語](../ja/QUICKSTART.md) · [한국어](../ko/QUICKSTART.md) · [हिन्दी](../hi/QUICKSTART.md)
 
 Szenario: Sie haben nichts als einen Schreibtisch und etwas Geld. Alles unten bringt Sie zu einem funktionierenden Rigg — "Sweep-Karte + erste Watt durch Stahl". Preise sind Schätzungen, USD.
 

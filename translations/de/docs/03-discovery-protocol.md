@@ -1,6 +1,6 @@
 # Empfänger-Entdeckungs- und Autoabstimmungsprotokoll (Skizze; Implementierung in den Stufen 2–4)
 
-> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · Deutsch · [Português](../../pt/docs/03-discovery-protocol.md) · [中文](../../zh/docs/03-discovery-protocol.md) · [日本語](../../ja/docs/03-discovery-protocol.md)
+> [English (primary)](../../../docs/03-discovery-protocol.md) · [Русский](../../ru/docs/03-discovery-protocol.md) · Deutsch · [Português](../../pt/docs/03-discovery-protocol.md) · [Español](../../es/docs/03-discovery-protocol.md) · [Français](../../fr/docs/03-discovery-protocol.md) · [Italiano](../../it/docs/03-discovery-protocol.md) · [Polski](../../pl/docs/03-discovery-protocol.md) · [Türkçe](../../tr/docs/03-discovery-protocol.md) · [Українська](../../uk/docs/03-discovery-protocol.md) · [Tiếng Việt](../../vi/docs/03-discovery-protocol.md) · [中文](../../zh/docs/03-discovery-protocol.md) · [日本語](../../ja/docs/03-discovery-protocol.md) · [한국어](../../ko/docs/03-discovery-protocol.md) · [हिन्दी](../../hi/docs/03-discovery-protocol.md)
 
 Das Ziel: Das Gerät stellt selbstständig fest, ob sich ein Empfänger hinter der Wand befindet, wählt die Frequenz und Leistung selbst aus und verbraucht nicht unnötig Energie, wenn jemand "vergessen hat, den Empfänger einzuschweißen".
 

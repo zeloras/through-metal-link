@@ -1,6 +1,6 @@
 # Teoria do canal (o mínimo necessário para trabalhar)
 
-> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · Português · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md)
+> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · [Deutsch](../../de/docs/00-theory.md) · Português · [Español](../../es/docs/00-theory.md) · [Français](../../fr/docs/00-theory.md) · [Italiano](../../it/docs/00-theory.md) · [Polski](../../pl/docs/00-theory.md) · [Türkçe](../../tr/docs/00-theory.md) · [Українська](../../uk/docs/00-theory.md) · [Tiếng Việt](../../vi/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md) · [한국어](../../ko/docs/00-theory.md) · [हिन्दी](../../hi/docs/00-theory.md)
 
 ## Princípio
 Um elemento piezoelétrico TX pressionado/colado contra a parede excita uma onda longitudinal nela; um piezoelétrico RX do outro lado a transforma de volta em eletricidade. A parede é um ressonador: nas ressonâncias de espessura (múltiplos de um meio-comprimento de onda) a transmissão está no seu máximo.

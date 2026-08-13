@@ -1,6 +1,6 @@
 # Схемы стенда
 
-> [English (primary)](../../../../hardware/schematics/README.md) · Русский · [Deutsch](../../../de/hardware/schematics/README.md) · [Português](../../../pt/hardware/schematics/README.md) · [中文](../../../zh/hardware/schematics/README.md) · [日本語](../../../ja/hardware/schematics/README.md)
+> [English (primary)](../../../../hardware/schematics/README.md) · Русский · [Deutsch](../../../de/hardware/schematics/README.md) · [Português](../../../pt/hardware/schematics/README.md) · [Español](../../../es/hardware/schematics/README.md) · [Français](../../../fr/hardware/schematics/README.md) · [Italiano](../../../it/hardware/schematics/README.md) · [Polski](../../../pl/hardware/schematics/README.md) · [Türkçe](../../../tr/hardware/schematics/README.md) · [Українська](../../../uk/hardware/schematics/README.md) · [Tiếng Việt](../../../vi/hardware/schematics/README.md) · [中文](../../../zh/hardware/schematics/README.md) · [日本語](../../../ja/hardware/schematics/README.md) · [한국어](../../../ko/hardware/schematics/README.md) · [हिन्दी](../../../hi/hardware/schematics/README.md)
 
 Схемы генерируются из кода — [render_schematics.py](../../../../hardware/schematics/render_schematics.py) одновременно служит источником дизайна (schemdraw); для внесения изменений редактируйте скрипт, затем перегенерируйте:
 

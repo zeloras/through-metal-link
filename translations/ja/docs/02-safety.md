@@ -1,6 +1,6 @@
 # Safety
 
-> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · [Português](../../pt/docs/02-safety.md) · [中文](../../zh/docs/02-safety.md) · 日本語
+> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · [Português](../../pt/docs/02-safety.md) · [Español](../../es/docs/02-safety.md) · [Français](../../fr/docs/02-safety.md) · [Italiano](../../it/docs/02-safety.md) · [Polski](../../pl/docs/02-safety.md) · [Türkçe](../../tr/docs/02-safety.md) · [Українська](../../uk/docs/02-safety.md) · [Tiếng Việt](../../vi/docs/02-safety.md) · [中文](../../zh/docs/02-safety.md) · 日本語 · [한국어](../../ko/docs/02-safety.md) · [हिन्दी](../../hi/docs/02-safety.md)
 
 1. **パイエゾの高電圧。** 共振時、ステージ2のドライバーがオンラインになると、トランスデューサーの端子に10から100ボルトの電圧がかかる。TVS/ゼネルダイオードは、最初のパワードランの前に受信側に接続する。動作中は端子に触れない。
 2. **メイン電源。** 超音波クリーナードライバーはメイン電源とガルバニックに結合されている。ラボパワーサプライまたはアイソレーショントランスフォーマーを介してのみ作業する。このプロジェクトのハーフブリッジは、メイン電源接続されたクリーナーボードではなく、電流制限付きのベンチPSUから動作するように設計されている。

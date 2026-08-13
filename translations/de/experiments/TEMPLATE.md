@@ -1,6 +1,6 @@
 # Experiment NNN: <title>
 
-> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · Deutsch · [Português](../../pt/experiments/TEMPLATE.md) · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md)
+> [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · Deutsch · [Português](../../pt/experiments/TEMPLATE.md) · [Español](../../es/experiments/TEMPLATE.md) · [Français](../../fr/experiments/TEMPLATE.md) · [Italiano](../../it/experiments/TEMPLATE.md) · [Polski](../../pl/experiments/TEMPLATE.md) · [Türkçe](../../tr/experiments/TEMPLATE.md) · [Українська](../../uk/experiments/TEMPLATE.md) · [Tiếng Việt](../../vi/experiments/TEMPLATE.md) · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md) · [한국어](../../ko/experiments/TEMPLATE.md) · [हिन्दी](../../hi/experiments/TEMPLATE.md)
 
 - Datum:
 - Ziel (die eine Frage, die dieses Experiment beantwortet):

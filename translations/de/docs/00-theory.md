@@ -1,6 +1,6 @@
 # Kanaltheorie (das Minimum, das Sie wissen müssen)
 
-> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · Deutsch · [Português](../../pt/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md)
+> [English (primary)](../../../docs/00-theory.md) · [Русский](../../ru/docs/00-theory.md) · Deutsch · [Português](../../pt/docs/00-theory.md) · [Español](../../es/docs/00-theory.md) · [Français](../../fr/docs/00-theory.md) · [Italiano](../../it/docs/00-theory.md) · [Polski](../../pl/docs/00-theory.md) · [Türkçe](../../tr/docs/00-theory.md) · [Українська](../../uk/docs/00-theory.md) · [Tiếng Việt](../../vi/docs/00-theory.md) · [中文](../../zh/docs/00-theory.md) · [日本語](../../ja/docs/00-theory.md) · [한국어](../../ko/docs/00-theory.md) · [हिन्दी](../../hi/docs/00-theory.md)
 
 ## Prinzip
 Ein TX-Piezoelement, das gegen die Wand gepresst oder aufgeklebt ist, erregt eine longitudinale Welle in ihr; ein Piezo-Empfänger auf der anderen Seite wandelt sie zurück in Elektrizität. Die Wand ist ein Resonator: bei Dickenresonanzen (Vielfache einer Halbwellenlänge) ist die Übertragung am größten.

@@ -1,6 +1,6 @@
 # アプリケーションマップ: どのような技術スタックが必要であり、理由は何であるか
 
-> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · [Português](../../pt/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · 日本語
+> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · [Português](../../pt/docs/05-applications-map.md) · [Español](../../es/docs/05-applications-map.md) · [Français](../../fr/docs/05-applications-map.md) · [Italiano](../../it/docs/05-applications-map.md) · [Polski](../../pl/docs/05-applications-map.md) · [Türkçe](../../tr/docs/05-applications-map.md) · [Українська](../../uk/docs/05-applications-map.md) · [Tiếng Việt](../../vi/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · 日本語 · [한국어](../../ko/docs/05-applications-map.md) · [हिन्दी](../../hi/docs/05-applications-map.md)
 
 プラットフォームスタック: 盲壁を貫通するアクティブな電力およびデータチャネル — 圧電アクースティクス / EMAT / 低周波磁気。以下: これが実世界で必要とされる場所、誰がすでにそこにいるか、そして私たちにとって残されたもの。
 

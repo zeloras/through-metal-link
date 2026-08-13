@@ -1,6 +1,6 @@
 # 安全
 
-> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · [Português](../../pt/docs/02-safety.md) · 中文 · [日本語](../../ja/docs/02-safety.md)
+> [English (primary)](../../../docs/02-safety.md) · [Русский](../../ru/docs/02-safety.md) · [Deutsch](../../de/docs/02-safety.md) · [Português](../../pt/docs/02-safety.md) · [Español](../../es/docs/02-safety.md) · [Français](../../fr/docs/02-safety.md) · [Italiano](../../it/docs/02-safety.md) · [Polski](../../pl/docs/02-safety.md) · [Türkçe](../../tr/docs/02-safety.md) · [Українська](../../uk/docs/02-safety.md) · [Tiếng Việt](../../vi/docs/02-safety.md) · 中文 · [日本語](../../ja/docs/02-safety.md) · [한국어](../../ko/docs/02-safety.md) · [हिन्दी](../../hi/docs/02-safety.md)
 
 1. **压电器的高电压。** 在谐振时，换能器端子在第二级驱动器上线后会携带数十到数百伏的电压。接收侧的TVS/齐纳在第一次加电前就已安装。请勿在运行时触摸端子。
 2. **市电。** 超声清洗器驱动器与市电是电气连接的。请仅通过实验室电源/隔离变压器工作。本项目的半桥设计是从电流限制的实验室电源供电，而不是从市电连接的清洗器板。

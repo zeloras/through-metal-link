@@ -1,6 +1,6 @@
 # Lizenzen und Patentschutz
 
-> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch · [Português](../pt/LICENSES.md) · [中文](../zh/LICENSES.md) · [日本語](../ja/LICENSES.md)
+> [English (primary)](../../LICENSES.md) · [Русский](../ru/LICENSES.md) · Deutsch · [Português](../pt/LICENSES.md) · [Español](../es/LICENSES.md) · [Français](../fr/LICENSES.md) · [Italiano](../it/LICENSES.md) · [Polski](../pl/LICENSES.md) · [Türkçe](../tr/LICENSES.md) · [Українська](../uk/LICENSES.md) · [Tiếng Việt](../vi/LICENSES.md) · [中文](../zh/LICENSES.md) · [日本語](../ja/LICENSES.md) · [한국어](../ko/LICENSES.md) · [हिन्दी](../hi/LICENSES.md)
 
 Das Ziel dieses Schemas: Das Projekt ist vollständig offen, jeder kann es forken und darauf aufbauen (einschließlich kommerzieller Nutzung), während das Risiko von Patentstreitigkeiten auf das absolute Minimum reduziert wird, das durch rechtliche und prozedurale Mittel erreichbar ist.
 

@@ -1,6 +1,6 @@
 # through-metal-link
 
-> [English (primary)](../../README.md) · Русский · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [中文](../zh/README.md) · [日本語](../ja/README.md)
+> [English (primary)](../../README.md) · Русский · [Deutsch](../de/README.md) · [Português](../pt/README.md) · [Español](../es/README.md) · [Français](../fr/README.md) · [Italiano](../it/README.md) · [Polski](../pl/README.md) · [Türkçe](../tr/README.md) · [Українська](../uk/README.md) · [Tiếng Việt](../vi/README.md) · [中文](../zh/README.md) · [日本語](../ja/README.md) · [한국어](../ko/README.md) · [हिन्दी](../hi/README.md)
 
 Открытая платформа передачи энергии и данных ультразвуком через глухие металлические стенки — «сквозь сталь без единого отверстия», в гаражных условиях.
 

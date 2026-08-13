@@ -1,6 +1,6 @@
 # Mapa de aplicações: quem precisa dessa pilha de tecnologia e por quê
 
-> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · Português · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md)
+> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · [Deutsch](../../de/docs/05-applications-map.md) · Português · [Español](../../es/docs/05-applications-map.md) · [Français](../../fr/docs/05-applications-map.md) · [Italiano](../../it/docs/05-applications-map.md) · [Polski](../../pl/docs/05-applications-map.md) · [Türkçe](../../tr/docs/05-applications-map.md) · [Українська](../../uk/docs/05-applications-map.md) · [Tiếng Việt](../../vi/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md) · [한국어](../../ko/docs/05-applications-map.md) · [हिन्दी](../../hi/docs/05-applications-map.md)
 
 A pilha de plataforma: um canal ativo de energia e dados através de paredes cegas — piezo-acústica / EMAT / magnética de baixa frequência. Abaixo: onde isso é necessário no mundo real, quem já está lá e o que resta para nós.
 

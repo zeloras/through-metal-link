@@ -1,6 +1,6 @@
 # Anwendungsübersicht: wer benötigt diesen Technologie-Stack und warum
 
-> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · Deutsch · [Português](../../pt/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md)
+> [English (primary)](../../../docs/05-applications-map.md) · [Русский](../../ru/docs/05-applications-map.md) · Deutsch · [Português](../../pt/docs/05-applications-map.md) · [Español](../../es/docs/05-applications-map.md) · [Français](../../fr/docs/05-applications-map.md) · [Italiano](../../it/docs/05-applications-map.md) · [Polski](../../pl/docs/05-applications-map.md) · [Türkçe](../../tr/docs/05-applications-map.md) · [Українська](../../uk/docs/05-applications-map.md) · [Tiếng Việt](../../vi/docs/05-applications-map.md) · [中文](../../zh/docs/05-applications-map.md) · [日本語](../../ja/docs/05-applications-map.md) · [한국어](../../ko/docs/05-applications-map.md) · [हिन्दी](../../hi/docs/05-applications-map.md)
 
 Der Plattform-Stack: ein aktiver Power- und Datenkanal durch blinde Wände — Piezo-Akustik / EMAT / LF-Magnetik. Unten: wo dies in der realen Welt benötigt wird, wer bereits dort ist und was für uns noch übrig bleibt.
 
