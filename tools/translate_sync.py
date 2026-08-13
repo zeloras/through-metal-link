@@ -33,6 +33,8 @@ model via OPENAI_BASE_URL / TRANSLATE_MODEL — for a local daemon that is
 OPENAI_BASE_URL=http://localhost:11434/v1 with no key.
 
 Usage: python tools/translate_sync.py [--base <sha>] [--dry-run]
+       [--no-model] runs the deterministic passes only and exits 0;
+       without it, a missing API key is an error, not a warning.
 """
 
 import argparse
@@ -834,6 +836,9 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("--base", default="HEAD~1", help="commit to diff against")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-model", action="store_true",
+                   help="run only the deterministic passes (language bars, link "
+                        "repair); do not expect an API key")
     p.add_argument("--touched-list", metavar="PATH",
                    help="write the newline-separated list of paths this run "
                         "modified, for `git add --pathspec-from-file`")
@@ -856,9 +861,12 @@ def main() -> int:
         print(f"Bootstrapping: {', '.join(new_langs)}")
 
     if not TOKEN:
-        print("::warning::No OLLAMA_API_KEY or OPENAI_API_KEY set — "
-              "translations will not run, stale files stay queued")
-        # still refresh langbars and save state so the repo invariants pass
+        # An unreachable endpoint is transient and must not fail the pipeline —
+        # that is what ModelUnavailable is for. No key at all is not transient,
+        # it is a misconfiguration, and treating the two alike hid one for three
+        # days: the workflow's `environment:` was renamed without moving the
+        # secret, every run reported success, and nothing was translated the
+        # whole time. Pass --no-model to run the deterministic passes on purpose.
         total = 0
         try:
             total += refresh_langbars(a.dry_run)
@@ -868,7 +876,16 @@ def main() -> int:
                 Path(a.touched_list).write_text(
                     "".join(f"{p}\n" for p in sorted(WRITTEN)), encoding="utf-8")
         print(f"Synced: {total}")
-        return 0
+        if a.no_model or a.dry_run:
+            print("No API key; deterministic passes only, as requested.")
+            return 0
+        print("::error::No OLLAMA_API_KEY or OPENAI_API_KEY reached this job — "
+              "nothing was translated and every stale pair stays queued. Check "
+              "that the secret exists in the environment the job declares: an "
+              "environment secret is only visible to a job naming that exact "
+              "environment. Use --no-model if this run was meant to be "
+              "deterministic-only.")
+        return 1
 
     total = 0
     try:
