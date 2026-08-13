@@ -1,0 +1,6 @@
+# Węzeł ESP32 (etap 4) — stub
+
+> [English (primary)](../../../../firmware/node-esp32/README.md) · [Русский](../../../ru/firmware/node-esp32/README.md) · [Deutsch](../../../de/firmware/node-esp32/README.md) · [Português](../../../pt/firmware/node-esp32/README.md) · [Español](../../../es/firmware/node-esp32/README.md) · [Français](../../../fr/firmware/node-esp32/README.md) · [Italiano](../../../it/firmware/node-esp32/README.md) · Polski · [Türkçe](../../../tr/firmware/node-esp32/README.md) · [Українська](../../../uk/firmware/node-esp32/README.md) · [Tiếng Việt](../../../vi/firmware/node-esp32/README.md) · [中文](../../../zh/firmware/node-esp32/README.md) · [日本語](../../../ja/firmware/node-esp32/README.md) · [한국어](../../../ko/firmware/node-esp32/README.md) · [हिन्दी](../../../hi/firmware/node-esp32/README.md)
+
+Plan: deep sleep, wybudzenie na timerze, odczyt z czujnika (gaz/temperatura/tło), pakiet BLE advertising z danymi, powrót do uśpienia. Budżet: średnio ~1-5 mW, z pikami buforowanymi przez superkondensator.
+Pojawi się po etapie 2.

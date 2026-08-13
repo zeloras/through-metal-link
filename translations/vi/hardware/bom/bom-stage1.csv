@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Bộ truyền Langevin 40 kHz 50-60 W,4,40,AliExpress,tán xạ cộng hưởng ±1 kHz — mua 4 từ MỘT lô; quét tần chọn cặp tốt nhất (docs/img/sim2)
+2,Mô-đun DDS AD9833,2,8,AliExpress,SPI với Raspberry Pi; cái thứ hai là dự phòng
+3,IR2110 + 2x IRF540 (hoặc mô-đun EGS002),1,10,AliExpress/eBay,driver nửa cầu; EGS002 cũng bao gồm bộ tạo dạng sóng với thời gian chết
+4,Toroid ferrit + dây đồng tráng men,1,3,địa phương,biến áp ghép trở kháng
+5,ADC ADS1115,2,4,AliExpress,I2C; Pi không có ADC riêng! cái thứ hai — dự phòng / kênh dòng TX (docs/03)
+6,Cầu Schottky (4x SS14) + siêu tụ 1F 5.5V,1,3,AliExpress,phía thu
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — đầu vào DC ADC (sch2); 15CA hai chiều — ngang qua piezo của node (sch4)
+8,Mô-đun GY-LTC3588,1,7,AliExpress,bộ thu năng lượng cho giai đoạn 4 (tùy chọn ở giai đoạn 1)
+9,Tấm thép 3-5 mm ~150x150 mm,2,5,yard kim loại,cái thứ hai — dự phòng/độ dày khác
+10,Mỡ bôi trơn đặc + kẹp,1,5,địa phương,tiếp xúc âm không cần epoxy
+11,"Linh kiện thụ động hỗ trợ (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF film, 470 uF",1,4,AliExpress/địa phương,không có những linh kiện này thì driver và bộ thu không thể lắp từ linh kiện rời; không cần với EGS002 (trừ phần bộ thu)
+12,2N7002 x3 + shunt 0.1 Ohm 1 W,1,1,AliExpress,giai đoạn 4: điều biến tải (sch4) và kênh dòng TX (docs/03)

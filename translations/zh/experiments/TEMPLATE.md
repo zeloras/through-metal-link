@@ -1,22 +1,22 @@
-# 实验 NNN: <标题>
+# 实验 NNN：<标题>
 
 > [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md) · [Español](../../es/experiments/TEMPLATE.md) · [Français](../../fr/experiments/TEMPLATE.md) · [Italiano](../../it/experiments/TEMPLATE.md) · [Polski](../../pl/experiments/TEMPLATE.md) · [Türkçe](../../tr/experiments/TEMPLATE.md) · [Українська](../../uk/experiments/TEMPLATE.md) · [Tiếng Việt](../../vi/experiments/TEMPLATE.md) · 中文 · [日本語](../../ja/experiments/TEMPLATE.md) · [한국어](../../ko/experiments/TEMPLATE.md) · [हिन्दी](../../hi/experiments/TEMPLATE.md)
 
 - 日期：
-- 目标（本实验回答的一个问题）：
+- 目标（本实验回答的唯一问题）：
 - 假设：
 
-## 设置
-硬件（BOM 行项 + 序列号/批号），电路图，照片，墙厚/材料，声学耦合方法，室温。
+## 实验装置
+硬件（BOM 清单项 + 序列号/批次）、接线图、照片、壁厚/材料、声耦合方式、室温。
 
-## 步骤
-一步一步的操作，以便可以完全重复。
+## 实验步骤
+逐步说明，确保可精确复现。
 
 ## 数据
-data/ 目录中 CSV/PNG 文件的链接（带时间戳的文件名）。
+指向 data/ 中 CSV/PNG 文件的链接（带时间戳的文件名）。
 
 ## 结果
-数字。一个图表。对目标问题的答案：是/否/部分。
+数据。一张图表。对目标问题的回答：是/否/部分。
 
-## 结论和下一步
-我们在下一个实验中要做出的改变。哪些内容被加入了 ADR。
+## 结论与后续步骤
+下一次实验中要更改的内容。哪些内容被纳入了 ADR。

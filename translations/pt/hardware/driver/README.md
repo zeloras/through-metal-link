@@ -1,26 +1,26 @@
-# Driver (stage 2): IR2110 half-bridge
+# Driver (estágio 2): meio-ponte IR2110
 
 > [English (primary)](../../../../hardware/driver/README.md) · [Русский](../../../ru/hardware/driver/README.md) · [Deutsch](../../../de/hardware/driver/README.md) · Português · [Español](../../../es/hardware/driver/README.md) · [Français](../../../fr/hardware/driver/README.md) · [Italiano](../../../it/hardware/driver/README.md) · [Polski](../../../pl/hardware/driver/README.md) · [Türkçe](../../../tr/hardware/driver/README.md) · [Українська](../../../uk/hardware/driver/README.md) · [Tiếng Việt](../../../vi/hardware/driver/README.md) · [中文](../../../zh/hardware/driver/README.md) · [日本語](../../../ja/hardware/driver/README.md) · [한국어](../../../ko/hardware/driver/README.md) · [हिन्दी](../../../hi/hardware/driver/README.md)
 
 **Esquemático:** [../schematics/sch1-driver-halfbridge.png](../schematics/sch1-driver-halfbridge.png) (gerado por [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
 
-A cadeia: Pi (SPI) → AD9833 **no modo de onda quadrada** (bit OPBITEN: MSB encaminhado para a saída, swing de trilho a trilho — nenhum comparador separado necessário) → **74HC14 + RC + 1N4148** formador (complementar HIN/LIN com ~1 µs de tempo morto) → IR2110 → 2×IRF540 (ponte de meia-onda) → 1 µF capacitor de bloqueio CC → transformador de acoplamento (ferrite, ~1:3..1:5, ajuste na bancada) → transdutor Langevin TX.
+A cadeia: Pi (SPI) → AD9833 **em modo onda quadrada** (bit OPBITEN: MSB roteado para a saída, swing rail-to-rail — sem comparador separado necessário) → **74HC14 + RC + 1N4148** modelador de pulsos (HIN/LIN complementares com ~1 µs de tempo morto) → IR2110 → 2×IRF540 (meio-ponte) → capacitor de bloqueio DC de 1 µF → transformador de casamento (núcleo de ferrite, ~1:3..1:5, ajuste na bancada) → transdutor Langevin TX.
 
-A saída senoidal do AD9833 (~0,6 Vpp) não é boa para a lógica do IR2110 — se por algum motivo você precisar especificamente de uma saída senoidal do DDS, coloque um comparador entre eles (por exemplo, um LM393, não no BOM).
+A saída senoidal do AD9833 (~0,6 Vpp) não serve para a lógica do IR2110 — se por algum motivo você precisar especificamente de uma senoide na saída do DDS, coloque um comparador entre eles (ex.: LM393, não está na BOM).
 
-Alimentação da etapa de potência: fonte de alimentação de bancada de 12–24 V com limitação de corrente (**inicie com 0,2 A**).
+Alimentação do estágio de potência: fonte de bancada 12–24 V com limite de corrente (**comece em 0,2 A**).
 
-Nota: a varredura de etapa 1 aciona o piezo diretamente com a saída senoidal fraca do DDS (~0,6 Vpp, veja `sweep_map.py`) — **este driver entra na cadeia apenas na etapa 2 (watts)**. Não espere ≥0,5 W da configuração de etapa 1 com apenas o DDS.
+Nota: a varredura do estágio 1 aciona o piezo diretamente com a senoide fraca do DDS (~0,6 Vpp, veja `sweep_map.py`) — **este driver entra na cadeia apenas no estágio 2 (watts)**. Não espere ≥0,5 W da ligação do estágio 1 apenas com o DDS.
 
 Notas:
-- O transdutor Langevin é uma carga capacitiva (tipicamente alguns nF). Um indutor ou transformador de acoplamento é obrigatório; sem isso, os MOSFETs dissipam a corrente reativa e superaquecem.
-- **Transformador de acoplamento (o ponto usual de falha).** Comece com um pequeno toroide de ferrite (por exemplo, FT50-43 / similar), primário com algumas voltas, secundário ~3–5× isso, capacitor de bloqueio CC de 1 µF em série no primário. Ajuste para a corrente mínima da fonte de alimentação *na ressonância da etapa 1* com o TX **preso à placa** e o RX carregado. A razão de voltas e a fuga são empíricas — o esquemático marca-as com `*` por um motivo. Registre as voltas finais no registro de experimentos.
-- **Tempo morto**: o IR2110 não gera por conta própria. A opção de partes discretas — RC+1N4148 nas entradas do 74HC14 (atrasa apenas as bordas de subida, ~1 µs; com um período de 25 µs a 40 kHz isso é <5% de perda). A opção fácil — um módulo EGS002, tudo está construído lá.
-- **Lógica 3,3 V**: alimente o VDD do IR2110 com os mesmos 3,3 V que o AD9833 e o 74HC14 — em VDD=5 V o limiar VIH é ≈ 3,1 V e uma onda quadrada de 3,3 V mal passa (o datasheet permite VDD até 3,3 V).
-- **Desacoplamento é obrigatório**: 100 nF em VDD e VCC (VCC — mais 47 µF), e na trilha de alimentação 470–1000 µF + 100 nF cerâmico bem na perna da ponte de meia-onda — sem isso, uma ponte de meia-onda em jumpers de protoboard pega seus próprios spikes de comutação. Mantenha os fios do loop de alimentação curtos; se o nó de comutação anelar muito, mova-se do protoboard para um protoboard com uma camada de terra de cobre antes de aumentar a corrente.
-- **Seqüência de primeira alimentação** (alinhada com [docs/02-safety.md](../../docs/02-safety.md)):
-  1. Sem o transdutor Langevin no secundário ainda. Fonte de alimentação = 12 V, limite de corrente 0,2 A. Osciloscópio da drive de porta (HIN/LIN) e nó de comutação — confirme o tempo morto e não há disparo.
-  2. Ajuste o transformador de acoplamento + TX Langevin **preso à placa de aço** (ou um bloco de metal sacrificado espesso). Ainda com limite de corrente 0,2 A. Aumente na frequência de pico da etapa 1 apenas o suficiente para ver a corrente e a tensão do RX.
-  3. Aumente gradualmente o limite de corrente enquanto observa a temperatura do MOSFET e do transformador. Nunca deixe um transdutor Langevin sem placa à potência — corridas de potência total em ar livre são como os cerâmicos racham e os drivers morrem.
+- O transdutor Langevin é uma carga capacitiva (tipicamente alguns nF). Um indutor em série ou transformador de casamento é obrigatório; sem isso os MOSFETs dissipam a corrente reativa e queimam.
+- **Transformador de casamento (o ponto de falha usual).** Comece com um toroide de ferrite pequeno (ex.: FT50-43 / similar), primário com algumas espiras, secundário ~3–5× isso, capacitor filme de bloqueio DC de 1 µF em série no primário. Ajuste para corrente mínima da fonte *na ressonância do estágio 1* com o TX **fixado à placa** e o RX carregado. A relação de espiras e a dispersão são empíricas — o esquemático as marca com `*` por um motivo. Registre as espiras finais no log de experimentos.
+- **Tempo morto**: o IR2110 não o gera por conta própria. A opção com componentes discretos — RC+1N4148 nas entradas do 74HC14 (atrasa apenas as bordas de subida, ~1 µs; com um período de 25 µs a 40 kHz isso é <5% de perda). A opção fácil — um módulo EGS002, tudo já embutido.
+- **Lógica 3,3 V**: alimente o VDD do IR2110 com os mesmos 3,3 V do AD9833 e do 74HC14 — em VDD=5 V o limiar VIH é ≈ 3,1 V e uma onda quadrada de 3,3 V mal passa (o datasheet permite VDD até 3,3 V).
+- **Desacoplamento é obrigatório**: 100 nF no VDD e VCC (VCC — mais 47 µF), e no trilho de potência 470–1000 µF + 100 nF cerâmico bem nos braços do meio-ponte — sem isso, um meio-ponte em jumpers de protoboard capta seus próprios picos de comutação. Mantenha os fios do laço de potência curtos; se o nó de comutação oscilar muito, saia da protoboard para uma placa de cobre (dead-bug / protoboard com plano de terra) antes de aumentar a corrente.
+- **Sequência de primeiro energização** (alinhada com [docs/02-safety.md](../../docs/02-safety.md)):
+  1. Sem o Langevin no secundário ainda. Fonte = 12 V, limite de corrente 0,2 A. Observe o acionamento do gate (HIN/LIN) e o nó de comutação no osciloscópio — confirme o tempo morto e a ausência de shoot-through.
+  2. Instale o transformador de casamento + TX Langevin **fixado à placa de aço** (ou um bloco metálico espesso de sacrifício). Ainda com limite de 0,2 A. Suba na frequência de pico do estágio 1 apenas pelo tempo suficiente para ver a corrente e a tensão no RX.
+  3. Aumente o limite de corrente gradualmente enquanto monitora a temperatura dos MOSFETs e do transformador. Nunca deixe um Langevin solto em potência — operações em potência total ao ar livre é como cerâmicas racham e drivers morrem.
 
-TODO: projeto KiCad (PCB) assim que o protótipo de protoboard (ou dead-bug) for verificado. Até então, os esquemáticos em [`../schematics/`](../schematics/) são a fonte de verdade do design.
+TODO: projeto KiCad (PCB) assim que o protótipo em protoboard (ou dead-bug) for validado. Até então, os esquemáticos em [`../schematics/`](../schematics/) são a fonte de verdade do projeto.

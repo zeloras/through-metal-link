@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Langevin tip transdüser 40 kHz 50-60 W,4,40,AliExpress,rezonans yayılımı ±1 kHz — tek partiden 4 adet alın; tarama en iyi çifti seçer (docs/img/sim2)
+2,AD9833 DDS modülü,2,8,AliExpress,Raspberry Pi ile SPI; ikincisi yedek
+3,IR2110 + 2x IRF540 (veya bir EGS002 modülü),1,10,AliExpress/eBay,sürücü yarım köprü; EGS002 ölü süreli şekillendiriciyi de kapsar
+4,Ferrit toroid + manyetik tel,1,3,yerel,uygunluk transformatörü
+5,ADS1115 ADC,2,4,AliExpress,I2C; Pi'nin kendi ADC'si yok! ikincisi — yedek / TX akım kanalı (docs/03)
+6,Schottky köprü (4x SS14) + süperkapasitör 1F 5.5V,1,3,AliExpress,alıcı tarafı
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — ADC DC girişi (sch2); 15CA çift yönlü — düğümün piezosu boyunca (sch4)
+8,GY-LTC3588 modülü,1,7,AliExpress,aşama 4 için hasat edici (aşama 1'de isteğe bağlı)
+9,Çelik plaka 3-5 mm ~150x150 mm,2,5,metal bahçesi,ikincisi — yedek/farklı kalınlık
+10,Kalın tutarlı gres + kelepçeler,1,5,yerel,epoksisiz akustik temas
+11,"Destek pasifleri (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF film, 470 uF",1,4,AliExpress/yerel,bunlar olmadan sürücü ve alıcı ayrık parçalardan kurulamaz; EGS002 ile gerekmez (alıcı kısmı hariç)
+12,2N7002 x3 + 0.1 Ohm 1 W şant,1,1,AliExpress,aşama 4: yük modülasyonu (sch4) ve TX akım kanalı (docs/03)

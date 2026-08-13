@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Langevin 트랜스듀서 40 kHz 50-60 W,4,40,AliExpress,공진 분포 ±1 kHz — 한 배치에서 4개 구매; 스윕이 최적 페어를 선택 (docs/img/sim2)
+2,AD9833 DDS 모듈,2,8,AliExpress,Raspberry Pi와 SPI 통신; 두 번째는 예비용
+3,IR2110 + 2x IRF540 (또는 EGS002 모듈),1,10,AliExpress/eBay,하프브리지 구동; EGS002는 데드타임 쉐이퍼도 커버
+4,페라이트 토로이드 + 자석선,1,3,로컬,정합 트랜스포머
+5,ADS1115 ADC,2,4,AliExpress,I2C; Pi에는 자체 ADC가 없음! 두 번째 — 예비 / TX 전류 채널 (docs/03)
+6,쇼트키 브리지 (4x SS14) + 슈퍼커패시터 1F 5.5V,1,3,AliExpress,수신측
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — ADC DC 입력 (sch2); 15CA 양방향 — 노드 피에조 양단 (sch4)
+8,GY-LTC3588 모듈,1,7,AliExpress,스테이지 4용 하베스터 (스테이지 1에서는 옵션)
+9,강판 3-5 mm 약 150x150 mm,2,5,철물점,두 번째 — 예비/다른 두께
+10,점도 일정한 그리스 + 클램프,1,5,로컬,에폭시 없이 음향 접촉
+11,"서포트 패시브 (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF film, 470 uF",1,4,AliExpress/로컬,이것들이 없으면 디스크리트 부품으로 구동부와 수신부를 만들 수 없음; EGS002 사용 시 불필요 (수신부 제외)
+12,2N7002 x3 + 0.1 Ohm 1 W 션트,1,1,AliExpress,스테이지 4: 부하 변조 (sch4) 및 TX 전류 채널 (docs/03)

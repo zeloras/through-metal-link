@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Przetwornik Langevina 40 kHz 50-60 W,4,40,AliExpress,rozrzut rezonansu ±1 kHz — kup 4 z JEDNEJ partii; sweep wybiera najlepszą parę (docs/img/sim2)
+2,Moduł DDS AD9833,2,8,AliExpress,SPI z Raspberry Pi; drugi jako zapas
+3,IR2110 + 2x IRF540 (lub moduł EGS002),1,10,AliExpress/eBay,półmostek sterownika; EGS002 obejmuje też shaper z czasem martwym
+4,Toroid ferrytowy + drut nawojowy,1,3,lokalnie,transformator dopasowujący
+5,Przetwornik ADS1115,2,4,AliExpress,I2C; Pi nie ma własnego ADC! drugi — zapas / kanał prądu TX (docs/03)
+6,Mostek Schottky'ego (4x SS14) + superkondensator 1F 5.5V,1,3,AliExpress,strona odbiornika
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — wejście DC ADC (sch2); 15CA dwukierunkowy — równolegle z piezo węzła (sch4)
+8,Moduł GY-LTC3588,1,7,AliExpress,harwester dla etapu 4 (opcjonalny na etapie 1)
+9,Płytka stalowa 3-5 mm ~150x150 mm,2,5,skład metalu,druga — zapas/inna grubość
+10,Gęsty smar + ściski,1,5,lokalnie,kontakt akustyczny bez epoksydu
+11,"Elementy bierne (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF foliowy, 470 uF",1,4,AliExpress/lokalnie,bez nich sterownik i odbiornik nie mogą być zbudowane z elementów dyskretnych; niepotrzebne z EGS002 (poza częścią odbiornika)
+12,2N7002 x3 + bocznik 0.1 Ohm 1 W,1,1,AliExpress,etap 4: modulacja obciążenia (sch4) i kanał prądu TX (docs/03)

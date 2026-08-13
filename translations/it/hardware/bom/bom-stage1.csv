@@ -1,0 +1,13 @@
+pos,item,qty,approx_price_usd,source,notes
+1,Trasduttore Langevin 40 kHz 50-60 W,4,40,AliExpress,spreading di risonanza ±1 kHz — comprare 4 da UN UNICO lotto; lo sweep seleziona la coppia migliore (docs/img/sim2)
+2,Modulo DDS AD9833,2,8,AliExpress,SPI con il Raspberry Pi; il secondo è di riserva
+3,IR2110 + 2x IRF540 (oppure modulo EGS002),1,10,AliExpress/eBay,driver half-bridge; EGS002 copre anche lo shaper con dead time
+4,Toroide in ferrite + filo di rame smaltato,1,3,locale,trasformatore di adattamento
+5,ADC ADS1115,2,4,AliExpress,I2C; il Pi non ha ADC propri! il secondo — riserva / canale corrente TX (docs/03)
+6,Ponte Schottky (4x SS14) + supercondensatore 1F 5.5V,1,3,AliExpress,lato ricevitore
+7,TVS: SMBJ5.0A x3 + SMBJ15CA x2,1,2,AliExpress,5.0A — ingresso DC ADC (sch2); 15CA bidirezionale — ai capi della piezo del nodo (sch4)
+8,Modulo GY-LTC3588,1,7,AliExpress,harvester per stadio 4 (opzionale a stadio 1)
+9,Lamiera in acciaio 3-5 mm ~150x150 mm,2,5,ferraio,il secondo — riserva/un altro spessore
+10,Grasso consistente + morsetti,1,5,locale,contatto acustico senza epossidica
+11,"Passivi di supporto (sch1/sch2): UF4007, 74HC14, 1N4148 x4, 10 Ohm x2, 10 kOhm, 47 kOhm, 100 nF x6, 10 uF, 1 uF film, 470 uF",1,4,AliExpress/locale,senza questi il driver e il ricevitore non si possono costruire con componenti discreti; non necessari con EGS002 (eccetto la parte ricevitore)
+12,2N7002 x3 + shunt 0.1 Ohm 1 W,1,1,AliExpress,stadio 4: modulazione di carico (sch4) e canale corrente TX (docs/03)
