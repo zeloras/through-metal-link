@@ -1,6 +1,6 @@
 # Hybrid channels: barrier → physics → numbers
 
-> English (primary) · [Русский](../translations/ru/docs/04-hybrid-channels.md) · [Deutsch](../translations/de/docs/04-hybrid-channels.md) · [Português](../translations/pt/docs/04-hybrid-channels.md) · [中文](../translations/zh/docs/04-hybrid-channels.md) · [日本語](../translations/ja/docs/04-hybrid-channels.md)
+> English (primary) · [Русский](../translations/ru/docs/04-hybrid-channels.md) · [Deutsch](../translations/de/docs/04-hybrid-channels.md) · [Português](../translations/pt/docs/04-hybrid-channels.md) · [Español](../translations/es/docs/04-hybrid-channels.md) · [Français](../translations/fr/docs/04-hybrid-channels.md) · [Italiano](../translations/it/docs/04-hybrid-channels.md) · [Polski](../translations/pl/docs/04-hybrid-channels.md) · [Türkçe](../translations/tr/docs/04-hybrid-channels.md) · [Українська](../translations/uk/docs/04-hybrid-channels.md) · [Tiếng Việt](../translations/vi/docs/04-hybrid-channels.md) · [中文](../translations/zh/docs/04-hybrid-channels.md) · [日本語](../translations/ja/docs/04-hybrid-channels.md) · [한국어](../translations/ko/docs/04-hybrid-channels.md) · [हिन्दी](../translations/hi/docs/04-hybrid-channels.md)
 
 The principle (a corollary of the "penetration paradox"): a wave gets through a barrier exactly to the extent that it interacts weakly with it — which is why no universal channel exists. The platform doesn't chase a single channel; for each barrier it picks the physics that the barrier is transparent to and the receiver is resonantly "greedy" for.
 

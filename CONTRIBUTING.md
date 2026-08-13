@@ -1,6 +1,6 @@
 # How to Contribute
 
-> English (primary) · [Русский](translations/ru/CONTRIBUTING.md) · [Deutsch](translations/de/CONTRIBUTING.md) · [Português](translations/pt/CONTRIBUTING.md) · [中文](translations/zh/CONTRIBUTING.md) · [日本語](translations/ja/CONTRIBUTING.md)
+> English (primary) · [Русский](translations/ru/CONTRIBUTING.md) · [Deutsch](translations/de/CONTRIBUTING.md) · [Português](translations/pt/CONTRIBUTING.md) · [Español](translations/es/CONTRIBUTING.md) · [Français](translations/fr/CONTRIBUTING.md) · [Italiano](translations/it/CONTRIBUTING.md) · [Polski](translations/pl/CONTRIBUTING.md) · [Türkçe](translations/tr/CONTRIBUTING.md) · [Українська](translations/uk/CONTRIBUTING.md) · [Tiếng Việt](translations/vi/CONTRIBUTING.md) · [中文](translations/zh/CONTRIBUTING.md) · [日本語](translations/ja/CONTRIBUTING.md) · [한국어](translations/ko/CONTRIBUTING.md) · [हिन्दी](translations/hi/CONTRIBUTING.md)
 
 Thank you for wanting to advance the open through-steel channel. The three rules below are not bureaucracy — they are the project's patent armor (see [LICENSES.md](LICENSES.md) for why).
 

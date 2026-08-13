@@ -1,6 +1,6 @@
 # Experiment NNN: <title>
 
-> English (primary) · [Русский](../translations/ru/experiments/TEMPLATE.md) · [Deutsch](../translations/de/experiments/TEMPLATE.md) · [Português](../translations/pt/experiments/TEMPLATE.md) · [中文](../translations/zh/experiments/TEMPLATE.md) · [日本語](../translations/ja/experiments/TEMPLATE.md)
+> English (primary) · [Русский](../translations/ru/experiments/TEMPLATE.md) · [Deutsch](../translations/de/experiments/TEMPLATE.md) · [Português](../translations/pt/experiments/TEMPLATE.md) · [Español](../translations/es/experiments/TEMPLATE.md) · [Français](../translations/fr/experiments/TEMPLATE.md) · [Italiano](../translations/it/experiments/TEMPLATE.md) · [Polski](../translations/pl/experiments/TEMPLATE.md) · [Türkçe](../translations/tr/experiments/TEMPLATE.md) · [Українська](../translations/uk/experiments/TEMPLATE.md) · [Tiếng Việt](../translations/vi/experiments/TEMPLATE.md) · [中文](../translations/zh/experiments/TEMPLATE.md) · [日本語](../translations/ja/experiments/TEMPLATE.md) · [한국어](../translations/ko/experiments/TEMPLATE.md) · [हिन्दी](../translations/hi/experiments/TEMPLATE.md)
 
 - Date:
 - Goal (the one question this experiment answers):

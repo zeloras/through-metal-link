@@ -190,6 +190,15 @@ def check_mirror() -> list[str]:
             j += 1
         if not (j < len(lines) and lines[j].startswith("> ") and "·" in lines[j]):
             bad.append(f"{rel}: no language bar under the H1")
+            continue
+        # An existing bar is not a current bar. When the commit step's pathspec
+        # dropped the primary tree, README.md and 19 other canonical docs kept
+        # a six-language bar while the mirrors had fifteen — every check passed
+        # because each file did have *a* bar. Compare against i18n.json.
+        absent = [CFG["names"][l] for l in LANGS if CFG["names"][l] not in lines[j]]
+        if absent:
+            bad.append(f"{rel}: language bar is missing {', '.join(absent)} "
+                       f"({len(LANGS) - len(absent)} of {len(LANGS)} languages)")
     return bad
 
 

@@ -1,6 +1,6 @@
 # Applications map: who needs this technology stack, and why
 
-> English (primary) · [Русский](../translations/ru/docs/05-applications-map.md) · [Deutsch](../translations/de/docs/05-applications-map.md) · [Português](../translations/pt/docs/05-applications-map.md) · [中文](../translations/zh/docs/05-applications-map.md) · [日本語](../translations/ja/docs/05-applications-map.md)
+> English (primary) · [Русский](../translations/ru/docs/05-applications-map.md) · [Deutsch](../translations/de/docs/05-applications-map.md) · [Português](../translations/pt/docs/05-applications-map.md) · [Español](../translations/es/docs/05-applications-map.md) · [Français](../translations/fr/docs/05-applications-map.md) · [Italiano](../translations/it/docs/05-applications-map.md) · [Polski](../translations/pl/docs/05-applications-map.md) · [Türkçe](../translations/tr/docs/05-applications-map.md) · [Українська](../translations/uk/docs/05-applications-map.md) · [Tiếng Việt](../translations/vi/docs/05-applications-map.md) · [中文](../translations/zh/docs/05-applications-map.md) · [日本語](../translations/ja/docs/05-applications-map.md) · [한국어](../translations/ko/docs/05-applications-map.md) · [हिन्दी](../translations/hi/docs/05-applications-map.md)
 
 The platform stack: an active power-and-data channel through blind walls — piezo-acoustics / EMAT / LF magnetics. Below: where this is needed in the real world, who is already there, and what's left for us.
 

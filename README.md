@@ -2,7 +2,7 @@
 
 # through-metal-link
 
-> English (primary) · [Русский](translations/ru/README.md) · [Deutsch](translations/de/README.md) · [Português](translations/pt/README.md) · [中文](translations/zh/README.md) · [日本語](translations/ja/README.md)
+> English (primary) · [Русский](translations/ru/README.md) · [Deutsch](translations/de/README.md) · [Português](translations/pt/README.md) · [Español](translations/es/README.md) · [Français](translations/fr/README.md) · [Italiano](translations/it/README.md) · [Polski](translations/pl/README.md) · [Türkçe](translations/tr/README.md) · [Українська](translations/uk/README.md) · [Tiếng Việt](translations/vi/README.md) · [中文](translations/zh/README.md) · [日本語](translations/ja/README.md) · [한국어](translations/ko/README.md) · [हिन्दी](translations/hi/README.md)
 
 An open platform for ultrasonic power and data transfer through solid metal walls — "through steel without a single hole", built with garage-grade means.
 

@@ -52,7 +52,9 @@ jobs:
         env:
           OLLAMA_API_KEY: ${{ secrets.OLLAMA_API_KEY }}
           TRANSLATE_MODEL: glm-5.2
-        run: python tools/translate_sync.py --base "${{ github.event.before }}"
+        run: |
+          python tools/translate_sync.py --base "${{ github.event.before }}" \
+            --touched-list "$RUNNER_TEMP/touched.txt"
 
       # regenerate figures ONLY when the sync itself translated labels.json:
       # human pushes never trigger a cross-platform re-render (macOS and the
@@ -77,7 +79,19 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add translations/ hardware/schematics/labels.json software/simulator/labels.json translations/.sync-state.json docs/img/ hardware/schematics/*.png hardware/schematics/*.svg
+          # Stage exactly what the sync reported writing. The previous
+          # hand-written pathspec listed translations/ and the labels files and
+          # so silently dropped every primary-tree edit: the language bars the
+          # deterministic pass rewrites in README.md and the other canonical
+          # docs were generated here, never staged, and discarded with the
+          # workspace — mirrors listed fifteen languages while English listed
+          # six. The list keeps the blast radius bounded without guessing.
+          if [ -s "$RUNNER_TEMP/touched.txt" ]; then
+            git add --pathspec-from-file="$RUNNER_TEMP/touched.txt"
+          fi
+          # figures come from the renderers, which are separate processes
+          git add docs/img/ hardware/schematics/*.png hardware/schematics/*.svg \
+                  'translations/*/docs/img' 'translations/*/hardware/schematics' 2>/dev/null || true
           git commit -s -m "sync translations and figures [translate-sync]"
           # a second push to master while this job was running left our checkout
           # one commit behind: rebase onto it instead of failing the sync

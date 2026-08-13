@@ -1,6 +1,6 @@
 # Receiver discovery and auto-tuning protocol (sketch; implementation in stages 2–4)
 
-> English (primary) · [Русский](../translations/ru/docs/03-discovery-protocol.md) · [Deutsch](../translations/de/docs/03-discovery-protocol.md) · [Português](../translations/pt/docs/03-discovery-protocol.md) · [中文](../translations/zh/docs/03-discovery-protocol.md) · [日本語](../translations/ja/docs/03-discovery-protocol.md)
+> English (primary) · [Русский](../translations/ru/docs/03-discovery-protocol.md) · [Deutsch](../translations/de/docs/03-discovery-protocol.md) · [Português](../translations/pt/docs/03-discovery-protocol.md) · [Español](../translations/es/docs/03-discovery-protocol.md) · [Français](../translations/fr/docs/03-discovery-protocol.md) · [Italiano](../translations/it/docs/03-discovery-protocol.md) · [Polski](../translations/pl/docs/03-discovery-protocol.md) · [Türkçe](../translations/tr/docs/03-discovery-protocol.md) · [Українська](../translations/uk/docs/03-discovery-protocol.md) · [Tiếng Việt](../translations/vi/docs/03-discovery-protocol.md) · [中文](../translations/zh/docs/03-discovery-protocol.md) · [日本語](../translations/ja/docs/03-discovery-protocol.md) · [한국어](../translations/ko/docs/03-discovery-protocol.md) · [हिन्दी](../translations/hi/docs/03-discovery-protocol.md)
 
 The goal: the device figures out on its own whether there is a receiver behind the wall, picks the frequency and power on its own, and doesn't roast the wall for nothing if someone "forgot to weld the receiver in".
 

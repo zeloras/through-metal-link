@@ -1,6 +1,6 @@
 # Prior art: what we build on
 
-> English (primary) · [Русский](../translations/ru/docs/01-prior-art.md) · [Deutsch](../translations/de/docs/01-prior-art.md) · [Português](../translations/pt/docs/01-prior-art.md) · [中文](../translations/zh/docs/01-prior-art.md) · [日本語](../translations/ja/docs/01-prior-art.md)
+> English (primary) · [Русский](../translations/ru/docs/01-prior-art.md) · [Deutsch](../translations/de/docs/01-prior-art.md) · [Português](../translations/pt/docs/01-prior-art.md) · [Español](../translations/es/docs/01-prior-art.md) · [Français](../translations/fr/docs/01-prior-art.md) · [Italiano](../translations/it/docs/01-prior-art.md) · [Polski](../translations/pl/docs/01-prior-art.md) · [Türkçe](../translations/tr/docs/01-prior-art.md) · [Українська](../translations/uk/docs/01-prior-art.md) · [Tiếng Việt](../translations/vi/docs/01-prior-art.md) · [中文](../translations/zh/docs/01-prior-art.md) · [日本語](../translations/ja/docs/01-prior-art.md) · [한국어](../translations/ko/docs/01-prior-art.md) · [हिन्दी](../translations/hi/docs/01-prior-art.md)
 
 ## The rule
 Every technical decision in this repo must be traceable to a source from the "free" list (expired patents, papers). Live patents are read-only — mine them for insight into the problems, never copy their claims (this matters for commercialization in the US; see the patent map in the project).
