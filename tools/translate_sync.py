@@ -581,6 +581,61 @@ def doc_shape(text: str) -> tuple[int, int]:
             len(re.findall(r"(?m)^\|", text)))
 
 
+def split_sections(text: str) -> list[str] | None:
+    """Split a markdown document at its top-level (##) headings.
+
+    Every document at or under ~6 kB translated cleanly; the two above 8 kB came
+    back as summaries in all fourteen languages, whole-document retries and an
+    explicit "reproduce N headings" instruction included. Sections are the size
+    the model demonstrably handles, so a document that fails as a whole is
+    translated a section at a time and reassembled.
+    """
+    lines = text.splitlines(keepends=True)
+    heads = [i for i, l in enumerate(lines) if l.startswith("## ")]
+    if len(heads) < 2:
+        return None
+    chunks = []
+    if heads[0]:
+        chunks.append("".join(lines[:heads[0]]))       # preamble: H1, intro
+    for a, b in zip(heads, heads[1:] + [len(lines)]):
+        chunks.extend(_split_oversized("".join(lines[a:b])))
+    return chunks
+
+
+SECTION_MAX = 5000  # the largest input size observed translating faithfully
+
+
+def _split_oversized(chunk: str) -> list[str]:
+    """Cut an over-long section at blank lines, never inside a fence or table.
+
+    README's repository map is a single 9 kB section, so splitting on headings
+    alone still hands the model more than it handles. Blank lines outside
+    fenced code are safe cut points: markdown tables contain none, and neither
+    do the <details> blocks this document is built from.
+    """
+    if len(chunk) <= SECTION_MAX:
+        return [chunk]
+    lines = chunk.splitlines(keepends=True)
+    fence = False
+    cuts = []
+    for i, l in enumerate(lines):
+        if l.lstrip().startswith("```"):
+            fence = not fence
+        elif not fence and not l.strip():
+            cuts.append(i)
+    if not cuts:
+        return [chunk]
+    out, start, last = [], 0, 0
+    for i in cuts:
+        if sum(len(x) for x in lines[start:i]) >= SECTION_MAX:
+            cut = last if last > start else i
+            out.append("".join(lines[start:cut]))
+            start = cut
+        last = i
+    out.append("".join(lines[start:]))
+    return [c for c in out if c.strip()]
+
+
 def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
@@ -633,30 +688,38 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
                 "block: the result must mirror the structure of the source, "
                 "not summarise it.")
 
-    out = None
-    for attempt in (1, 2):
-        try:
-            out = chat(system_doc(dst_lang),
-                       f"Source file `{src}` — content:\n<<<\n{text}\n>>>\n\n{task}")
-        except BadReply as e:
-            print(f"  ! {dst}: {e} — left stale, will be retried")
-            return False
-        bad = implausible(text, out, dst, dst_lang)
-        if not bad:
-            break
-        if attempt == 1:
-            # one corrective attempt naming the shortfall, rather than burning
-            # the pair until a nightly run happens to get a better sample
-            print(f"  ~ {dst}: {bad} — retrying with the structure spelled out")
-            want = doc_shape(text)
-            task = (f"Translate the source file above in full. Your previous "
-                    f"reply was rejected: {bad}. The source has {want[0]} "
-                    f"markdown heading(s) and {want[1]} table row(s); the "
-                    f"translation must have exactly the same. Translate every "
-                    f"section — do not summarise, omit or merge any of them.")
-            continue
-        print(f"  ! {dst}: {bad} — not written, will be retried")
+    try:
+        out = chat(system_doc(dst_lang),
+                   f"Source file `{src}` — content:\n<<<\n{text}\n>>>\n\n{task}")
+    except BadReply as e:
+        print(f"  ! {dst}: {e} — left stale, will be retried")
         return False
+
+    bad = implausible(text, out, dst, dst_lang)
+    if bad:
+        # Asking again, even naming the exact heading and table-row counts, was
+        # tried and failed 28 times out of 28. The model does not need better
+        # instructions, it needs smaller inputs.
+        chunks = split_sections(text) if dst.endswith(".md") else None
+        if not chunks:
+            print(f"  ! {dst}: {bad} — not written, will be retried")
+            return False
+        print(f"  ~ {dst}: {bad} — retranslating in {len(chunks)} sections")
+        try:
+            parts = [chat(system_doc(dst_lang),
+                          f"This is section {i} of {len(chunks)} of `{src}`. "
+                          f"Translate this section in full and return only it, "
+                          f"keeping its heading, tables, lists and code blocks "
+                          f"exactly as they are:\n<<<\n{c}\n>>>")
+                     for i, c in enumerate(chunks, 1)]
+        except BadReply as e:
+            print(f"  ! {dst}: section {e} — left stale, will be retried")
+            return False
+        out = "\n\n".join(p.strip() for p in parts) + "\n"
+        bad = implausible(text, out, dst, dst_lang)
+        if bad:
+            print(f"  ! {dst}: {bad} section by section too — not written")
+            return False
     canon, _ = parse_doc(dst)
     if dst.endswith(".md"):
         primary_text = (ROOT / canon).read_text(encoding="utf-8") if (ROOT / canon).exists() else None
