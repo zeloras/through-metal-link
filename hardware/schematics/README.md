@@ -1,6 +1,6 @@
 # Test-rig schematics
 
-> English (primary) · [Русский](../../translations/ru/hardware/schematics/README.md) · [Deutsch](../../translations/de/hardware/schematics/README.md) · [Português](../../translations/pt/hardware/schematics/README.md) · [中文](../../translations/zh/hardware/schematics/README.md) · [日本語](../../translations/ja/hardware/schematics/README.md)
+> English (primary) · [Русский](../../translations/ru/hardware/schematics/README.md) · [Deutsch](../../translations/de/hardware/schematics/README.md) · [Português](../../translations/pt/hardware/schematics/README.md) · [Español](../../translations/es/hardware/schematics/README.md) · [Français](../../translations/fr/hardware/schematics/README.md) · [Italiano](../../translations/it/hardware/schematics/README.md) · [Polski](../../translations/pl/hardware/schematics/README.md) · [Türkçe](../../translations/tr/hardware/schematics/README.md) · [Українська](../../translations/uk/hardware/schematics/README.md) · [Tiếng Việt](../../translations/vi/hardware/schematics/README.md) · [中文](../../translations/zh/hardware/schematics/README.md) · [日本語](../../translations/ja/hardware/schematics/README.md) · [한국어](../../translations/ko/hardware/schematics/README.md) · [हिन्दी](../../translations/hi/hardware/schematics/README.md)
 
 The schematics are generated from code — [render_schematics.py](render_schematics.py) doubles as the design source (schemdraw); to make changes, edit the script, then regenerate:
 

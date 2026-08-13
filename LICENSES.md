@@ -1,6 +1,6 @@
 # Licensing and patent protection
 
-> English (primary) · [Русский](translations/ru/LICENSES.md) · [Deutsch](translations/de/LICENSES.md) · [Português](translations/pt/LICENSES.md) · [中文](translations/zh/LICENSES.md) · [日本語](translations/ja/LICENSES.md)
+> English (primary) · [Русский](translations/ru/LICENSES.md) · [Deutsch](translations/de/LICENSES.md) · [Português](translations/pt/LICENSES.md) · [Español](translations/es/LICENSES.md) · [Français](translations/fr/LICENSES.md) · [Italiano](translations/it/LICENSES.md) · [Polski](translations/pl/LICENSES.md) · [Türkçe](translations/tr/LICENSES.md) · [Українська](translations/uk/LICENSES.md) · [Tiếng Việt](translations/vi/LICENSES.md) · [中文](translations/zh/LICENSES.md) · [日本語](translations/ja/LICENSES.md) · [한국어](translations/ko/LICENSES.md) · [हिन्दी](translations/hi/LICENSES.md)
 
 The goal of this scheme: the project is fully open, anyone can fork it and build on it (commercially included), while the patent-litigation risk is cut down to the bare minimum achievable by legal and procedural means at all.
 

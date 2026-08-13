@@ -1,6 +1,6 @@
 # Safety
 
-> English (primary) · [Русский](../translations/ru/docs/02-safety.md) · [Deutsch](../translations/de/docs/02-safety.md) · [Português](../translations/pt/docs/02-safety.md) · [中文](../translations/zh/docs/02-safety.md) · [日本語](../translations/ja/docs/02-safety.md)
+> English (primary) · [Русский](../translations/ru/docs/02-safety.md) · [Deutsch](../translations/de/docs/02-safety.md) · [Português](../translations/pt/docs/02-safety.md) · [Español](../translations/es/docs/02-safety.md) · [Français](../translations/fr/docs/02-safety.md) · [Italiano](../translations/it/docs/02-safety.md) · [Polski](../translations/pl/docs/02-safety.md) · [Türkçe](../translations/tr/docs/02-safety.md) · [Українська](../translations/uk/docs/02-safety.md) · [Tiếng Việt](../translations/vi/docs/02-safety.md) · [中文](../translations/zh/docs/02-safety.md) · [日本語](../translations/ja/docs/02-safety.md) · [한국어](../translations/ko/docs/02-safety.md) · [हिन्दी](../translations/hi/docs/02-safety.md)
 
 1. **High voltage on the piezo.** At resonance the transducer terminals carry tens to hundreds of volts once the stage-2 driver is online. The TVS/Zener on the receive side goes in BEFORE the first powered run. Do not touch the terminals while it is running.
 2. **Mains.** Ultrasonic-cleaner drivers are galvanically coupled to the mains. Work only through a lab power supply / isolation transformer. This project's half-bridge is meant to run from a current-limited bench PSU, not from a mains-tied cleaner board.

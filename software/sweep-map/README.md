@@ -1,6 +1,6 @@
 # sweep-map
 
-> English (primary) · [Русский](../../translations/ru/software/sweep-map/README.md) · [Deutsch](../../translations/de/software/sweep-map/README.md) · [Português](../../translations/pt/software/sweep-map/README.md) · [中文](../../translations/zh/software/sweep-map/README.md) · [日本語](../../translations/ja/software/sweep-map/README.md)
+> English (primary) · [Русский](../../translations/ru/software/sweep-map/README.md) · [Deutsch](../../translations/de/software/sweep-map/README.md) · [Português](../../translations/pt/software/sweep-map/README.md) · [Español](../../translations/es/software/sweep-map/README.md) · [Français](../../translations/fr/software/sweep-map/README.md) · [Italiano](../../translations/it/software/sweep-map/README.md) · [Polski](../../translations/pl/software/sweep-map/README.md) · [Türkçe](../../translations/tr/software/sweep-map/README.md) · [Українська](../../translations/uk/software/sweep-map/README.md) · [Tiếng Việt](../../translations/vi/software/sweep-map/README.md) · [中文](../../translations/zh/software/sweep-map/README.md) · [日本語](../../translations/ja/software/sweep-map/README.md) · [한국어](../../translations/ko/software/sweep-map/README.md) · [हिन्दी](../../translations/hi/software/sweep-map/README.md)
 
 Sweep map of the channel frequency response. See the header of sweep_map.py for the hardware, wiring, and how to run it.
 

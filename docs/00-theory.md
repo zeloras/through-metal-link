@@ -1,6 +1,6 @@
 # Channel theory (the minimum you need to work)
 
-> English (primary) · [Русский](../translations/ru/docs/00-theory.md) · [Deutsch](../translations/de/docs/00-theory.md) · [Português](../translations/pt/docs/00-theory.md) · [中文](../translations/zh/docs/00-theory.md) · [日本語](../translations/ja/docs/00-theory.md)
+> English (primary) · [Русский](../translations/ru/docs/00-theory.md) · [Deutsch](../translations/de/docs/00-theory.md) · [Português](../translations/pt/docs/00-theory.md) · [Español](../translations/es/docs/00-theory.md) · [Français](../translations/fr/docs/00-theory.md) · [Italiano](../translations/it/docs/00-theory.md) · [Polski](../translations/pl/docs/00-theory.md) · [Türkçe](../translations/tr/docs/00-theory.md) · [Українська](../translations/uk/docs/00-theory.md) · [Tiếng Việt](../translations/vi/docs/00-theory.md) · [中文](../translations/zh/docs/00-theory.md) · [日本語](../translations/ja/docs/00-theory.md) · [한국어](../translations/ko/docs/00-theory.md) · [हिन्दी](../translations/hi/docs/00-theory.md)
 
 ## Principle
 A TX piezo element pressed/glued against the wall excites a longitudinal wave in it; a piezo RX on the other side turns it back into electricity. The wall is a resonator: at thickness resonances (multiples of a half-wavelength) transmission is at its maximum.
