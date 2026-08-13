@@ -25,6 +25,7 @@ Dependencies: numpy, matplotlib.
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -34,6 +35,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT / "tools"))
+import i18n_render  # noqa: E402  (needs REPO_ROOT on the path first)
 
 # ---------- lazy-loaded i18n data ----------
 
@@ -316,23 +319,35 @@ if __name__ == "__main__":
     LABELS = _load_labels()
     I18N = _load_i18n()
     PRIMARY = I18N["primary"]
-    missing = sorted(set(I18N["names"]) - set(LABELS))
-    if missing:
-        raise SystemExit(f"labels.json has no section for: {', '.join(missing)} "
-                         "(declared in i18n.json) — run tools/translate_sync.py")
+    fonts = i18n_render.apply(I18N)
+    skip = i18n_render.skip_figures(I18N)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     charts = [sketch_rig, chart_sweep, chart_mismatch, chart_fabry_perot,
               chart_power_budget, chart_ook]
     langs = list(LABELS) if a.lang == "all" else [a.lang]
-    n = 0
+    n, done, tofu = 0, [], []
     for lang in langs:
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
+        if lang in skip and lang != PRIMARY:
+            # complex-script language: its docs link to the primary figures
+            print(f"  - {lang}: figures skipped by i18n.json render.skip_figures")
+            continue
         L = LABELS[lang]
+        # refuse to paint tofu: a missing glyph is a silent .notdef box, and
+        # nothing downstream of here ever looks at the pixels
+        gap = i18n_render.uncovered("".join(map(str, L.values())), fonts)
+        if gap:
+            print(f"  ! {i18n_render.report_uncovered(lang, gap)}")
+            tofu.append(lang)
+            continue
         out_l = out if lang == PRIMARY else REPO_ROOT / "translations" / lang / "docs" / "img"
         out_l.mkdir(parents=True, exist_ok=True)
         for chart in charts:
             chart(out_l, L)
             n += 1
-    print(f"OK: {n} PNG ({'+'.join(langs)}) → {out.resolve()}")
+        done.append(lang)
+    print(f"OK: {n} PNG ({'+'.join(done)}) → {out.resolve()}")
+    if tofu:
+        raise SystemExit(f"no usable font for: {', '.join(tofu)} — figures not written")

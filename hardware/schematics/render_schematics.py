@@ -20,6 +20,7 @@ Output: PNG+SVG.
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import schemdraw
@@ -411,19 +412,33 @@ if __name__ == "__main__":
     LABELS = _load_labels()
     I18N = _load_i18n()
     PRIMARY = I18N["primary"]
-    missing = sorted(set(I18N["names"]) - set(LABELS))
-    if missing:
-        raise SystemExit(f"labels.json has no section for: {', '.join(missing)} "
-                         "(declared in i18n.json) — run tools/translate_sync.py")
+    sys.path.insert(0, str(REPO_ROOT / "tools"))
+    import i18n_render
+    fonts = i18n_render.apply(I18N)
+    skip = i18n_render.skip_figures(I18N)
     langs = list(LABELS) if a.lang == "all" else [a.lang]
+    done, tofu = [], []
     for lang in langs:
         if lang not in LABELS:
             raise SystemExit(f"no such language in labels.json: {lang}")
+        if lang in skip and lang != PRIMARY:
+            # complex-script language: its docs link to the primary schematics
+            print(f"  - {lang}: schematics skipped by i18n.json render.skip_figures")
+            continue
         L = LABELS[lang]
+        # refuse to paint tofu — see tools/i18n_render.py
+        gap = i18n_render.uncovered("".join(map(str, L.values())), fonts)
+        if gap:
+            print(f"  ! {i18n_render.report_uncovered(lang, gap)}")
+            tofu.append(lang)
+            continue
         out = OUT if lang == PRIMARY else REPO_ROOT / "translations" / lang / "hardware" / "schematics"
         out.mkdir(parents=True, exist_ok=True)
         sch1_driver(L, out)
         sch2_receiver_stage1(L, out)
         sch3_stage1_wiring(L, out)
         sch4_receiver_node(L, out)
-    print(f"OK ({'+'.join(langs)}) → {OUT}")
+        done.append(lang)
+    print(f"OK ({'+'.join(done)}) → {OUT}")
+    if tofu:
+        raise SystemExit(f"no usable font for: {', '.join(tofu)} — schematics not written")

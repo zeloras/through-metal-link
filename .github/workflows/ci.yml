@@ -24,6 +24,13 @@ jobs:
       - name: Dependencies
         run: python -m pip install -r tools/requirements-ci.txt
 
+      # The runner ships DejaVu only, which has no Han, kana or Hangul: the
+      # figures for zh/ja/ko render as .notdef boxes and nothing downstream
+      # looks at pixels. The renderers now refuse to draw a glyph they cannot
+      # cover, so without these packages they fail instead of committing tofu.
+      - name: Fonts for non-Latin figures
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-noto-core fonts-noto-cjk
+
       - name: Compile all scripts
         run: python -m compileall -q software hardware tools
 
