@@ -1,12 +1,12 @@
-# Experimento 001: Mapa de Varredura do Canal, Aço 3 mm (PLANEJADO)
+# Experimento 001: Mapa de Varredura de Canal, Aço 3 mm (PLANEJADO)
 
 > [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · Português · [Español](../../../es/experiments/001-sweep-map-3mm-steel/README.md) · [Français](../../../fr/experiments/001-sweep-map-3mm-steel/README.md) · [Italiano](../../../it/experiments/001-sweep-map-3mm-steel/README.md) · [Polski](../../../pl/experiments/001-sweep-map-3mm-steel/README.md) · [Türkçe](../../../tr/experiments/001-sweep-map-3mm-steel/README.md) · [Українська](../../../uk/experiments/001-sweep-map-3mm-steel/README.md) · [Tiếng Việt](../../../vi/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md) · [한국어](../../../ko/experiments/001-sweep-map-3mm-steel/README.md) · [हिन्दी](../../../hi/experiments/001-sweep-map-3mm-steel/README.md)
 
-- **Etapa:** 1 (somente mapa de frequência — nenhum alvo de watt aqui; potência é [002](../002-watts-3mm-steel/README.md)).
-- **Objetivo:** encontrar a ressonância de um par de transdutores Langevin através de uma placa de 3 mm; obter a primeira resposta de frequência do canal.
-- **Hipótese:** um pico em torno de 38–42 kHz (ressonância do transdutor Langevin), largura do pico de alguns kHz sob contato com graxa+clamp.
-- **Acionamento:** ligação de etapa 1 — AD9833 seno (~0,6 Vpp) para TX, **sem** ponte de meia onda ([sch3](../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../hardware/schematics/sch2-receiver-stage1.png)).
-- **Procedimento:** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (use `--mock` para executar o pipeline sem hardware).
-- **Critério de sucesso:** um pico reprodutível (duas varreduras consecutivas, desvio do centro <200 Hz). Salve CSV/PNG em `data/` e vincule-os a este arquivo quando reais.
-- **Medição bônus:** a mesma varredura com "couplante de graxa + clamp" versus "pressão seca" — somente amplitudes relativas; volts absolutos dependem do nível de acionamento e não são comparáveis à escala de placeholder do simulador até serem calibrados.
-- **Fora do escopo:** ≥0,5 W, LED-from-harvest, inicialização da ponte de meia onda → experimento 002.
+- **Etapa:** 1 (apenas mapa de frequência — sem meta de potência aqui; potência é [002](../002-watts-3mm-steel/README.md)).
+- **Objetivo:** encontrar a ressonância de um par de transdutores Langevin através de uma chapa de 3 mm; obter a primeira resposta em frequência do canal.
+- **Hipótese:** um pico em torno de 38–42 kHz (ressonância do transdutor Langevin), largura de pico de alguns kHz sob contato com graxa + clamp.
+- **Acionamento:** ligação da etapa 1 — senoide AD9833 (~0,6 Vpp) no TX, **sem** meia-ponte ([sch3](../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../hardware/schematics/sch2-receiver-stage1.png)).
+- **Procedimento:** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (use `--mock` para executar o pipeline em modo de teste sem hardware).
+- **Critério de sucesso:** um pico reprodutível (duas varreduras consecutivas, desvio central <200 Hz). Salve CSV/PNG em `data/` e vincule-os a partir deste arquivo quando forem reais.
+- **Medição bônus:** a mesma varredura com "acoplante graxa + clamp" vs "pressão a seco" — apenas amplitudes relativas; volts absolutos dependem do nível de acionamento e não são comparáveis à escala de espaço reservado do simulador até que calibrados.
+- **Fora do escopo:** ≥0,5 W, LED a partir da colheita, ativação da meia-ponte → experimento 002.

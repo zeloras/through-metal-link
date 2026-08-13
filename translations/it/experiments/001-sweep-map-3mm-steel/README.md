@@ -1,0 +1,12 @@
+# Esperimento 001: Mappa di Sweep del Canale, Acciaio 3 mm (PIANIFICATO)
+
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md) · [Español](../../../es/experiments/001-sweep-map-3mm-steel/README.md) · [Français](../../../fr/experiments/001-sweep-map-3mm-steel/README.md) · Italiano · [Polski](../../../pl/experiments/001-sweep-map-3mm-steel/README.md) · [Türkçe](../../../tr/experiments/001-sweep-map-3mm-steel/README.md) · [Українська](../../../uk/experiments/001-sweep-map-3mm-steel/README.md) · [Tiếng Việt](../../../vi/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md) · [한국어](../../../ko/experiments/001-sweep-map-3mm-steel/README.md) · [हिन्दी](../../../hi/experiments/001-sweep-map-3mm-steel/README.md)
+
+- **Fase:** 1 (solo mappa di frequenza — nessun obiettivo di watt qui; la potenza è in [002](../../../../experiments/002-watts-3mm-steel/README.md)).
+- **Obiettivo:** trovare la risonanza di una coppia di trasduttori Langevin attraverso una piastra di 3 mm; ottenere la prima risposta in frequenza del canale.
+- **Ipotesi:** un picco attorno a 38–42 kHz (risonanza del trasduttore Langevin), larghezza di picco di qualche kHz con contatto grasso+morsetto.
+- **Drive:** collegamento fase 1 — AD9833 sinusoidale (~0,6 Vpp) nel TX, **senza** half-bridge ([sch3](../../../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../../../hardware/schematics/sch2-receiver-stage1.png)).
+- **Procedura:** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (usare `--mock` per eseguire a secco la pipeline senza hardware).
+- **Criterio di successo:** un picco riproducibile (due sweep consecutive, deviazione del centro <200 Hz). Salvare CSV/PNG sotto `data/` e collegarli da questo file quando reali.
+- **Misurazione bonus:** lo stesso sweep con "accoppiante a grasso + morsetto" vs "pressione a secco" — solo ampiezze relative; i volt assoluti dipendono dal livello di drive e non sono paragonabili alla scala segnaposto del simulatore finché non vengono calibrati.
+- **Fuori ambito:** ≥0,5 W, LED da harvesting, attivazione half-bridge → esperimento 002.

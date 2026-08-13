@@ -1,0 +1,12 @@
+# Expérience 001 : Cartographie du balayage des canaux, acier 3 mm (PLANIFIÉ)
+
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md) · [Español](../../../es/experiments/001-sweep-map-3mm-steel/README.md) · Français · [Italiano](../../../it/experiments/001-sweep-map-3mm-steel/README.md) · [Polski](../../../pl/experiments/001-sweep-map-3mm-steel/README.md) · [Türkçe](../../../tr/experiments/001-sweep-map-3mm-steel/README.md) · [Українська](../../../uk/experiments/001-sweep-map-3mm-steel/README.md) · [Tiếng Việt](../../../vi/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md) · [한국어](../../../ko/experiments/001-sweep-map-3mm-steel/README.md) · [हिन्दी](../../../hi/experiments/001-sweep-map-3mm-steel/README.md)
+
+- **Étape :** 1 (cartographie de fréquence uniquement — pas d'objectif de puissance ici ; la puissance fait l'objet de [002](../../../../experiments/002-watts-3mm-steel/README.md)).
+- **Objectif :** trouver la résonance d'une paire de transducteurs Langevin à travers une plaque de 3 mm ; obtenir la première réponse en fréquence du canal.
+- **Hypothèse :** un pic autour de 38–42 kHz (résonance du transducteur Langevin), largeur de pic de quelques kHz avec contact graisse+pince.
+- **Pilotage :** câblage de l'étape 1 — sinusoïde AD9833 (~0,6 Vpp) dans le TX, **sans** demi-pont ([sch3](../../../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../../../hardware/schematics/sch2-receiver-stage1.png)).
+- **Procédure :** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (utilisez `--mock` pour exécuter le pipeline à sec sans matériel).
+- **Critère de réussite :** un pic reproductible (deux balayages consécutifs, déviation du centre <200 Hz). Enregistrer les CSV/PNG sous `data/` et les lier depuis ce fichier une fois réels.
+- **Mesure bonus :** le même balayage avec « couplant graisse + pince » contre « appui à sec » — amplitudes relatives uniquement ; les volts absolus dépendent du niveau de pilotage et ne sont pas comparables à l'échelle fictive du simulateur tant qu'un étalonnage n'a pas été effectué.
+- **Hors périmètre :** ≥0,5 W, LED alimentée par récupération d'énergie, mise en service du demi-pont → expérience 002.

@@ -1,0 +1,12 @@
+# Experimento 001: Mapa de barrido de canal, acero de 3 mm (PLANIFICADO)
+
+> [English (primary)](../../../../experiments/001-sweep-map-3mm-steel/README.md) · [Русский](../../../ru/experiments/001-sweep-map-3mm-steel/README.md) · [Deutsch](../../../de/experiments/001-sweep-map-3mm-steel/README.md) · [Português](../../../pt/experiments/001-sweep-map-3mm-steel/README.md) · Español · [Français](../../../fr/experiments/001-sweep-map-3mm-steel/README.md) · [Italiano](../../../it/experiments/001-sweep-map-3mm-steel/README.md) · [Polski](../../../pl/experiments/001-sweep-map-3mm-steel/README.md) · [Türkçe](../../../tr/experiments/001-sweep-map-3mm-steel/README.md) · [Українська](../../../uk/experiments/001-sweep-map-3mm-steel/README.md) · [Tiếng Việt](../../../vi/experiments/001-sweep-map-3mm-steel/README.md) · [中文](../../../zh/experiments/001-sweep-map-3mm-steel/README.md) · [日本語](../../../ja/experiments/001-sweep-map-3mm-steel/README.md) · [한국어](../../../ko/experiments/001-sweep-map-3mm-steel/README.md) · [हिन्दी](../../../hi/experiments/001-sweep-map-3mm-steel/README.md)
+
+- **Etapa:** 1 (solo mapa de frecuencias — sin objetivo de vatios aquí; la potencia es [002](../../../../experiments/002-watts-3mm-steel/README.md)).
+- **Objetivo:** encontrar la resonancia de un par de transductores Langevin a través de una placa de 3 mm; obtener la primera respuesta en frecuencia del canal.
+- **Hipótesis:** un pico alrededor de 38–42 kHz (resonancia del transductor Langevin), ancho de pico de unos pocos kHz bajo contacto con grasa + abrazadera.
+- **Excitación:** conexión de etapa 1 — seno AD9833 (~0.6 Vpp) al TX, **sin** medio puente ([sch3](../../../../hardware/schematics/sch3-stage1-wiring.png), [sch2](../../../../hardware/schematics/sch2-receiver-stage1.png)).
+- **Procedimiento:** `python3 software/sweep-map/sweep_map.py --start 25000 --stop 45000 --step 50` (usar `--mock` para ejecutar el pipeline en seco sin hardware).
+- **Criterio de éxito:** un pico reproducible (dos barridos seguidos, desviación del centro <200 Hz). Guardar CSV/PNG bajo `data/` y enlazarlos desde este archivo cuando sean reales.
+- **Medición adicional:** el mismo barrido con "acoplante de grasa + abrazadera" frente a "presión en seco" — solo amplitudes relativas; los voltios absolutos dependen del nivel de excitación y no son comparables con la escala de marcador de posición del simulador hasta que se calibre.
+- **Fuera de alcance:** ≥0.5 W, LED desde cosecha, puesta a punto del medio puente → experimento 002.

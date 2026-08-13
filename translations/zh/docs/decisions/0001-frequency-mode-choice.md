@@ -1,17 +1,17 @@
-# ADR-0001: 第一阶段频率模式选择
+# ADR-0001：阶段 1 的频率模式选择
 
 > [English (primary)](../../../../docs/decisions/0001-frequency-mode-choice.md) · [Русский](../../../ru/docs/decisions/0001-frequency-mode-choice.md) · [Deutsch](../../../de/docs/decisions/0001-frequency-mode-choice.md) · [Português](../../../pt/docs/decisions/0001-frequency-mode-choice.md) · [Español](../../../es/docs/decisions/0001-frequency-mode-choice.md) · [Français](../../../fr/docs/decisions/0001-frequency-mode-choice.md) · [Italiano](../../../it/docs/decisions/0001-frequency-mode-choice.md) · [Polski](../../../pl/docs/decisions/0001-frequency-mode-choice.md) · [Türkçe](../../../tr/docs/decisions/0001-frequency-mode-choice.md) · [Українська](../../../uk/docs/decisions/0001-frequency-mode-choice.md) · [Tiếng Việt](../../../vi/docs/decisions/0001-frequency-mode-choice.md) · 中文 · [日本語](../../../ja/docs/decisions/0001-frequency-mode-choice.md) · [한국어](../../../ko/docs/decisions/0001-frequency-mode-choice.md) · [हिन्दी](../../../hi/docs/decisions/0001-frequency-mode-choice.md)
 
-- 状态：已接受（将在第二阶段后重新审视）
+- 状态：已接受（阶段 2 后将重新评估）
 - 日期：2026-07-24
 
 ## 背景
-两个模式（见 docs/00-theory.md）：A — 28–40 kHz 的 Langevin 传感器，B — 0.6–1 MHz 的厚度谐振壁上的圆盘。
+两种模式（见 docs/00-theory.md）：A — 在朗之万换能器上使用 28–40 kHz；B — 在利用壁厚共振的圆片上使用 0.6–1 MHz。
 
 ## 决策
-第一和第二阶段采用模式 A。原因：更便宜（每个 10–30 美元），更强大（瓦特与数百毫瓦），调谐更宽容（宽谐振），并且驱动器可以使用 IR2110 周围的半桥构建。模式 B 将在我们获得第一瓦特电力后实施 —— 作为高速度数据的单独分支。
+阶段 1–2 采用模式 A。原因：更便宜（每个 $10–30）、功率更大（瓦级对几百 mW）、调谐更宽容（宽共振），而且驱动电路可以用围绕 IR2110 的半桥搭建。模式 B 等我们先把最初的几瓦功率传过去之后再上——作为高速数据的独立分支。
 
 ## 后果
-第三阶段的数据将较慢（kbit/s）——足够用于传感器节点。ADS1115 ADC（860 SPS）适用于 40 kHz 后的整流器包络，但不适用于直接采样——直接采样将推迟到模式 B（需要不同的 ADC）。
+阶段 3 的数据速率会较慢（kbit/s）——对传感器节点来说足够了。ADS1115 ADC（860 SPS）在整流器之后处理 40 kHz 的包络没问题，但不能直接采样——直接采样推迟到模式 B（需要不同的 ADC）。
 
-第一阶段（扫描）仅使用弱 DDS 驱动；第二阶段（瓦特）是一个单独的实验和启动（[experiments/002](../../experiments/002-watts-3mm-steel/README.md)）。模拟器功率带将保持目标，直到 002 被测量。
+阶段 1（扫频）仅使用弱 DDS 驱动；阶段 2（瓦级功率）是单独的实验和调试（[experiments/002](../../experiments/002-watts-3mm-steel/README.md)）。在 002 完成测量之前，仿真器的功率频带仍只是目标值。
