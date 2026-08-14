@@ -59,16 +59,18 @@ jobs:
           python tools/translate_sync.py --base "${{ github.event.before }}" \
             --touched-list "$RUNNER_TEMP/touched.txt"
 
-      # regenerate figures ONLY when the sync itself translated labels.json:
-      # human pushes never trigger a cross-platform re-render (macOS and the
-      # runner produce different PNG bytes — that would be endless churn)
-      - name: Regenerate figures if the sync updated labels.json
+      # Always render. The old gate ran the renderers only when this sync had
+      # just changed labels.json, which meant a language whose labels landed in
+      # an earlier run never got figures at all — eight of them had none. The
+      # gate existed to stop macOS-rendered bytes fighting runner-rendered
+      # bytes, but this job only ever runs on the runner with a pinned
+      # toolchain, so re-rendering unchanged labels reproduces the same bytes
+      # and stages nothing.
+      - name: Render figures
         if: always()
         run: |
-          if git status --porcelain | grep -q 'labels\.json'; then
-            python software/simulator/channel_sim.py --out docs/img
-            python hardware/schematics/render_schematics.py
-          fi
+          python software/simulator/channel_sim.py --out docs/img
+          python hardware/schematics/render_schematics.py
 
       # always(): a run that died halfway still produced valid translations, and
       # the state file records exactly what got done — dropping them would mean
@@ -92,9 +94,21 @@ jobs:
           if [ -s "$RUNNER_TEMP/touched.txt" ]; then
             git add --pathspec-from-file="$RUNNER_TEMP/touched.txt"
           fi
-          # figures come from the renderers, which are separate processes
-          git add docs/img/ hardware/schematics/*.png hardware/schematics/*.svg \
-                  'translations/*/docs/img' 'translations/*/hardware/schematics' 2>/dev/null || true
+          # Figures come from the renderers, which are separate processes and so
+          # are not in touched.txt. Iterate real directories rather than passing
+          # a wildcard pathspec: `git add 'translations/*/docs/img'` is a fatal
+          # "did not match any files" — a glob pathspec matches whole paths, not
+          # directory prefixes — and because that fatal aborted the whole
+          # command, no figure was ever staged, not even docs/img. The 2>/dev/null
+          # is gone too; that is what kept it invisible.
+          for d in docs/img hardware/schematics \
+                   translations/*/docs/img translations/*/hardware/schematics; do
+            if [ -d "$d" ]; then git add -- "$d"; fi
+          done
+          if git diff --cached --quiet; then
+            echo "Nothing staged — working tree changes were all outside the sync's scope"
+            exit 0
+          fi
           git commit -s -m "sync translations and figures [translate-sync]"
           # a second push to master while this job was running left our checkout
           # one commit behind: rebase onto it instead of failing the sync
