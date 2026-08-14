@@ -35,6 +35,7 @@ of this module without any third-party dependency.
 
 from __future__ import annotations
 
+import re
 import unicodedata
 
 # Noto covers nearly every living script and is what CI installs
@@ -118,6 +119,31 @@ def uncovered(text: str, families: list[str]) -> set[str]:
             continue
         missing = {ch for ch in missing if face.get_char_index(ord(ch)) == 0}
     return missing
+
+
+# ---------- markdown anchors ----------
+
+# Shared with tools/check_repo.py and the link repair in tools/translate_sync.py
+# so all three agree on what a heading anchor is.
+_HEADING = re.compile(r"(?m)^#{1,6}\s+(.*?)\s*$")
+
+
+def slugify(heading: str) -> str:
+    """GitHub's heading anchor: lowercase, punctuation dropped, spaces hyphenated.
+
+    Combining marks are kept. Python's word-character class excludes them (a Devanagari matra is
+    category Mn and not alphanumeric), which silently mangled Hindi anchors —
+    "दीवार" came out "दवर" — while GitHub keeps them.
+    """
+    kept = [ch for ch in heading.strip().lower()
+            if ch.isalnum() or ch.isspace() or ch in "-_"
+            or unicodedata.category(ch).startswith("M")]
+    return re.sub(r"\s+", "-", "".join(kept)).strip("-")
+
+
+def heading_slugs(markdown: str) -> list[str]:
+    """Anchors of a document, in document order."""
+    return [slugify(h) for h in _HEADING.findall(markdown)]
 
 
 # ---------- script identity ----------

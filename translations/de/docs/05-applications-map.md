@@ -21,7 +21,7 @@ Der Plattform-Stack: ein aktiver Energie- und Datenkanal durch blinde Wände —
 - Unser Stack: ein Knoten an der Innenwand eines Edelstahltanks, abgefragt von außen mit einem Handscanner oder einem festen Paar.
 - Wer schon dort ist: gewöhnliche eingeschraubte Sensoren; keine drahtlosen Durchwand-Lösungen.
 - Reife: buchstäblich in Reichweite eines Garagentests (jede Craft-Brauerei ist ein Testgelände in Gehweite).
-- Physikalischer Hinweis: ein voller Tank belastet die Wand — neu abgleichen gegen das volle Gefäß, und die kontinuierliche Leistung ≲1 W/cm² halten; darüber hinaus Kavitation im Produkt (CO₂-Entgasung, Fehlaromen, langfristige Wandlerosion) — [Theorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Physikalischer Hinweis: ein voller Tank belastet die Wand — neu abgleichen gegen das volle Gefäß, und die kontinuierliche Leistung ≲1 W/cm² halten; darüber hinaus Kavitation im Produkt (CO₂-Entgasung, Fehlaromen, langfristige Wandlerosion) — [Theorie](00-theory.md#einfluss-auf-die-wand-und-die-medien-dahinter).
 
 ## 4. Pipelines, Druckbehälter, industrielle NDT
 - Schmerzpunkt: Überwachung von Korrosion/Parametern im Inneren ohne Stillstand oder Durchbruch; Oberflächen sind heiß, lackiert, schmutzig.

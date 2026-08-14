@@ -21,7 +21,7 @@ La piattaforma: un canale attivo di potenza e dati attraverso pareti cieche — 
 - La nostra piattaforma: un nodo sulla parete interna di un tino in acciaio inox, interrogato dall'esterno con uno scanner portatile o una coppia fissa.
 - Chi è già sul posto: sensori avvitati tradizionali; nessuna soluzione through-wall wireless.
 - Maturità: letteralmente alla portata di un test in garage (qualsai birrificio artigianale è un banco di prova a distanza di una passeggiata).
-- Avvertenza fisica: un tino pieno carica la parete — rifare lo sweep contro il recipiente pieno e mantenere potenza continua ≲1 W/cm²; oltre, cavitazione nel prodotto (degassaggio CO₂, off-flavor, erosione a lungo termine della parete) — [teoria](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Avvertenza fisica: un tino pieno carica la parete — rifare lo sweep contro il recipiente pieno e mantenere potenza continua ≲1 W/cm²; oltre, cavitazione nel prodotto (degassaggio CO₂, off-flavor, erosione a lungo termine della parete) — [teoria](00-theory.md#effetto-sulla-parete-e-sul-mezzo-dietro-di-essa).
 
 ## 4. Tubazioni, recipienti in pressione, NDT industriale
 - Problema: monitorare corrosione/parametri internamente senza fermo o penetrazione; le superfici sono calde, verniciate, sporche.

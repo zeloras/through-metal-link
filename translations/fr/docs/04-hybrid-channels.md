@@ -14,7 +14,7 @@ Le principe (un corollaire du « paradoxe de pénétration ») : une onde traver
 | Double paroi avec vide (thermos, cryostat, dewar) | Magnétiques BF (dizaines–centaines de Hz) | µW–mW ; bit/s | effet de peau : dans l'acier δ≈0,6 mm @1 kHz — baisser la fréquence |
 | Non-métal : verre, plastique, céramique | Piézo-acoustique (plus facile que le métal) | watts ; kbit/s | + la RF simple passe souvent aussi — vérifier ça d'abord |
 | Paroi avec couche de caoutchouc/mousse, composite | Honnêtement : quasi impasse | — | l'absorbant mange tout ; la solution de contournement est un point sans revêtement |
-| Liquide derrière la paroi (réservoir plein) | Piézo-acoustique, dégradé | puissance − quelques dB ; résonance plus courte | le chargement liquide déplace/amortit la résonance — refaire le balayage contre le récipient plein ; maintenir l'intensité continue ≲1 W/cm² pour rester sous le seuil de cavitation ([théorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
+| Liquide derrière la paroi (réservoir plein) | Piézo-acoustique, dégradé | puissance − quelques dB ; résonance plus courte | le chargement liquide déplace/amortit la résonance — refaire le balayage contre le récipient plein ; maintenir l'intensité continue ≲1 W/cm² pour rester sous le seuil de cavitation ([théorie](00-theory.md#effet-sur-la-paroi-et-le-milieu-derrière-elle)) |
 | Liquide bullant dans le chemin acoustique | Solution de contournement architecturale | — | monter le récepteur sur la paroi, garder le liquide hors du chemin |
 
 ## Architecture du nœud hybride

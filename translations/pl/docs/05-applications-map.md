@@ -21,7 +21,7 @@ Stos platformy: aktywny kanał zasilania i danych przez ślepe ściany — piezo
 - Nasz stos: węzeł na wewnętrznej ścianie tanku ze stali nierdzewnej, odpytywany z zewnątrz skanerem ręcznym lub stałą parą.
 - Kto już tam jest: zwykłe czujniki wkręcone w ścianę; brak bezprzewodowych rozwiązań przez ścianę.
 - Dojrzałość: dosłownie w zasięgu testu garażowego (każda rzemieślnicza browarnia to poligon w zasięgu spaceru).
-- Zastrzeżenie fizyczne: pełny tank obciąża ścianę — wykonaj ponowne skanowanie na pełnym naczyniu i utrzymuj ciągłą moc ≲1 W/cm²; powyżej tego kawitacja w produkcie (odgazowanie CO₂, obce posmaki, długotrwała erozja ściany) — [teoria](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Zastrzeżenie fizyczne: pełny tank obciąża ścianę — wykonaj ponowne skanowanie na pełnym naczyniu i utrzymuj ciągłą moc ≲1 W/cm²; powyżej tego kawitacja w produkcie (odgazowanie CO₂, obce posmaki, długotrwała erozja ściany) — [teoria](00-theory.md#wpływ-na-ścianę-i-ośrodek-za-nią).
 
 ## 4. Rurociągi, naczynia ciśnieniowe, przemysłowy NDT
 - Ból: monitorowanie korozji/parametrów wewnątrz bez wyłączenia z pracy lub penetracji; powierzchnie są gorące, malowane, brudne.

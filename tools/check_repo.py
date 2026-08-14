@@ -13,13 +13,18 @@ produced or can produce, and that nothing else in CI would notice:
             same keys as the primary one, and placeholders agree key by key.
             The figure renderers call str.format() on these values, so a
             renamed placeholder is a crash, not a typo.
+  github  — no relative links in .github/. They resolve on disk, so the link
+            check passes, and still break where those files are actually
+            shown: the community-health tabs render them as if they sat at the
+            repository root, and PR/issue bodies do not resolve repo-relative
+            links at all.
   mirror  — every canonical doc has a twin in every language, and every
             markdown file carries a language bar under its H1. A twin the
             sync has never recorded in translations/.sync-state.json is a
             bootstrap still in flight (a freshly declared language), not
             breakage — the nightly sync drains it.
 
-Usage: python tools/check_repo.py [--only links|labels|mirror]
+Usage: python tools/check_repo.py [--only links|labels|mirror|github]
 Exit code 1 if anything failed.
 """
 
@@ -103,6 +108,66 @@ def check_links() -> list[str]:
                     continue
                 if not (md.parent / dest).exists():
                     bad.append(f"{rel_md}:{i}: broken link -> {dest}")
+    return bad
+
+
+def check_anchors() -> list[str]:
+    """Every `file.md#anchor` link must hit a heading that exists there.
+
+    check_links() only asks whether the file exists, so a link copied verbatim
+    into a mirror passes while pointing at a heading that was translated out of
+    existence: every mirror of 04-hybrid-channels and 05-applications-map aimed
+    at #effect-on-the-wall-and-the-media-behind-it inside a document whose
+    heading now reads "Einfluss auf die Wand...". Twenty-eight dead anchors,
+    invisible to every check in this file.
+    """
+    bad = []
+    for md in markdown_files():
+        rel = md.relative_to(ROOT).as_posix()
+        for i, line in enumerate(md.read_text(encoding="utf-8").splitlines(), 1):
+            for m in LINK_RE.finditer(line):
+                raw = m.group(1) if m.group(1) is not None else m.group(2)
+                dest = split_dest(raw)
+                frag = raw.partition("#")[2].split(" ")[0].strip().rstrip('"')
+                if not frag or dest.startswith(("http", "mailto:", "/")):
+                    continue
+                tgt = (md.parent / dest) if dest else md
+                if not tgt.exists() or tgt.suffix != ".md":
+                    continue
+                if frag not in i18n_render.heading_slugs(
+                        tgt.read_text(encoding="utf-8")):
+                    bad.append(f"{rel}:{i}: '#{frag}' is not a heading in "
+                               f"{dest or tgt.name}")
+    return bad
+
+
+def check_github_links() -> list[str]:
+    """No relative links in .github/ — GitHub renders those files out of place.
+
+    A relative link there resolves on disk, so check_links() is happy, and is
+    still broken in the two contexts these files actually appear in:
+
+      - the community-health tabs (?tab=security-ov-file and friends) resolve
+        relative to the repository root, not to .github/, so `../docs/x.md`
+        climbs one level too far and eats the branch segment:
+        /blob/docs/02-safety.md instead of /blob/master/docs/02-safety.md;
+      - PULL_REQUEST_TEMPLATE.md is injected into a pull request body, and
+        issue and PR bodies do not resolve repo-relative links at all.
+
+    Both were live: the security policy's link to the safety document, and
+    three links in the PR template every contributor is shown.
+    """
+    bad = []
+    for md in sorted((ROOT / ".github").rglob("*.md")):
+        rel = md.relative_to(ROOT).as_posix()
+        for i, line in enumerate(md.read_text(encoding="utf-8").splitlines(), 1):
+            for m in LINK_RE.finditer(line):
+                dest = split_dest(m.group(1) if m.group(1) is not None else m.group(2))
+                if not dest or dest.startswith(("http", "mailto:", "#")):
+                    continue
+                bad.append(f"{rel}:{i}: relative link '{dest}' — .github/ files are "
+                           "rendered outside their directory; use the full "
+                           "https://github.com/... URL")
     return bad
 
 
@@ -202,7 +267,8 @@ def check_mirror() -> list[str]:
     return bad
 
 
-CHECKS = {"links": check_links, "labels": check_labels, "mirror": check_mirror}
+CHECKS = {"links": check_links, "labels": check_labels, "mirror": check_mirror,
+          "github": check_github_links, "anchors": check_anchors}
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()

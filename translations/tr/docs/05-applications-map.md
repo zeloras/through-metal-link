@@ -21,7 +21,7 @@ Platform yığını: kör duvarlar boyunca aktif bir güç ve veri kanalı — p
 - Yığınımız: paslanmaz tankın iç duvarında bir düğüm, dışarıdan el tipi tarayıcı veya sabit bir çiftle sorgulanır.
 - Kim zaten orada: sıradan delinmiş sensörler; duvardan kablosuz geçiş çözümü yok.
 - Ogunluk: bir garaj testinin tamamen erişilebilir mesafesinde (herhangi bir butik bira fabrikası yürüme mesafesinde bir test alanıdır).
-- Fiziksel uyarı: dolu bir tank duvarı yükler — tam kap against yeniden tarama yapın ve sürekli gücü ≲1 W/cm² tutun; bunun üzerinde üründe kavitasyon (CO₂ gazdan ayrışması, istenmeyen tatlar, uzun vadeli duvar erozyonu) — [teori](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Fiziksel uyarı: dolu bir tank duvarı yükler — tam kap against yeniden tarama yapın ve sürekli gücü ≲1 W/cm² tutun; bunun üzerinde üründe kavitasyon (CO₂ gazdan ayrışması, istenmeyen tatlar, uzun vadeli duvar erozyonu) — [teori](00-theory.md#duvar-ve-arkasındaki-medya-üzerindeki-etki).
 
 ## 4. Boru hatları, basınç kapları, endüstriyel NDT
 - Acı noktası: kapatma veya delme olmadan içten korozyon/parametre izleme; yüzeyler sıcak, boyalı, kirli.

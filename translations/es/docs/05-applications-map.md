@@ -21,7 +21,7 @@ La pila de la plataforma: un canal activo de potencia y datos a través de pared
 - Nuestra pila: un nodo en la pared interior de un tanque de acero inoxidable, consultado desde fuera con un escáner portátil o un par fijo.
 - Quién ya está ahí: sensores convencionales con penetración; sin soluciones inalámbricas a través de pared.
 - Madurez: literalmente al alcance de una prueba de garaje (cualquier cervecería artesanal es un campo de pruebas a poca distancia a pie).
-- Advertencia física: un tanque lleno carga la pared — re-barrer contra el recipiente lleno, y mantener potencia continua ≲1 W/cm²; por encima de eso, cavitación en el producto (desgasificación de CO₂, sabores indeseados, erosión de pared a largo plazo) — [teoría](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Advertencia física: un tanque lleno carga la pared — re-barrer contra el recipiente lleno, y mantener potencia continua ≲1 W/cm²; por encima de eso, cavitación en el producto (desgasificación de CO₂, sabores indeseados, erosión de pared a largo plazo) — [teoría](00-theory.md#efecto-en-la-pared-y-en-el-medio-detrás-de-ella).
 
 ## 4. Tuberías, recipientes a presión, END industrial
 - Dolor: monitorear corrosión/parámetros internos sin parada ni penetración; las superficies están calientes, pintadas, sucias.

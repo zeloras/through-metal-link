@@ -21,7 +21,7 @@ La pile plateforme : un canal actif d'alimentation et de données à travers des
 - Notre pile : un nœud sur la paroi intérieure d'une cuve en inox, interrogé depuis l'extérieur avec un scanner portatif ou une paire fixe.
 - Qui est déjà là : capteurs classiques sur piquage ; pas de solution sans-fil à travers la paroi.
 - Maturité : littéralement à portée d'un test de garage (n'importe quelle microbrasserie est un terrain d'essai à distance de marche).
-- Caveat physique : une cuve pleine charge la paroi — refaire le balayage contre le récipient plein, et garder une puissance continue ≲1 W/cm² ; au-delà, cavitation dans le produit (dégazage CO₂, flés défauts, érosion à long terme de la paroi) — [théorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Caveat physique : une cuve pleine charge la paroi — refaire le balayage contre le récipient plein, et garder une puissance continue ≲1 W/cm² ; au-delà, cavitation dans le produit (dégazage CO₂, flés défauts, érosion à long terme de la paroi) — [théorie](00-theory.md#effet-sur-la-paroi-et-le-milieu-derrière-elle).
 
 ## 4. Pipelines, vessels sous pression, CND industriel
 - Douleur : surveiller la corrosion/paramètres à l'intérieur sans arrêt ni pénétration ; les surfaces sont chaudes, peintes, sales.
