@@ -1,0 +1,11 @@
+# Receptor
+
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · Español · [Français](../../../fr/hardware/receiver/README.md) · [Italiano](../../../it/hardware/receiver/README.md) · [Polski](../../../pl/hardware/receiver/README.md) · [Türkçe](../../../tr/hardware/receiver/README.md) · [Українська](../../../uk/hardware/receiver/README.md) · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
+
+Esquemas: [etapa 1 — sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) · [etapa 4 — sch4](../../../../hardware/schematics/sch4-receiver-node.png) (generados por [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+
+- Etapa 1 (mediciones): transductor Langevin RX (ambos terminales flotantes — ¡no conectar a tierra!) → puente Schottky (4×SS14) → filtro RC (10k || 100n) → TVS 5 V → **47 kΩ en serie** → ADS1115 A0 (la resistencia limita la corriente hacia los diodos de protección del ADC: el TVS limita a ~9 V por encima del máximo absoluto de la entrada).
+- Etapa 2 (vatios): RX → el mismo puente → carga resistiva conocida (y/o LED), medir V e I DC después del puente; la potencia es V·I sobre esa carga. Protocolo: [experiments/002](../../experiments/002-watts-3mm-steel/README.md).
+- Etapa 4 (nodo): RX → GY-LTC3588 **directo a PZ1/PZ2** (el puente está integrado en el LTC3588-1, no se necesita uno externo) → supercapacitor de 1 F → ESP32 (sueño profundo + ciclo de trabajo). Modulación de carga — 2N7002 + 100 Ω en el **lado DC** (pin VIN del módulo, ver sch4); un solo MOSFET en paralelo con el piezo AC no funciona — el diodo de cuerpo deriva una semionda (docs/03).
+
+IMPORTANTE: coloque el TVS antes del primer encendido — un piezo en circuito abierto en resonancia genera de decenas a cientos de voltios. En el lado DC después del puente — un SMBJ5.0A unidireccional; en paralelo con el piezo del nodo (AC) — solo un SMBJ15CA bidireccional.

@@ -1,0 +1,11 @@
+# Приймач
+
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [Español](../../../es/hardware/receiver/README.md) · [Français](../../../fr/hardware/receiver/README.md) · [Italiano](../../../it/hardware/receiver/README.md) · [Polski](../../../pl/hardware/receiver/README.md) · [Türkçe](../../../tr/hardware/receiver/README.md) · Українська · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
+
+Схеми: [стадія 1 — sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) · [стадія 4 — sch4](../../../../hardware/schematics/sch4-receiver-node.png) (згенеровано [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+
+- Стадія 1 (вимірювання): п'єзоперетворювач Ланжевена RX (обидва виводи «висять» у повітрі — не заземлювати!) → міст Шотткі (4×SS14) → RC-фільтр (10k || 100n) → 5 В TVS → **47 kΩ послідовно** → ADS1115 A0 (резистор обмежує струм у захисні діоди АЦП: TVS обмежує напругу до ~9 В вище за абс. максимум входу).
+- Стадія 2 (потужність): RX → той самий міст → відомий резистивний навантаження (та/або світлодіод), вимірюємо постійну напругу V і струм I після моста; потужність дорівнює V·I на цьому навантаженні. Протокол: [experiments/002](../../experiments/002-watts-3mm-steel/README.md).
+- Стадія 4 (вузол): RX → GY-LTC3588 **напряму на PZ1/PZ2** (міст уже вбудований у LTC3588-1, зовнішній не потрібен) → 1 Ф суперконденсатор → ESP32 (глибокий сон + цикл роботи). Модуляція навантаження — 2N7002 + 100 Ω на **стороні постійного струму** (контакт VIN модуля, див. sch4); один MOSFET паралельно п'єзоелементу змінного струму не працює — внутрішній діод тіла шунтує одну півхвилю (docs/03).
+
+ВАЖЛИВО: встановіть TVS до найпершого вмикання живлення — п'єзоелемент без навантаження на резонансі видає від десятків до сотень вольт. На стороні постійного струму після моста — уніполярний SMBJ5.0A; паралельно п'єзоелементу вузла (змінний струм) — лише біполярний SMBJ15CA.

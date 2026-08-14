@@ -1,0 +1,11 @@
+# Récepteur
+
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [Español](../../../es/hardware/receiver/README.md) · Français · [Italiano](../../../it/hardware/receiver/README.md) · [Polski](../../../pl/hardware/receiver/README.md) · [Türkçe](../../../tr/hardware/receiver/README.md) · [Українська](../../../uk/hardware/receiver/README.md) · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
+
+Schémas : [étape 1 — sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) · [étape 4 — sch4](../../../../hardware/schematics/sch4-receiver-node.png) (générés par [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+
+- Étape 1 (mesures) : transducteur Langevin RX (les deux broches flottantes — ne pas relier à la masse !) → pont Schottky (4×SS14) → filtre RC (10k || 100n) → TVS 5 V → **47 kΩ en série** → ADS1115 A0 (la résistance limite le courant dans les diodes de protection de l'ADC : la TVS claque à ~9 V au-dessus du max. abs. de l'entrée).
+- Étape 2 (watts) : RX → le même pont → charge résistive connue (et/ou LED), mesurer V et I continus après le pont ; la puissance est V·I dans cette charge. Protocole : [experiments/002](../../experiments/002-watts-3mm-steel/README.md).
+- Étape 4 (nœud) : RX → GY-LTC3588 **directement sur PZ1/PZ2** (le pont est intégré au LTC3588-1, aucun pont externe nécessaire) → supercondensateur 1 F → ESP32 (sommeil profond + cycle de service). Modulation de charge — 2N7002 + 100 Ω sur le **côté DC** (broche VIN du module, voir sch4) ; un seul MOSFET en parallèle sur le piézo AC ne fonctionne pas — la diode de corps shunte une demi-alternance (docs/03).
+
+IMPORTANT : installez la TVS avant la toute première mise sous tension — un piézo en circuit ouvert à la résonance délivre des dizaines à des centaines de volts. Côté DC après le pont — une SMBJ5.0A unidirectionnelle ; aux bornes du piézo du nœud (AC) — uniquement une SMBJ15CA bidirectionnelle.

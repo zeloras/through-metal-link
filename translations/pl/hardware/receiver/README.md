@@ -1,0 +1,11 @@
+# Odbiornik
+
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [Español](../../../es/hardware/receiver/README.md) · [Français](../../../fr/hardware/receiver/README.md) · [Italiano](../../../it/hardware/receiver/README.md) · Polski · [Türkçe](../../../tr/hardware/receiver/README.md) · [Українська](../../../uk/hardware/receiver/README.md) · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
+
+Schematy: [stopień 1 — sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) · [stopień 4 — sch4](../../../../hardware/schematics/sch4-receiver-node.png) (generowane przez [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+
+- Stopień 1 (pomiary): przetwornik Langevina RX (obie końcówki swobodne — nie uziemiać!) → mostek Schottky'ego (4×SS14) → filtr RC (10k || 100n) → TVS 5 V → **47 kΩ szeregowo** → ADS1115 A0 (rezystor ogranicza prąd wpadający w diody zabezpieczające ADC: TVS ogranicza do ~9 V powyżej abs. max. wejścia).
+- Stopień 2 (waty): RX → ten sam mostek → znane obciążenie rezystancyjne (i/lub LED), pomiar DC V i I za mostkiem; moc to V·I oddawane w to obciążenie. Protokół: [experiments/002](../../experiments/002-watts-3mm-steel/README.md).
+- Stopień 4 (węzeł): RX → GY-LTC3588 **bezpośrednio w PZ1/PZ2** (mostek jest wbudowany w LTC3588-1, żaden zewnętrzny nie jest potrzebny) → superkondensator 1 F → ESP32 (deep sleep + cykl pracy). Modulacja obciążenia — 2N7002 + 100 Ω po stronie **DC** (pin VIN modułu, patrz sch4); pojedynczy MOSFET równolegle do piezo AC nie działa — dioda pasożytcka zwiera jedno półokres (docs/03).
+
+WAŻNE: zamontuj TVS przed pierwszym włączeniem zasilania — otwarte piezo w rezonansie generuje od kilkudziesięciu do kilkuset woltów. Po stronie DC za mostkiem — jednokierunkowy SMBJ5.0A; równolegle do piezo węzła (AC) — tylko dwukierunkowy SMBJ15CA.

@@ -1,0 +1,11 @@
+# Ricevitore
+
+> [English (primary)](../../../../hardware/receiver/README.md) · [Русский](../../../ru/hardware/receiver/README.md) · [Deutsch](../../../de/hardware/receiver/README.md) · [Português](../../../pt/hardware/receiver/README.md) · [Español](../../../es/hardware/receiver/README.md) · [Français](../../../fr/hardware/receiver/README.md) · Italiano · [Polski](../../../pl/hardware/receiver/README.md) · [Türkçe](../../../tr/hardware/receiver/README.md) · [Українська](../../../uk/hardware/receiver/README.md) · [Tiếng Việt](../../../vi/hardware/receiver/README.md) · [中文](../../../zh/hardware/receiver/README.md) · [日本語](../../../ja/hardware/receiver/README.md) · [한국어](../../../ko/hardware/receiver/README.md) · [हिन्दी](../../../hi/hardware/receiver/README.md)
+
+Schemi: [stadio 1 — sch2](../../../../hardware/schematics/sch2-receiver-stage1.png) · [stadio 4 — sch4](../../../../hardware/schematics/sch4-receiver-node.png) (generati da [../schematics/render_schematics.py](../../../../hardware/schematics/render_schematics.py))
+
+- Stadio 1 (misure): trasduttore Langevin RX (entrambi i morsetti fluttuanti — non collegare a massa!) → ponte Schottky (4×SS14) → filtro RC (10k || 100n) → TVS 5 V → **47 kΩ in serie** → ADS1115 A0 (la resistenza limita la corrente nei diodi di protezione dell'ADC: il TVS limita a ~9 V sopra il massimo assoluto dell'ingresso).
+- Stadio 2 (potenza): RX → stesso ponte → carico resistivo noto (e/o LED), si misura la V e I continue dopo il ponte; la potenza è V·I su quel carico. Protocollo: [experiments/002](../../experiments/002-watts-3mm-steel/README.md).
+- Stadio 4 (nodo): RX → GY-LTC3588 **direttamente su PZ1/PZ2** (il ponte è integrato nel LTC3588-1, non serve un ponte esterno) → supercondensatore 1 F → ESP32 (deep sleep + duty cycle). Modulazione del carico — 2N7002 + 100 Ω sul **lato DC** (pin VIN del modulo, vedi sch4); un singolo MOSFET sul piezo AC non funziona — il diodo di corpo devia mezza onda (docs/03).
+
+IMPORTANTE: montare il TVS prima del primissimo power-up — un piezo aperto alla risonanza eroga da decine a centinaia di volt. Sul lato DC dopo il ponte — un SMBJ5.0A unidirezionale; sul piezo del nodo (AC) — solo un SMBJ15CA bidirezionale.
