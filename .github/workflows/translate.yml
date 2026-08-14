@@ -6,7 +6,11 @@ on:
     # tools/** is here because a change to the sync itself changes its output:
     # merging a fix for the translator and having nothing happen, twice in a
     # row, is not a useful default.
-    paths: ["**/*.md", "**/*.csv", "**/labels.json", "i18n.json", "tools/**"]
+    # the workflow file is here for the same reason tools/** is: a change to
+    # how the sync runs changes what it produces, and merging such a change to
+    # no effect is a trap this repository has already fallen into twice
+    paths: ["**/*.md", "**/*.csv", "**/labels.json", "i18n.json", "tools/**",
+            ".github/workflows/translate.yml"]
   # drains the backlog: anything the model could not finish (quota, timeout,
   # per-run cap) stays marked stale in translations/.sync-state.json and is
   # picked up here without waiting for the next doc edit
