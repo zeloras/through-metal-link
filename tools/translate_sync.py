@@ -537,7 +537,9 @@ def chat(system: str, user: str) -> str:
                 payload = json.loads(r.read())
             break
         except urllib.error.HTTPError as e:  # subclass of URLError — must come first
-            if e.code in (429, 503) and attempt < 2:
+            # 502/504 are the provider's own upstream hiccups and are as
+            # transient as 503: one of them ended a run after 4 pairs
+            if e.code in (429, 500, 502, 503, 504) and attempt < 2:
                 wait = 2 ** attempt * 5
                 print(f"  ! HTTP {e.code}, retrying in {wait}s...")
                 time.sleep(wait)
