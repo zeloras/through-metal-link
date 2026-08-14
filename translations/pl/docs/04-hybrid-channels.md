@@ -14,7 +14,7 @@ Zasada (wniosek z „paradoksu penetracji”): fala przechodzi przez barierę do
 | Podwójna ścianka z próżnią (termos, kriostat, dewar) | Magnetyka LF (dziesiątki–setki Hz) | µW–mW; bit/s | naskórkowość: w stali δ≈0,6 mm @1 kHz — zbijaj częstotliwość w dół |
 | Niemetal: szkło, plastik, ceramika | Piezoakustyka (łatwiej niż w metalu) | waty; kbit/s | + zwykłe RF często też przechodzi — sprawdź to najpierw |
 | Ścianka z warstwą gumy/pianki, kompozyt | Szczerze: prawie ślepy zaułek | — | absorber zjada wszystko; obejściem jest miejsce bez powłoki |
-| Ciecz za ścianką (pełny zbiornik) | Piezoakustyka, zdegradowana | moc − kilka dB; krótszy pogłos | obciążenie cieczą przesuwa/tłumi rezonans — wykonaj ponowne przeszukiwanie na pełnym naczyniu; utrzymuj ciągłą intensywność ≲1 W/cm², aby pozostać poniżej kawitacji ([teoria](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
+| Ciecz za ścianką (pełny zbiornik) | Piezoakustyka, zdegradowana | moc − kilka dB; krótszy pogłos | obciążenie cieczą przesuwa/tłumi rezonans — wykonaj ponowne przeszukiwanie na pełnym naczyniu; utrzymuj ciągłą intensywność ≲1 W/cm², aby pozostać poniżej kawitacji ([teoria](00-theory.md#wpływ-na-ścianę-i-ośrodek-za-nią)) |
 | Bąbelkująca ciecz w ścieżce akustycznej | Obejście architektoniczne | — | zamontuj odbiornik na ściance, trzymaj ciecz poza ścieżką |
 
 ## Architektura węzła hybrydowego

@@ -21,7 +21,7 @@ Bộ nền tảng: một kênh cấp nguồn và truyền dữ liệu chủ đ�
 - Bộ công nghệ của chúng tôi: một node trên thành trong của bồn inox, truy vấn từ bên ngoài bằng máy quét cầm tay hoặc một cặp cố định.
 - Ai đã ở đó: cảm biến gắn lỗ thông thường; chưa có giải pháp xuyên vách không dây.
 - Độ chín: hoàn toàn trong tầm tay một bài kiểm tra trong gara (bất kỳ xưởng bia thủ công nào cũng là bãi thử trong tầm đi bộ).
-- Lưu ý vật lý: một bồn đầy sẽ tải trọng lên vách — quét lại đối với vessel đầy, và giữ công suất liên tục ≲1 W/cm²; vượt mức đó, cavitation sẽ xảy ra trong sản phẩm (thoát khí CO₂, vị lạ, xói mòn vách lâu dài) — [lý thuyết](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Lưu ý vật lý: một bồn đầy sẽ tải trọng lên vách — quét lại đối với vessel đầy, và giữ công suất liên tục ≲1 W/cm²; vượt mức đó, cavitation sẽ xảy ra trong sản phẩm (thoát khí CO₂, vị lạ, xói mòn vách lâu dài) — [lý thuyết](00-theory.md#tác-động-lên-tường-và-môi-trường-phía-sau).
 
 ## 4. Đường ống, bình chịu áp, NDT công nghiệp
 - Nỗi đau: theo dõi ăn mòn/thông số bên trong mà không cần ngừng máy hay khoan lỗ; bề mặt nóng, đã sơn, bẩn.

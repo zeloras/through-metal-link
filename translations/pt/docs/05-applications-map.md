@@ -21,7 +21,7 @@ A stack da plataforma: um canal ativo de potência e dados através de paredes c
 - Nossa stack: um nó na parede interna de um tanque de aço inoxidável, consultado pelo lado de fora com um scanner portátil ou um par fixo.
 - Quem já está lá: sensores comuns rosqueados; sem soluções through-wall sem fio.
 - Maturidade: literalmente ao alcance de um teste de garagem (qualquer cervejaria artesanal é um campo de prova a uma caminhada de distância).
-- Ressalva física: um tanque cheio carrega a parede — refaça o sweep contra o vaso cheio, e mantenha potência contínua ≲1 W/cm²; acima disso, cavitação no produto (degaseificação de CO₂, off-flavors, erosão da parede a longo prazo) — [teoria](00-theory.md#effect-on-the-wall-and-the-media-behind-it).
+- Ressalva física: um tanque cheio carrega a parede — refaça o sweep contra o vaso cheio, e mantenha potência contínua ≲1 W/cm²; acima disso, cavitação no produto (degaseificação de CO₂, off-flavors, erosão da parede a longo prazo) — [teoria](00-theory.md#efeito-na-parede-e-nos-meios-por-trás-dela).
 
 ## 4. Tubulações, vasos de pressão, NDT industrial
 - Dor: monitorar corrosão/parâmetros internos sem shutdown ou penetração; superfícies estão quentes, pintadas, sujas.

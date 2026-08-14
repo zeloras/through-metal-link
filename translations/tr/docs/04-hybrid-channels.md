@@ -14,7 +14,7 @@
 | Vakumlu çift duvar (termos, kriyostat, dewar) | LF manyetik (onlarca–yüzlerce Hz) | µW–mW; bit/s | deri etkisi: çelikte δ≈0.6 mm @1 kHz — frekansı aşağı itin |
 | Metal olmayan: cam, plastik, seramik | Piezo-akustik (metalden daha kolay) | watt; kbit/s | + düz RF de çoğu zaman geçer — önce onu kontrol edin |
 | Kauçuk/köpük katmanlı duvar, kompozit | Açıkçası: neredeyse çıkmaz sokak | — | soğurucu her şeyi yutar; geçici çözüm, kaplamasız bir noktadır |
-| Duvar arkasında sıvı (dolu tank) | Piezo-akustik, bozulmuş | güç − birkaç dB; daha kısa çınlama | sıvı yüklemesi rezonansı kaydırır/söndürür — tam kap karşıya yeniden tarama yapın; kavitasyonun altında kalmak için sürekli yoğunluğu ≲1 W/cm²'te tutun ([teori](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
+| Duvar arkasında sıvı (dolu tank) | Piezo-akustik, bozulmuş | güç − birkaç dB; daha kısa çınlama | sıvı yüklemesi rezonansı kaydırır/söndürür — tam kap karşıya yeniden tarama yapın; kavitasyonun altında kalmak için sürekli yoğunluğu ≲1 W/cm²'te tutun ([teori](00-theory.md#duvar-ve-arkasındaki-medya-üzerindeki-etki)) |
 | Akustik yolda kabarcıklı sıvı | Mimari geçici çözüm | — | alıcıyı duvara monte edin, sıvıyı yoldan uzak tutun |
 
 ## Hibrit düğüm mimarisi

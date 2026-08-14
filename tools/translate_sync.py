@@ -343,6 +343,40 @@ def fix_asset_links(text: str, canon: str, lang: str, src_text: str | None = Non
         if len(src_dests) != len(LINK_RE.findall(text)):
             src_dests = None  # shapes diverged — position alignment is meaningless
 
+    def remap_frag(target: str, suffix: str) -> str:
+        """Point a #anchor at the translated heading of the mirror it lands in.
+
+        A link copied verbatim from the primary keeps the primary's slug, but
+        the mirror's headings are translated, so that anchor does not exist
+        there — every mirror of 04-hybrid-channels and 05-applications-map
+        pointed at #effect-on-the-wall-and-the-media-behind-it in a file whose
+        heading reads "Einfluss auf die Wand...". Headings are positionally
+        aligned (the plausibility check guarantees a mirror has the same
+        heading count as its source), so the primary's slug is looked up by
+        index and the mirror's slug at that index takes its place.
+        """
+        m = re.match(r'^#([^\s"]+)(.*)$', suffix)
+        if not m:
+            return suffix
+        frag, rest = m.group(1), m.group(2)
+        tgt = Path(os.path.normpath(ROOT / here / target))
+        if tgt.suffix != ".md" or not _inside(tgt) or not tgt.exists():
+            return suffix
+        rel = tgt.relative_to(ROOT).as_posix()
+        prefix = f"{TR_DIR}/{lang}/"
+        if not rel.startswith(prefix):
+            return suffix
+        canon_p = ROOT / rel[len(prefix):]
+        if not canon_p.exists():
+            return suffix
+        dst = i18n_render.heading_slugs(tgt.read_text(encoding="utf-8"))
+        if frag in dst:
+            return suffix                      # already points at a real heading
+        src_slugs = i18n_render.heading_slugs(canon_p.read_text(encoding="utf-8"))
+        if frag not in src_slugs or len(src_slugs) != len(dst):
+            return suffix
+        return "#" + dst[src_slugs.index(frag)] + rest
+
     idx = -1
 
     def sub(m):
@@ -353,9 +387,12 @@ def fix_asset_links(text: str, canon: str, lang: str, src_text: str | None = Non
         out = resolve(path)
         if out is None and src_dests is not None:
             out = resolve(src_dests[idx])
-        if out is None or out == path:
+        final = out if out is not None else path
+        new_suffix = remap_frag(final, suffix)
+        if final == path and new_suffix == suffix:
             return m.group(0)
-        return f"]({out}{suffix})" if md else f'src="{out}{suffix}"'
+        return (f"]({final}{new_suffix})" if md
+                else f'src="{final}{new_suffix}"')
 
     return LINK_RE.sub(sub, text)
 

@@ -6,10 +6,10 @@
 
 ## Checklist
 
-- [ ] Every commit is signed off (`git commit -s`) — the DCO check is mandatory ([CONTRIBUTING.md](../CONTRIBUTING.md) §2)
-- [ ] Design decisions trace back to expired patents / papers from [docs/01-prior-art.md](../docs/01-prior-art.md) (§3)
+- [ ] Every commit is signed off (`git commit -s`) — the DCO check is mandatory ([CONTRIBUTING.md](https://github.com/zeloras/through-metal-link/blob/master/CONTRIBUTING.md) §2)
+- [ ] Design decisions trace back to expired patents / papers from [docs/01-prior-art.md](https://github.com/zeloras/through-metal-link/blob/master/docs/01-prior-art.md) (§3)
 - [ ] Code comments, identifiers and commit messages are in English (§3)
-- [ ] Experiments follow [experiments/TEMPLATE.md](../experiments/TEMPLATE.md)
+- [ ] Experiments follow [experiments/TEMPLATE.md](https://github.com/zeloras/through-metal-link/blob/master/experiments/TEMPLATE.md)
 
 ## Languages — read only if you touched docs
 

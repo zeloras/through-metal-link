@@ -14,7 +14,7 @@ Das Prinzip (eine Folgerung aus dem „Penetrationsparadoxon"): Eine Welle dring
 | Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetik (Zehner–Hunderter Hz) | µW–mW; bit/s | Skin-Effekt: in Stahl δ≈0,6 mm @1 kHz — Frequenz runterdrücken |
 | Nichtmetall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfaches RF kommt oft auch durch — zuerst das prüfen |
 | Wand mit Gummi-/Schaumstoffschicht, Verbund | Ehrlich: fast eine Sackgasse | — | der Absorber schluckt alles; Workaround ist eine Stelle ohne Beschichtung |
-| Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, degradiert | Leistung − wenige dB; kürzeres Nachschwingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — neu sweepen gegen das volle Gefäß; kontinuierliche Intensität ≲1 W/cm² einhalten, um unter der Kavitationsschwelle zu bleiben ([Theorie](00-theory.md#effect-on-the-wall-and-the-media-behind-it)) |
+| Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, degradiert | Leistung − wenige dB; kürzeres Nachschwingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — neu sweepen gegen das volle Gefäß; kontinuierliche Intensität ≲1 W/cm² einhalten, um unter der Kavitationsschwelle zu bleiben ([Theorie](00-theory.md#einfluss-auf-die-wand-und-die-medien-dahinter)) |
 | Blasenbildung in der Flüssigkeit im akustischen Pfad | Architektonischer Workaround | — | Empfänger an der Wand montieren, Flüssigkeit aus dem Pfad heraushalten |
 
 ## Hybridknoten-Architektur
