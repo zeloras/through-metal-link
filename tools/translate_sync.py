@@ -604,6 +604,54 @@ def split_sections(text: str) -> list[str] | None:
 
 SECTION_MAX = 5000  # the largest input size observed translating faithfully
 
+HEADING_RE = re.compile(r"^(#{1,6}) +(.+?)\s*$")
+
+
+def _section_head(chunk: str) -> tuple[int, str | None, str]:
+    """Split a chunk into (heading level, heading text, body).
+
+    A chunk cut mid-section has no heading of its own; it returns (0, None,
+    chunk) and is reassembled untouched.
+    """
+    lines = chunk.splitlines(keepends=True)
+    i = 0
+    while i < len(lines) and not lines[i].strip():
+        i += 1          # README opens with blank lines; the H1 is not line 0
+    if i >= len(lines):
+        return 0, None, chunk
+    m = HEADING_RE.match(lines[i].rstrip("\n"))
+    if not m:
+        return 0, None, chunk
+    return len(m.group(1)), m.group(2), "".join(lines[i + 1:]).lstrip("\n")
+
+
+def translate_titles(titles: list[str], dst_lang: str) -> list[str] | None:
+    """Translate heading texts as one small JSON batch, or None if unusable.
+
+    Short strings in a single structured request: the shape the model has been
+    reliable at all along, and the same one labels.json already uses.
+    """
+    if not titles:
+        return []
+    try:
+        raw = chat(system_json(PRIMARY, dst_lang), json.dumps(
+            {"source_language": PRIMARY, "target_language": dst_lang,
+             "strings": {str(i): t for i, t in enumerate(titles)}},
+            ensure_ascii=False))
+        parsed = json.loads(raw)
+    except (BadReply, json.JSONDecodeError):
+        return None
+    got = parsed.get("strings", parsed) if isinstance(parsed, dict) else None
+    if not isinstance(got, dict):
+        return None
+    out = []
+    for i in range(len(titles)):
+        v = got.get(str(i))
+        if not isinstance(v, str) or not v.strip():
+            return None
+        out.append(v.strip())
+    return out
+
 
 def _split_oversized(chunk: str) -> list[str]:
     """Cut an over-long section at blank lines, never inside a fence or table.
@@ -705,17 +753,34 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
             print(f"  ! {dst}: {bad} — not written, will be retried")
             return False
         print(f"  ~ {dst}: {bad} — retranslating in {len(chunks)} sections")
+        # Headings never go to the model as part of a body. Section-wise
+        # translation fixed the tables (README came back 11 of 11 rows) but the
+        # model still swallowed heading markers: 5 headings of 6 in README, 4 of
+        # 6 in CONTRIBUTING. Splitting each section into its heading and its
+        # body, translating the heading texts as one small batch and putting the
+        # original "#" level back by hand makes the heading count correct by
+        # construction rather than by persuasion.
+        split = [_section_head(c) for c in chunks]
+        titles = translate_titles([t for _, t, _ in split if t], dst_lang)
+        if titles is None:
+            print(f"  ! {dst}: section headings did not translate — left stale")
+            return False
+        titles = iter(titles)
+        parts = []
         try:
-            parts = [chat(system_doc(dst_lang),
-                          f"This is section {i} of {len(chunks)} of `{src}`. "
-                          f"Translate this section in full and return only it, "
-                          f"keeping its heading, tables, lists and code blocks "
-                          f"exactly as they are:\n<<<\n{c}\n>>>")
-                     for i, c in enumerate(chunks, 1)]
+            for i, (level, title, body) in enumerate(split, 1):
+                done = chat(system_doc(dst_lang),
+                            f"This is section {i} of {len(chunks)} of `{src}`. "
+                            f"Translate it in full and return only it, keeping "
+                            f"tables, lists and code blocks exactly as they are. "
+                            f"Do not add a heading:\n<<<\n{body}\n>>>").strip()
+                if title is not None:
+                    done = f"{'#' * level} {next(titles)}\n\n{done}"
+                parts.append(done)
         except BadReply as e:
             print(f"  ! {dst}: section {e} — left stale, will be retried")
             return False
-        out = "\n\n".join(p.strip() for p in parts) + "\n"
+        out = "\n\n".join(parts) + "\n"
         bad = implausible(text, out, dst, dst_lang)
         if bad:
             print(f"  ! {dst}: {bad} section by section too — not written")
