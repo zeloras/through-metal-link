@@ -595,7 +595,11 @@ def split_sections(text: str) -> list[str] | None:
     lines = text.splitlines(keepends=True)
     heads = [i for i, l in enumerate(lines) if l.startswith("## ")]
     if len(heads) < 2:
-        return None
+        # No subsections, but the fallback is still worth having: a short
+        # document that merely lost its H1 (zh dropped one) is repaired by the
+        # same heading-batch path, with the document itself as the only section.
+        _, title, _ = _section_head(text)
+        return [text] if title else None
     chunks = []
     if heads[0]:
         chunks.append("".join(lines[:heads[0]]))       # preamble: H1, intro
@@ -686,17 +690,34 @@ def _split_oversized(chunk: str) -> list[str]:
     return [c for c in out if c.strip()]
 
 
+BAR_RE = re.compile(r"(?m)^> .*·.*$")
+
+
+def without_bar(text: str) -> str:
+    """Drop the language-switcher line before weighing a translation.
+
+    The bar is machine-generated and apply_langbar() rewrites it whatever the
+    model returns, so it is not content. It also grows with the language count:
+    at fifteen languages it is 923 of the 1996 characters of
+    hardware/schematics/README.md, so a good translation scored 41% against the
+    source and was discarded. The same reply scores 77% once the bar is out.
+    """
+    return BAR_RE.sub("", text)
+
+
 def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
     ratio = MIN_LENGTH_RATIO_CJK if lang in CJK_LANGS else MIN_LENGTH_RATIO
+    # the language bar is not content — see without_bar()
+    src_body, out_body = without_bar(src_text), without_bar(out)
     # absolute floor: very short docs can legitimately compress heavily in
     # concise languages, so the ratio check is skipped below this threshold
-    if len(out) >= 30 and len(out) < ratio * len(src_text):
-        return (f"{len(out)} chars against {len(src_text)} in the source "
-                f"(<{ratio:.0%}) — content is missing")
-    if len(out) < 30 and len(src_text) > 0 and len(out) < len(src_text) * 0.1:
-        return (f"{len(out)} chars against {len(src_text)} in the source "
+    if len(out_body) >= 30 and len(out_body) < ratio * len(src_body):
+        return (f"{len(out_body)} chars against {len(src_body)} in the source "
+                f"(<{ratio:.0%}, language bar excluded) — content is missing")
+    if len(out_body) < 30 and len(src_body) > 0 and len(out_body) < len(src_body) * 0.1:
+        return (f"{len(out_body)} chars against {len(src_body)} in the source "
                 f"(severe truncation) — content is missing")
     if name.endswith(".md"):
         want, got = doc_shape(src_text), doc_shape(out)
