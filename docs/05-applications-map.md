@@ -38,6 +38,11 @@ The platform stack: an active power-and-data channel through blind walls — pie
 - Who's already there: CSignum (LF EM through water/bulkheads) — the only direct neighbor in hybrid philosophy.
 - Maturity: long-range; for us, for now, only a direction of thought.
 
+## 7. Combustible-dust plants (researched, not going)
+- The pitch: a charge-measuring node sealed inside a conveying line or silo — no gland, no ignition path — reading the static that pneumatic conveying generates (the highest specific charge of any powder operation, 10⁻¹–10³ µC/kg).
+- Who's already there: certified in-duct tribo probes on standard ports (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) and, for pipes, an insulated line section with an electrometer to earth — which reads the charge with nothing inside the pipe at all.
+- Honest verdict: not our niche. Static is ~8.5 % of dust-explosion ignitions (BIA statistics), and IEC TS 60079-32-1 / NFPA 77 / NFPA 660 control it by design measures — earthing, humidity, conveying speed, inerting — with no charge level to alarm on, so a reading is not a layer of protection anyone must buy. The interior is zone 20, where this project will certify nothing ([safety](02-safety.md)); and a ring behind a steel wall sees nothing, so the sensor needs its own port into the flow — the one thing the pitch promised to avoid.
+
 ## Priorities (what to do, in what order)
 1. **Now:** platform stages 1–4 on the showcase scenario "lab chamber / welded-shut box" (niche #2 — the most open to open source).
 2. **Next:** a demo on a live object from niche #3 (a brewery tank) — cheap, photogenic, a real user.
