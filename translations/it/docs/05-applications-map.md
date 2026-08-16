@@ -38,6 +38,11 @@ La piattaforma: un canale attivo di potenza e dati attraverso pareti cieche — 
 - Chi è già sul posto: CSignum (EM LF attraverso acqua/bulkhead) — l'unico vicino diretto per filosofia ibrida.
 - Maturità: lungo raggio; per noi, per ora, solo una direzione di pensiero.
 
+## 7. Impianti con polveri combustibili (studiato, non ci si butta)
+- Il pitch: un nodo di misura della carica sigillato dentro una linea di trasporto o un silo — niente premistoppa, niente percorso di innesco — che legge la statica generata dal trasporto pneumatico (la carica specifica più alta di qualsiasi operazione con polveri, 10⁻¹–10³ µC/kg).
+- Chi è già sul posto: sonde tribo in-duct certificate su porte standard (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) e, per i tubi, una sezione di linea isolata con un elettrometro verso terra — che legge la carica senza nulla dentro il tubo.
+- Verdetto onesto: non è il nostro nichio. La statica è ~8,5 % degli inneschi di esplosioni da polvere (statistiche BIA), e IEC TS 60079-32-1 / NFPA 77 / NFPA 660 la controllano con misure di progetto — messa a terra, umidità, velocità di trasporto, inertizzazione — senza un livello di carica su cui allarmarsi, quindi una lettura non è un livello di protezione che qualcuno debba comprare. L'interno è zona 20, dove questo progetto non certificherà nulla ([sicurezza](02-safety.md)); e un anello dietro una parete d'acciaio non vede nulla, quindi il sensore ha bisogno del proprio porto nel flusso — l'unica cosa che il pitch prometteva di evitare.
+
 ## Priorità (cosa fare, in che ordine)
 1. **Ora:** stadi di piattaforma 1–4 sullo scenario showcase "camera da lab / scatola saldata" (nichio #2 — il più aperto all'open source).
 2. **Poi:** una demo su un oggetto reale del nichio #3 (un tino da birrificio) — economica, fotogenica, un utente vero.

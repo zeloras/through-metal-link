@@ -38,6 +38,11 @@ Bộ nền tảng: một kênh cấp nguồn và truyền dữ liệu chủ đ�
 - Ai đã ở đó: CSignum (EM tần số thấp xuyên nước/vách ngăn) — người láng giềng trực tiếp duy nhất trong triết lý lai.
 - Độ chín: dài hạn; đối với chúng tôi, hiện nay chỉ là một hướng suy nghĩ.
 
+## 7. Nhà máy có bụi cháy được (đã nghiên cứu, không theo)
+- Đầu bài: một node đo điện tích được niêm phong bên trong đường ống vận chuyển hoặc silo — không có gland, không có đường dẫn ngòi lửa — đo tĩnh điện mà vận chuyển khí sinh ra (mật độ điện tích riêng cao nhất trong mọi thao tác bột, 10⁻¹–10³ µC/kg).
+- Ai đã ở đó: đầu dò tribo trong ống đã chứng nhận trên cổng tiêu chuẩn (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) và, đối với ống, một đoạn ống cách điện nối với điện kế xuống đất — đo điện tích mà không có gì nằm trong ống cả.
+- Phán quyết thẳng thắn: không phải ngách của chúng tôi. Tĩnh điện chiếm ~8,5 % nguồn gây cháy nổ bụi (thống kê BIA), và IEC TS 60079-32-1 / NFPA 77 / NFPA 660 kiểm soát bằng các biện pháp thiết kế — nối đất, độ ẩm, tốc độ vận chuyển, làm trơ — không có mức điện tích nào để cảnh báo, nên một số đọc không phải là một lớp bảo vệ mà ai cũng phải mua. Phần trong là zone 20, nơi dự án này sẽ không chứng nhận gì cả ([an toàn](02-safety.md)); và một vòng từ phía sau vách thép không thấy gì, nên cảm biến cần cổng riêng vào dòng chảy — đúng thứ mà đầu bài hứa sẽ tránh.
+
 ## Ưu tiên (làm gì, theo thứ tự nào)
 1. **Ngay bây giờ:** các giai đoạn nền tảng 1–4 trên kịch bản trình diễn "buồng lab / hộp hàn kín" (ngách #2 — cởi mở nhất với mã nguồn mở).
 2. **Tiếp theo:** một demo trên đối tượng thực tế từ ngách #3 (bồn bia) — rẻ, ăn ảnh, người dùng thật.

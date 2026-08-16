@@ -38,6 +38,11 @@ Der Plattform-Stack: ein aktiver Energie- und Datenkanal durch blinde Wände —
 - Wer schon dort ist: CSignum (LF-EM durch Wasser/Schotten) — der einzige direkte Nachbar in hybrider Philosophie.
 - Reife: langfristig; für uns, vorerst, nur eine Denkrichtung.
 
+## 7. Anlagen mit brennbaren Stäuben (recherchiert, nicht verfolgt)
+- Der Pitch: ein ladungsmessender Knoten, versiegelt in einer Förderleitung oder einem Silo — keine Stopfbuchse, kein Zündpfad — der die statische Aufladung misst, die die pneumatische Förderung erzeugt (die höchste spezifische Ladung aller Pulverprozesse, 10⁻¹–10³ µC/kg).
+- Wer schon dort ist: zertifizierte Tribo-Sonden im Kanal auf Standardanschlüssen (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) und, für Rohre, ein isolierter Leitungsabschnitt mit einem Elektrometer gegen Erde — der die Ladung misst, ohne überhaupt etwas im Rohr zu haben.
+- Ehrliches Urteil: nicht unsere Nische. Statik ist ~8,5 % der Zündursachen bei Staubexplosionen (BIA-Statistik), und IEC TS 60079-32-1 / NFPA 77 / NFPA 660 regeln das durch konstruktive Maßnahmen — Erdung, Feuchtigkeit, Fördergeschwindigkeit, Inertisierung — ohne einen Ladungsgrenzwert, der einen Alarm auslösen könnte, daher ist eine Messung keine Schutzschicht, die jemand kaufen muss. Das Innere ist Zone 20, wo dieses Projekt nichts zertifizieren wird ([Sicherheit](02-safety.md)); und eine Spule hinter einer Stahlwand sieht nichts, also braucht der Sensor seinen eigenen Anschluss in den Strom — genau das, was der Pitch zu vermeiden versprach.
+
 ## Prioritäten (was tun, in welcher Reihenfolge)
 1. **Jetzt:** Plattform-Stufen 1–4 im Showcase-Szenario „Laborkammer / verschweißte Box" (Nische #2 — die offenste für Open Source).
 2. **Als Nächstes:** eine Demo an einem Live-Objekt aus Nische #3 (ein Brauerei-Tank) — günstig, fotogen, ein echter Nutzer.

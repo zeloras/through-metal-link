@@ -38,6 +38,11 @@ La pila de la plataforma: un canal activo de potencia y datos a través de pared
 - Quién ya está ahí: CSignum (EM de baja frecuencia a través de agua/mamparos) — el único vecino directo en filosofía híbrida.
 - Madurez: largo alcance; para nosotros, por ahora, solo una dirección de pensamiento.
 
+## 7. Plantas con polvo combustible (investigado, no vamos)
+- El pitch: un nodo medidor de carga sellado dentro de una línea de transporte o silo — sin prensaestopas, sin ruta de ignición — leyendo la estática que el transporte neumático genera (la carga específica más alta de cualquier operación con polvo, 10⁻¹–10³ µC/kg).
+- Quién ya está ahí: sondas tribo certificadas en conducto en puertos estándar (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) y, para tuberías, una sección de línea aislada con un electrómetro a tierra — que lee la carga sin nada dentro de la tubería.
+- Veredicto honesto: no es nuestro nicho. La estática es ~8.5 % de las igniciones por explosión de polvo (estadísticas BIA), y IEC TS 60079-32-1 / NFPA 77 / NFPA 660 la controlan mediante medidas de diseño — puesta a tierra, humedad, velocidad de transporte, inertización — sin un nivel de carga que active una alarma, por lo que una lectura no es una capa de protección que nadie deba comprar. El interior es zona 20, donde este proyecto no certificará nada ([seguridad](02-safety.md)); y un anillo detrás de una pared de acero no ve nada, así que el sensor necesita su propio puerto hacia el flujo — lo único que el pitch prometía evitar.
+
 ## Prioridades (qué hacer, en qué orden)
 1. **Ahora:** etapas 1–4 de la plataforma en el escenario de demostración "cámara de laboratorio / caja sellada por soldadura" (nicho n.º 2 — el más abierto al código abierto).
 2. **Después:** una demostración en un objeto real del nicho n.º 3 (un tanque de cervecería) — barato, fotogénico, un usuario real.

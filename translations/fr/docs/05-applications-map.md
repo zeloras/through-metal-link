@@ -38,6 +38,11 @@ La pile plateforme : un canal actif d'alimentation et de données à travers des
 - Qui est déjà là : CSignum (EM BF à travers l'eau/les cloisons) — le seul voisin direct en philosophie hybride.
 - Maturité : long terme ; pour nous, pour l'instant, seulement une direction de réflexion.
 
+## 7. Installations à poussière combustible (étudié, pas d'entrée)
+- Le pitch : un nœud de mesure de charge scellé à l'intérieur d'une ligne de transport ou d'un silo — pas de presse-étoupe, pas de chemin d'allumage — lisant l'électricité statique que le transport pneumatique génère (la charge spécifique la plus élevée de toutes les opérations sur poudres, 10⁻¹–10³ µC/kg).
+- Qui est déjà là : sondes tribo certifiées en conduit sur ports standard (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ 3 k$) et, pour les tuyaux, un tronçon de ligne isolé avec un électromètre à la terre — qui lit la charge sans rien à l'intérieur du tuyau.
+- Verdict honnête : pas notre créneau. Le statique représente ~8,5 % des ignitions d'explosion de poussière (statistiques BIA), et IEC TS 60079-32-1 / NFPA 77 / NFPA 660 le contrôlent par des mesures de conception — mise à la terre, humidité, vitesse de transport, inertage — sans niveau de charge à surveiller, donc une mesure n'est pas une couche de protection que quiconque doit acheter. L'intérieur est zone 20, où ce projet ne certifiera rien ([sécurité](02-safety.md)) ; et un anneau derrière une paroi en acier ne voit rien, donc le capteur a besoin de son propre port dans le flux — la seule chose que le pitch promettait d'éviter.
+
 ## Priorités (quoi faire, dans quel ordre)
 1. **Maintenant :** étapes 1–4 de la plateforme sur le scénario vitrine « chambre de labo / boîte soudée fermée » (créneau n°2 — le plus ouvert à l'open source).
 2. **Ensuite :** une démo sur un objet réel du créneau n°3 (une cuve de brasserie) — bon marché, photogénique, un vrai utilisateur.

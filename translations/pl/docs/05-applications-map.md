@@ -38,6 +38,11 @@ Stos platformy: aktywny kanał zasilania i danych przez ślepe ściany — piezo
 - Kto już tam jest: CSignum (LF EM przez wodę/przegrody) — jedyny bezpośredni sąsiad w hybrydowej filozofii.
 - Dojrzałość: daleki zasięg; dla nas na razie tylko kierunek rozmyślań.
 
+## 7. Zakłady z pyłami palnymi (zbadane, nie wchodzimy)
+- Pitch: węzeł pomiarowy ładunku uszczelniony wewnątrz linii transportowej lub silosu — bez dławicy, bez ścieżki zapłonu — odczytujący ładunek elektrostatyczny generowany przez transport pneumatyczny (najwyższy ładunek właściwy ze wszystkich operacji proszkowych, 10⁻¹–10³ µC/kg).
+- Kto już tam jest: certyfikowane sondy tryboelektryczne w kanale na standardowych portach (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) oraz, dla rur, izolowany odcinek rurociągu z elektrometrem do uziemienia — który odczytuje ładunek przy niczym wewnątrz rury.
+- Uczciwy werdykt: nie nasza nisza. Elektryczność statyczna to ~8,5 % zapłonów wybuchów pyłu (statystyki BIA), a normy IEC TS 60079-32-1 / NFPA 77 / NFPA 660 kontrolują ją środkami konstrukcyjnymi — uziemienie, wilgotność, prędkość transportu, inertyzacja — bez poziomu ładunku, który wywołałby alarm, więc odczyt nie jest warstwą ochrony, którą ktokolwiek musiałby kupić. Wnętrze to strefa 20, gdzie ten projekt nie certyfikuje niczego ([bezpieczeństwo](02-safety.md)); a pierścień za stalową ścianą nie widzi nic, więc czujnik potrzebuje własnego portu w przepływ — tej jednej rzeczy, której pitch obiecywał uniknąć.
+
 ## Priorytety (co robić, w jakiej kolejności)
 1. **Teraz:** etapy platformy 1–4 na scenariuszu pokazowym „komora laboratoryjna / zespawana skrzynka" (nisza nr 2 — najbardziej otwarta na open source).
 2. **Następnie:** demo na żywym obiekcie z niszy nr 3 (tank browarniany) — tanie, fotogeniczne, prawdziwy użytkownik.

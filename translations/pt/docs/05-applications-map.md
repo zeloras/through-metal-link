@@ -38,6 +38,11 @@ A stack da plataforma: um canal ativo de potência e dados através de paredes c
 - Quem já está lá: CSignum (EM de baixa frequência através de água/anteparas) — o único vizinho direto em filosofia híbrida.
 - Maturidade: longo alcance; para nós, por enquanto, apenas uma direção de pensamento.
 
+## 7. Plantas com poeira combustível (pesquisado, não vamos seguir)
+- O pitch: um nó medidor de carga selado dentro de uma linha de transporte ou silo — sem gland, sem caminho de ignição — lendo a estática que o transporte pneumático gera (a maior carga específica de qualquer operação com pó, 10⁻¹–10³ µC/kg).
+- Quem já está lá: sondas tribo em duto certificadas em portas padrão (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) e, para tubos, uma seção de linha isolada com um eletrômetro para a terra — que lê a carga sem nada dentro do tubo.
+- Veredito honesto: não é nosso nicho. Estática é ~8,5 % das ignições por explosão de poeira (estatísticas BIA), e IEC TS 60079-32-1 / NFPA 77 / NFPA 660 a controlam por medidas de projeto — aterramento, umidade, velocidade de transporte, inertização — sem nível de carga para alarmar, então uma leitura não é uma camada de proteção que alguém precise comprar. O interior é zona 20, onde este projeto não certificará nada ([segurança](02-safety.md)); e um anel atrás de uma parede de aço não vê nada, então o sensor precisa da sua própria porta para o fluxo — a única coisa que o pitch prometeu evitar.
+
 ## Prioridades (o que fazer, em que ordem)
 1. **Agora:** estágios 1–4 da plataforma no cenário de destaque "câmara de laboratório / caixa soldada fechada" (nicho nº 2 — o mais aberto a código aberto).
 2. **A seguir:** um demo em um objeto real do nicho nº 3 (um tanque de cervejaria) — barato, fotogênico, um usuário real.

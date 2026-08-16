@@ -38,6 +38,11 @@ Platform yığını: kör duvarlar boyunca aktif bir güç ve veri kanalı — p
 - Kim zaten orada: CSignum (su/bölme duvarları boyunca LF EM) — hibrit felsefede tek doğrudan komşu.
 - Ogunluk: uzun vadeli; bizim için, şimdilik, yalnızca bir düşünce yönü.
 
+## 7. Yanıcı toz tesisleri (araştırıldı, gidilmiyor)
+- Satış noktası: bir taşıma hattı veya silo içine mühürlenmiş bir yük ölçüm düğümü — salmastra yok, ateşleme yolu yok — pnömatik taşımanın ürettiği statik elektriği okuyan (tüm toz işlemlerinin en yüksek spesifik yükü, 10⁻¹–10³ µC/kg).
+- Kim zaten orada: standart portlarda sertifikalı kanal içi tribo probları (Sintrol S201 Ex, ENVEA DM210, Dwyer PMT2 ≈ $3 k) ve borular için, toprağa bağlı bir elektrometre ile yalıtımlı bir hat bölümü — bu, borunun içinde hiçbir şey olmadan yükü okur.
+- Dürüst karar: bizim nişimiz değil. Statik, toz patlaması ateşlemelerinin ~%8,5'idir (BIA istatistikleri) ve IEC TS 60079-32-1 / NFPA 77 / NFPA 660 bunu tasarım önlemleriyle kontrol eder — topraklama, nem, taşıma hızı, inertleştirme — alarm verilecek bir yük seviyesi yok, dolayısıyla bir okuma kimsenin satın almak zorunda olduğu bir koruma katmanı değildir. İçerisi zone 20'dir, bu proje orada hiçbir şey sertifikalandırmayacak ([güvenlik](02-safety.md)); ve çelik bir duvarın arkasındaki bir halka hiçbir şey göremez, yani sensörün akışa kendi portuna ihtiyacı vardır — satış noktasının kaçınmayı vaat ettiği tek şey.
+
 ## Öncelikler (ne yapılacağı, hangi sırayla)
 1. **Şimdi:** vitrin senaryosu "lab odası / kaynakla kapatılmış kutu" üzerinde platform aşamaları 1–4 (niş #2 — açık kayaba en açık olan).
 2. **Sonra:** niş #3'ten canlı bir nesne üzerinde demo (bir bira fabrikası tankı) — ucuz, fotojenik, gerçek bir kullanıcı.
