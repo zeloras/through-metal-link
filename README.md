@@ -112,7 +112,7 @@ First driver power-up: bench supply current limit 0.2 A; full sequence in [hardw
 
 Every technical decision must trace back to a "free" source (expired patents, papers). The foundation: **US5982297** (Aerospace Corp — the basic recipe for a through-wall piezo pair), **US7902943** (Caltech/JPL — Sherrit's feed-through), **US9361877** (Univ. Oklahoma — a complete transceiver system); all dead. Key papers: Lawry 2013 (50 W + 12.4 Mbit/s through 63.5 mm of steel), Sherrit/NASA (a 100 W lamp), Yang 2015 (survey).
 
-Not to be copied while still alive (US-only, until ~2032; stages 1–4 don't need it): RPI's OFDM allocation, RPI's full-duplex scheme, Drexel's conformal transducers.
+Not to be copied while still alive: RPI's OFDM allocation and full-duplex scheme and Drexel's conformal transducers (US, to ~2032–2033 — stages 1–4 need none of them), plus the families a 2026-08 search added: **US8594572B1** (US Navy — reads on the bare power channel itself; US, to 2032; Welle 1997 is the prior-art answer), **EP3723304B1** (ABB — power spectrum *below* the data spectrum; DE/GB, to 2039; the planned same-carrier load-modulation uplink stays outside it), **Ultrapower** (in-pipe sensor with convex/concave arrays, or a rod through the wall; US, to 2035 — we use flat pads and no rod). Claim readings, statuses and design-arounds: [docs/01-prior-art.md](docs/01-prior-art.md).
 
 Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) (ADR).
 
