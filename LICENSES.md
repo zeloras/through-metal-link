@@ -27,7 +27,7 @@ Code files carry SPDX headers (Apache-2.0); the machine-readable coverage map is
 3. **Other people's *future* patents.** Everything published with a date destroys novelty for later applications: for a solution described here before their filing date, a valid patent can no longer be granted. Against applications filed *before* our publication this does not work — for those, the only shield is the expired-patents layer (see below).
 
 **It does not protect against:**
-- **Third-party patents that already exist.** No license can do that. What works against them is the engineering discipline of docs/01-prior-art.md: build only from the expired layer (public domain), do not implement live claims (RPI OFDM/full-duplex, Drexel — until ~2032, US-only), and trace every design decision back to a free source. That is no guarantee, but it is exactly the practice that makes a lawsuit futile.
+- **Third-party patents that already exist.** No license can do that. What works against them is the engineering discipline of docs/01-prior-art.md: build only from the expired layer (public domain), do not implement the live claims listed there (RPI, Drexel, and the Navy/ABB/Ultrapower families added in 2026-08 — note that they are not all US-only and not all expire around 2032), and trace every design decision back to a free source. That is no guarantee, but it is exactly the practice that makes a lawsuit futile.
 - A fork headed for commercial production does its own FTO (freedom to operate) analysis for its own jurisdiction and design — the repository makes no patent representations (disclaimers in all three licenses).
 
 ## Defensive publication protocol (execute when the repo goes public)
