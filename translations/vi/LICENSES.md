@@ -27,7 +27,7 @@ Các file mã mang tiêu đề SPDX (Apache-2.0); bản đồ phủ máy đọc 
 3. **Sáng chế *tương lai* của người khác.** Mọi thứ được công bố có ngày tháng phá hủy tính mới cho các đơn sau: đối với giải pháp được mô tả ở đây trước ngày nộp của họ, không thể cấp sáng chế hợp lệ. Đối với đơn nộp *trước* khi chúng tôi công bố, điều này không hiệu quả — cho những cái đó, lá chắn duy nhất là lớp sáng chế đã hết hạn (xem bên dưới).
 
 **Nó không bảo vệ khỏi:**
-- **Sáng chế của bên thứ ba đã tồn tại.** Không giấy phép nào có thể làm điều đó. Cái hiệu quả chống lại chúng là kỷ luật kỹ thuật của docs/01-prior-art.md: chỉ xây dựng từ lớp đã hết hạn (public domain), không triển khai claim còn sống (RPI OFDM/full-duplex, Drexel — đến ~2032, chỉ Mỹ), và truy ngược mọi quyết định thiết kế về một nguồn tự do. Đó không phải là bảo đảm, nhưng chính xác là thực hành làm cho vụ kiện trở nên vô ích.
+- **Sáng chế của bên thứ ba đã tồn tại.** Không giấy phép nào có thể làm điều đó. Cái hiệu quả chống lại chúng là kỷ luật kỹ thuật của docs/01-prior-art.md: chỉ xây dựng từ lớp đã hết hạn (public domain), không triển khai các claim còn sống được liệt kê ở đó (RPI, Drexel, và các họ Navy/ABB/Ultrapower được thêm vào 2026-08 — lưu ý rằng chúng không phải tất cả chỉ ở Mỹ và không phải tất cả hết hạn vào khoảng 2032), và truy ngược mọi quyết định thiết kế về một nguồn tự do. Đó không phải là bảo đảm, nhưng chính xác là thực hành làm cho vụ kiện trở nên vô ích.
 - Một fork hướng tới sản xuất thương mại tự làm phân tích FTO (freedom to operate) cho khu vực pháp lý và thiết kế của riêng mình — kho không đưa ra tuyên bố sáng chế nào (tuyên bố từ chối trong cả ba giấy phép).
 
 ## Giao thức công bố phòng thủ (thực thi khi kho công khai)

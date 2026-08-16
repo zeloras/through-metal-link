@@ -27,7 +27,7 @@ Kod dosyaları SPDX başlıkları taşır (Apache-2.0); makine tarafından okuna
 3. **Başkalarının *gelecekteki* patentleri.** Tarih ile yayımlanan her şey, sonraki başvurular için yeniliği yok eder: burada başvuru tarihlerinden önce açıklanan bir çözüm için artık geçerli bir patent verilemez. Yayınımızdan *önce* başvuru edilenler için bu işe yaramaz — onlar için tek kalkan, süresi dolmuş patentler katmanıdır (aşağıya bakın).
 
 **Korumaz:**
-- **Halihazırda mevcut üçüncü taraf patentleri.** Hiçbir lisans bunu yapamaz. Onlara karşı işe yarayan, docs/01-prior-art.md'nin mühendislik disiplinidir: yalnızca süresi dolmuş katmandan (kamu malı) inşa edin, canlı talepleri uygulamayın (RPI OFDM/tam-çift yönlü, Drexel — ~2032'ye kadar, yalnızca ABD) ve her tasarım kararını özgür bir kaynağa geri izleyin. Bu bir garanti değildir, ancak bir davayı anlamsız kılan tam olarak bu uygulamadır.
+- **Halihazırda mevcut üçüncü taraf patentleri.** Hiçbir lisans bunu yapamaz. Onlara karşı işe yarayan, docs/01-prior-art.md'nin mühendislik disiplinidir: yalnızca süresi dolmuş katmandan (kamu malı) inşa edin, orada listelenen canlı talepleri uygulamayın (RPI, Drexel ve 2026-08'de eklenen Navy/ABB/Ultrapower aileleri — bunların tamamı ABD'ye özgü değildir ve tamamı ~2032'de dolmaz) ve her tasarım kararını özgür bir kaynağa geri izleyin. Bu bir garanti değildir, ancak bir davayı anlamsız kılan tam olarak bu uygulamadır.
 - Ticari üretime yönelen bir çatal, kendi yargı bölgesi ve tasarımı için kendi FTO (işletme özgürlüğü) analizini yapar — depo hiçbir patent beyanı yapmaz (üç lisansın tamamında feragatnameler).
 
 ## Savunmacı yayınlama protokolü (depo herkese açık hale geldiğinde yürütün)

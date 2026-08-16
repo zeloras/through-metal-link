@@ -27,7 +27,7 @@ Pliki kodu noszą nagłówki SPDX (Apache-2.0); czytelna maszynowo mapa pokrycia
 3. **Cudzymi *przyszłymi* patentami.** Wszystko opublikowane z datą niszczy nowość dla późniejszych zgłoszeń: dla rozwiązania opisanego tu przed ich datą zgłoszenia nie można już uzyskać ważnego patentu. Przeciw zgłoszonym *przed* naszą publikacją to nie działa — dla nich jedyną tarczą jest warstwa wygasłych patentów (patrz niżej).
 
 **Nie chroni przed:**
-- **Istniejącymi patentami stron trzecich.** Żadna licencja tego nie potrafi. Działa przeciwko nim dyscyplina inżynierska z docs/01-prior-art.md: buduj tylko z warstwy wygasłej (public domain), nie implementuj żywych roszczeń (RPI OFDM/full-duplex, Drexel — do ~2032, tylko USA) i wywodź każdą decyzję projektową z wolnego źródła. To nie gwarancja, ale to właśnie praktyka, która czyni pozew bezcelowym.
+- **Istniejącymi patentami stron trzecich.** Żadna licencja tego nie potrafi. Działa przeciwko nim dyscyplina inżynierska z docs/01-prior-art.md: buduj tylko z warstwy wygasłej (public domain), nie implementuj żywych roszczeń wymienionych tam (RPI, Drexel oraz rodziny Navy/ABB/Ultrapower dodane w 2026-08 — zwróć uwagę, że nie wszystkie są tylko z USA i nie wszystkie wygasają około 2032) i wywodź każdą decyzję projektową z wolnego źródła. To nie gwarancja, ale to właśnie praktyka, która czyni pozew bezcelowym.
 - Fork zmierzający do produkcji komercyjnej robi własną analizę FTO (freedom to operate) dla swojej jurysdykcji i swojego projektu — repozytorium nie składa żadnych oświadczeń patentowych (zastrzeżenia we wszystkich trzech licencjach).
 
 ## Protokół publikacji defensywnej (wykonać, gdy repo wejdzie publicznie)
