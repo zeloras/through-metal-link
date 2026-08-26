@@ -48,6 +48,19 @@ jobs:
       - name: Schematics
         run: python hardware/schematics/render_schematics.py
 
+      # A byte that differs between two identical renders is a byte the nightly
+      # translation sync commits forever: matplotlib stamped a wall-clock date
+      # and per-process clip-path ids into every SVG, and that job dutifully
+      # recommitted all 56 schematics every night with no content change.
+      # render_schematics.py pins both — this is what keeps them pinned.
+      - name: Schematics render reproducibly
+        run: |
+          find hardware/schematics translations -path '*schematics*' \
+               \( -name '*.svg' -o -name '*.png' \) | sort \
+            | xargs sha256sum > "$RUNNER_TEMP/figures.sha256"
+          python hardware/schematics/render_schematics.py
+          sha256sum -c --quiet "$RUNNER_TEMP/figures.sha256"
+
       - name: Artifacts (all generated figures)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

@@ -20,11 +20,31 @@ Output: PNG+SVG.
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
+import matplotlib
+
 import schemdraw
 import schemdraw.elements as elm
+
+# The rendered figures are committed, so their bytes have to be a function of
+# labels.json and this file — nothing else. Matplotlib's SVG writer breaks that
+# twice over: it stamps every file with the wall-clock render time, and it salts
+# the clip-path ids it generates from a per-process seed, so two identical runs
+# differ in ~86 lines per schematic. That is why the nightly sync rewrote all 56
+# schematic SVGs every night with no content change — the job was not comparing
+# anything wrongly, it was staging real byte differences. PNG output has neither
+# property, which is why only the SVGs churned.
+#
+# Both knobs below are documented matplotlib behaviour, and both have to be set
+# here: schemdraw's save() forwards neither (it calls savefig with a fixed
+# argument list, so metadata={'Date': None} cannot be passed through). The
+# environment variable is read at savefig time, not at import, so it does not
+# have to precede the imports above.
+os.environ["SOURCE_DATE_EPOCH"] = "0"  # -> <dc:date>1970-01-01T00:00:00+00:00</dc:date>
+matplotlib.rcParams["svg.hashsalt"] = "through-metal-link"
 
 OUT = Path(__file__).resolve().parent
 REPO_ROOT = OUT.parents[1]
