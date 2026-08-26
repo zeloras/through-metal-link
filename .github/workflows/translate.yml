@@ -69,7 +69,10 @@ jobs:
       # gate existed to stop macOS-rendered bytes fighting runner-rendered
       # bytes, but this job only ever runs on the runner with a pinned
       # toolchain, so re-rendering unchanged labels reproduces the same bytes
-      # and stages nothing.
+      # and stages nothing. That last clause held for PNG and was false for SVG:
+      # matplotlib stamps a wall-clock date and per-process clip-path ids into
+      # every SVG, so this step recommitted all 56 schematics every night with no
+      # content change until render_schematics.py pinned both.
       - name: Render figures
         if: always()
         run: |
