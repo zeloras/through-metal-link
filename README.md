@@ -134,6 +134,7 @@ Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-fre
 
 - [software/sweep-map/sweep_map.py](software/sweep-map/sweep_map.py) — the stage 1 workhorse: DDS sweep → ADC readings → CSV + frequency-response plot. Has `--mock` for a run without hardware. On the Pi: `raspi-config` → enable SPI and I2C; `pip install spidev smbus2 matplotlib`.
 - [software/simulator/channel_sim.py](software/simulator/channel_sim.py) — generator of the expectation plots (`pip install numpy matplotlib`).
+- [software/simulator/material_map.py](software/simulator/material_map.py) — the same channel model across wall materials — titanium, aluminum, glass, ceramics, plastics, concrete; the study and verdicts: [docs/06-materials.md](docs/06-materials.md).
 - [data/](data/README.md) — raw logs; CSV/PNG stay out of git, only curated plots go into git inside the experiment's directory.
 
 </details>
