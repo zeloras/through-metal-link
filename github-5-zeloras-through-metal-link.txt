@@ -1,0 +1,114 @@
+// through-metal-link.cpp
+// Fixes issue #5: Improper IRP completion in DeviceIoControl handler
+// Ensures IRPs are always completed, preventing system hangs
+
+#include <ntddk.h>
+#include <wdf.h>
+
+DRIVER_INITIALIZE DriverEntry;
+NTSTATUS DriverEntry(PDRIVER_OBJECT DriverObject, PUNICODE_STRING RegistryPath)
+{
+    UNREFERENCED_PARAMETER(RegistryPath);
+
+    // Initialize WDF driver
+    WDF_DRIVER_CONFIG config;
+    WDF_DRIVER_CONFIG_INIT(&config, WDF_NO_EVENT_CALLBACK); // No custom device events
+    config.DriverPoolTag = 'LMTD';
+
+    WDFDRIVER driver;
+    NTSTATUS status = WdfDriverCreate(DriverObject, RegistryPath, WDF_NO_OBJECT_ATTRIBUTES, &config, &driver);
+    if (!NT_SUCCESS(status))
+    {
+        return status;
+    }
+
+    // Create device
+    WDFDEVICE device;
+    WDF_DEVICE_ATTRIBUTES_INIT(&device);
+    device.EvtDevicePrepareHardware = EvtDevicePrepareHardware;
+    device.EvtDeviceReleaseHardware = EvtDeviceReleaseHardware;
+    device.EvtDeviceD0Entry = EvtDeviceD0Entry;
+    device.EvtDeviceD0Exit = EvtDeviceD0Exit;
+
+    UNICODE_STRING symbolicLink;
+    RtlInitUnicodeString(&symbolicLink, L"\\DosDevices\\ThroughMetalLink");
+
+    status = WdfDeviceCreate(&device, WDF_NO_OBJECT_ATTRIBUTES, &device);
+    if (!NT_SUCCESS(status))
+    {
+        return status;
+    }
+
+    status = WdfDeviceCreateSymbolicLink(device, &symbolicLink);
+    return status;
+}
+
+NTSTATUS EvtDevicePrepareHardware(WDFDEVICE Device, WDFCMRESLIST Resources, WDFCMRESLIST ResourcesTranslated)
+{
+    UNREFERENCED_PARAMETER(Resources);
+    UNREFERENCED_PARAMETER(ResourcesTranslated);
+
+    // Map hardware resources (e.g., memory-mapped I/O)
+    // For simplicity, assume no hardware resources required for this demo
+    return STATUS_SUCCESS;
+}
+
+NTSTATUS EvtDeviceReleaseHardware(WDFDEVICE Device, WDFCMRESLIST ResourcesTranslated)
+{
+    UNREFERENCED_PARAMETER(Device);
+    UNREFERENCED_PARAMETER(ResourcesTranslated);
+    return STATUS_SUCCESS;
+}
+
+NTSTATUS EvtDeviceD0Entry(WDFDEVICE Device, WDF_POWER_DEVICE_STATE PreviousState)
+{
+    UNREFERENCED_PARAMETER(PreviousState);
+    // Initialize hardware (e.g., enable BARs, configure DMA)
+    return STATUS_SUCCESS;
+}
+
+NTSTATUS EvtDeviceD0Exit(WDFDEVICE Device, WDF_POWER_DEVICE_STATE TargetState)
+{
+    UNREFERENCED_PARAMETER(TargetState);
+    // Cleanup hardware state
+    return STATUS_SUCCESS;
+}
+
+// Handle DeviceIoControl requests
+NTSTATUS OnDeviceIoControl(WDFQUEUE Queue, WDFREQUEST Request, size_t OutputBufferLength, size_t InputBufferLength, ULONG IoControlCode)
+{
+    UNREFERENCED_PARAMETER(Queue);
+    UNREFERENCED_PARAMETER(OutputBufferLength);
+    UNREFERENCED_PARAMETER(InputBufferLength);
+
+    NTSTATUS status = STATUS_SUCCESS;
+
+    switch (IoControlCode)
+    {
+    case IOCTL_THROUGH_METAL_LINK_IOCTL_TEST:
+    {
+        // Example: Process test request
+        // Ensure IRP is always completed
+        status = WdfRequestComplete(Request, STATUS_SUCCESS);
+        break;
+    }
+    default:
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        // Always complete IRP even on error
+        WdfRequestComplete(Request, status);
+        return status;
+    }
+
+    return status;
+}
+
+// Setup I/O target for DeviceIoControl
+VOID EvtIoDeviceControl(WDFQUEUE Queue, WDFREQUEST Request, size_t OutputBufferLength, size_t InputBufferLength, ULONG IoControlCode)
+{
+    NTSTATUS status = OnDeviceIoControl(Queue, Request, OutputBufferLength, InputBufferLength, IoControlCode);
+    if (!NT_SUCCESS(status))
+    {
+        // Ensure completion on error path
+        WdfRequestComplete(Request, status);
+    }
+}
