@@ -4,7 +4,9 @@
 material_map.py — which wall materials carry power and data between two
 piezoelectric devices, and under which mode. The steel-only companion of
 channel_sim.py, covering titanium, aluminum, glass, ceramics, plastics,
-concrete — and the honest dead ends.
+concrete — and the honest dead ends — plus the reverse question: how much
+of the wave stays IN the wall (stress and self-heating vs frequency), and
+where the safe intensity ceiling for each material lies.
 
 Derived from the same semi-empirical model as channel_sim.py (NOT FEM, NOT
 lab data — intuition for which materials deserve a hardware experiment):
@@ -55,6 +57,7 @@ INK2    = "#52514e"
 MUTED   = "#898781"
 GRID    = "#e1e0d9"
 BASE    = "#c3c2b7"
+S3_BAND = "#1baf7a"   # aqua — the "project-relevant" band shade (mat4)
 
 def style_ax(ax, title, xlabel, ylabel):
     ax.set_facecolor(SURFACE)
@@ -73,36 +76,40 @@ def style_ax(ax, title, xlabel, ylabel):
 # ---------- wall materials ----------
 # Typical handbook values (longitudinal, ~20 °C). NOT measurements of specific
 # stock — batch-dependent: grain, fillers, aggregate, cure.
-#   rho   kg/m^3        density
-#   c     m/s           longitudinal sound speed
-#   a1    dB/cm@1MHz    bulk absorption at 1 MHz (one-way, longitudinal)
-#   gamma               alpha(f) = a1*(f/1MHz)^gamma  (1 = viscous/relaxation,
-#                       > 2 = scattering off inhomogeneities)
-#   cls   "metal" | "nonmetal"
+#   rho     kg/m^3        density
+#   c       m/s           longitudinal sound speed
+#   a1      dB/cm@1MHz    bulk absorption at 1 MHz (one-way, longitudinal)
+#   gamma                 alpha(f) = a1*(f/1MHz)^gamma  (1 = viscous/relaxation,
+#                         > 2 = scattering off inhomogeneities)
+#   k       W/(m*K)       thermal conductivity (sets the self-heating ceiling)
+#   sig_e   MPa           high-cycle fatigue limit for metals, flexural
+#                         strength for ceramics/glass, tensile strength for
+#                         concrete/rubber — the stress the wave must stay under
+#   cls     "metal" | "nonmetal"
 MATERIALS = [
-    # key        label           rho     c      a1     gamma  cls        note
-    ("steel",    "steel",        7850.0, 5900.0, 0.02, 1.0,  "metal",
+    # key        label           rho     c      a1    gamma  k      sig_e cls        note
+    ("steel",    "steel",        7850.0, 5900.0, 0.02, 1.0,  45.0,  200.0, "metal",
      "fine-grained structural"),
-    ("alum",     "aluminum",     2700.0, 6320.0, 0.02, 1.0,  "metal",
+    ("alum",     "aluminum",     2700.0, 6320.0, 0.02, 1.0,  205.0, 60.0,  "metal",
      "6061-class"),
-    ("ti",       "titanium",     4430.0, 6100.0, 0.03, 1.0,  "metal",
+    ("ti",       "titanium",     4430.0, 6100.0, 0.03, 1.0,  7.0,   500.0, "metal",
      "Ti-6Al-4V"),
-    ("cu",       "copper",       8960.0, 4760.0, 0.05, 1.0,  "metal",
+    ("cu",       "copper",       8960.0, 4760.0, 0.05, 1.0,  400.0, 60.0,  "metal",
      "dense, very high Z"),
-    ("glass",    "borosilicate glass", 2230.0, 5640.0, 0.01, 1.0, "nonmetal",
-     "very low loss"),
-    ("alumina",  "alumina ceramic",    3890.0, 9900.0, 0.08, 1.0, "nonmetal",
+    ("glass",    "borosilicate glass", 2230.0, 5640.0, 0.01, 1.0, 1.1, 30.0, "nonmetal",
+     "very low loss; brittle — compare to tensile strength"),
+    ("alumina",  "alumina ceramic",    3890.0, 9900.0, 0.08, 1.0,  30.0, 300.0, "nonmetal",
      "fast sound, low loss"),
-    ("pmma",     "PMMA (acrylic)",     1180.0, 2690.0, 2.5, 1.2, "nonmetal",
+    ("pmma",     "PMMA (acrylic)",     1180.0, 2690.0, 2.5, 1.2,  0.19, 15.0,  "nonmetal",
      "transparent, absorption-limited at MHz"),
-    ("pvc",      "PVC (rigid)",        1400.0, 2380.0, 6.0, 1.2, "nonmetal",
-     "lossier than PMMA"),
-    ("hdpe",     "HDPE",               950.0,  2340.0, 12.0, 1.5, "nonmetal",
-     "soft, lossy"),
-    ("concrete", "concrete",           2300.0, 3500.0, 5.0, 2.5, "nonmetal",
-     "aggregate scattering dominates; varies by orders of magnitude"),
-    ("rubber",   "rubber (filled)",    1100.0, 1500.0, 60.0, 1.0, "nonmetal",
-     "the honest dead end"),
+    ("pvc",      "PVC (rigid)",        1400.0, 2380.0, 6.0, 1.2,  0.15, 15.0,  "nonmetal",
+     "lossier than PMMA, Tg ~75 °C"),
+    ("hdpe",     "HDPE",               950.0,  2340.0, 12.0, 1.5,  0.45, 8.0,  "nonmetal",
+     "soft, lossy, melt ~130 °C"),
+    ("concrete", "concrete",           2300.0, 3500.0, 5.0, 2.5,  1.7,  2.5,  "nonmetal",
+     "aggregate scattering dominates; binding limit is TENSILE strength"),
+    ("rubber",   "rubber (filled)",    1100.0, 1500.0, 60.0, 1.0,  0.15, 1.5,  "nonmetal",
+     "the honest dead end: hysteresis heating"),
 ]
 BY_KEY = {m[0]: m for m in MATERIALS}
 
@@ -117,6 +124,16 @@ F_MODE_A = 40e3          # Hz
 
 def z_mrayl(m) -> float:
     return m[2] * m[3] / 1e6
+
+# accessors — keep the wide tuples from leaking numeric indices everywhere
+def mat_k(m):
+    return m[6]                      # W/(m*K)
+
+def mat_sig_e(m):
+    return m[7]                      # MPa, fatigue/strength limit
+
+def mat_cls(m):
+    return m[8]                      # "metal" | "nonmetal"
 
 def fp_transmission(f, d_m, c, z_wall, z_med=COUPLANT_Z):
     """Lossless Fabry-Perot intensity transmission of a slab (same model as
@@ -135,6 +152,40 @@ def wall_transmission(f, m, d_m):
     return fp_transmission(f, d_m, m[3], z_mrayl(m)) * absorption(
         f, d_m, m[4], m[5])
 
+# ---------- the dose: what the wave does to the wall ----------
+I_REF = 1e4          # W/m^2 — one watt per square centimetre
+DT_MAX = 20.0        # K — self-heating ceiling we call "safe" (well below
+                     # Tg of the polymers in the table; see docs/06)
+STRESS_FRAC = 0.2    # fraction of the fatigue/strength limit we spend
+
+def stress_mpa(m, intensity_w_m2=I_REF):
+    """Plane-wave stress amplitude sigma = Z*v = sqrt(2*I*Z).
+
+    Frequency-independent (a plane wave at fixed intensity carries the same
+    stress at any frequency) — the frequency-dependent harm is thermal."""
+    return np.sqrt(2.0 * intensity_w_m2 * z_mrayl(m) * 1e6) / 1e6
+
+def mu_np_per_m(m, f):
+    """Bulk attenuation of the wave as Np/m — power absorbed per m is mu*I."""
+    return m[4] * (f / 1e6) ** m[5] * 100.0 / 8.686
+
+def heat_dT(m, f, d_mm=WALL_MM, intensity_w_m2=I_REF):
+    """Steady-state mid-plane self-heating of a both-faces-cooled slab with
+    uniform generation (conservative-vs-transient duty, optimistic-vs-contact
+    losses): dT = q*d^2/(8*k)."""
+    d = d_mm / 1000.0
+    q = mu_np_per_m(m, f) * intensity_w_m2          # W/m^3
+    return q * d * d / (8.0 * mat_k(m))             # K (mid-plane, steady state)
+
+def intensity_ceiling_wcm2(m, f, d_mm=WALL_MM):
+    """Continuous intensity the wall survives: the lower of the stress cap
+    (STRESS_FRAC of the fatigue/strength limit) and the heating cap
+    (DT_MAX with both faces at ambient)."""
+    i_stress = (STRESS_FRAC * mat_sig_e(m) * 1e6) ** 2 / (2.0 * z_mrayl(m) * 1e6)
+    d = d_mm / 1000.0
+    i_heat = DT_MAX * 8.0 * mat_k(m) / (mu_np_per_m(m, f) * d * d)
+    return min(i_stress, i_heat) / 1e4              # W/cm^2
+
 def chart_comb(out: Path):
     """Mode B (MHz): thickness-resonance comb of a 5 mm wall per material."""
     f_metals = np.linspace(0.1e6, 2.0e6, 8000)
@@ -145,7 +196,7 @@ def chart_comb(out: Path):
               (axes[1], f_nonmet, "Non-metals", "nonmetal")]
     for ax, f, title, cls in panels:
         for m in MATERIALS:
-            if m[6] != cls:
+            if mat_cls(m) != cls:
                 continue
             df_comb = m[3] / (2.0 * d) / 1e3          # kHz
             styled = dict(color=COLOR[m[0]], linewidth=1.8,
@@ -241,26 +292,47 @@ def chart_mode_a(out: Path):
     fig.tight_layout()
     fig.savefig(out / "mat3-modea-coupling-materials.png", dpi=160)
     plt.close(fig)
-    vals.sort(key=lambda v: v[1])
-    names = [v[0] for v in vals]
-    rel = [v[1] / ref for v in vals]
-    y = np.arange(len(vals))
-    fig, ax = plt.subplots(figsize=(9, 5.6))
-    colors = [COLOR[BY_KEY_LOOKUP[n]] for n in names]
-    ax.barh(y, rel, height=0.6, color=colors, edgecolor=SURFACE, linewidth=1.4)
-    ax.set_yticks(y, names)
-    ax.set_xscale("log")
-    ax.set_xlim(0.5, 6)
-    ax.text(0.55, len(vals) - 0.4,
-            "the resonant transducer pair multiplies all bars\n"
-            "roughly equally — compare ratios, not watts",
-            color=MUTED, fontsize=9, va="top")
-    fig.tight_layout()
-    fig.savefig(out / "mat3-modea-coupling-materials.png", dpi=160)
-    plt.close(fig)
 
 # label -> material key reverse lookup for the bar colors
 BY_KEY_LOOKUP = {m[1]: m[0] for m in MATERIALS}
+
+def chart_harm(out: Path):
+    """The dose. Left: steady self-heating of a 5 mm wall at 1 W/cm^2 vs
+    frequency — the frequency-dependent harm (scales as alpha(f)). Right:
+    the continuous intensity ceiling that follows from it plus the stress
+    cap — where each material's curve dies is its usable frequency range."""
+    f = np.logspace(np.log10(20e3), np.log10(5e6), 600)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.8))
+
+    for m in MATERIALS:
+        c = COLOR[m[0]]
+        styled = dict(color=c, linewidth=1.8, label=m[1])
+        if m[0] == "rubber":
+            styled.update(linewidth=1.4, linestyle="--")
+        ax1.loglog(f / 1e3, [heat_dT(m, fi) for fi in f], **styled)
+        ax2.loglog(f / 1e3, [intensity_ceiling_wcm2(m, fi) for fi in f],
+                   **styled)
+
+    ax1.axhline(10.0, color=MUTED, linewidth=0.9, linestyle="--", alpha=0.8)
+    ax1.annotate("+10 K", (22, 12), color=MUTED, fontsize=9)
+    style_ax(ax1, "Self-heating of a 5 mm wall at 1 W/cm²",
+             "Frequency, kHz", "Steady ΔT (both faces cooled), K")
+    ax1.set_ylim(1e-6, 3e3)
+    ax1.legend(frameon=False, labelcolor=INK2, fontsize=7.5)
+
+    ax2.axhspan(1e-3, 1.0, color=S3_BAND, alpha=0.14)
+    ax2.annotate("power levels this project actually runs\n(≤ 1 W/cm² incl. "
+                 "the liquid cavitation cap)", (25, 0.09), color=INK2,
+                 fontsize=9)
+    style_ax(ax2, "Continuous intensity ceiling (stress + heat)",
+             "Frequency, kHz", "Safe ceiling, W/cm² (log)")
+    ax2.set_ylim(3e-2, 4e4)
+    fig.suptitle("What the wave does to the wall — heating is the"
+                 " frequency-dependent harm, stress is not",
+                 x=0.02, ha="left", fontsize=12, color=INK)
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.savefig(out / "mat4-harm-materials.png", dpi=160)
+    plt.close(fig)
 
 def summary_table() -> str:
     d_b = WALL_MM / 1000.0
@@ -276,7 +348,21 @@ def summary_table() -> str:
         t40 = fp_transmission(F_MODE_A, d_a, m[3], z) * absorption(
             F_MODE_A, d_a, m[4], m[5])
         rows.append(f"| {m[1]} | {m[2]:.0f} | {m[3]:.0f} | {z:.1f} | "
-                    f"{m[4]:g} | {df_comb:.0f} | {lam40:.0f} | {t40:.2f} | {m[7]} |")
+                    f"{m[4]:g} | {df_comb:.0f} | {lam40:.0f} | {t40:.2f} | {m[9]} |")
+    return "\n".join(rows)
+
+def harm_table() -> str:
+    rows = [
+        "| Wall | σ @1 W/cm², MPa | limit σ_e, MPa | stress margin | "
+        "ΔT @40 kHz, K | ΔT @1 MHz, K | ΔT @5 MHz, K | ceiling @40 kHz, W/cm² | ceiling @1 MHz, W/cm² |",
+        "|---|---|---|---|---|---|---|---|---|"]
+    for m in MATERIALS:
+        s = stress_mpa(m)
+        margin = mat_sig_e(m) / s
+        d40, d1, d5 = (heat_dT(m, f) for f in (40e3, 1e6, 5e6))
+        c40, c1 = (intensity_ceiling_wcm2(m, f) for f in (40e3, 1e6))
+        rows.append(f"| {m[1]} | {s:.2f} | {mat_sig_e(m):g} | {margin:.0f}× | "
+                    f"{d40:.2f} | {d1:.1f} | {d5:.0f} | {c40:.1f} | {c1:.2f} |")
     return "\n".join(rows)
 
 if __name__ == "__main__":
@@ -287,8 +373,10 @@ if __name__ == "__main__":
     a = p.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    for chart in (chart_comb, chart_map, chart_mode_a):
+    for chart in (chart_comb, chart_map, chart_mode_a, chart_harm):
         chart(out)
-    print("OK: mat1/mat2/mat3 PNG →", out.resolve())
+    print("OK: mat1/mat2/mat3/mat4 PNG →", out.resolve())
     print()
     print(summary_table())
+    print()
+    print(harm_table())
