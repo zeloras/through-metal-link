@@ -51,8 +51,8 @@ Three quantities decide whether a wall is usable at all, and for how much power:
 
 ## What the sweep says
 
-- **At 40 kHz, low-Z walls (plastics, rubber lining) couple *more easily* than steel** — through grease they are almost impedance-matched, so the comb is broad and transmission per pass is high. What kills plastics at higher frequencies is **bulk absorption**, not contact or impedance. The material ladder at 40 kHz is therefore inverted vs intuition: HDPE/PMMA/PVC > glass/concrete > aluminum > titanium > steel > copper — with the strong caveat that the rubbers' 40 kHz number extrapolates α linearly down from 1 MHz, which viscoelasticity does not guarantee.
-- **Mode B divides materials cleanly.** Metals, glass and alumina take MHz with negligible absorption (α ≤ 0.1 dB/cm); the comb is *sharp* for high-Z walls (steel, alumina — needs frequency tracking, the ~6% ⇒ ~10× lesson of [00-theory](00-theory.md)) and *wide* for glass/PMMA (tolerant, but PMMA pays ~1–3 dB one-way at 1 MHz through 5 mm — mW-class only).
+- **At 40 kHz, low-Z walls (plastics, rubber lining) couple *more easily* than steel** — through grease they are almost impedance-matched, so the comb is broad and transmission per pass is high. What kills plastics at higher frequencies is **bulk absorption**, not contact or impedance. The material ladder at 40 kHz is therefore inverted vs intuition: HDPE/PMMA/PVC > glass/concrete > aluminum > alumina > titanium > steel > copper — with the strong caveat that the rubbers' 40 kHz number extrapolates α linearly down from 1 MHz, which viscoelasticity does not guarantee.
+- **Mode B divides materials cleanly.** Metals, glass and alumina take MHz with negligible absorption (α ≤ 0.1 dB/cm); the comb is *sharp* for high-Z walls (steel, alumina — needs frequency tracking, the ~6% ⇒ ~10× lesson of [00-theory](00-theory.md)) and *wide* for glass/PMMA (tolerant, but PMMA pays ~1.3 dB one-way at 1 MHz through 5 mm — mW-class only).
 - **Concrete is a 40 kHz material, not a MHz one.** Aggregate scattering (λ at 1 MHz ≈ 3.5 mm ≈ aggregate size) throws γ up to ~2.5 and kills MHz; ultrasonic pulse-velocity practice (40–80 kHz through ≥1 m paths) is exactly mode A.
 - **The battery-pack niche ([05](05-applications-map.md)) is acoustically favorable:** a 2–3 mm aluminum wall has a coupling proxy ~3× steel's and negligible absorption — the flagship case is also the easy case.
 - **The frequency ladder to plan for in mode B** (5 mm wall, first comb): PVC/HDPE ≈ 235 kHz, PMMA ≈ 270, copper ≈ 480, steel ≈ 590, titanium ≈ 610, aluminum ≈ 630, glass ≈ 560, alumina ≈ 990. Thinner wall ⇒ proportionally higher.
@@ -89,7 +89,7 @@ What the dose sweep says:
 - **The steel verdict of [00-theory](00-theory.md) holds and generalizes**: every structural metal carries 1 W/cm² with margins of 65–680× in stress and micro-kelvins of self-heating. Metals are frequency-insensitive in harm terms — their loss is too small to heat at any power we can couple.
 - **Frequency harm on polymers is thermal, not mechanical.** PMMA's stress margin is a comfortable 60× even at 1 W/cm², but the heating knee sits right around 1 MHz: benign (~0.2 K) at 40 kHz, +9.5 K at 1 MHz, +65 K at 5 MHz — softening territory at a few W/cm². PVC crosses the +10 K line already at ~0.35 W/cm² @ 1 MHz; rubber absorbs ~288 K per W·cm⁻² at 1 MHz (and ~12 K even at 40 kHz) — hysteretic heating is *the* reason elastomer-lined walls die, not the comb. HDPE splits the difference and remembers its melt point: +215 K per W·cm⁻² at 5 MHz.
 - **Concrete's tight margin is tensile, not thermal**: 0.40 MPa wave stress against a ~2.5 MPa static tensile strength (fatigue lower still) leaves only a ~6× margin at 1 W/cm². The 40–80 kHz regime stays fine at the project's power density; concentrated multi-W/cm² beams into concrete should be avoided, MHz doubly so (scattering heats the aggregate interfaces).
-- **Bottom line for the roadmap:** at mode-A power densities (≤0.3 W/cm²) no solid in the table is endangered — stress margins ≥15× and heating ≤0.2 K for every engineered solid (rubber, the exception nobody targets, ~3.5 K). The harm map justifies the project's plan to escalate power: the first real material limits appear *above* the stage-2 targets, first in liquids (cavitation, the ≤1 W/cm² rule of [00-theory](00-theory.md)), then in concrete's tensile fatigue, then in polymers at MHz. The parts that actually need watching at high power remain the piezo ceramic and the bond line — [02-safety](02-safety.md) — not the wall.
+- **Bottom line for the roadmap:** at mode-A power densities (≤0.3 W/cm²) no solid in the table is endangered — stress margins ≥11× (the tightest is concrete's tensile fatigue at 11×; everything else ≥15×) and heating ≤0.2 K for every engineered solid (rubber, the exception nobody targets, ~3.5 K). The harm map justifies the project's plan to escalate power: the first real material limits appear *above* the stage-2 targets, first in liquids (cavitation, the ≤1 W/cm² rule of [00-theory](00-theory.md)), then in concrete's tensile fatigue, then in polymers at MHz. The parts that actually need watching at high power remain the piezo ceramic and the bond line — [02-safety](02-safety.md) — not the wall.
 
 ## Verdict per material
 
@@ -114,9 +114,9 @@ Real concrete is never plain: reinforcement mats sit at a cover depth, and the 1
 
 | Stack (150 mm concrete) | T(40 kHz) | T(100 kHz) | T(1 MHz) |
 |---|---|---|---|
-| plain 150 mm | 0.134 | 0.131 | 8.8e-09 |
-| rebar Ø16 @ 40 mm | 0.013 | 0.069 | 6.7e-09 |
-| two mats Ø16 @ 40 mm | 0.003 | 0.001 | 5.2e-09 |
+| plain 150 mm | 0.135 | 0.133 | 8.9e-09 |
+| rebar Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
+| two mats Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
 <img src="img/mat5-rebar.png" width="880">
 

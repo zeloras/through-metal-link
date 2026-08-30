@@ -217,6 +217,71 @@ t_zero = mm.stack_transmission(40e3, [(zc, cc_, 0.075, a1c, gc),
 check("zero-thickness layer is a no-op", abs(t_plain - t_zero) < 1e-12,
       f"|{t_plain:.6f} - {t_zero:.6f}|")
 
+print("== 6c. stack solver vs a third method (boundary linear system) ==")
+# Solves the full boundary-value problem over wave amplitudes — no transfer
+# matrices, no impedance recursion. If this and stack_transmission ever
+# disagree, one of them is wrong, and CI stops.
+def _lin_T(f, layers, z0_m=1.5):
+    Z0 = z0_m * 1e6
+    N = len(layers)
+    w = 2 * math.pi * f
+    ks = [w / c - 1j * (a1 * (f / 1e6) ** g * 100 / 4.343) / 2
+          for _, c, _, a1, g in layers]
+    Zs = [z * 1e6 for z, *_ in layers]
+    ds = [d for _, _, d, _, _ in layers]
+    n = 2 + 2 * N                              # r, a/b per layer, t
+    A = np.zeros((n, n), dtype=complex)
+    y = np.zeros(n, dtype=complex)
+    ia, ib = (lambda j: 1 + 2 * j), (lambda j: 2 + 2 * j)
+    row = 0
+    A[row, 0], A[row, ia(0)], A[row, ib(0)] = -1, 1, 1
+    y[row] = 1; row += 1                       # pressure @ front
+    A[row, 0] = 1 / Z0
+    A[row, ia(0)], A[row, ib(0)] = 1 / Zs[0], -1 / Zs[0]
+    y[row] = 1 / Z0; row += 1                  # velocity @ front
+    for j in range(N - 1):
+        pf, pb = np.exp(-1j * ks[j] * ds[j]), np.exp(1j * ks[j] * ds[j])
+        A[row, ia(j)], A[row, ib(j)] = pf, pb
+        A[row, ia(j + 1)], A[row, ib(j + 1)] = -1, -1
+        row += 1                               # pressure @ interface j
+        A[row, ia(j)], A[row, ib(j)] = pf / Zs[j], -pb / Zs[j]
+        A[row, ia(j + 1)], A[row, ib(j + 1)] = -1 / Zs[j + 1], 1 / Zs[j + 1]
+        row += 1                               # velocity @ interface j
+    pf, pb = np.exp(-1j * ks[-1] * ds[-1]), np.exp(1j * ks[-1] * ds[-1])
+    A[row, ia(N - 1)], A[row, ib(N - 1)], A[row, n - 1] = pf, pb, -1
+    row += 1                                   # pressure @ back
+    A[row, ia(N - 1)], A[row, ib(N - 1)] = pf / Zs[-1], -pb / Zs[-1]
+    A[row, n - 1] = -1 / Z0
+    x = np.linalg.solve(A, y)
+    return abs(x[n - 1]) ** 2
+
+def _lay(key, d):
+    m = mm.BY_KEY[key]
+    return (mm.z_mrayl(m), m[3], d, m[4], m[5])
+
+_cases = [
+    (40e3, [_lay("concrete", 0.040), _lay("steel", 0.016),
+            _lay("concrete", 0.094)]),
+    (1e6,  [_lay("concrete", 0.040), _lay("steel", 0.016),
+            _lay("concrete", 0.094)]),
+    (40e3, [_lay("concrete", 0.072), _lay("pvc", 0.0015), _lay("cu", 0.003),
+            _lay("pvc", 0.0015), _lay("concrete", 0.072)]),
+]
+_rng = np.random.default_rng(2026)
+for _ in range(5):
+    _cases.append((float(10 ** _rng.uniform(4.3, 6.7)),
+                   [(float(10 ** _rng.uniform(-1, 2)), float(10 ** _rng.uniform(2.7, 3.9)),
+                     float(10 ** _rng.uniform(-3.7, -1.7)), float(10 ** _rng.uniform(-2, 1.3)),
+                     float(_rng.uniform(0.8, 2.6))) for _ in range(int(_rng.integers(1, 5)))]))
+_worst = 0.0
+for _f, _layers in _cases:
+    _t1 = mm.stack_transmission(_f, _layers)
+    _t2 = _lin_T(_f, _layers)
+    if _t2 > 1e-12:
+        _worst = max(_worst, abs(_t1 - _t2) / _t2)
+check("stack_transmission == boundary-linear-system (8 stacks)", _worst < 1e-9,
+      f"max rel dev {_worst:.1e}")
+
 print("== 6. sanity vs the repo's own physics docs ==")
 s_steel = float(mm.stress_mpa(mm.BY_KEY["steel"]))
 check("steel stress @1 W/cm2 within 0.7-1.1 MPa (docs/00 ballpark)",

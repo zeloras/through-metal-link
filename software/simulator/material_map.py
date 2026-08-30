@@ -120,6 +120,12 @@ MATERIALS = [
 ]
 BY_KEY = {m[0]: m for m in MATERIALS}
 
+def _spec(key):
+    """Layer spec (Z, c, a1, gamma) pulled from MATERIALS — one source of
+    truth, so the stack studies cannot drift from the material table."""
+    m = BY_KEY[key]
+    return (z_mrayl(m), m[3], m[4], m[5])
+
 COLOR = {"steel": "C0", "alum": "C1", "ti": "C2", "cu": "C3",
          "glass": "C4", "alumina": "C5", "pmma": "C6", "pvc": "C7",
          "hdpe": "C8", "concrete": "C9", "rubber": MUTED}
@@ -348,8 +354,8 @@ def chart_rebar(out: Path):
     f_a = np.linspace(20e3, 100e3, 900)
     f_b = np.linspace(0.05e6, 1.5e6, 1500)
     total, cover, bar = 0.150, 0.040, 0.016
-    conc = (8.1, 3500.0, 5.0, 2.5)          # Z, c, a1, gamma — as in MATERIALS
-    steel = (46.3, 5900.0, 0.02, 1.0)
+    conc = _spec("concrete")                 # Z, c, a1, gamma — from MATERIALS
+    steel = _spec("steel")
 
     def concrete(d):
         return (conc[0], conc[1], d, conc[2], conc[3])
@@ -464,8 +470,8 @@ def harm_table() -> str:
 
 def rebar_table() -> str:
     total, cover, bar = 0.150, 0.040, 0.016
-    conc = (8.1, 3500.0, 5.0, 2.5)
-    steel = (46.3, 5900.0, 0.02, 1.0)
+    conc = _spec("concrete")
+    steel = _spec("steel")
 
     def concrete(d):
         return (conc[0], conc[1], d, conc[2], conc[3])
