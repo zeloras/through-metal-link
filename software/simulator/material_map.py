@@ -199,6 +199,35 @@ def intensity_ceiling_wcm2(m, f, d_mm=WALL_MM):
     i_heat = DT_MAX * 8.0 * mat_k(m) / (mu_np_per_m(m, f) * d * d)
     return min(i_stress, i_heat) / 1e4              # W/cm^2
 
+# ---------- multilayer stacks (rebar in concrete, meshes, clad walls) ----------
+
+def layer_mu(a1_dBcm, gamma, f):
+    """Intensity attenuation rate of one bulk layer at f, Np/m."""
+    return a1_dBcm * (f / 1e6) ** gamma * 100.0 / 4.343
+
+def stack_transmission(f, layers, z_out=COUPLANT_Z):
+    """Exact intensity transmission through a symmetric stack of layers
+    (outer medium = couplant on both sides).
+
+    layers = [(Z_mrayl, c_mps, d_m, a1_dBcm, gamma), ...] ordered front ->
+    back. Bulk absorption is in the phase exactly (complex k = w/c -
+    i*mu/2) — no product approximation, internal reflections included.
+    With absorption = 0 this reduces to the same physics as
+    fp_transmission for a single layer (guarded in the self-check).
+    """
+    z0 = z_out * 1e6
+    M = np.eye(2, dtype=complex)
+    for z_l, c_l, d_l, a1, gamma in layers:
+        w = 2.0 * np.pi * f
+        phi = (w / c_l - 1j * layer_mu(a1, gamma, f) / 2.0) * d_l
+        cph, sph = np.cos(phi), np.sin(phi)
+        M = M @ np.array([[cph, 1j * z_l * 1e6 * sph],
+                          [1j * sph / (z_l * 1e6), cph]])
+    A = M[0, 0] + M[0, 1] / z0
+    B = (M[1, 0] + M[1, 1] / z0) * z0
+    tau = 2.0 / (A + B)
+    return float(np.abs(tau) ** 2)          # same medium both sides
+
 def chart_comb(out: Path):
     """Mode B (MHz): thickness-resonance comb of a 5 mm wall per material."""
     f_metals = np.linspace(0.1e6, 2.0e6, 8000)
@@ -306,6 +335,61 @@ def chart_mode_a(out: Path):
     fig.savefig(out / "mat3-modea-coupling-materials.png", dpi=160)
     plt.close(fig)
 
+def chart_rebar(out: Path):
+    """Idea #5: rebar in concrete as a multilayer channel (worst case: the
+    rebar is modeled as a PLANAR steel layer, i.e. the beam is fully blocked
+    by one plane of steel; real rods dia 8-20 mm under a 40-50 mm beam only
+    partially shadow it).
+
+    Left: the mode-A band (20-100 kHz) — does the 40 kHz channel survive a
+    150 mm concrete wall with steel bars embedded at cover depth? Right:
+    the same stacks in the mode-B band, where concrete absorption was
+    already the killer before any steel layer is added."""
+    f_a = np.linspace(20e3, 100e3, 900)
+    f_b = np.linspace(0.05e6, 1.5e6, 1500)
+    total, cover, bar = 0.150, 0.040, 0.016
+    conc = (8.1, 3500.0, 5.0, 2.5)          # Z, c, a1, gamma — as in MATERIALS
+    steel = (46.3, 5900.0, 0.02, 1.0)
+
+    def concrete(d):
+        return (conc[0], conc[1], d, conc[2], conc[3])
+
+    def rebar(d):
+        return (steel[0], steel[1], d, steel[2], steel[3])
+
+    plain = (conc[0], conc[1], total, conc[2], conc[3])
+    cases = [
+        ("plain 150 mm concrete", [plain]),
+        ("rebar Ø16 planar @ 40 mm", [concrete(cover), rebar(bar),
+                                      concrete(total - cover - bar)]),
+        ("two mats Ø16 @ 40 mm", [concrete(cover), rebar(bar), concrete(0.040),
+                                  rebar(bar), concrete(total - 2*cover - 2*bar)]),
+    ]
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.8))
+    for name, layers in cases:
+        ax1.plot(f_a / 1e3, [stack_transmission(f, layers) for f in f_a],
+                 linewidth=1.8, label=name)
+        ax2.plot(f_b / 1e6, [stack_transmission(f, layers) for f in f_b],
+                 linewidth=1.8, label=name)
+    ax1.axvline(40.0, color=MUTED, linewidth=0.9, linestyle="--", alpha=0.8)
+    ax1.annotate("40 kHz", (41.0, 0.88), color=MUTED, fontsize=9)
+    style_ax(ax1, "Rebar in the path — mode A",
+             "Frequency, kHz", "Transmission (grease coupling, planar worst case)")
+    ax1.legend(frameon=False, labelcolor=INK2, fontsize=9)
+    ax2.set_yscale("log")
+    ax2.set_ylim(1e-9, 1)
+    style_ax(ax2, "Rebar in the path — mode B",
+             "Frequency, MHz", "Transmission (grease coupling, planar worst case)")
+    ax2.legend(frameon=False, labelcolor=INK2, fontsize=9)
+    ax2.annotate("everything dies here — bulk absorption of\n150 mm concrete,"
+                 " rebar irrelevant", (0.55, 3e-6), color=INK2, fontsize=9)
+    fig.suptitle("Concrete wall with rebar (planar worst case) — the 40 kHz"
+                 " band survives the dips, MHz does not survive anything",
+                 x=0.02, ha="left", fontsize=12, color=INK)
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
+    fig.savefig(out / "mat5-rebar.png", dpi=160)
+    plt.close(fig)
+
 # label -> material key reverse lookup for the bar colors
 BY_KEY_LOOKUP = {m[1]: m[0] for m in MATERIALS}
 
@@ -378,6 +462,31 @@ def harm_table() -> str:
                     f"{d40:.2f} | {d1:.1f} | {d5:.0f} | {c40:.1f} | {c1:.2f} |")
     return "\n".join(rows)
 
+def rebar_table() -> str:
+    total, cover, bar = 0.150, 0.040, 0.016
+    conc = (8.1, 3500.0, 5.0, 2.5)
+    steel = (46.3, 5900.0, 0.02, 1.0)
+
+    def concrete(d):
+        return (conc[0], conc[1], d, conc[2], conc[3])
+
+    def rebar(d):
+        return (steel[0], steel[1], d, steel[2], steel[3])
+
+    cases = {
+        "plain 150 mm": [concrete(total)],
+        "rebar Ø16 @ 40 mm": [concrete(cover), rebar(bar),
+                              concrete(total - cover - bar)],
+        "two mats Ø16": [concrete(cover), rebar(bar), concrete(0.040),
+                         rebar(bar), concrete(total - 2 * cover - 2 * bar)],
+    }
+    rows = ["| Stack (150 mm concrete) | T(40 kHz) | T(100 kHz) | T(1 MHz) |",
+            "|---|---|---|---|"]
+    for name, layers in cases.items():
+        vals = [stack_transmission(f, layers) for f in (40e3, 100e3, 1e6)]
+        rows.append(f"| {name} | {vals[0]:.3f} | {vals[1]:.3f} | {vals[2]:.1e} |")
+    return "\n".join(rows)
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(
         description="Material sweep of the through-wall acoustic channel")
@@ -386,10 +495,12 @@ if __name__ == "__main__":
     a = p.parse_args()
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    for chart in (chart_comb, chart_map, chart_mode_a, chart_harm):
+    for chart in (chart_comb, chart_map, chart_mode_a, chart_harm, chart_rebar):
         chart(out)
-    print("OK: mat1/mat2/mat3/mat4 PNG →", out.resolve())
+    print("OK: mat1/mat2/mat3/mat4/mat5 PNG →", out.resolve())
     print()
     print(summary_table())
     print()
     print(harm_table())
+    print()
+    print(rebar_table())

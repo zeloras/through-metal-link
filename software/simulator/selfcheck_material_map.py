@@ -188,6 +188,35 @@ for m in mm.MATERIALS:
         print(f"    ceiling mismatch {m[1]}: {ceil_man} vs {got}")
 check("stress / dT / ceiling match from-scratch recompute", bad == 0)
 
+print("== 6b. multilayer stack solver ==")
+# single lossless layer: stack_transmission must equal fp_transmission exactly
+m = mm.BY_KEY["steel"]
+z, c = mm.z_mrayl(m), m[3]
+d1 = 0.003
+dev_s = max(abs(mm.stack_transmission(f, [(z, c, d1, 0.0, 1.0)]) -
+                float(mm.fp_transmission(f, d1, c, z)))
+            for f in (40e3, 300e3, 1e6))
+check("stack(1 lossless layer) == fp_transmission", dev_s < 1e-9,
+      f"max dev {dev_s:.1e}")
+# splitting a LOSSY layer into two halves changes nothing (exact invariance)
+mm_p = mm.BY_KEY["pmma"]
+zp, cp_, a1p, gp = mm.z_mrayl(mm_p), mm_p[3], mm_p[4], mm_p[5]
+dev_h = max(abs(mm.stack_transmission(f, [(zp, cp_, 0.005, a1p, gp)]) -
+              mm.stack_transmission(f, [(zp, cp_, 0.0025, a1p, gp),
+                                        (zp, cp_, 0.0025, a1p, gp)]))
+            for f in (40e3, 1e6, 2e6))
+check("splitting a lossy layer keeps T identical", dev_h < 1e-12,
+      f"max dev {dev_h:.1e}")
+# zero-thickness layers are no-ops
+mm_p = mm.BY_KEY["concrete"]
+zc, cc_, a1c, gc = mm.z_mrayl(mm_p), mm_p[3], mm_p[4], mm_p[5]
+t_plain = mm.stack_transmission(40e3, [(zc, cc_, 0.150, a1c, gc)])
+t_zero = mm.stack_transmission(40e3, [(zc, cc_, 0.075, a1c, gc),
+                                      (46.3, 5900.0, 0.0, 0.02, 1.0),
+                                      (zc, cc_, 0.075, a1c, gc)])
+check("zero-thickness layer is a no-op", abs(t_plain - t_zero) < 1e-12,
+      f"|{t_plain:.6f} - {t_zero:.6f}|")
+
 print("== 6. sanity vs the repo's own physics docs ==")
 s_steel = float(mm.stress_mpa(mm.BY_KEY["steel"]))
 check("steel stress @1 W/cm2 within 0.7-1.1 MPa (docs/00 ballpark)",

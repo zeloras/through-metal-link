@@ -108,6 +108,25 @@ What the dose sweep says:
 
 A low-Z plastic wall has more headroom for *misalignment-tolerant* mode-A links but delivers less absolute power headroom against absorption once you go above ~200 kHz; measure before promising anything.
 
+## Concrete with rebar — the multilayer case
+
+Real concrete is never plain: reinforcement mats sit at a cover depth, and the 1D single-slab model above cannot see them. `chart_rebar` / `rebar_table` extend the model to general stacks ([`stack_transmission`](../software/simulator/material_map.py), exact multilayer recursion with per-layer absorption, guarded in the self-check). Modeled geometry: a 150 mm structural wall, one steel mat of planar-equivalent thickness Ø16 mm at 40 mm cover; the *planar* model is the worst case — a real rod shadows only the part of the beam it intersects, so think of these as envelope dips, not predictions:
+
+| Stack (150 mm concrete) | T(40 kHz) | T(100 kHz) | T(1 MHz) |
+|---|---|---|---|
+| plain 150 mm | 0.134 | 0.131 | 8.8e-09 |
+| rebar Ø16 @ 40 mm | 0.013 | 0.069 | 6.7e-09 |
+| two mats Ø16 @ 40 mm | 0.003 | 0.001 | 5.2e-09 |
+
+<img src="img/mat5-rebar.png" width="880">
+
+What the stack model says:
+
+- **One planar mat under the beam costs ×10 at exactly 40 kHz** (stop-band interference from the steel layer), but the dip is narrow: at 100 kHz the same stack loses only ×2. The practical reading for the pipeline/autoclave niche: *a frequency scan around 40–120 kHz, not a fixed frequency*, is what gets a mode-A link past reinforcement — and the dips move with cover depth, so a scan also fingerprints the geometry (the basis of a rebar-depth estimate).
+- **A second mat (a mesh) is close to a wall-killer in this worst case** (×45 down and broadband-flat near 40–100 kHz): dense reinforcement in the path is the honest "pick another spot on the wall" indicator, not a signal-processing problem.
+- **Mode B through structural concrete is dead with or without rebar** (1e-8 level at 1 MHz: 5 dB/cm × 15 cm). Rebar never even enters the story at MHz.
+- Caveats, in order of importance: planar-layer assumption (worst case — a Ø16 rod blocks well under half of a 40–50 mm beam's cross-section), wave-parallel-to-rebar axis assumed, and 1D propagation (no diffraction around the bar). The right hardware experiment is a scanning rig on a real slab: map T(x, y) at 40/80/120 kHz over a rebar grid and fit the planar model's dip positions to the grid pitch.
+
 ## What a hardware follow-up should measure
 
 Before trusting any specific plate: two-thickness method per material (two plates of d and 2d at the same contact) to extract real α(f) and c — that single dataset replaces every row of the table above. Natural bonus passes inside the existing protocols: repeat the experiment [001](../experiments/001-sweep-map-3mm-steel/README.md) sweep on a 5 mm PMMA plate, a borosilicate or 99% alumina plate, and a concrete block of known grade; expect a *lower but broader* peak for the plastics, a sharp comb for the ceramics, and a temperature-sensitive contact everywhere. During the experiment [002](../experiments/002-watts-3mm-steel/README.md) power run, strap an IR thermometer (or a fine thermocouple) to the far face of each wall type — the measured ΔT at known input is the one number that validates or kills the heating column of the dose table. Nothing in this page is measured — it is the map of what to measure first.
