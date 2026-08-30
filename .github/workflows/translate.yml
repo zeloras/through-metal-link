@@ -82,11 +82,32 @@ jobs:
       # always(): a run that died halfway still produced valid translations, and
       # the state file records exactly what got done — dropping them would mean
       # paying the model again for the same work
+      # Before the commit, deliberately. The bot pushes with GITHUB_TOKEN, which
+      # by design triggers no CI, so this is the only gate master ever gets —
+      # and it used to run last, which made it a post-mortem rather than a gate:
+      # run 33307609143 translated thirteen dead anchors, pushed them to master
+      # and only then went red. continue-on-error keeps the result available to
+      # the commit step instead of ending the job here, because the work is paid
+      # for and must be preserved either way.
+      - name: Repository invariants
+        id: invariants
+        if: always()
+        continue-on-error: true
+        run: python tools/check_repo.py
+
       - name: Commit the result
         if: always()
         run: |
           if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
             echo "Nothing to sync"
+            # A clean tree that fails the invariants means the breakage is
+            # already committed on the branch and no sync will heal it. Staying
+            # green here would hide it until the next unrelated change.
+            if [ "${{ steps.invariants.outcome }}" != "success" ]; then
+              echo "::error::Nothing to sync, but check_repo failed on the tree as"\
+                   "checked out: ${GITHUB_REF_NAME} is broken independently of this run."
+              exit 1
+            fi
             exit 0
           fi
           git config user.name "github-actions[bot]"
@@ -114,9 +135,28 @@ jobs:
           done
           if git diff --cached --quiet; then
             echo "Nothing staged — working tree changes were all outside the sync's scope"
+            if [ "${{ steps.invariants.outcome }}" != "success" ]; then
+              echo "::error::Nothing staged, but check_repo failed:"\
+                   "${GITHUB_REF_NAME} is broken independently of this run."
+              exit 1
+            fi
             exit 0
           fi
           git commit -s -m "sync translations and figures [translate-sync]"
+          # The gate. An invalid tree is still committed — the model was paid for
+          # this work and throwing it away means paying again — but it goes to a
+          # branch a human can inspect, rebase or cherry-pick, never to
+          # ${GITHUB_REF_NAME}. The run id keeps the name unique, so no rescue
+          # branch ever overwrites another.
+          if [ "${{ steps.invariants.outcome }}" != "success" ]; then
+            rescue="sync-rescue/${{ github.run_id }}"
+            git push origin "HEAD:refs/heads/$rescue"
+            echo "::error::check_repo failed on this tree, so it was NOT pushed to"\
+                 "${GITHUB_REF_NAME}. The work is preserved on branch $rescue —"\
+                 "fix the invariants there and merge it, or drop the branch and let"\
+                 "the next sync redo the pairs (the state file rides along with it)."
+            exit 1
+          fi
           # a second push to master while this job was running left our checkout
           # one commit behind: rebase onto it instead of failing the sync
           for attempt in 1 2 3; do
@@ -128,8 +168,3 @@ jobs:
           done
           git push origin HEAD:${GITHUB_REF_NAME}
 
-      # the bot pushes with GITHUB_TOKEN, which by design does not trigger CI —
-      # so the invariants have to be enforced here or not at all
-      - name: Repository invariants
-        if: always()
-        run: python tools/check_repo.py
