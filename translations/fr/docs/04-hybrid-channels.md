@@ -12,7 +12,7 @@ Le principe (un corollaire du « paradoxe de pénétration ») : une onde traver
 | Métal : sale, peint, chaud, contact indésirable | EMAT (magnétisme → son dans la paroi) | mW ; kbit/s ; gap jusqu'à ~3 mm | parois conductrices uniquement ; données, pas de puissance |
 | Paroi ferromagnétique sans piézo du tout | Magnétostriction (une bobine excite l'acier lui-même) | miettes ; bit/s–kbit/s | branche expérimentale, bon marché à tester |
 | Double paroi avec vide (thermos, cryostat, dewar) | Magnétiques BF (dizaines–centaines de Hz) | µW–mW ; bit/s | effet de peau : dans l'acier δ≈0,6 mm @1 kHz — baisser la fréquence |
-| Non-métal : verre, plastique, céramique | Piézo-acoustique (plus facile que le métal) | watts ; kbit/s | + la RF simple passe souvent aussi — vérifier ça d'abord |
+| Non-métal : verre, plastique, céramique | Piézo-acoustique (plus facile que le métal) | watts ; kbit/s | + la RF simple passe souvent aussi — vérifier ça d'abord ; chiffres et verdicts par matériau : [06-materials](../../../docs/06-materials.md) |
 | Paroi avec couche de caoutchouc/mousse, composite | Honnêtement : quasi impasse | — | l'absorbant mange tout ; la solution de contournement est un point sans revêtement |
 | Liquide derrière la paroi (réservoir plein) | Piézo-acoustique, dégradé | puissance − quelques dB ; résonance plus courte | le chargement liquide déplace/amortit la résonance — refaire le balayage contre le récipient plein ; maintenir l'intensité continue ≲1 W/cm² pour rester sous le seuil de cavitation ([théorie](00-theory.md#effet-sur-la-paroi-et-le-milieu-derrière-elle)) |
 | Liquide bullant dans le chemin acoustique | Solution de contournement architecturale | — | monter le récepteur sur la paroi, garder le liquide hors du chemin |

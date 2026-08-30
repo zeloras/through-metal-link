@@ -12,7 +12,7 @@ Das Prinzip (eine Folgerung aus dem „Penetrationsparadoxon"): Eine Welle dring
 | Metall: schmutzig, lackiert, heiß, Kontakt unerwünscht | EMAT (Magnetik → Schall in der Wand) | mW; kbit/s; Spalt bis ~3 mm | nur leitfähige Wände; Daten, keine Leistung |
 | Ferromagnetische Wand ganz ohne Piezo | Magnetostriktion (eine Spule treibt den Stahl selbst an) | Krümel; bit/s–kbit/s | experimenteller Zweig, günstig zu testen |
 | Doppelwand mit Vakuum (Thermos, Kryostat, Dewar) | LF-Magnetik (Zehner–Hunderter Hz) | µW–mW; bit/s | Skin-Effekt: in Stahl δ≈0,6 mm @1 kHz — Frequenz runterdrücken |
-| Nichtmetall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfaches RF kommt oft auch durch — zuerst das prüfen |
+| Nichtmetall: Glas, Kunststoff, Keramik | Piezo-Akustik (einfacher als Metall) | Watt; kbit/s | + einfaches RF kommt oft auch durch — zuerst das prüfen; pro Material Zahlen und Bewertungen: [06-Materialien](../../../docs/06-materials.md) |
 | Wand mit Gummi-/Schaumstoffschicht, Verbund | Ehrlich: fast eine Sackgasse | — | der Absorber schluckt alles; Workaround ist eine Stelle ohne Beschichtung |
 | Flüssigkeit hinter der Wand (voller Tank) | Piezo-Akustik, degradiert | Leistung − wenige dB; kürzeres Nachschwingen | Flüssigkeitsbelastung verschiebt/dämpft die Resonanz — neu sweepen gegen das volle Gefäß; kontinuierliche Intensität ≲1 W/cm² einhalten, um unter der Kavitationsschwelle zu bleiben ([Theorie](00-theory.md#einfluss-auf-die-wand-und-die-medien-dahinter)) |
 | Blasenbildung in der Flüssigkeit im akustischen Pfad | Architektonischer Workaround | — | Empfänger an der Wand montieren, Flüssigkeit aus dem Pfad heraushalten |

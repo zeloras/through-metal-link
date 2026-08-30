@@ -12,7 +12,7 @@ Il principio (corollario del "paradosso della penetrazione"): un'onda attraversa
 | Metallo: sporco, verniciato, caldo, contatto indesiderabile | EMAT (magnetismo → suono nella parete) | mW; kbit/s; gap fino a ~3 mm | solo pareti conduttive; dati, non potenza |
 | Parete ferromagnetica senza piezo | Magnetostrizione (una bobina guida l'acciaio stesso) | briciole; bit/s–kbit/s | ramo sperimentale, economico da testare |
 | Doppia parete con vuoto (termos, criostato, dewar) | Magnetica LF (decine–centinaia di Hz) | µW–mW; bit/s | effetto pelle: in acciaio δ≈0,6 mm @1 kHz — abbassare la frequenza |
-| Non-metallo: vetro, plastica, ceramica | Piezo-acustica (più facile del metallo) | watt; kbit/s | + spesso la RF semplice passa — controllare prima quello |
+| Non-metallo: vetro, plastica, ceramica | Piezo-acustica (più facile del metallo) | watt; kbit/s | + spesso la RF semplice passa — controllare prima quello; numeri e verdetti per materiale: [06-materials](../../../docs/06-materials.md) |
 | Parete con strato di gomma/schiuma, composito | Onestamente: quasi un vicolo cieco | — | l'assorbitore mangia tutto; la via d'uscita è un punto senza rivestimento |
 | Liquido dietro la parete (serbatoio pieno) | Piezo-acustica, degradata | potenza − qualche dB; risonanza più breve | il carico liquido sposta/smorza la risonanza — rifare lo sweep contro il recipiente pieno; mantenere intensità continua ≲1 W/cm² per restare sotto la cavitazione ([teoria](00-theory.md#effetto-sulla-parete-e-sul-mezzo-dietro-di-essa)) |
 | Liquido in ebollizione nel percorso acustico | Soluzione architetturale | — | montare il ricevitore sulla parete, tenere il liquido fuori dal percorso |

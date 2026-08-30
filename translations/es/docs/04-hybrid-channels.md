@@ -12,7 +12,7 @@ El principio (corolario de la "paradoja de penetración"): una onda atraviesa un
 | Metal: sucio, pintado, caliente, contacto indeseable | EMAT (magnetismo → sonido en la pared) | mW; kbit/s; hueco hasta ~3 mm | solo paredes conductoras; datos, no potencia |
 | Pared ferromagnética sin piezo en absoluto | Magnetostricción (una bobina excita el propio acero) | migajas; bit/s–kbit/s | rama experimental, barato de probar |
 | Doble pared con vacío (termo, criostato, dewar) | Magnetismo de LF (decenas–centenas de Hz) | µW–mW; bit/s | efecto pelicular: en acero δ≈0.6 mm @1 kHz — baja la frecuencia |
-| No metal: vidrio, plástico, cerámica | Piezoacústica (más fácil que el metal) | vatios; kbit/s | + a menudo RF simple también pasa — comprueba eso primero |
+| No metal: vidrio, plástico, cerámica | Piezoacústica (más fácil que el metal) | vatios; kbit/s | + a menudo RF simple también pasa — comprueba eso primero; números y veredictos por material: [06-materiales](../../../docs/06-materials.md) |
 | Pared con capa de goma/espuma, compuesto | Sinceramente: casi un callejón sin salida | — | el absorbedor se traga todo; la solución es un punto sin recubrimiento |
 | Líquido detrás de la pared (tanque lleno) | Piezoacústica, degradada | potencia − unos dB; resonancia más corta | la carga líquida desplaza/amortigua la resonancia — re-barrer contra el recipiente lleno; mantener intensidad continua ≲1 W/cm² para quedarse bajo la cavitación ([teoría](00-theory.md#efecto-en-la-pared-y-en-el-medio-detrás-de-ella)) |
 | Líquido con burbujas en la ruta acústica | Solución arquitectónica | — | monta el receptor en la pared, mantén el líquido fuera de la ruta |

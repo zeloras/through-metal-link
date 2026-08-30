@@ -12,7 +12,7 @@ Nguyên lý (một hệ quả của "nghịch lý xuyên thấu"): một sóng �
 | Kim loại: bẩn, sơn, nóng, không mong muốn tiếp xúc | EMAT (từ trường → âm trong thành) | mW; kbit/s; khe hở lên đến ~3 mm | chỉ thành dẫn điện; dữ liệu, không phải công suất |
 | Thành sắt từ không có piezo nào | Từ trễ (một cuộn dây dẫn động chính thép) | mảnh vụn; bit/s–kbit/s | nhánh thử nghiệm, rẻ để thử |
 | Thành kép với chân không (thermos, cryostat, dewar) | Từ trường tần thấp (chục–trăm Hz) | µW–mW; bit/s | hiệu ứng bề mặt: trong thép δ≈0.6 mm @1 kHz — hạ tần số xuống |
-| Phi kim: kính, nhựa, gốm | Piezo-âm học (dễ hơn kim loại) | watt; kbit/s | + RF thường xuyên cũng đi qua — kiểm tra cái đó trước |
+| Phi kim: kính, nhựa, gốm | Piezo-âm học (dễ hơn kim loại) | watt; kbit/s | + RF thường xuyên cũng đi qua — kiểm tra cái đó trước; con số và kết luận theo từng vật liệu: [06-vật liệu](../../../docs/06-materials.md) |
 | Thành có lớp cao su/bọt, composite | Thật lòng: gần như ngõ cụt | — | lớp hấp thụ nuốt hết mọi thứ; cách khắc phục là một điểm không có lớp phủ |
 | Chất lỏng phía sau thành (bồn đầy) | Piezo-âm học, suy giảm | công suất − vài dB; rung ngắn hơn | tải lỏng dịch chuyển/tắt giảm cộng hưởng — quét lại với bồn đầy; giữ cường độ liên tục ≲1 W/cm² để nằm dưới ngưỡng xâm thực ([lý thuyết](00-theory.md#tác-động-lên-tường-và-môi-trường-phía-sau)) |
 | Chất lỏng sủi bọt trong đường âm | Giải pháp kiến trúc | — | gắn bộ thu trên thành, giữ chất lỏng ra khỏi đường truyền |
