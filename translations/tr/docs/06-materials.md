@@ -17,7 +17,7 @@ Bir duvarın hiç kullanılabilir olup olmadığına ve ne kadar güç için kar
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, tek yönlü, boyuna],
    burada α₁ₘₕᶻ 1 MHz değeridir.
    γ ≈ 1 = viskoz/relaksasyon kaybı; γ > 2 = homojensizliklerden saçılma (beton agrega).
-3. **Duvarın geri aldığı doz** — aşağıdaki [bölüme](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency) bakın: gerilim σ = √(2·I·Z), frekanstan *bağımsız değil* ve öz-ısınma ΔT ∝ α(f)·I, bağımlı.
+3. **Duvarın geri aldığı doz** — aşağıdaki [bölüme](#doz-dalga-duvara-ne-yapıyor-frekanstan-frekansa) bakın: gerilim σ = √(2·I·Z), frekanstan *bağımsız değil* ve öz-ısınma ΔT ∝ α(f)·I, bağımlı.
 
 **Varsayımlar, kodun belirttiği yerlerde belirtilmiştir:** tipik el kitabı özellikleri (boyuna dalga, ~20 °C); gerçek stoklar değişir — tane, dolgu, agregalar, kürlenme. Aşağıdakilerin tamamı bir sıralamadır, veri sayfası değil.
 

@@ -359,6 +359,22 @@ def fix_asset_links(text: str, canon: str, lang: str, src_text: str | None = Non
         if not m:
             return suffix
         frag, rest = m.group(1), m.group(2)
+        if not target:
+            # A same-file anchor — [below](#the-dose-...). check_repo resolves an
+            # empty destination to the document itself; this pass did not, and
+            # the path arithmetic below turns "" into the *directory*, whose
+            # suffix is not ".md", so every such link was returned untouched.
+            # Thirteen mirrors of 06-materials.md kept the primary's slug and
+            # the anchor check failed after the sync had already pushed them.
+            # The headings to match against are the ones in `text`: this runs
+            # before the mirror is written, so disk is either stale or absent.
+            src_slugs = i18n_render.heading_slugs(
+                src_text if src_text is not None
+                else (ROOT / canon).read_text(encoding="utf-8"))
+            dst = i18n_render.heading_slugs(text)
+            if frag in dst or frag not in src_slugs or len(src_slugs) != len(dst):
+                return suffix
+            return "#" + dst[src_slugs.index(frag)] + rest
         tgt = Path(os.path.normpath(ROOT / here / target))
         if tgt.suffix != ".md" or not _inside(tgt) or not tgt.exists():
             return suffix

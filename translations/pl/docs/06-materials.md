@@ -17,7 +17,7 @@ Trzy wielkości decydują, czy ściana w ogóle jest użyteczna, i dla jakiej mo
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, jednokierunkowo, podłużna],
    gdzie α₁ₘₕᶻ jest wartością przy 1 MHz.
    γ ≈ 1 = straty lepkosprężyste/relaksacyjne; γ > 2 = rozpraszanie na niejednorodnościach (kruszywo betonowe).
-3. **Dawka, jaką ściana przyjmuje z powrotem** — patrz sekcja [niżej](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency): naprężenie σ = √(2·I·Z), które *nie zależy* od częstotliwości, oraz nagrzewanie własne ΔT ∝ α(f)·I, które zależy.
+3. **Dawka, jaką ściana przyjmuje z powrotem** — patrz sekcja [niżej](#dawka-co-fala-robi-ścianie-częstotliwość-po-częstotliwości): naprężenie σ = √(2·I·Z), które *nie zależy* od częstotliwości, oraz nagrzewanie własne ΔT ∝ α(f)·I, które zależy.
 
 **Założenia, sformułowane tam, gdzie kod je podaje:** typowe wartości z podręczników (fala podłużna, ~20 °C); rzeczywiste materiały różnią się — ziarno, wypełniacze, kruszywa, utwardzenie. Wszystko poniżej to ranking, nie karta katalogowa.
 
