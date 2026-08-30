@@ -37,7 +37,7 @@ Tres magnitudes deciden si una pared es utilizable en absoluto, y para cuánta p
 
 ## Los gráficos
 
-**Modo B (MHz) — el peine de espesor por material.** Izquierda: metales estructurales; derecha: no metales. Todas las paredes de 5 mm, acoplamiento con grasa. Los picos del modelo sin pérdidas alcanzan T = 1 en resonancias exactas; los picos reales son menores por pérdidas de contacto, y la absorpción limita directamente a los materiales con pérdidas:
+**Modo B (MHz) — el peine de espesor por material.** Izquierda: metales estructurales; derecha: no metales. Todas las paredes de 5 mm, acoplamiento con grasa. Los picos del modelo sin pérdidas alcanzan T = 1 en resonancias exactas; los picos reales son menores por pérdidas de contacto, y la absorción limita directamente a los materiales con pérdidas:
 
 <img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
 
