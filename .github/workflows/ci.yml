@@ -45,6 +45,12 @@ jobs:
       - name: Expectation charts (channel simulator)
         run: python software/simulator/channel_sim.py --out /tmp/ci-img
 
+      # The material model's formulas get the same guard the translation bot
+      # has: an independent recomputation from first principles (wave
+      # recursion, transfer matrices, plain arithmetic) that fails CI on drift
+      - name: Material model self-check (first-principles recomputation)
+        run: python software/simulator/selfcheck_material_map.py
+
       - name: Schematics
         run: python hardware/schematics/render_schematics.py
 

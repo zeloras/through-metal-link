@@ -70,26 +70,26 @@ At 1 W/cm² (already beyond what this project targets: the stage-2 goal of 0.5�
 |---|---|---|---|---|---|---|---|---|
 | steel | 0.96 | 200 | 208× | ~0 | ~0 | ~0 | ~1700 | ~1700 |
 | aluminum | 0.58 | 60 | 103× | ~0 | ~0 | ~0 | ~420 | ~420 |
-| titanium | 0.74 | 500 | 680× | ~0 | ~0 | ~0 | ~18000 | ~13000 |
+| titanium | 0.74 | 500 | 680× | ~0 | ~0 | ~0 | ~18000 | ~6500 |
 | copper | 0.92 | 60 | 65× | ~0 | ~0 | ~0 | ~170 | ~170 |
 | borosilicate glass | 0.50 | 30 | 60× | ~0 | ~0 | ~0 | ~140 | ~140 |
 | alumina ceramic | 0.88 | 300 | 342× | ~0 | ~0 | ~0 | ~4700 | ~4700 |
-| PMMA (acrylic) | 0.25 | 15 | 60× | 0.1 | 4.7 | 33 | ~140 | 4.2 |
-| PVC (rigid) | 0.26 | 15 | 58× | 0.3 | 14.4 | 99 | ~66 | 1.4 |
-| HDPE | 0.21 | 8 | 38× | 0.1 | 9.6 | 107 | ~58 | 2.1 |
-| concrete | 0.40 | 2.5 | 6× | ~0 | 1.1 | 59 | 1.6 | 1.6 |
-| rubber (filled) | 0.18 | 1.5 | 8× | 5.8 | 144 | 720 | 2.7 | 0.14 |
+| PMMA (acrylic) | 0.25 | 15 | 60× | 0.2 | 9.5 | 65 | ~100 | 2.1 |
+| PVC (rigid) | 0.26 | 15 | 58× | 0.6 | 28.8 | 199 | ~33 | 0.7 |
+| HDPE | 0.21 | 8 | 38× | 0.15 | 19.2 | 215 | ~58 | 1.0 |
+| concrete | 0.40 | 2.5 | 6× | ~0 | 2.1 | 118 | 1.6 | 1.6 |
+| rubber (filled) | 0.18 | 1.5 | 8× | 11.5 | 288 | 1440 | 1.7 | 0.07 |
 
-"Ceiling" = continuous intensity at which the wall stays inside 20% of its fatigue/strength limit and under +20 K of self-heating (steady state, both faces held at ambient — a wall with an insulated, air-backed face does better than K worse on the heated side only when contact also insulates it; treat the numbers as a first cut, not a design guarantee).
+"Ceiling" = continuous intensity at which the wall stays inside 20% of its fatigue/strength limit and under +20 K of self-heating (steady state, both faces held at ambient). Duty-cycled runs heat less; a wall anchored on only one face — the usual case, air on one side — heats up to 4× more at the free face. These numbers are a first cut, not a design guarantee. One convention callout: the α values are intensity-dB (10·log₁₀, the dosimetry convention — a 3 dB drop halves I); pulse-echo NDT literature quoting amplitude-dB (20·log₁₀) describes the SAME α with numbers twice as large — check which convention a source uses before copying its numbers into this table.
 
 <img src="img/mat4-harm-materials.png" width="920">
 
 What the dose sweep says:
 
 - **The steel verdict of [00-theory](00-theory.md) holds and generalizes**: every structural metal carries 1 W/cm² with margins of 65–680× in stress and micro-kelvins of self-heating. Metals are frequency-insensitive in harm terms — their loss is too small to heat at any power we can couple.
-- **Frequency harm on polymers is thermal, not mechanical.** PMMA's stress margin is a comfortable 60× even at 1 W/cm², but its heating knee sits near ~50 Hz·kHz scale: safe (~0.1 K) at 40 kHz, warm (+4.7 K) at 1 MHz, softening (+33 K) at 5 MHz. PVC crosses the +10 K line already at ~0.7 W/cm² @ 1 MHz; rubber deposits ~144 K/W·cm⁻² at 1 MHz — hysteretic heating is *the* reason elastomer-lined walls die, not the comb.
+- **Frequency harm on polymers is thermal, not mechanical.** PMMA's stress margin is a comfortable 60× even at 1 W/cm², but the heating knee sits right around 1 MHz: benign (~0.2 K) at 40 kHz, +9.5 K at 1 MHz, +65 K at 5 MHz — softening territory at a few W/cm². PVC crosses the +10 K line already at ~0.35 W/cm² @ 1 MHz; rubber absorbs ~288 K per W·cm⁻² at 1 MHz (and ~12 K even at 40 kHz) — hysteretic heating is *the* reason elastomer-lined walls die, not the comb. HDPE splits the difference and remembers its melt point: +215 K per W·cm⁻² at 5 MHz.
 - **Concrete's tight margin is tensile, not thermal**: 0.40 MPa wave stress against a ~2.5 MPa static tensile strength (fatigue lower still) leaves only a ~6× margin at 1 W/cm². The 40–80 kHz regime stays fine at the project's power density; concentrated multi-W/cm² beams into concrete should be avoided, MHz doubly so (scattering heats the aggregate interfaces).
-- **Bottom line for the roadmap:** at mode-A power densities (≤0.3 W/cm²) no solid in the table is endangered — stress margins ≥15×, heating ≤1.5 K. The harm map justifies the project's plan to escalate power: the first real material limits appear *above* the stage-2 targets, first in liquids (cavitation, the ≤1 W/cm² rule of [00-theory](00-theory.md)), then in concrete's tensile fatigue, then in polymers at MHz. The parts that actually need watching at high power remain the piezo ceramic and the bond line — [02-safety](02-safety.md) — not the wall.
+- **Bottom line for the roadmap:** at mode-A power densities (≤0.3 W/cm²) no solid in the table is endangered — stress margins ≥15× and heating ≤0.2 K for every engineered solid (rubber, the exception nobody targets, ~3.5 K). The harm map justifies the project's plan to escalate power: the first real material limits appear *above* the stage-2 targets, first in liquids (cavitation, the ≤1 W/cm² rule of [00-theory](00-theory.md)), then in concrete's tensile fatigue, then in polymers at MHz. The parts that actually need watching at high power remain the piezo ceramic and the bond line — [02-safety](02-safety.md) — not the wall.
 
 ## Verdict per material
 

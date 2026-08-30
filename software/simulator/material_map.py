@@ -24,7 +24,14 @@ two losses govern the wall crossing:
   2. Bulk absorption, which the lossless model cannot see and which decides
      the fate of plastics, concrete and rubber:
         A(f) = 10 ^ (-alpha(f) * d / 10 [dB]),
-        alpha(f) = alpha_1MHz * (f/1MHz)^gamma   [dB/cm, one-way, longitudinal]
+        alpha(f) = alpha_1MHz * (f/1MHz)^gamma   [dB/cm, one-way, INTENSITY:
+        10*log10 convention — a 3 dB drop halves the intensity]
+
+     In Np/m (heating term q = mu*I) the same attenuation is
+        mu = alpha/4.343  [Np/m]
+     (the amplitude/field convention, dB/8.686 as used in pulse-echo NDT,
+     would double mu and the heating numbers — the two conventions differ
+     by exactly 2x, which is why the conversion is called out here).
 
 Material properties are TYPICAL HANDBOOK VALUES (longitudinal wave, room
 temperature). Real stocks vary — grain structure, fillers, aggregates and
@@ -166,8 +173,14 @@ def stress_mpa(m, intensity_w_m2=I_REF):
     return np.sqrt(2.0 * intensity_w_m2 * z_mrayl(m) * 1e6) / 1e6
 
 def mu_np_per_m(m, f):
-    """Bulk attenuation of the wave as Np/m — power absorbed per m is mu*I."""
-    return m[4] * (f / 1e6) ** m[5] * 100.0 / 8.686
+    """Bulk attenuation of the WAVE INTENSITY as Np/m — power absorbed per m
+    is mu*I.
+
+    dB convention: alpha values are INTENSITY dB (a 3 dB drop halves I, the
+    dosimetry convention) — therefore Np = dB/4.343 (10*log10), NOT dB/8.686
+    (which converts amplitude/field dB). Getting this wrong underestimates
+    heating exactly 2x."""
+    return m[4] * (f / 1e6) ** m[5] * 100.0 / 4.343
 
 def heat_dT(m, f, d_mm=WALL_MM, intensity_w_m2=I_REF):
     """Steady-state mid-plane self-heating of a both-faces-cooled slab with
