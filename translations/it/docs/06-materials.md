@@ -17,7 +17,7 @@ Tre grandezze decidono se una parete è utilizzabile e per quanta potenza:
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, una via, longitudinale],
    dove α₁ₘₕᶻ è il valore a 1 MHz.
    γ ≈ 1 = perdita viscosa/relaxation; γ > 2 = scattering su inomogeneità (inerti del calcestruzzo).
-3. **La dose che la parete restituisce** — vedi la sezione [sotto](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency): tensione σ = √(2·I·Z), che *non* dipende dalla frequenza, e autoriscaldamento ΔT ∝ α(f)·I, che dipende.
+3. **La dose che la parete restituisce** — vedi la sezione [sotto](#la-dose-cosa-londa-fa-alla-parete-frequenza-per-frequenza): tensione σ = √(2·I·Z), che *non* dipende dalla frequenza, e autoriscaldamento ΔT ∝ α(f)·I, che dipende.
 
 **Assunzioni, dichiarate dove le dichiara il codice:** proprietà tipiche da manuale (onda longitudinale, ~20 °C); i materiali reali variano — grana, cariche, inerti, stagionatura. Tutto ciò che segue è una classificazione, non un datasheet.
 

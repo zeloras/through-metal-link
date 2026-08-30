@@ -17,7 +17,7 @@ Três grandezas decidem se uma parede é utilizável, e para quanta potência:
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, unidirecional, longitudinal],
    onde α₁ₘₕᶻ é o valor a 1 MHz.
    γ ≈ 1 = perda viscosa/relaxação; γ > 2 = espalhamento por inhomogeneidades (agregado de concreto).
-3. **A dose que a parede absorve de volta** — veja a seção [abaixo](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency): tensão σ = √(2·I·Z), que *não* depende da frequência, e aquecimento próprio ΔT ∝ α(f)·I, que depende.
+3. **A dose que a parede absorve de volta** — veja a seção [abaixo](#a-dose-o-que-a-onda-faz-à-parede-frequência-por-frequência): tensão σ = √(2·I·Z), que *não* depende da frequência, e aquecimento próprio ΔT ∝ α(f)·I, que depende.
 
 **Premissas, declaradas onde o código as declara:** propriedades típicas de manual (onda longitudinal, ~20 °C); lotes reais variam — grão, cargas, agregados, cura. Tudo abaixo é um ranking, não uma ficha técnica.
 

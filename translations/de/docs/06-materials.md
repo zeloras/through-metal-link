@@ -17,7 +17,7 @@ Drei Größen entscheiden, ob eine Wand überhaupt nutzbar ist und für wie viel
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, einfach, longitudinal],
    wobei α₁ₘₕᶻ der Wert bei 1 MHz ist.
    γ ≈ 1 = viskoser/Relaxationsverlust; γ > 2 = Streuung an Inhomogenitäten (Betonzuschlag).
-3. **Die Dosis, die die Wand zurückgibt** — siehe Abschnitt [unten](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency): Spannung σ = √(2·I·Z), die *nicht* von der Frequenz abhängt, und Selbsterwärmung ΔT ∝ α(f)·I, die davon abhängt.
+3. **Die Dosis, die die Wand zurückgibt** — siehe Abschnitt [unten](#die-dosis-was-die-welle-der-wand-antut-frequenz-für-frequenz): Spannung σ = √(2·I·Z), die *nicht* von der Frequenz abhängt, und Selbsterwärmung ΔT ∝ α(f)·I, die davon abhängt.
 
 **Annahmen, dort genannt, wo der Code sie nennt:** typische Handbuchwerte (Longitudinalwelle, ~20 °C); reale Chargen variieren — Korn, Füllstoffe, Zuschläge, Aushärtung. Alles unten ist eine Rangliste, kein Datenblatt.
 

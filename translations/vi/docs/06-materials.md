@@ -17,7 +17,7 @@ Ba đại lượng quyết định xem một vách tường có dùng được h
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, một chiều, dọc],
    trong đó α₁ₘₕᶻ là giá trị tại 1 MHz.
    γ ≈ 1 = tổn thất nhớt/khuếch tán; γ > 2 = tán xạ trên các không đồng nhất (cốt liệu bê tông).
-3. **Liều lượng mà vách nhận lại** — xem phần [bên dưới](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency): ứng suất σ = √(2·I·Z), *không* phụ thuộc tần số, và tự gia nhiệt ΔT ∝ α(f)·I, có phụ thuộc.
+3. **Liều lượng mà vách nhận lại** — xem phần [bên dưới](#liều-lượng-sóng-làm-gì-với-vách-tần-số-từng-tần-số): ứng suất σ = √(2·I·Z), *không* phụ thuộc tần số, và tự gia nhiệt ΔT ∝ α(f)·I, có phụ thuộc.
 
 **Giả thuyết, nêu nơi mà code nêu chúng:** thuộc tính sổ tay điển hình (sóng dọc, ~20 °C); vật liệu thực tế thay đổi — hạt, chất độn, cốt liệu, quá trình đóng rắn. Mọi thứ dưới đây là một bảng xếp hạng, không phải datasheet.
 

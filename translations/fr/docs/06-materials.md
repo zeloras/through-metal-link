@@ -17,7 +17,7 @@ Trois grandeurs décident si une paroi est utilisable, et pour quelle puissance 
    A(f) = 10^(−α(f)·d/10), α(f) = α₁ₘₕᶻ · (f/1 MHz)^γ [dB/cm, unidirectionnel, longitudinal],
    où α₁ₘₕᶻ est la valeur à 1 MHz.
    γ ≈ 1 = perte visqueuse/relaxation ; γ > 2 = diffusion par les inhomogénéités (granulats de béton).
-3. **La dose que la paroi reprend** — voir la section [ci-dessous](#the-dose-what-the-wave-does-to-the-wall-frequency-by-frequency) : contrainte σ = √(2·I·Z), qui *ne dépend pas* de la fréquence, et auto-échauffement ΔT ∝ α(f)·I, qui en dépend.
+3. **La dose que la paroi reprend** — voir la section [ci-dessous](#la-dose-ce-que-londe-fait-à-la-paroi-fréquence-par-fréquence) : contrainte σ = √(2·I·Z), qui *ne dépend pas* de la fréquence, et auto-échauffement ΔT ∝ α(f)·I, qui en dépend.
 
 **Hypothèses, énoncées là où le code les énonce :** propriétés typiques de manuel (onde longitudinale, ~20 °C) ; les stocks réels varient — grain, charges, granulats, cure. Tout ce qui suit est un classement, pas une fiche technique.
 
