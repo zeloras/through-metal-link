@@ -30,11 +30,11 @@ Code-Dateien enthalten SPDX-Header (Apache-2.0); die maschinenlesbare Abdeckungs
 - **Drittpatente, die bereits existieren.** Keine Lizenz kann das tun. Was gegen sie funktioniert, ist die ingenieurtechnische Disziplin von docs/01-prior-art.md: Bauen Sie nur aus der abgelaufenen Schicht (Public Domain), implementieren Sie keine der dort aufgeführten live-Ansprüche (RPI, Drexel und die Navy/ABB/Ultrapower-Familien, hinzugefügt in 2026-08 — beachten Sie, dass sie nicht alle US-only sind und nicht alle um 2032 ablaufen) und verfolgen Sie jede Designentscheidung zurück zu einer freien Quelle. Das ist keine Garantie, aber es ist genau die Praxis, die eine Klage sinnlos macht.
 - Ein Fork, der für die kommerzielle Produktion bestimmt ist, führt seine eigene FTO-Analyse (Freiheit zur Nutzung) für seine eigene Rechtsordnung und sein Design durch — das Repository macht keine Patentschutzangaben (Haftungsausschlüsse in allen drei Lizenzen).
 
-## Defensiver Publikationsprotokoll (ausführen, wenn das Repository öffentlich wird)
+## Defensiver Publikationsprotokoll (weiterhin bei jedem Meilenstein ausführen)
 
 Jedes veröffentlichte Ergebnis ist eine datierte Prior Art, die alle späteren Drittanwendungen für die gleiche Lösung blockiert:
 
-1. Öffnen Sie das Repository mit seiner vollständigen Git-Historie (Commits = Timestamps).
+1. Behalten Sie die vollständige öffentliche Git-Historie intakt (Commits = Timestamps).
 2. Snapshot zu **Zenodo** → DOI: Ein unabhängiges Archiv mit einem rechtlich bedeutungsvollen Datum, das in Papieren zitiert werden kann.
 3. Pin es in **Software Heritage** (archive.softwareheritage.org — ein ewiger Spiegel).
 4. Jedes abgeschlossene Experiment `experiments/NNN` — mit einem Datum, Zahlen und Plots: Das ist die Veröffentlichung einer spezifischen technischen Lösung.
@@ -44,4 +44,4 @@ Jedes veröffentlichte Ergebnis ist eine datierte Prior Art, die alle späteren 
 
 Die Regeln leben in [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO-Sign-off, inbound=outbound, eine explizite Patentschutzlizenz für jeden Beitrag unabhängig vom Verzeichnis, Nachvollziehbarkeit von Designentscheidungen zu freier Prior Art.
 
-Bis es öffnet, bleibt das Repository privat — Veröffentlichen vor den ersten reproduzierbaren Ergebnissen würde sowohl die wissenschaftliche als auch die Patentschutzposition schwächen.
+Das Repository ist bereits öffentlich. Führen Sie das obige Protokoll bei jedem Meilenstein weiter (Zenodo-Snapshot, Software-Heritage-Pin, Experiment-Write-ups), damit die datierte Prior Art stark bleibt, während Ergebnisse eintreffen.

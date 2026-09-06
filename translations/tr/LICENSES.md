@@ -30,11 +30,11 @@ Kod dosyaları SPDX başlıkları taşır (Apache-2.0); makine tarafından okuna
 - **Halihazırda mevcut üçüncü taraf patentleri.** Hiçbir lisans bunu yapamaz. Onlara karşı işe yarayan, docs/01-prior-art.md'nin mühendislik disiplinidir: yalnızca süresi dolmuş katmandan (kamu malı) inşa edin, orada listelenen canlı talepleri uygulamayın (RPI, Drexel ve 2026-08'de eklenen Navy/ABB/Ultrapower aileleri — bunların tamamı ABD'ye özgü değildir ve tamamı ~2032'de dolmaz) ve her tasarım kararını özgür bir kaynağa geri izleyin. Bu bir garanti değildir, ancak bir davayı anlamsız kılan tam olarak bu uygulamadır.
 - Ticari üretime yönelen bir çatal, kendi yargı bölgesi ve tasarımı için kendi FTO (işletme özgürlüğü) analizini yapar — depo hiçbir patent beyanı yapmaz (üç lisansın tamamında feragatnameler).
 
-## Savunmacı yayınlama protokolü (depo herkese açık hale geldiğinde yürütün)
+## Savunmacı yayınlama protokolü (kilometre taşları yayımlandıkça yürütmeye devam edin)
 
 Yayımlanan her sonuç, aynı çözüm için sonraki tüm üçüncü taraf başvurularını engelleyen tarihli önceki sanattır:
 
-1. Deponun tam git geçmişiyle açılması (commit'ler = zaman damgaları).
+1. Tam herkese açık git geçmişini koruyun (commit'ler = zaman damgaları).
 2. **Zenodo**'ya anlık görüntü → DOI: yasal olarak anlamlı tarihe sahip, makalelerde atıf yapılabilen bağımsız bir arşiv.
 3. **Software Heritage**'te sabitleme (archive.softwareheritage.org — sürekli bir ayna).
 4. Tamamlanan her `experiments/NNN` — tarih, sayılar ve grafiklerle: bu, belirli bir teknik çözümün yayınıdır.
@@ -44,4 +44,4 @@ Yayımlanan her sonuç, aynı çözüm için sonraki tüm üçüncü taraf başv
 
 Kurallar [CONTRIBUTING.md](../../CONTRIBUTING.md) içinde bulunur: DCO imzası, inbound=outbound, dizinden bağımsız her katkıda açık patent hibesi, tasarım kararlarının özgür önceki sanata izlenebilirliği.
 
-Açılana kadar depo özel kalır — ilk tekrarlanabilir sonuçlardan önce yayımlamak hem bilimsel hem de patent konumunu zayıflatır.
+Depo zaten herkese açıktır. Tarihli önceki sanat, sonuçlar geldikçe güçlü kalsın diye her kilometre taşında yukarıdaki protokolü sürdürün (Zenodo anlık görüntüsü, Software Heritage sabitlemesi, deney yazıları).

@@ -30,11 +30,11 @@ Los archivos de código llevan cabeceras SPDX (Apache-2.0); el mapa de cobertura
 - **Patentes de terceros que ya existen.** Ninguna licencia puede hacer eso. Lo que funciona contra ellas es la disciplina de ingeniería de docs/01-prior-art.md: construir solo a partir de la capa expirada (dominio público), no implementar las reivindicaciones vigentes listadas allí (RPI, Drexel, y las familias Navy/ABB/Ultrapower añadidas en 2026-08 — ten en cuenta que no son todas solo de EE. UU. y no todas expiran alrededor de 2032), y rastrear cada decisión de diseño hasta una fuente libre. Eso no es una garantía, pero es exactamente la práctica que hace que una demanda sea inútil.
 - Un fork que se encamine a producción comercial hace su propio análisis de FTO (freedom to operate) para su propia jurisdicción y diseño — el repositorio no hace declaraciones sobre patentes (descargos de responsabilidad en las tres licencias).
 
-## Protocolo de publicación defensiva (ejecutar cuando el repo se haga público)
+## Protocolo de publicación defensiva (seguir ejecutando a medida que se publiquen los hitos)
 
 Cada resultado publicado es estado de la técnica con fecha que bloquea todas las solicitudes posteriores de terceros para la misma solución:
 
-1. Abrir el repositorio con su historial git completo (commits = marcas de tiempo).
+1. Mantener intacto el historial git público completo (commits = marcas de tiempo).
 2. Snapshot a **Zenodo** → DOI: un archivo independiente con una fecha legalmente significativa, citable en artículos.
 3. Fijarlo en **Software Heritage** (archive.softwareheritage.org — un espejo perpetuo).
 4. Cada experimento completado `experiments/NNN` — con fecha, números y gráficas: esa es la publicación de una solución técnica específica.
@@ -44,4 +44,4 @@ Cada resultado publicado es estado de la técnica con fecha que bloquea todas la
 
 Las reglas están en [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO sign-off, inbound=outbound, una concesión explícita de patente en cada contribución independientemente del directorio, trazabilidad de las decisiones de diseño a estado de la técnica libre.
 
-Hasta que se abra, el repositorio permanece privado — publicar antes de los primeros resultados reproducibles debilitaría tanto la posición científica como la de patentes.
+El repositorio ya es público. Continúa el protocolo anterior en cada hito (snapshot de Zenodo, fijación en Software Heritage, writeups de experimentos) para que el estado de la técnica con fecha se mantenga fuerte a medida que lleguen los resultados.

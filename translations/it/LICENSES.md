@@ -30,11 +30,11 @@ I file di codice riportano intestazioni SPDX (Apache-2.0); la mappa di copertura
 - **Brevetti di terzi già esistenti.** Nessuna licenza può farlo. Quello che funziona contro di essi è la disciplina ingegneristica di docs/01-prior-art.md: costruire solo dal livello scaduto (pubblico dominio), non implementare le rivendicazioni attive lì elencate (RPI, Drexel, e le famiglie Navy/ABB/Ultrapower aggiunte in 2026-08 — nota che non sono tutte solo USA e non tutte scadono intorno al 2032), e ricondurre ogni decisione di design a una fonte libera. Non è una garanzia, ma è esattamente la pratica che rende vana una causa.
 - Un fork diretto alla produzione commerciale fa la propria analisi FTO (freedom to operate) per la propria giurisdizione e il proprio design — il repository non fornisce alcuna dichiarazione brevettuale (disclaimer in tutte e tre le licenze).
 
-## Protocollo di pubblicazione difensiva (eseguire quando il repo diventa pubblico)
+## Protocollo di pubblicazione difensiva (continuare a eseguire man mano che i traguardi vengono pubblicati)
 
 Ogni risultato pubblicato è prior art datata che blocca tutte le domande successive di terzi per la stessa soluzione:
 
-1. Aprire il repository con la sua cronologia git completa (commit = timestamp).
+1. Mantenere intatta la cronologia git pubblica completa (commit = timestamp).
 2. Snapshot su **Zenodo** → DOI: un archivio indipendente con una data legalmente significativa, citabile nei paper.
 3. Fissarlo in **Software Heritage** (archive.softwareheritage.org — un mirror perpetuo).
 4. Ogni esperimento completato `experiments/NNN` — con data, numeri e grafici: quella è la pubblicazione di una soluzione tecnica specifica.
@@ -44,4 +44,4 @@ Ogni risultato pubblicato è prior art datata che blocca tutte le domande succes
 
 Le regole si trovano in [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO sign-off, inbound=outbound, una concessione brevettuale esplicita su ogni contributo a prescindere dalla directory, tracciabilità delle decisioni di design a prior art libera.
 
-Finché non apre, il repository resta privato — pubblicare prima dei primi risultati riproducibili indebolirebbe sia la posizione scientifica che quella brevettuale.
+Il repository è già pubblico. Continuare il protocollo sopra a ogni traguardo (snapshot Zenodo, fissaggio in Software Heritage, resoconti degli esperimenti) affinché la prior art datata resti forte man mano che i risultati arrivano.

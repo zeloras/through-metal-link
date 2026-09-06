@@ -19,7 +19,7 @@ Pliki kodu noszą nagłówki SPDX (Apache-2.0); czytelna maszynowo mapa pokrycia
 
 **Nazwa projektu.** „through-metal-link" nie jest zarejestrowanym znakiem towarowym; same licencje nie przyznają żadnych praw do nazwy (Apache §6, CC-BY §2(b)(2), CERN-OHL-W §8.2). Faktyczne odwołanie się do projektu („based on through-metal-link") jest darmowe dla każdego; forki z niekompatybilnymi zmianami proszone są o wydanie pod własną nazwą.
 
-## Przed czym to chroni — a przed czym nie (szczzerze)
+## Przed czym to chroni — a przed czym nie (szczerze)
 
 **Chroni przed:**
 1. **Pozwami od współtwórców.** Każdy, kto coś wniósł, automatycznie udzielił licencji na swoje prawa patentowe z tego wkładu (Apache §3, CERN-OHL §7.1 oraz CONTRIBUTING dla docs). Pozew kosztuje powoda drogo: w Apache-2.0 traci licencje patentowe do kodu; w CERN-OHL-W traci wszystkie prawa do warstwy sprzętowej w całości (§7.2 — uruchamiany nawet próbą podważenia cudzego patentu).
@@ -30,11 +30,11 @@ Pliki kodu noszą nagłówki SPDX (Apache-2.0); czytelna maszynowo mapa pokrycia
 - **Istniejącymi patentami stron trzecich.** Żadna licencja tego nie potrafi. Działa przeciwko nim dyscyplina inżynierska z docs/01-prior-art.md: buduj tylko z warstwy wygasłej (public domain), nie implementuj żywych roszczeń wymienionych tam (RPI, Drexel oraz rodziny Navy/ABB/Ultrapower dodane w 2026-08 — zwróć uwagę, że nie wszystkie są tylko z USA i nie wszystkie wygasają około 2032) i wywodź każdą decyzję projektową z wolnego źródła. To nie gwarancja, ale to właśnie praktyka, która czyni pozew bezcelowym.
 - Fork zmierzający do produkcji komercyjnej robi własną analizę FTO (freedom to operate) dla swojej jurysdykcji i swojego projektu — repozytorium nie składa żadnych oświadczeń patentowych (zastrzeżenia we wszystkich trzech licencjach).
 
-## Protokół publikacji defensywnej (wykonać, gdy repo wejdzie publicznie)
+## Protokół publikacji defensywnej (kontynuować w miarę publikacji kamieni milowych)
 
 Każdy opublikowany wynik to opatentowany stan techniki z datą, który blokuje wszystkie późniejsze zgłoszenia stron trzecich na to samo rozwiązanie:
 
-1. Otworzyć repozytorium z pełną historią git (commity = znaczki czasowe).
+1. Utrzymać pełną publiczną historię git nienaruszoną (commity = znaczki czasowe).
 2. Snapshot do **Zenodo** → DOI: niezależne archiwum z prawnie istotną datą, cytowalne w publikacjach.
 3. Zapinować w **Software Heritage** (archive.softwareheritage.org — wieczne lustro).
 4. Każdy ukończony eksperyment `experiments/NNN` — z datą, liczbami i wykresami: to jest publikacja konkretnego rozwiązania technicznego.
@@ -44,4 +44,4 @@ Każdy opublikowany wynik to opatentowany stan techniki z datą, który blokuje 
 
 Reguły znajdują się w [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO sign-off, inbound=outbound, wyraźne nadanie patentowe na każdy wkład niezależnie od katalogu, możliwość wywiedzenia decyzji projektowych z wolnego stanu techniki.
 
-Do czasu otwarcia repozytorium pozostaje prywatne — publikacja przed pierwszymi odtwarzalnymi wynikami osłabiłaby zarówno pozycję naukową, jak i patentową.
+Repozytorium jest już publiczne. Kontynuuj powyższy protokół przy każdym kamieniu milowym (snapshot Zenodo, pin Software Heritage, opisy eksperymentów), aby opatentowany stan techniki z datą pozostawał silny w miarę napływania wyników.

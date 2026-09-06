@@ -30,11 +30,11 @@ Các file mã mang tiêu đề SPDX (Apache-2.0); bản đồ phủ máy đọc 
 - **Sáng chế của bên thứ ba đã tồn tại.** Không giấy phép nào có thể làm điều đó. Cái hiệu quả chống lại chúng là kỷ luật kỹ thuật của docs/01-prior-art.md: chỉ xây dựng từ lớp đã hết hạn (public domain), không triển khai các claim còn sống được liệt kê ở đó (RPI, Drexel, và các họ Navy/ABB/Ultrapower được thêm vào 2026-08 — lưu ý rằng chúng không phải tất cả chỉ ở Mỹ và không phải tất cả hết hạn vào khoảng 2032), và truy ngược mọi quyết định thiết kế về một nguồn tự do. Đó không phải là bảo đảm, nhưng chính xác là thực hành làm cho vụ kiện trở nên vô ích.
 - Một fork hướng tới sản xuất thương mại tự làm phân tích FTO (freedom to operate) cho khu vực pháp lý và thiết kế của riêng mình — kho không đưa ra tuyên bố sáng chế nào (tuyên bố từ chối trong cả ba giấy phép).
 
-## Giao thức công bố phòng thủ (thực thi khi kho công khai)
+## Giao thức công bố phòng thủ (tiếp tục thực thi khi các cột mốc được công bố)
 
 Mọi kết quả công bố là kỹ thuật trước có ngày tháng, chặn mọi đơn ứng dụng bên thứ ba sau này cho cùng giải pháp:
 
-1. Mở kho với toàn bộ lịch sử git (commits = timestamps).
+1. Giữ nguyên lịch sử git công khai đầy đủ (commits = timestamps).
 2. Chụp vào **Zenodo** → DOI: một kho lưu trữ độc lập với ngày tháng có ý nghĩa pháp lý, có thể trích dẫn trong bài báo.
 3. Ghim vào **Software Heritage** (archive.softwareheritage.org — một bản sao vĩnh viễn).
 4. Mỗi thử nghiệm hoàn thành `experiments/NNN` — với ngày tháng, con số, và biểu đồ: đó là công bố một giải pháp kỹ thuật cụ thể.
@@ -44,4 +44,4 @@ Mọi kết quả công bố là kỹ thuật trước có ngày tháng, chặn 
 
 Các quy tắc nằm trong [CONTRIBUTING.md](../../CONTRIBUTING.md): DCO sign-off, inbound=outbound, một sự cấp sáng chế rõ ràng trên mỗi đóng góp bất kể thư mục, khả năng truy ngược quyết định thiết kế tới kỹ thuật trước tự do.
 
-Cho đến khi mở, kho vẫn giữ riêng tư — công bố trước khi có kết quả tái lập đầu tiên sẽ làm yếu cả vị trí khoa học lẫn vị trí sáng chế.
+Kho đã công khai. Tiếp tục giao thức trên ở mỗi cột mốc (chụp Zenodo, ghim Software Heritage, bài viết thử nghiệm) để kỹ thuật trước có ngày tháng giữ vững khi kết quả đến.

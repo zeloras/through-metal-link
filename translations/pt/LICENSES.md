@@ -30,11 +30,11 @@ Os arquivos de código levam cabeçalhos SPDX (Apache-2.0); o mapa de cobertura 
 - **Patentes de terceiros que já existem.** Nenhuma licença pode fazer isso. O que funciona contra elas é a disciplina de engenharia de docs/01-prior-art.md: construir apenas a partir da camada expirada (domínio público), não implementar as reivindicações vivas listadas lá (RPI, Drexel, e as famílias Navy/ABB/Ultrapower adicionadas em 2026-08 — note que elas não são todas apenas dos EUA e nem todas expiram por volta de 2032), e rastrear cada decisão de design até uma fonte livre. Isso não é uma garantia, mas é exatamente a prática que torna uma ação judicial fútil.
 - Uma bifurcação destinada à produção comercial faz sua própria análise de FTO (liberdade para operar) para sua própria jurisdição e design — o repositório não faz representações de patente (disclaimers em todas as três licenças).
 
-## Protocolo de publicação defensiva (executar quando o repositório for público)
+## Protocolo de publicação defensiva (continuar executando conforme os marcos forem publicados)
 
 Todo resultado publicado é uma prior art datada que bloqueia todas as solicitações de terceiros posteriores para a mesma solução:
 
-1. Abra o repositório com todo o histórico do git (commits = carimbos de data/hora).
+1. Mantenha o histórico público completo do git intacto (commits = carimbos de data/hora).
 2. Snapshot para **Zenodo** → DOI: um arquivo independente com uma data legalmente significativa, citável em artigos.
 3. Prenda-o em **Software Heritage** (archive.softwareheritage.org — um espelho perpétuo).
 4. Cada experimento concluído `experiments/NNN` — com uma data, números e gráficos: isso é a publicação de uma solução técnica específica.
@@ -44,4 +44,4 @@ Todo resultado publicado é uma prior art datada que bloqueia todas as solicita�
 
 As regras vivem em [CONTRIBUTING.md](CONTRIBUTING.md): DCO sign-off, inbound=outbound, uma concessão explícita de patente em cada contribuição independentemente do diretório, rastreabilidade de decisões de design para prior art livre.
 
-Até que ele abra, o repositório permanece privado — publicar antes dos primeiros resultados reprodutíveis enfraqueceria tanto a posição científica quanto a de patente.
+O repositório já é público. Continue o protocolo acima em cada marco (snapshot no Zenodo, pin no Software Heritage, textos de experimentos) para que a prior art datada permaneça forte conforme os resultados cheguem.

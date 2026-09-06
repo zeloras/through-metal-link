@@ -30,11 +30,11 @@ Les fichiers de code portent des en-têtes SPDX (Apache-2.0) ; la carte de couve
 - **Les brevets de tiers qui existent déjà.** Aucune licence ne peut faire cela. Ce qui fonctionne contre eux, c'est la discipline d'ingénierie de docs/01-prior-art.md : ne construire qu'à partir de la couche expirée (domaine public), ne pas implémenter les revendications en vigueur listées là (RPI, Drexel, et les familles Navy/ABB/Ultrapower ajoutées en 2026-08 — notez qu'elles ne sont pas toutes américaines et n'expirent pas toutes vers 2032), et remonter chaque décision de design à une source libre. Ce n'est pas une garantie, mais c'est exactement la pratique qui rend une action en justice vaine.
 - Un fork destiné à la production commerciale fait sa propre analyse FTO (freedom to operate) pour sa propre juridiction et son propre design — le dépôt ne fait aucune déclaration sur les brevets (clauses de non-responsabilité dans les trois licences).
 
-## Protocole de publication défensive (à exécuter quand le dépôt devient public)
+## Protocole de publication défensive (à continuer d'exécuter au fur et à mesure que les jalons sont publiés)
 
 Chaque résultat publié est une antériorité datée qui bloque toutes les demandes ultérieures de tiers pour la même solution :
 
-1. Ouvrir le dépôt avec tout son historique git (commits = horodatages).
+1. Conserver intact tout l'historique git public (commits = horodatages).
 2. Snapshot vers **Zenodo** → DOI : une archive indépendante avec une date juridiquement pertinente, citable dans des articles.
 3. L'épingler dans **Software Heritage** (archive.softwareheritage.org — un miroir perpétuel).
 4. Chaque expérience terminée `experiments/NNN` — avec une date, des chiffres et des graphiques : c'est la publication d'une solution technique spécifique.
@@ -44,4 +44,4 @@ Chaque résultat publié est une antériorité datée qui bloque toutes les dema
 
 Les règles se trouvent dans [CONTRIBUTING.md](../../CONTRIBUTING.md) : DCO sign-off, inbound=outbound, un octroi explicite de licence de brevet sur chaque contribution quel que soit le répertoire, traçabilité des décisions de design vers l'antériorité libre.
 
-Tant qu'il n'est pas ouvert, le dépôt reste privé — publier avant les premiers résultats reproductibles affaiblirait à la fois la position scientifique et la position sur les brevets.
+Le dépôt est déjà public. Continuez le protocole ci-dessus à chaque jalon (snapshot Zenodo, épingle Software Heritage, comptes-rendus d'expériences) pour que l'antériorité datée reste solide au fur et à mesure que les résultats arrivent.
