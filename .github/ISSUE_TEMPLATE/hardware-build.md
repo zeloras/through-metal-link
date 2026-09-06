@@ -20,7 +20,7 @@ Which experiment protocol? (e.g. 001 sweep map / 002 watts / other)
 - [ ] Photos of the rig (required)
 - [ ] Video of the run (≥20s preferred; required for watts/LED)
 - [ ] CSV / logs under `data/` or `experiments/…`
-- [ ] Filled [experiments/TEMPLATE.md](../experiments/TEMPLATE.md)
+- [ ] Filled [experiments/TEMPLATE.md](https://github.com/zeloras/through-metal-link/blob/master/experiments/TEMPLATE.md)
 
 ## Notes
-Code-only or AI PRs with no measured data will be closed. Read [docs/02-safety.md](../docs/02-safety.md) before first power-up.
+Code-only or AI PRs with no measured data will be closed. Read [docs/02-safety.md](https://github.com/zeloras/through-metal-link/blob/master/docs/02-safety.md) before first power-up.
