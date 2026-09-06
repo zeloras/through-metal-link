@@ -30,11 +30,11 @@ Code files carry SPDX headers (Apache-2.0); the machine-readable coverage map is
 - **Third-party patents that already exist.** No license can do that. What works against them is the engineering discipline of docs/01-prior-art.md: build only from the expired layer (public domain), do not implement the live claims listed there (RPI, Drexel, and the Navy/ABB/Ultrapower families added in 2026-08 — note that they are not all US-only and not all expire around 2032), and trace every design decision back to a free source. That is no guarantee, but it is exactly the practice that makes a lawsuit futile.
 - A fork headed for commercial production does its own FTO (freedom to operate) analysis for its own jurisdiction and design — the repository makes no patent representations (disclaimers in all three licenses).
 
-## Defensive publication protocol (execute when the repo goes public)
+## Defensive publication protocol (keep executing as milestones publish)
 
 Every published result is dated prior art that blocks all later third-party applications for the same solution:
 
-1. Open the repository with its full git history (commits = timestamps).
+1. Keep the full public git history intact (commits = timestamps).
 2. Snapshot to **Zenodo** → DOI: an independent archive with a legally meaningful date, citable in papers.
 3. Pin it in **Software Heritage** (archive.softwareheritage.org — a perpetual mirror).
 4. Every completed experiment `experiments/NNN` — with a date, numbers, and plots: that is the publication of a specific technical solution.
@@ -44,4 +44,4 @@ Every published result is dated prior art that blocks all later third-party appl
 
 The rules live in [CONTRIBUTING.md](CONTRIBUTING.md): DCO sign-off, inbound=outbound, an explicit patent grant on every contribution regardless of directory, traceability of design decisions to free prior art.
 
-Until it opens, the repository stays private — publishing before the first reproducible results would weaken both the scientific and the patent position.
+The repository is already public. Continue the protocol above on each milestone (Zenodo snapshot, Software Heritage pin, experiment writeups) so dated prior art stays strong as results land.
