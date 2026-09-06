@@ -1,5 +1,3 @@
-
-
 # through-metal-link
 
 > English (primary) · [Русский](translations/ru/README.md) · [Deutsch](translations/de/README.md) · [Português](translations/pt/README.md) · [Español](translations/es/README.md) · [Français](translations/fr/README.md) · [Italiano](translations/it/README.md) · [Polski](translations/pl/README.md) · [Türkçe](translations/tr/README.md) · [Українська](translations/uk/README.md) · [Tiếng Việt](translations/vi/README.md) · [中文](translations/zh/README.md) · [日本語](translations/ja/README.md) · [한국어](translations/ko/README.md) · [हिन्दी](translations/hi/README.md)
@@ -8,7 +6,12 @@ An open platform for ultrasonic power and data transfer through solid metal wall
 
 **Try it now (no hardware needed):** `python3 software/sweep-map/sweep_map.py --mock`
 
-**Status:** stage 0 — preparation · 💰 **[$250 bounty for the first independent build](https://github.com/zeloras/through-metal-link/issues)** · shopping list: [QUICKSTART.md](QUICKSTART.md)
+**Paths in:**
+- **A — dry-run:** mock sweep + [simulator](software/simulator/channel_sim.py) (no bench)
+- **B — build stage 1:** [QUICKSTART.md](QUICKSTART.md) → [experiments/001](experiments/001-sweep-map-3mm-steel/README.md)
+- **C — contribute without hardware:** prior-art / docs / translations / ADR comments ([CONTRIBUTING.md](CONTRIBUTING.md))
+
+**Status:** stage 0 — preparation · **no hardware validation yet** (simulator only; bounty for the first build) · 💰 **[$250 bounty](https://github.com/zeloras/through-metal-link/issues/5)** · shopping list: [QUICKSTART.md](QUICKSTART.md)
 
 [![CI](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/ci.yml) [![REUSE](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml/badge.svg)](https://github.com/zeloras/through-metal-link/actions/workflows/reuse.yml) [![DCO](https://img.shields.io/badge/DCO-signed--off--by-blue)](CONTRIBUTING.md) [![License](https://img.shields.io/badge/license-Apache--2.0%20%7C%20CERN--OHL--W%20v2%20%7C%20CC--BY--4.0-blue)](LICENSES.md)
 
@@ -28,7 +31,7 @@ Radio waves don't pass through metal (Faraday cage), and a cable penetration mea
 | 2. Watts | power into the load at resonance | ≥0.5 W through 3 mm of steel, protocol in [experiments/002](experiments/002-watts-3mm-steel/README.md) | [sim4](docs/img/sim4-power-budget.png) |
 | 3. Data | FSK/OOK over the same pair | ≥1 kbit/s error-free | [sim5](docs/img/sim5-ook-datarate.png) |
 | 4. Node | ESP32 + sensor in a welded-shut box, powered and telemetered by sound alone | ≥1 h of autonomous operation | [sim4](docs/img/sim4-power-budget.png) |
-| 5. Publication | repo goes public, article/how-to | reproduction by a third party | — |
+| 5. Publication | first independent replication + article/how-to + Zenodo snapshot | third-party reproduction documented | — |
 
 ## Repository map
 
