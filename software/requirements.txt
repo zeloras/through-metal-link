@@ -3,7 +3,7 @@
 # Pinned to match CI (tools/requirements-ci.txt) so local output matches the
 # committed figures byte-for-byte.
 numpy==2.5.3
-matplotlib==3.11.1
+matplotlib==3.11.2
 
 # Schematics renderer (hardware/schematics/render_schematics.py)
 schemdraw==0.23
