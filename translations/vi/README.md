@@ -17,7 +17,7 @@ Một nền tảng mở cho truyền tải siêu âm điện năng và dữ li�
 
 Tài liệu đa ngôn ngữ: tiếng Anh là ngôn ngữ chính và nằm ở các đường dẫn chuẩn; mọi ngôn ngữ khác phản chiếu cây thư mục dưới [translations/](..). Chỉnh sửa bất kỳ ngôn ngữ nào — CI sẽ dịch và commit phần còn lại (xem [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## Ý tưởng trong một đoạn văn
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **Hoàn thành khi (theo từng giai đoạn):** giai đoạn 1 — đỉnh quét tái lặp qua hai lần chạy với sai số <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); giai đoạn 2 — ≥0.5 W vào một tải đã biết xuyên qua 3 mm thép và một đèn LED sáng từ phía RX ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 Lý thuyết trong một phút</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 Lý thuyết trong một phút — [docs/00-theory.md](docs/00-theory.md)
 
 Piezo TX được ép sát vào vách và truyền một sóng dọc vào trong; piezo RX ở phía bên kia chuyển nó trở lại thành điện. Vận tốc âm thanh trong thép: ~5900 m/s.
 
@@ -56,45 +53,37 @@ Hai chế độ hoạt động:
 
 Các tổn thất chính: sự không khớp cộng hưởng trong cặp (±1 kHz đối với biến tần Langevin rẻ tiền), chất lượng tiếp xúc âm (epoxy > chất kết hợp mỡ + kẹp > áp lực khô), lệch trục, trôi cộng hưởng theo nhiệt độ. Câu trả lời cho tất cả những điều này là giống nhau: **một bản đồ quét trước mỗi thay đổi đối với thiết lập**.
 
-</details>
-
-<details>
-<summary><b>📈 Hệ thống nên hiển thị điều gì: các biểu đồ kỳ vọng từ trình mô phỏng</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 Hệ thống nên hiển thị điều gì: các biểu đồ kỳ vọng từ trình mô phỏng — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 Một mô hình kênh bán thực nghiệm (không phải FEM, **không phải dữ liệu phòng thí nghiệm** — trực giác về "việc quét nên trông như thế nào và nhắm vào điều gì"). Các giả định được nêu rõ trong `channel_sim.py` (Q tải≈40, hệ số k tiếp xúc, hiệu suất chuỗi η≤40%). Tạo lại bằng: `python3 channel_sim.py --out ../../docs/img`.
 
 **Giai đoạn 1 — quét.** Một đỉnh hẹp gần ~40 kHz; các hệ số tiếp xúc giữ chỗ của mô hình là mỡ:khô:khe hở = 1 : 0.25 : 0.02 (tức là mỡ ≈4× khô và ≈50× khe hở không khí). Không có đỉnh nghĩa là có vấn đề với tiếp xúc hoặc cặp biến tần:
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Tại sao 4 biến tần Langevin, chứ không phải 2.** Dưới Q≈40, sự không khớp cộng hưởng 1.5 kHz trong cặp làm giảm công suất mô hình ~10×:
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **Giai đoạn 3 — dữ liệu.** OOK vấp phải hiện tượng vang của bộ cộng hưởng (mô hình Q~40 → τ≈0.3 ms): 1 kbit/s rất sạch, ở 5 kbit/s mắt sóng đã đóng. Để đi nhanh hơn cần chế độ B:
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **Ngân sách công suất máy thu.** Các dải tô bóng là **mục tiêu** (chế độ A 0.5–5 W nếu giai đoạn 2 thành công; chế độ B thấp hơn). Các tải thực tế đầu tiên là ESP32 / BLE / LED chu kỳ nhiệm vụ; Wi-Fi được hiển thị như một điểm đánh dấu tiêu thụ đỉnh, không phải một lời hứa liên tục:
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **Cho sau này (chế độ B).** Tấm thép trở nên trong suốt tại một lược các cộng hưởng độ dày — tần số phải được theo dõi:
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ An toàn — đọc trước khi cấp nguồn lần đầu</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ An toàn — đọc trước khi cấp nguồn lần đầu — [docs/02-safety.md](docs/02-safety.md)
 
 1. **Hàng chục đến hàng trăm volt trên piezo** ngay khi driver giai đoạn-2 hoạt động — TVS ở phía thu phải được lắp vào TRƯỚC khi chạy cấp nguồn lần đầu; không chạm tay vào các dây dẫn.
 2. **Điện lưới** — chỉ thông qua nguồn cấp bench / bộ cách ly; các board driver của máy siêu âm được nối trực tiếp với điện lưới.
 3. **Tai** — ở công suất không nhỏ, vận hành biến tần khi đã ép sát vào kim loại; không bao giờ chạy siêu âm công suất cao trong không khí mà không có vỏ bọc.
 4. **Nhiệt** — một biến tần Langevin không được kẹp sẽ quá nhiệt trong vài phút khi có công suất; hãy kẹp trước khi tăng dòng điện (chỉ khởi động điện với dòng thấp trong thời gian ngắn — xem README của driver).
 5. **Mảnh vỡ** — gốm áp điện giòn: một bu-lông siết quá chặt hoặc một va đập sẽ tạo ra mảnh vỡ; đeo kính an toàn cho bất kỳ công việc cơ khí nào.
-
-</details>
 
 docs/            lý thuyết, kỹ thuật trước đây, an toàn, ứng dụng, nhật ký quyết định (ADR)
 docs/img/        biểu đồ kỳ vọng (được tạo bởi software/simulator/channel_sim.py)
@@ -104,8 +93,6 @@ software/        script đo lường (bản đồ quét đáp ứng tần số) 
 experiments/     giao thức thí nghiệm — từ mẫu, một thư mục = một thí nghiệm
 data/            nhật ký thô (các tệp lớn được giữ ngoài git)
 ```
-
-</details>
 
 ## Nguyên lý
 

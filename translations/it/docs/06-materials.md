@@ -39,15 +39,15 @@ Tre grandezze decidono se una parete è utilizzabile e per quanta potenza:
 
 **Modalità B (MHz) — il pettine di spessore per materiale.** A sinistra: metalli strutturali; a destra: non metalli. Tutte le pareti 5 mm, accoppiamento con grasso. I picchi del modello senza perdite raggiungono T = 1 alle risonanze esatte; i picchi reali sono più bassi per le perdite di contatto, e l'assorbimento blocca direttamente i materiali perdenti:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **La mappa dei materiali** — i due assi che decidono tutto: impedenza (difficoltà di accoppiamento/contatto) vs assorbimento a 1 MHz (fattibilità a MHz). Z alta + α basso è l'angolo di potenza; Z bassa + α alto è "40 kHz ancora aperto, MHz morto"; l'angolo della gomma è un vicolo cieco a ogni frequenza che prendiamo di mira:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy di accoppiamento in modalità A (40 kHz)** — lo stesso modello di trasmissione valutato a 40 kHz attraverso una parete di 3 mm, normalizzato all'acciaio. *Una classificazione, non watt:* la coppia Langevin risonante moltiplica ogni barra all'incirca allo stesso modo e il modello non ha caricamento del trasduttore interno; quel moltiplicatore è territorio di stage-2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Cosa dice lo sweep
 
@@ -82,7 +82,7 @@ A 1 W/cm² (già oltre ciò che questo progetto si prefigge: l'obiettivo di stag
 
 "Soffitto" = intensità continua alla quale la parete rimane entro il 20% del suo limite di fatica/resistenza e sotto +20 K di autoriscaldamento (stato stazionario, entrambe le facce mantenute a temperatura ambiente). Le esercitazioni a duty-cycle riscaldano meno; una parete ancorata su una sola faccia — il caso abituale, aria su un lato — si riscalda fino a 4× di più alla faccia libera. Questi numeri sono una prima stima, non una garanzia di progetto. Una nota sulle convenzioni: i valori di α sono intensity-dB (10·log₁₀, la convenzione dosimetrica — un calo di 3 dB dimezza I); la letteratura NDT pulse-echo che usa amplitude-dB (20·log₁₀) descrive lo STESSO α con numeri doppi — verificate quale convenzione usa una fonte prima di copiare i suoi numeri in questa tabella.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Cosa dice lo sweep della dose:
 
@@ -118,7 +118,7 @@ Il calcestruzzo reale non è mai semplice: i teli di armatura si trovano a un co
 | armatura Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | due teli Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Cosa dice il modello a stack:
 

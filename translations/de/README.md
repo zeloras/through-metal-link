@@ -17,7 +17,7 @@ Eine offene Plattform für ultraschallbasierte Energie- und Datenübertragung du
 
 Die Dokumentation ist mehrsprachig: Englisch ist primär und liegt unter den kanonischen Pfaden; jede andere Sprache spiegelt den Baum unter [translations/](..). Beliebige Sprache bearbeiten — CI übersetzt und committet den Rest (siehe [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Phase-1-Aufbau: Pi → DDS → Halbbrücke → Transformator → Piezo TX | Stahl | Piezo RX → Brücke → ADC → Pi" width="900"></p>
+![Phase-1-Aufbau: Pi → DDS → Halbbrücke → Transformator → Piezo TX | Stahl | Piezo RX → Brücke → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## Die Idee in einem Absatz
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **Fertig, wenn (nach Stufe):** Stufe 1 — die Sweep-Spitze reproduziert sich über zwei Durchläufe auf unter <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); Stufe 2 — ≥0,5 W in eine bekannte Last durch 3 mm Stahl und eine LED leuchtet auf der RX-Seite ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 Theorie in einer Minute</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 Theorie in einer Minute — [docs/00-theory.md](docs/00-theory.md)
 
 Der piezo TX wird gegen die Wand gepresst und treibt eine Longitudinalwelle in sie; der piezo RX auf der anderen Seite wandelt sie zurück in Strom. Schallgeschwindigkeit in Stahl: ~5900 m/s.
 
@@ -56,45 +53,37 @@ Zwei Betriebsmodi:
 
 Die Hauptverluste: Resonanzfehlanpassung innerhalb des Paars (±1 kHz bei günstigen Langevin-Wandlern), Qualität des akustischen Kontakts (Epoxid > Kopplungsfett + Klemme > trockener Druck), Fehlausrichtung, Resonanzdrift mit der Temperatur. Die Antwort auf all diese ist dieselbe: **eine Sweep-Map vor jeder Änderung am Aufbau**.
 
-</details>
-
-<details>
-<summary><b>📈 Was der Aufbau zeigen sollte: Erwartungsplots aus dem Simulator</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 Was der Aufbau zeigen sollte: Erwartungsplots aus dem Simulator — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 Ein semi-empirisches Kanalmodell (kein FEM, **keine Labordaten** — Intuition für „wie der Sweep aussehen sollte und worauf man zielen muss"). Annahmen sind in `channel_sim.py` explizit angegeben (geladenes Q≈40, Kontakt-k-Faktoren, Kettenwirkungsgrad η≤40%). Regenerieren mit: `python3 channel_sim.py --out ../../docs/img`.
 
 **Stufe 1 — Sweep.** Eine schmale Spitze nahe ~40 kHz; die Platzhalter-Kontaktmultiplikatoren des Modells sind Fett:trocken:Spalt = 1 : 0,25 : 0,02 (d. h. Fett ≈4× trocken und ≈50× Luftspalt). Keine Spitze bedeutet ein Problem mit dem Kontakt oder dem Paar:
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Warum 4 Langevin-Wandler, nicht 2.** Bei Q≈40 senkt eine Resonanzfehlanpassung von 1,5 kHz innerhalb des Paars die modellierte Leistung um ~10×:
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **Stufe 3 — Daten.** OOK stößt an das Nachschwingen des Resonators (Modell-Q ~40 → τ≈0,3 ms): 1 kbit/s ist sauber, bei 5 kbit/s ist das Auge geschlossen. Schneller zu werden erfordert Modus B:
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **Empfänger-Leistungsbudget.** Schattierte Bänder sind **Ziele** (Modus A 0,5–5 W, wenn Stufe 2 erreicht wird; Modus B niedriger). Realistische erste Lasten sind getaktete ESP32 / BLE / LED; WLAN ist als Marker für Spitzenstromaufnahme gezeigt, nicht als kontinuierliche Zusage:
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **Für später (Modus B).** Die Platte wird bei einem Kamm von Dickenresonanzen transparent — die Frequenz muss nachgeführt werden:
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ Sicherheit — vor dem ersten Einschalten lesen</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ Sicherheit — vor dem ersten Einschalten lesen — [docs/02-safety.md](docs/02-safety.md)
 
 1. **Zehn bis Hunderte Volt am Piezo**, sobald der Treiber der Stufe 2 aktiv ist — die TVS auf der Empfangsseite wird VOR dem ersten bestromten Durchlauf eingebaut; Hände von den Anschlüssen fernhalten.
 2. **Netzspannung** — nur über ein Labornetzteil / Trenntrafo; Treiberplatinen von Ultraschallreinigern sind galvanisch mit dem Netz verbunden.
 3. **Ohren** — bei nicht-trivialer Leistung Wandler gegen Metall gepresst betreiben; niemals Hochleistungs-Luftultraschall ohne Gehäuse betreiben.
 4. **Hitze** — ein ungeklemmter Langevin-Wandler überhitzt bei Leistung in Minuten; klemmen, bevor der Strom erhöht wird (nur kurze elektrische Inbetriebnahme mit niedrigem Strom — siehe Treiber-README).
 5. **Splitter** — Piezokeramik ist spröde: eine überzogene Schraube oder ein Schlag bedeutet Splitter; bei jeder mechanischen Arbeit Schutzbrille tragen.
-
-</details>
 
 docs/            Theorie, Stand der Technik, Sicherheit, Anwendungen, Entscheidungslog (ADR)
 docs/img/        Erwartungs-Plots (generiert von software/simulator/channel_sim.py)
@@ -104,8 +93,6 @@ software/        Mess-Skripte (Frequenzgang-Sweep-Map) und Kanal-Simulator
 experiments/     Experiment-Protokolle — aus der Vorlage, ein Verzeichnis = ein Experiment
 data/            Roh-Logs (große Dateien bleiben aus git heraus)
 ```
-
-</details>
 
 ## Prinzipien
 

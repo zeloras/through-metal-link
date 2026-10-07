@@ -17,7 +17,7 @@ An open platform for ultrasonic power and data transfer through solid metal wall
 
 Docs are multilingual: English is primary and lives at the canonical paths; every other language mirrors the tree under [translations/](translations/). Edit any language — CI translates and commits the rest (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## The idea in one paragraph
 
@@ -35,10 +35,9 @@ Radio waves don't pass through metal (Faraday cage), and a cable penetration mea
 
 ## Repository map
 
-Every block below expands: inside is a digest sufficient to work from, plus a link to the full document.
+Each block below is a digest sufficient to work from, plus a link to the full document.
 
-<details>
-<summary><b>🛒 From zero to a working rig: what to buy and in what order</b> — <a href="QUICKSTART.md">QUICKSTART.md</a></summary>
+### 🛒 From zero to a working rig: what to buy and in what order — [QUICKSTART.md](QUICKSTART.md)
 
 **Budget:** ~$210 minimum, ~$300 comfortable (knock off ~$120 if you already own a Pi, a soldering iron, and a bench power supply). Three baskets: tools (~$120), rig electronics (~$70, [full BOM](hardware/bom/bom-stage1.csv)), mechanics (~$20). Optional but strongly recommended: a USB oscilloscope (~$60–80).
 
@@ -52,10 +51,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **Done when (by stage):** stage 1 — sweep peak reproduces across two runs to within <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); stage 2 — ≥0.5 W into a known load through 3 mm of steel and an LED lit from the RX side ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 Theory in a minute</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 Theory in a minute — [docs/00-theory.md](docs/00-theory.md)
 
 The piezo TX is pressed against the wall and drives a longitudinal wave into it; the piezo RX on the other side turns it back into electricity. Speed of sound in steel: ~5900 m/s.
 
@@ -68,37 +64,31 @@ Two operating modes:
 
 The main losses: resonance mismatch within the pair (±1 kHz for cheap Langevin transducers), acoustic contact quality (epoxy > grease couplant + clamp > dry pressure), misalignment, resonance drift with temperature. The answer to all of them is the same: **a sweep map before every change to the setup**.
 
-</details>
-
-<details>
-<summary><b>📈 What the rig should show: expectation plots from the simulator</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 What the rig should show: expectation plots from the simulator — [software/simulator/channel_sim.py](software/simulator/channel_sim.py)
 
 A semi-empirical channel model (not FEM, **not lab data** — intuition for "what the sweep should look like and what to aim at"). Assumptions are explicit in `channel_sim.py` (loaded Q≈40, contact k-factors, chain η≤40%). Regenerate with: `python3 channel_sim.py --out ../../docs/img`.
 
 **Stage 1 — sweep.** A narrow peak near ~40 kHz; the model’s placeholder contact multipliers are grease:dry:gap = 1 : 0.25 : 0.02 (i.e. grease ≈4× dry and ≈50× air gap). No peak means a problem with the contact or the pair:
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Why 4 Langevin transducers, not 2.** Under Q≈40, a 1.5 kHz resonance mismatch within the pair drops model power ~10×:
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **Stage 3 — data.** OOK runs into resonator ringing (model Q~40 → τ≈0.3 ms): 1 kbit/s is clean, at 5 kbit/s the eye is closed. Going faster takes mode B:
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **Receiver power budget.** Shaded bands are **targets** (mode A 0.5–5 W if stage 2 lands; mode B lower). Realistic first loads are duty-cycled ESP32 / BLE / LED; Wi-Fi is shown as a peak-draw marker, not a continuous promise:
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **For later (mode B).** The plate turns transparent at a comb of thickness resonances — the frequency has to be tracked:
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ Safety — read before first power-up</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ Safety — read before first power-up — [docs/02-safety.md](docs/02-safety.md)
 
 1. **Tens to hundreds of volts on the piezo** once the stage-2 driver is online — the TVS on the receive side goes in BEFORE the first powered run; keep your hands off the leads.
 2. **Mains** — only through a bench power supply / isolation; ultrasonic-cleaner driver boards are galvanically tied to the mains.
@@ -108,10 +98,7 @@ A semi-empirical channel model (not FEM, **not lab data** — intuition for "wha
 
 First driver power-up: bench supply current limit 0.2 A; full sequence in [hardware/driver/](hardware/driver/README.md) and [docs/02-safety.md](docs/02-safety.md).
 
-</details>
-
-<details>
-<summary><b>🧭 Prior art and patent hygiene</b> — <a href="docs/01-prior-art.md">docs/01-prior-art.md</a></summary>
+### 🧭 Prior art and patent hygiene — [docs/01-prior-art.md](docs/01-prior-art.md)
 
 Every technical decision must trace back to a "free" source (expired patents, papers). The foundation: **US5982297** (Aerospace Corp — the basic recipe for a through-wall piezo pair), **US7902943** (Caltech/JPL — Sherrit's feed-through), **US9361877** (Univ. Oklahoma — a complete transceiver system); all dead. Key papers: Lawry 2013 (50 W + 12.4 Mbit/s through 63.5 mm of steel), Sherrit/NASA (a 100 W lamp), Yang 2015 (survey).
 
@@ -119,10 +106,7 @@ Not to be copied while still alive: RPI's OFDM allocation and full-duplex scheme
 
 Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-frequency-mode-choice.md) (ADR).
 
-</details>
-
-<details>
-<summary><b>🔌 Hardware and firmware</b> — hardware/, firmware/</summary>
+### 🔌 Hardware and firmware — hardware/, firmware/
 
 - [hardware/bom/bom-stage1.csv](hardware/bom/bom-stage1.csv) — stage 1 shopping list.
 - [hardware/schematics/](hardware/schematics/README.md) — **circuit schematics** (generated from code): driver, receiver, Pi pinout, harvester node.
@@ -130,29 +114,20 @@ Architecture decisions are recorded in [docs/decisions/](docs/decisions/0001-fre
 - [hardware/receiver/](hardware/receiver/README.md) — receiver, stage by stage: Schottky bridge → ADC (stage 1) → load (stage 2) → LTC3588 + supercapacitor + ESP32 (stage 4).
 - [firmware/node-esp32/](firmware/node-esp32/README.md) — stage 4 node (stub): deep sleep, sensor readout, BLE advertising, budget of 1–5 mW average.
 
-</details>
-
-<details>
-<summary><b>💻 Software: measurements and the simulator</b> — software/</summary>
+### 💻 Software: measurements and the simulator — software/
 
 - [software/sweep-map/sweep_map.py](software/sweep-map/sweep_map.py) — the stage 1 workhorse: DDS sweep → ADC readings → CSV + frequency-response plot. Has `--mock` for a run without hardware. On the Pi: `raspi-config` → enable SPI and I2C; `pip install spidev smbus2 matplotlib`.
 - [software/simulator/channel_sim.py](software/simulator/channel_sim.py) — generator of the expectation plots (`pip install numpy matplotlib`).
 - [software/simulator/material_map.py](software/simulator/material_map.py) — the same channel model across wall materials — titanium, aluminum, glass, ceramics, plastics, concrete; the study and verdicts: [docs/06-materials.md](docs/06-materials.md).
 - [data/](data/README.md) — raw logs; CSV/PNG stay out of git, only curated plots go into git inside the experiment's directory.
 
-</details>
-
-<details>
-<summary><b>🗺️ Where to apply this: barriers, channels, niches</b> — [docs/04-hybrid-channels.md](docs/04-hybrid-channels.md), <a href="docs/05-applications-map.md">docs/05</a></summary>
+### 🗺️ Where to apply this: barriers, channels, niches — [docs/04-hybrid-channels.md](docs/04-hybrid-channels.md), [docs/05](docs/05-applications-map.md)
 
 There is no universal channel — the platform matches the physics to the barrier: piezo-acoustics (primary: steel/aluminum with contact — watts and kbit/s), EMAT (dirty/hot metal, no contact — data), low-frequency magnetics (vacuum sandwich walls of dewars — bits/s). Honest dead ends: rubber-lined/composite walls, bubbling liquid in the path.
 
 Niche priority: **(1)** lab vacuum chambers and cryostats — the open-source-hardware audience, no certifications; **(2)** fermentation tanks — a proving ground within walking distance; **(3)** sealed battery packs — the flagship case (thermal-runaway detection without a penetration into the pack). The receiver discovery and auto-tuning protocol (a Qi analog): [docs/03-discovery-protocol.md](docs/03-discovery-protocol.md).
 
-</details>
-
-<details>
-<summary><b>📁 Directory layout</b></summary>
+### 📁 Directory layout
 
 ```
 docs/            theory, prior art, safety, applications, decision log (ADR)
@@ -163,8 +138,6 @@ software/        measurement scripts (frequency-response sweep map) and channel 
 experiments/     experiment protocols — from the template, one directory = one experiment
 data/            raw logs (large files stay out of git)
 ```
-
-</details>
 
 ## Principles
 

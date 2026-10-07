@@ -39,15 +39,15 @@ Three quantities decide whether a wall is usable at all, and for how much power:
 
 **Mode B (MHz) — the thickness comb per material.** Left: structural metals; right: non-metals. All walls 5 mm, grease coupling. Lossless-model peaks reach T = 1 at exact resonances; real peaks are lower by contact losses, and absorption caps the lossy materials outright:
 
-<img src="img/mat1-thickness-comb-materials.png" width="880">
+![](img/mat1-thickness-comb-materials.png)
 
 **The material map** — the two axes that decide everything: impedance (coupling/contact difficulty) vs 1 MHz absorption (MHz viability). High-Z + low-α is the power-grade corner; low-Z + high-α is "40 kHz still open, MHz dead"; the rubber corner is a dead end at every frequency we target:
 
-<img src="img/mat2-material-map.png" width="720">
+![](img/mat2-material-map.png)
 
 **Mode A (40 kHz) coupling proxy** — the same transmission model evaluated at 40 kHz through a 3 mm wall, normalized to steel. *A ranking, not watts:* the resonant Langevin pair multiplies every bar roughly equally and the model has no transducer loading inside; that multiplier is stage-2 territory ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="img/mat3-modea-coupling-materials.png" width="720">
+![](img/mat3-modea-coupling-materials.png)
 
 ## What the sweep says
 
@@ -82,7 +82,7 @@ At 1 W/cm² (already beyond what this project targets: the stage-2 goal of 0.5�
 
 "Ceiling" = continuous intensity at which the wall stays inside 20% of its fatigue/strength limit and under +20 K of self-heating (steady state, both faces held at ambient). Duty-cycled runs heat less; a wall anchored on only one face — the usual case, air on one side — heats up to 4× more at the free face. These numbers are a first cut, not a design guarantee. One convention callout: the α values are intensity-dB (10·log₁₀, the dosimetry convention — a 3 dB drop halves I); pulse-echo NDT literature quoting amplitude-dB (20·log₁₀) describes the SAME α with numbers twice as large — check which convention a source uses before copying its numbers into this table.
 
-<img src="img/mat4-harm-materials.png" width="920">
+![](img/mat4-harm-materials.png)
 
 What the dose sweep says:
 
@@ -118,7 +118,7 @@ Real concrete is never plain: reinforcement mats sit at a cover depth, and the 1
 | rebar Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | two mats Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="img/mat5-rebar.png" width="880">
+![](img/mat5-rebar.png)
 
 What the stack model says:
 

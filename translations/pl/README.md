@@ -17,7 +17,7 @@ Otwarta platforma do ultradźwiękowego przesyłu energii i danych przez lite ś
 
 Dokumentacja jest wielojęzyczna: angielski jest językiem podstawowym i znajduje się w ścieżkach kanonicznych; każdy inny język odzwierciedla drzewo pod [translations/](..). Edytuj w dowolnym języku — CI tłumaczy i zatwierdza resztę (patrz [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stanowisko etapu 1: Pi → DDS → pół-mostek → transformator → piezo TX | stal | piezo RX → mostek → ADC → Pi" width="900"></p>
+![Stanowisko etapu 1: Pi → DDS → pół-mostek → transformator → piezo TX | stal | piezo RX → mostek → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## Idea w jednym akapicie
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **Gotowe, gdy (według etapu):** etap 1 — pik skanu odtwarza się między dwoma przebiegami z dokładnością <200 Hz ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); etap 2 — ≥0,5 W w znane obciążenie przez 3 mm stali i zapalona LED po stronie RX ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 Teoria w minutę</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 Teoria w minutę — [docs/00-theory.md](docs/00-theory.md)
 
 Piezoelektryczny TX jest dociskany do ściany i wprowadza w nią falę podłużną; piezoelektryczny RX po drugiej stronie zamienia ją z powrotem na prąd. Prędkość dźwięku w stali: ~5900 m/s.
 
@@ -56,45 +53,37 @@ Dwa tryby pracy:
 
 Główne straty: niedopasowanie rezonansu w obrębie pary (±1 kHz dla tanich przetworników Langevina), jakość kontaktu akustycznego (epoksyd > smar sprzęgający + zacisk > suchy nacisk), niewspółosiowość, dryf rezonansu z temperaturą. Odpowiedź na wszystkie jest ta sama: **mapa skanu przed każdą zmianą konfiguracji**.
 
-</details>
-
-<details>
-<summary><b>📈 Co stanowisko powinno pokazać: wykresy oczekiwane z symulatora</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 Co stanowisko powinno pokazać: wykresy oczekiwane z symulatora — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 Półempiryczny model kanału (nie FEM, **nie dane laboratoryjne** — intuicja dla „jak powinien wyglądać skan i w co celować”). Założenia są jawne w `channel_sim.py` (obciążone Q≈40, k-czynniki kontaktu, sprawność łańcucha η≤40%). Regeneruj przez: `python3 channel_sim.py --out ../../docs/img`.
 
 **Etap 1 — skan.** Wąski pik w okolicach ~40 kHz; mnożniki kontaktu placeholder w modelu to smar:suchy:szczelina = 1 : 0,25 : 0,02 (tzn. smar ≈4× suchy i ≈50× szczelina powietrzna). Brak piku oznacza problem z kontaktem lub parą:
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Dlaczego 4 przetworniki Langevina, nie 2.** Przy Q≈40 niedopasowanie rezonansu 1,5 kHz w obrębie pary obniża moc z modelu ~10×:
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **Etap 3 — dane.** OOK natrafia na dzwonienie rezonatora (model Q~40 → τ≈0,3 ms): 1 kbit/s jest czysty, przy 5 kbit/s oko jest zamknięte. Szybsza transmisja wymaga trybu B:
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **Budżet mocy odbiornika.** Zacieniowane pasma to **cele** (tryb A 0,5–5 W jeśli etap 2 się uda; tryb B niżej). Realistyczne pierwsze obciążenia to pracujące w cyklach ESP32 / BLE / LED; Wi-Fi pokazany jest jako znacznik szczytowego poboru, nie ciągła obietnica:
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **Na później (tryb B).** Płyta staje się przezroczysta przy grzebieniu rezonansów grubościowych — częstotliwość musi być śledzona:
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ Bezpieczeństwo — przeczytaj przed pierwszym włączeniem</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ Bezpieczeństwo — przeczytaj przed pierwszym włączeniem — [docs/02-safety.md](docs/02-safety.md)
 
 1. **Od dziesiątek do setek woltów na piezo** gdy tylko sterownik etapu 2 zostanie uruchomiony — TVS po stronie odbioru wchodzi PRZED pierwszym zasilonym przebiegiem; nie dotykaj przewodów.
 2. **Sieć** — tylko przez zasilacz laboratoryjny / izolację; płyty sterowników z myjek ultradźwiękowych są galwanicznie połączone z siecią.
 3. **Uszy** — przy nieprzebranej mocy pracuj z przetwornikami dociskającymi do metalu; nigdy nie uruchamiaj ultradźwięków o dużej mocy w powietrzu bez obudowy.
 4. **Ciepło** — niezaciśnięty przetwornik Langevina przegrzewa się w kilka minut przy mocy; zaciśnij przed zwiększeniem prądu (tylko krótkie uruchomienie elektryczne przy niskim prądzie — patrz README sterownika).
 5. **Odłamki** — piezoceramika jest krucha: zbyt mocno dokręcona śruba lub uderzenie oznacza odłamki; noś okulary ochronne przy każdej pracy mechanicznej.
-
-</details>
 
 docs/            teoria, stan wiedzy, bezpieczeństwo, zastosowania, dziennik decyzji (ADR)
 docs/img/        wykresy oczekiwań (generowane przez software/simulator/channel_sim.py)
@@ -104,8 +93,6 @@ software/        skrypty pomiarowe (mapa odpowiedzi częstotliwościowej) i symu
 experiments/     protokoły eksperymentów — z szablonu, jeden katalog = jeden eksperyment
 data/            surowe logi (duże pliki pozostają poza gitem)
 ```
-
-</details>
 
 ## Zasady
 

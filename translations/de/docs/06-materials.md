@@ -39,15 +39,15 @@ Drei Größen entscheiden, ob eine Wand überhaupt nutzbar ist und für wie viel
 
 **Modus B (MHz) — der Dickenkamm pro Material.** Links: Konstruktionsmetalle; rechts: Nichtmetalle. Alle Wände 5 mm, Fettkopplung. Verlustfreie Modellpeaks erreichen T = 1 an exakten Resonanzen; reale Peaks sind niedriger durch Kontaktverluste, und Absorption begrenzt die verlustreichen Materialien direkt:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **Die Materialkarte** — die beiden Achsen, die alles entscheiden: Impedanz (Kopplungs-/Kontaktschwierigkeit) vs. 1-MHz-Absorption (MHz-Tauglichkeit). Hoher Z-Wert + niedriges α ist die Power-Grade-Ecke; niedriger Z-Wert + hohes α bedeutet „40 kHz noch offen, MHz tot"; die Gummi-Ecke ist eine Sackgasse bei jeder Frequenz, die wir anvisieren:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Modus A (40 kHz) Kopplungsproxy** — dasselbe Übertragungsmodell, ausgewertet bei 40 kHz durch eine 3-mm-Wand, normiert auf Stahl. *Eine Rangliste, keine Watt:* das resonante Langevin-Paar multipliziert jeden Balken grob gleich und das Modell hat keine Wandlerbelastung im Inneren; dieser Multiplikator ist Stage-2-Territorium ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Was der Sweep sagt
 
@@ -82,7 +82,7 @@ Bei 1 W/cm² (bereits jenseits dessen, was dieses Projekt anvisiert: das Stage-2
 
 „Decke" = kontinuierliche Intensität, bei der die Wand innerhalb von 20 % ihrer Dauerfestigkeits-/Festigkeitsgrenze und unter +20 K Selbsterwärmung bleibt (stationär, beide Seiten auf Umgebungstemperatur gehalten). Getaktete Betriebe erhitzen weniger; eine Wand, die nur an einer Seite verankert ist — der Normalfall, Luft auf einer Seite — erhitzen sich an der freien Seite bis zu 4× mehr. Diese Zahlen sind ein erster Schnitt, keine Konstruktionsgarantie. Eine Konventions-Anmerkung: die α-Werte sind Intensitäts-dB (10·log₁₀, die Dosimetrie-Konvention — ein 3-dB-Abfall halbiert I); Pulse-Echo-NDT-Literatur, die Amplituden-dB (20·log₁₀) zitiert, beschreibt dasselbe α mit doppelt so großen Zahlen — prüfen Sie, welche Konvention eine Quelle verwendet, bevor Sie ihre Zahlen in diese Tabelle übernehmen.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Was der Dosis-Sweep sagt:
 
@@ -118,7 +118,7 @@ Echter Beton ist nie rein: Bewehrungsmatten sitzen in einer Betondeckung, und da
 | Bewehrung Ø16 @ 40 mm | 0,013 | 0,069 | 6.6e-09 |
 | zwei Matten Ø16 @ 40 mm | 0,003 | 0,001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Was das Stack-Modell sagt:
 

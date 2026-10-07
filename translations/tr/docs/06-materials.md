@@ -39,15 +39,15 @@ Bir duvarın hiç kullanılabilir olup olmadığına ve ne kadar güç için kar
 
 **Mod B (MHz) — malzeme başına kalınlık tarağı.** Sol: yapısal metaller; sağ: metaller dışı. Tüm duvarlar 5 mm, gres kuplajı. Kayıpsız model tepeleri tam rezonansta T = 1'e ulaşır; gerçek tepeler temas kayıplarıyla daha düşüktür ve soğurma kayıplı malzemeleri doğrudan sınırlar:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **Malzeme haritası** — her şeyi belirleyen iki eksen: empedans (kuplaj/temas zorluğu) ve 1 MHz soğurma (MHz uygulanabilirliği). Yüksek-Z + düşük-α güç sınıfı köşesidir; düşük-Z + yüksek-α "40 kHz hala açık, MHz ölü"; kauçuk köşesi hedeflediğimiz her frekansta bir çıkmazdır:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Mod A (40 kHz) kuplaj vekili** — aynı iletim modelinin 3 mm duvardan 40 kHz'de değerlendirilmiş hali, çeliğe normalize edilmiş. *Bir sıralama, watt değil:* rezonans Langevin çifti her çubuğu kabaca eşit çarpar ve modelin içinde transdüser yüklemesi yoktur; o çarpan 2. aşama işidir ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Tarama ne diyor
 
@@ -82,7 +82,7 @@ Bir duvarın hiç kullanılabilir olup olmadığına ve ne kadar güç için kar
 
 "Tavan" = duvarın yorgunluk/mukavemet sınırının %20'si içinde ve +20 K öz-ısınmanın altında kaldığı sürekli yoğunluk (kararlı durum, her iki yüz ortamda tutulmuş). Görev-döngülü çalışmalar daha az ısınır; yalnızca bir yüzde sabitlenmiş bir duvar — her zamanki durum, bir taraf hava — serbest yüzde kadar 4× daha fazla ısınır. Bu sayılar ilk bir kesittir, tasarım garantisi değil. Bir sözleşme notu: α değerleri yoğunluk-dB'dir (10·log₁₀, dozimetri sözleşmesi — 3 dB düşüş I'yı yarıya indirir); genlik-dB (20·log₁₀) kullanan darbe-eko NDT literatürü AYNI α'yı iki kat büyük sayılarla tanımlar — bir kaynağın sayılarını bu tabloya kopyalamadan önce hangi sözleşmeyi kullandığını kontrol edin.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Doz taraması ne diyor:
 
@@ -118,7 +118,7 @@ Gerçek beton hiçbir zaman sade değildir: donatı hasırları bir kap derinli�
 | donatı Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | iki hasır Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Yığın modeli ne diyor:
 

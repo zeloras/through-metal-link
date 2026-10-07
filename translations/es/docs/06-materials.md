@@ -39,15 +39,15 @@ Tres magnitudes deciden si una pared es utilizable en absoluto, y para cuánta p
 
 **Modo B (MHz) — el peine de espesor por material.** Izquierda: metales estructurales; derecha: no metales. Todas las paredes de 5 mm, acoplamiento con grasa. Los picos del modelo sin pérdidas alcanzan T = 1 en resonancias exactas; los picos reales son menores por pérdidas de contacto, y la absorción limita directamente a los materiales con pérdidas:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **El mapa de materiales** — los dos ejes que lo deciden todo: impedancia (dificultad de acoplamiento/contacto) vs. absorción a 1 MHz (viabilidad en MHz). Alta-Z + baja-α es la esquina de grado de potencia; baja-Z + alta-α es "40 kHz todavía abierto, MHz muerto"; la esquina del caucho es un callejón sin salida en cada frecuencia que objetivo:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy de acoplamiento Modo A (40 kHz)** — el mismo modelo de transmisión evaluado a 40 kHz a través de una pared de 3 mm, normalizado al acero. *Un ranking, no vatios:* el par Langevin resonante multiplica cada barra aproximadamente por igual y el modelo no incluye carga de transductor; ese multiplicador es territorio de etapa 2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Lo que dice el barrido
 
@@ -82,7 +82,7 @@ A 1 W/cm² (ya por encima de lo que este proyecto persigue: el objetivo de etapa
 
 "Techo" = intensidad continua a la cual la pared se mantiene dentro del 20% de su límite de fatiga/resistencia y por debajo de +20 K de autocalentamiento (estado estacionario, ambas caras a temperatura ambiente). Las operaciones con ciclo de trabajo calientan menos; una pared anclada por una sola cara —el caso habitual, aire en un lado— se calienta hasta 4× más en la cara libre. Estos números son una primera aproximación, no una garantía de diseño. Una convención a destacar: los valores de α son dB de intensidad (10·log₁₀, la convención de dosimetría — una caída de 3 dB reduce I a la mitad); la literatura de END por pulso-eco que cita dB de amplitud (20·log₁₀) describe el MISMO α con números el doble de grandes — verifique qué convención usa una fuente antes de copiar sus números a esta tabla.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Lo que dice el barrido de dosis:
 
@@ -118,7 +118,7 @@ El hormigón real nunca es liso: las mallas de refuerzo se sitúan a una profund
 | armadura Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | dos mallas Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Lo que dice el modelo de apilamiento:
 

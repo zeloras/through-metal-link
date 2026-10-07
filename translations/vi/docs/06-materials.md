@@ -39,15 +39,15 @@ Ba đại lượng quyết định xem một vách tường có dùng được h
 
 **Chế độ B (MHz) — lược độ dày theo từng vật liệu.** Trái: kim loại kết cấu; phải: phi kim. Tất cả vách 5 mm, ghép bằng mỡ. Đỉnh mô hình không tổn thất đạt T = 1 tại cộng hưởng chính xác; đỉnh thực thấp hơn do tổn thất tiếp xúc, và hấp thụ giới hạn trực tiếp các vật liệu tổn thất cao:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **Bản đồ vật liệu** — hai trục quyết định tất cả: trở kháng (độ khó ghép/tiếp xúc) so với hấp thụ tại 1 MHz (khả thi ở MHz). Góc Z cao + α thấp là góc cấp điện năng; góc Z thấp + α cao là "40 kHz vẫn mở, MHz chết"; góc cao su là ngõ cụt ở mọi tần số chúng ta nhắm tới:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy ghép chế độ A (40 kHz)** — cùng mô hình truyền đánh giá tại 40 kHz qua vách 3 mm, chuẩn hóa theo thép. *Bảng xếp hạng, không phải watt:* cặp Langevin cộng hưởng nhân mỗi thanh xấp xỉ bằng nhau và mô hình không có tải transducer bên trong; hệ số nhân đó là lĩnh vực giai đoạn-2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Quét cho biết gì
 
@@ -82,7 +82,7 @@ Tại 1 W/cm² (đã vượt quá mục tiêu của dự án này: mục tiêu g
 
 "Trần" = cường độ liên tục mà tại đó vách nằm trong 20% giới hạn mỏi/cường độ và dưới +20 K tự gia nhiệt (trạng thái dừng, hai mặt giữ ở nhiệt môi trường). Chạy chu kỳ nhiệm vụ ít nóng hơn; vách chỉ neo một mặt — trường hợp thường gặp, không khí một bên — nóng tới 4× nhiều hơn ở mặt tự do. Các con số này là cắt đầu tiên, không phải bảo đảm thiết kế. Một lưu ý quy ước: giá trị α là intensity-dB (10·log₁₀, quy ước đo liều — giảm 3 dB thì I giảm một nửa); tài liệu NDT pulse-echo dùng amplitude-dB (20·log₁₀) mô tả CÙNG α với số lớn gấp đôi — kiểm tra quy ước nào mà nguồn dùng trước khi chép số vào bảng này.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Quét liều lượng cho biết:
 
@@ -118,7 +118,7 @@ Bê tông thực tế không bao giờ thuần: lưới thép nằm ở độ s�
 | thép đai Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | hai lưới Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Mô hình chồng cho biết:
 

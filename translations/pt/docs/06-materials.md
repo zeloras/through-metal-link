@@ -39,15 +39,15 @@ Três grandezas decidem se uma parede é utilizável, e para quanta potência:
 
 **Modo B (MHz) — o pente de espessura por material.** Esquerda: metais estruturais; direita: não-metais. Todas as paredes 5 mm, acoplamento com graxa. Picos do modelo sem perdas atingem T = 1 nas ressonâncias exatas; picos reais são menores por perdas de contato, e a absorção limita os materiais perdedores de imediato:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **O mapa de materiais** — os dois eixos que decidem tudo: impedância (dificuldade de acoplamento/contato) vs absorção a 1 MHz (viabilidade em MHz). Alto-Z + baixo-α é o canto de classe potência; baixo-Z + alto-α é "40 kHz ainda aberto, MHz morto"; o canto da borracha é um beco sem saída em todas as frequências que visamos:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy de acoplamento Modo A (40 kHz)** — o mesmo modelo de transmissão avaliado a 40 kHz através de uma parede de 3 mm, normalizado pelo aço. *Um ranking, não watts:* o par Langevin ressonante multiplica cada barra de forma aproximadamente igual e o modelo não tem carregamento de transdutor interno; esse multiplicador é território do estágio 2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## O que a varredura diz
 
@@ -82,7 +82,7 @@ A 1 W/cm² (já além do que este projeto visa: a meta do estágio 2 de 0.5–5 
 
 "Teto" = intensidade contínua na qual a parede permanece dentro de 20% do seu limite de fadiga/resistência e abaixo de +20 K de aquecimento próprio (regime estacionário, ambas as faces mantidas em ambiente). Operações com ciclos de trabalho aquecem menos; uma parede ancorada em apenas uma face — o caso usual, ar de um lado — aquece até 4× mais na face livre. Esses números são uma primeira estimativa, não uma garantia de projeto. Uma observação de convenção: os valores de α são dB de intensidade (10·log₁₀, a convenção de dosimetria — uma queda de 3 dB reduz I à metade); literatura de NDT pulse-echo que cita dB de amplitude (20·log₁₀) descreve o MESMO α com números duas vezes maiores — verifique qual convenção uma fonte usa antes de copiar seus números para esta tabela.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 O que a varredura de dose diz:
 
@@ -118,7 +118,7 @@ Concreto real nunca é simples: malhas de armadura ficam a uma profundidade de c
 | armadura Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | duas malhas Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 O que o modelo de pilha diz:
 
