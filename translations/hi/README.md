@@ -17,7 +17,7 @@
 
 डॉक्स बहुभाषी हैं: अंग्रेज़ी प्राथमिक है और कैनोनिकल पथों पर रहती है; बाकी हर भाषा [translations/](..) के अंतर्गत ट्री को मिरर करती है। किसी भी भाषा में संपादन करें — CI बाकी का अनुवाद करके कमिट कर देता है (देखें [CONTRIBUTING.md](CONTRIBUTING.md))।
 
-<p align="center"><img src="../../docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](../../docs/img/sim0-rig-sketch.png)
 
 ## विचार एक पैराग्राफ में
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **कब पूरा हुआ (चरण द्वारा):** चरण 1 — स्वीप पीक दो रन में <200 Hz के भीतर पुन: उत्पन्न होता है ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); चरण 2 — 3 मिमी स्टील के माध्यम से एक ज्ञात लोड में ≥0.5 W और RX साइड से जली हुई एक LED ([experiments/002](experiments/002-watts-3mm-steel/README.md))।
 
-</details>
-
-<details>
-<summary><b>📚 एक मिनट में सिद्धांत</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 एक मिनट में सिद्धांत — [docs/00-theory.md](docs/00-theory.md)
 
 पीजो TX को दीवार से दबाया जाता है और यह उसमें एक अनुदैर्ध्य तरंग चलाता है; दूसरी तरफ पीजो RX इसे वापस बिजली में बदल देता है। स्टील में ध्वनि की गति: ~5900 m/s।
 
@@ -56,37 +53,31 @@ python3 software/sweep-map/sweep_map.py --mock
 
 मुख्य नुकसान: जोड़ी के भीतर अनुनाद बेमेल (सस्ते लैंगेविन ट्रांसड्यूसर के लिए ±1 kHz), ध्वनिक संपर्क गुणवत्ता (इपॉक्सी > ग्रीस कपलेंट + क्लैंप > ड्राई प्रेशर), मिसअलाइनमेंट, तापमान के साथ अनुनाद ड्रिफ्ट। इन सभी का जवाब एक समान है: **सेटअप में हर बदलाव से पहले एक स्वीप मैप**।
 
-</details>
-
-<details>
-<summary><b>📈 रिग को क्या दिखाना चाहिए: सिम्युलेटर से अपेक्षित प्लॉट</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 रिग को क्या दिखाना चाहिए: सिम्युलेटर से अपेक्षित प्लॉट — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 एक अर्ध-अनुभवजन्य चैनल मॉडल (FEM नहीं, **लैब डेटा नहीं** — "स्वीप कैसा दिखना चाहिए और किस पर निशाना लगाना चाहिए" के लिए अंतर्ज्ञान)। अनुमान `channel_sim.py` में स्पष्ट हैं (लोडेड Q≈40, संपर्क k-factors, चेन η≤40%)। इसके साथ पुनर्जन्म करें: `python3 channel_sim.py --out ../../docs/img`।
 
 **चरण 1 — स्वीप।** ~40 kHz के पास एक संकरा शिखर; मॉडल के प्लेसहोल्डर संपर्क गुणक हैं grease:dry:gap = 1 : 0.25 : 0.02 (यानी ग्रीस ≈4× ड्राई और ≈50× एयर गैप)। कोई शिखर न होने का मतलब है संपर्क या जोड़ी में कोई समस्या है:
 
-<img src="../../docs/img/sim1-sweep-contacts.png" width="720">
+![](../../docs/img/sim1-sweep-contacts.png)
 
 **2 नहीं, 4 लैंगेविन ट्रांसड्यूसर क्यों।** Q≈40 के तहत, जोड़ी के भीतर 1.5 kHz का अनुनाद बेमेल मॉडल पावर को ~10× घटा देता है:
 
-<img src="../../docs/img/sim2-pair-mismatch.png" width="720">
+![](../../docs/img/sim2-pair-mismatch.png)
 
 **चरण 3 — डेटा।** OOK रेज़ोनेटर रिंगिंग में चला जाता है (मॉडल Q~40 → τ≈0.3 ms): 1 kbit/s साफ है, 5 kbit/s पर आई क्लोज्ड है। तेजी से जाने के लिए मोड B की आवश्यकता है:
 
-<img src="../../docs/img/sim5-ook-datarate.png" width="720">
+![](../../docs/img/sim5-ook-datarate.png)
 
 **रिसीवर पावर बजट।** छायांकित बैंड **लक्ष्य** हैं (मोड A 0.5–5 W यदि चरण 2 पूरा हो जाता है; मोड B कम)। यथार्थवादी पहले लोड ड्यूटी-साइकिल वाले ESP32 / BLE / LED हैं; Wi-Fi को एक पीक-ड्रा मार्कर के रूप में दिखाया गया है, निरंतर वादे के रूप में नहीं:
 
-<img src="../../docs/img/sim4-power-budget.png" width="720">
+![](../../docs/img/sim4-power-budget.png)
 
 **बाद के लिए (मोड B)।** प्लेट मोटाई अनुनाद के एक कॉम्ब पर पारदर्शी हो जाती है — आवृत्ति को ट्रैक किया जाना चाहिए:
 
-<img src="../../docs/img/sim3-thickness-comb.png" width="720">
+![](../../docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ सुरक्षा — पहली बार पावर ऑन करने से पहले पढ़ें</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ सुरक्षा — पहली बार पावर ऑन करने से पहले पढ़ें — [docs/02-safety.md](docs/02-safety.md)
 
 1. **पीजो पर दसियों से सैकड़ों वोल्ट** जैसे ही चरण-2 ड्राइवर ऑनलाइन होता है — पहले पावर्ड रन से पहले रिसीव साइड पर TVS लगाया जाता है; अपने हाथ लीड्स से दूर रखें।
 2. **मेन्स** — केवल एक बेंच पावर सप्लाई / आइसोलेशन के माध्यम से; अल्ट्रासोनिक-क्लीनर ड्राइवर बोर्ड गैल्वेनिक रूप से मेन्स से जुड़े होते हैं।
@@ -102,8 +93,6 @@ software/        माप स्क्रिप्ट (फ्रीक्वे
 experiments/     प्रयोग प्रोटोकॉल — टेम्पलेट से, एक डायरेक्टरी = एक प्रयोग
 data/            रॉ लॉग (बड़ी फाइलें git से बाहर रहती हैं)
 ```
-
-</details>
 
 ## सिद्धांत
 

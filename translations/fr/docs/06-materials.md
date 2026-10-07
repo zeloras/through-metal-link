@@ -39,15 +39,15 @@ Trois grandeurs décident si une paroi est utilisable, et pour quelle puissance 
 
 **Mode B (MHz) — le peigne d'épaisseur par matériau.** À gauche : métaux structurels ; à droite : non-métaux. Toutes parois 5 mm, couplage par graisse. Les pics du modèle sans pertes atteignent T = 1 aux résonances exactes ; les pics réels sont plus bas à cause des pertes de contact, et l'absorption plafonne les matériaux lossy d'emblée :
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **La carte des matériaux** — les deux axes qui décident tout : impédance (difficulté de couplage/contact) vs absorption à 1 MHz (viabilité au MHz). Haut-Z + faible-α est le coin de classe puissance ; bas-Z + haut-α est « 40 kHz encore ouvert, MHz mort » ; le coin caoutchouc est une impasse à toutes les fréquences que nous ciblons :
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy de couplage Mode A (40 kHz)** — le même modèle de transmission évalué à 40 kHz à travers une paroi de 3 mm, normalisé à l'acier. *Un classement, pas des watts :* la paire Langevin résonante multiplie chaque barre à peu près également et le modèle n'a pas de chargement de transducteur interne ; ce multiplicateur relève de l'étape 2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)) :
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Ce que le balayage dit
 
@@ -82,7 +82,7 @@ La transmission répond à « combien passe » ; cette section répond à la que
 
 « Plafond » = intensité continue à laquelle la paroi reste dans 20 % de sa limite de fatigue/résistance et sous +20 K d'auto-échauffement (régime stationnaire, les deux faces maintenues à l'ambiance). Les fonctionnement à cycle de service chauffent moins ; une paroi ancrée sur une seule face — le cas habituel, air d'un côté — chauffe jusqu'à 4× plus à la face libre. Ces chiffres sont une première estimation, pas une garantie de conception. Une convention à signaler : les valeurs α sont en dB d'intensité (10·log₁₀, la convention de dosimétrie — une chute de 3 dB divise I par deux) ; la littérature NDT en pulse-echo qui cite des dB d'amplitude (20·log₁₀) décrit le MÊME α avec des nombres deux fois plus grands — vérifiez quelle convention une source utilise avant de copier ses nombres dans ce tableau.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Ce que le balayage de dose dit :
 
@@ -118,7 +118,7 @@ Le vrai béton n'est jamais nu : les nattes d'armature se trouvent à une profon
 | armature Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | deux nattes Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Ce que le modèle d'empilement dit :
 

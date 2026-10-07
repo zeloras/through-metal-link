@@ -17,7 +17,7 @@
 
 ドキュメントは多言語対応: 英語が一次言語であり正規パスに配置; その他の言語はすべて[translations/](..)配下にツリーをミラー。どの言語でも編集可能 — CIが翻訳して残りをコミットします（[CONTRIBUTING.md](CONTRIBUTING.md)を参照）。
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## 1段落でのアイデア
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **完了の目安（ステージ別）：** ステージ1 — スイープのピークが2回の実行で200 Hz以内で再現される（[experiments/001](experiments/001-sweep-map-3mm-steel/README.md)）；ステージ2 — 3 mmの鋼板と既知の負荷を通して≥0.5 W、RX側でLEDが点灯する（[experiments/002](experiments/002-watts-3mm-steel/README.md)）。
 
-</details>
-
-<details>
-<summary><b>📚 1分でわかる理論</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 1分でわかる理論 — [docs/00-theory.md](docs/00-theory.md)
 
 圧電TXを壁に押し当てて縦波を壁に送り込み、反対側の圧電RXがそれを電気に戻します。鋼中の音速：約5900 m/s。
 
@@ -56,45 +53,37 @@ python3 software/sweep-map/sweep_map.py --mock
 
 主な損失：ペア内の共振ミスマッチ（安価なLangevinトランスデューサで±1 kHz）、音響接触の品質（エポキシ > グリースカプラント＋クランプ > ドライ圧接）、ミスアライメント、温度による共振ドリフト。これらすべてに対する答えは同じです：**セットアップを変更するたびにスイープマップを作成する**。
 
-</details>
-
-<details>
-<summary><b>📈 装置が示すべきもの：シミュレータからの期待プロット</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 装置が示すべきもの：シミュレータからの期待プロット — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 半経験的チャネルモデル（FEMではなく、**実験室データでもない** — 「スイープがどのように見えるべきか、何を狙うべきか」の直感用）。前提は `channel_sim.py` に明示されています（ロードされたQ≈40、接触kファクタ、チェーンη≤40%）。再生成コマンド：`python3 channel_sim.py --out ../../docs/img`。
 
 **ステージ1 — スイープ。** 約40 kHz付近の狭いピーク；モデルのプレースホルダ接触乗数はグリース：ドライ：ギャップ = 1 : 0.25 : 0.02（つまりグリースはドライの約4倍、エアギャップの約50倍）。ピークがない場合は接触またはペアに問題があります：
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Langevinトランスデューサを2個ではなく4個にする理由。** Q≈40では、ペア内の1.5 kHzの共振ミスマッチがモデル上の電力を約10分の1に低下させます：
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **ステージ3 — データ。** OOKは共振器のリンギングに直面します（モデルQ≈40 → τ≈0.3 ms）：1 kbit/sはクリーン、5 kbit/sではアイが閉じます。より高速にするにはモードBが必要です：
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **受信側の電力予算。** 網掛け帯は**ターゲット**です（モードAは0.5–5 W、ステージ2が達成されれば；モードBはより低い）。現実的な初期負荷はデューティサイクル駆動のESP32 / BLE / LED；Wi-Fiは連続的な約束ではなくピーク消費マーカーとして表示されています：
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **後日用（モードB）。** 厚み共振のコムでプレートが透過になります — 周波数を追尾する必要があります：
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ 安全 — 初回通電前に必ず読む</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ 安全 — 初回通電前に必ず読む — [docs/02-safety.md](docs/02-safety.md)
 
 1. **圧電素子に数十〜数百ボルト** — ステージ2のドライバが稼働するとすぐに発生 — 受信側のTVSは最初の通電実行の前に挿入すること；リード線には手を触れないこと。
 2. **商用電源** — 卓上電源 / 絶縁を通してのみ使用；超音波洗浄機のドライバボードは商用電源にガルバニック接続されています。
 3. **耳** — 非自明な電力では、トランスデューサを金属に押し当てて運用すること；密閉筐体なしで高出力の空中超音波を稼働させないこと。
 4. **熱** — クランプされていないLangevinトランスデューサは通電すると数分で過熱します；電流を上げる前にクランプすること（短時間の低電流電気的な立ち上げのみ — ドライバのREADMEを参照）。
 5. **破片** — 圧電セラミックは脆い：ボルトの締めすぎや衝撃は破片につながります；機械的な作業には安全メガネを着用すること。
-
-</details>
 
 docs/            理論、先行技術、安全性、アプリケーション、決定ログ (ADR)
 docs/img/        期待値プロット (software/simulator/channel_sim.py により生成)
@@ -104,8 +93,6 @@ software/        測定スクリプト (周波数応答スイープマップ) �
 experiments/     実験プロトコル — テンプレートから作成、1ディレクトリ = 1実験
 data/            生ログ (大きなファイルはgitから除外)
 ```
-
-</details>
 
 ## 原則
 

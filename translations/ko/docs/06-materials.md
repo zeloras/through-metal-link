@@ -39,15 +39,15 @@
 
 **모드 B(MHz) — 재질별 두께 빗살.** 왼쪽: 구조용 금속; 오른쪽: 비금속. 모든 벽 5 mm, 그리스 커플링. 무손실 모델 피크는 정확한 공진에서 T = 1에 도달; 실제 피크는 접촉 손실로 인해 더 낮으며, 흡수는 손실이 큰 재질의 피크를 즉시 제한한다:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **재질 맵** — 모든 것을 결정하는 두 축: 임피던스(커플링/접촉 난이도) 대 1 MHz 흡수(MHz 실용성). 고-Z + 저-α는 전력급 코너; 저-Z + 고-α는 "40 kHz는 여전히 열려 있음, MHz는 사망"; 고무 코너는 우리가 목표로 하는 모든 주파수에서 막다른 길이다:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **모드 A(40 kHz) 커플링 프록시** — 3 mm 벽을 통한 40 kHz에서 동일한 전송 모델, 강철에 대해 정규화. *와트가 아닌 순위:* 공진 Langevin 쌍은 모든 막대를 대략 동일하게 곱하며, 모델 내부에 트랜스듀서 로딩이 없다; 그 승수는 stage-2 영역이다([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## 스윕이 말하는 것
 
@@ -82,7 +82,7 @@
 
 "상한" = 벽이 피로/강도 한도의 20% 이내에 머물고 자기 가열 +20 K 이하인 연속 강도(정상 상태, 양면이 주변 온도에 유지). 듀티 사이클 실행은 덜 가열된다; 한 면에만 고정된 벽 — 일반적인 경우, 한쪽이 공기 — 자유면에서 최대 4배 더 가열된다. 이 수치는 첫 번째 추정이지 설계 보증이 아니다. 한 가지 관례 주의: α 값은 강도-dB(10·log₁₀, 선량 측정 관례 — 3 dB 감소는 I를 절반으로); 진폭-dB(20·log₁₀)를 인용하는 펄스-에코 NDT 문헌은 동일한 α를 두 배 큰 수로 기술한다 — 이 표에 수치를 복사하기 전에 출처가 어떤 관례를 사용하는지 확인하라.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 선량 스윕이 말하는 것:
 
@@ -118,7 +118,7 @@
 | 철근 Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | 두 매트 Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 스택 모델이 말하는 것:
 

@@ -17,7 +17,7 @@ Une plateforme ouverte pour le transfert ultrasonore d'énergie et de données �
 
 Les docs sont multilingues : l'anglais est la langue principale et se trouve aux chemins canoniques ; toutes les autres langues reproduisent l'arborescence sous [translations/](..). Modifiez n'importe quelle langue — le CI traduit et valide le reste (voir [CONTRIBUTING.md](CONTRIBUTING.md)).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## L'idée en un paragraphe
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **Critère de fin (par étape) :** étape 1 — le pic du sweep se reproduit sur deux passages à moins de <200 Hz près ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)) ; étape 2 — ≥0,5 W dans une charge connue à travers 3 mm d'acier et une LED allumée côté RX ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 La théorie en une minute</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 La théorie en une minute — [docs/00-theory.md](docs/00-theory.md)
 
 Le piézo TX est pressé contre la paroi et y injecte une onde longitudinale ; le piézo RX de l'autre côté la reconvertit en électricité. Vitesse du son dans l'acier : ~5900 m/s.
 
@@ -56,45 +53,37 @@ Deux modes de fonctionnement :
 
 Les principales pertes : désaccord de résonance au sein de la paire (±1 kHz pour des transducteurs Langevin bon marché), qualité du contact acoustique (époxy > couplant graisse + serre > pression à sec), désalignement, dérive de résonance avec la température. La réponse à toutes ces causes est la même : **une carte de sweep avant chaque modification du montage**.
 
-</details>
-
-<details>
-<summary><b>📈 Ce que le banc doit montrer : courbes d'attente issues du simulateur</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 Ce que le banc doit montrer : courbes d'attente issues du simulateur — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 Un modèle de canal semi-empirique (pas FEM, **pas des données de labo** — une intuition de « à quoi le sweep devrait ressembler et quoi viser »). Les hypothèses sont explicites dans `channel_sim.py` (Q chargé ≈40, facteurs k de contact, rendement de la chaîne η≤40 %). Régénérez avec : `python3 channel_sim.py --out ../../docs/img`.
 
 **Étape 1 — sweep.** Un pic étroit vers ~40 kHz ; les multiplicateurs de contact génériques du modèle sont graisse:sec:air = 1 : 0,25 : 0,02 (soit graisse ≈4× sec et ≈50× air). Aucun pic signifie un problème de contact ou de paire :
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Pourquoi 4 transducteurs Langevin, pas 2.** Avec Q≈40, un désaccord de résonance de 1,5 kHz au sein de la paire fait chuter la puissance du modèle d'un facteur ~10 :
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **Étape 3 — données.** L'OOK se heurte au ringing du résonateur (modèle Q~40 → τ≈0,3 ms) : 1 kbit/s est propre, à 5 kbit/s l'œil est fermé. Aller plus vite nécessite le mode B :
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **Budget de puissance côté récepteur.** Les bandes ombrées sont des **cibles** (mode A 0,5–5 W si l'étape 2 aboutit ; mode B plus bas). Les premières charges réalistes sont des ESP32 / BLE / LED en duty-cycled ; le Wi-Fi est indiqué comme marqueur de pic de consommation, pas comme promesse continue :
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **Pour plus tard (mode B).** La plaque devient transparente à un peigne de résonances d'épaisseur — la fréquence doit être suivie :
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ Sécurité — à lire avant la première mise sous tension</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ Sécurité — à lire avant la première mise sous tension — [docs/02-safety.md](docs/02-safety.md)
 
 1. **Des dizaines à des centaines de volts sur le piézo** dès que le driver de l'étape 2 est actif — le TVS côté réception s'installe AVANT le premier passage sous tension ; ne touchez pas les fils.
 2. **Secteur** — uniquement via une alimentation de laboratoire / isolation ; les cartes de driver de nettoyeur ultrasonique sont galvaniquement reliées au secteur.
 3. **Oreilles** — à puissance non négligeable, faites fonctionner les transducteurs pressés contre du métal ; ne jamais faire tourner des ultrasons aériens à haute puissance sans enceinte.
 4. **Chaleur** — un transducteur Langevin non serré surchauffe en quelques minutes à puissance ; serrez avant d'augmenter le courant (mise en route électrique brève à faible courant uniquement — voir le README du driver).
 5. **Éclats** — la piézocéramique est fragile : un boulon trop serré ou un choc provoque des éclats ; portez des lunettes de sécurité pour tout travail mécanique.
-
-</details>
 
 docs/            théorie, antériorité, sécurité, applications, journal de décisions (ADR)
 docs/img/        tracés attendus (générés par software/simulator/channel_sim.py)
@@ -104,8 +93,6 @@ software/        scripts de mesure (carte de balayage de réponse en fréquence)
 experiments/     protocoles d'expérimentation — depuis le modèle, un répertoire = une expérience
 data/            journaux bruts (les gros fichiers restent hors de git)
 ```
-
-</details>
 
 ## Principes
 

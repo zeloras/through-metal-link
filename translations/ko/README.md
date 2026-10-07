@@ -17,7 +17,7 @@
 
 문서는 다국어로 제공됩니다: 영어가 주 언어이며 정규 경로에 위치합니다; 다른 모든 언어는 [translations/](..) 아래에 트리를 미러링합니다. 어떤 언어든 편집하면 — CI가 나머지 언어를 번역하여 커밋합니다 ([CONTRIBUTING.md](CONTRIBUTING.md) 참조).
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## 한 단락으로 요약한 아이디어
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **완료 조건 (단계별):** 1단계 — 스윕 피크가 두 번의 실행에서 <200 Hz 오차 내로 재현됨 ([experiments/001](experiments/001-sweep-map-3mm-steel/README.md)); 2단계 — 3mm 강철을 통해 알려진 부하에 ≥0.5 W 전달 및 RX 측에서 LED 점등 ([experiments/002](experiments/002-watts-3mm-steel/README.md)).
 
-</details>
-
-<details>
-<summary><b>📚 1분 이론</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 1분 이론 — [docs/00-theory.md](docs/00-theory.md)
 
 압전 TX는 벽에 밀착되어 종파를 벽 안으로 구동합니다; 반대편의 압전 RX는 이를 다시 전기로 변환합니다. 강철 내 음속: ~5900 m/s.
 
@@ -56,45 +53,37 @@ python3 software/sweep-map/sweep_map.py --mock
 
 주요 손실: 페어 내 공진 불일치 (저렴한 Langevin 트랜스듀서의 경우 ±1 kHz), 음향 접촉 품질 (에폭시 > 그리스 커플런트 + 클램프 > 드라이 압력), 정렬 불량, 온도에 따른 공진 드리프트. 이 모든 것에 대한 해답은 동일합니다: **설정을 변경할 때마다 스윕 맵 작성**.
 
-</details>
-
-<details>
-<summary><b>📈 장비가 보여줄 것: 시뮬레이터의 예상 플롯</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 장비가 보여줄 것: 시뮬레이터의 예상 플롯 — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 반경험적 채널 모델 (FEM이 아니며, **실제 실험실 데이터도 아님** — "스윕이 어떻게 보여야 하고 무엇을 목표로 해야 하는지"에 대한 직관 제공). 가정은 `channel_sim.py`에 명시되어 있습니다 (loaded Q≈40, 접촉 k-factor, 체인 η≤40%). 다음으로 재생성: `python3 channel_sim.py --out ../../docs/img`.
 
 **1단계 — 스윕.** ~40 kHz 부근의 좁은 피크; 모델의 플레이스홀더 접촉 승수는 grease:dry:gap = 1 : 0.25 : 0.02 입니다 (즉, 그리스는 드라이의 ≈4배, 에어 갭의 ≈50배). 피크가 없다는 것은 접촉 또는 페어에 문제가 있음을 의미합니다:
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **Langevin 트랜스듀서가 2개가 아닌 4개인 이유.** Q≈40에서 페어 내 1.5 kHz 공진 불일치는 모델 파워를 ~10× 감소시킵니다:
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **3단계 — 데이터.** OOK은 공진기 링잉(ringing)에 부딪힙니다 (모델 Q~40 → τ≈0.3 ms): 1 kbit/s는 깨끗하지만, 5 kbit/s에서는 아이가 닫힙니다. 더 빠르게 가려면 모드 B가 필요합니다:
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **수신기 전력 예산.** 음영 처리된 밴드는 **목표**입니다 (2단계가 성공하면 모드 A 0.5–5 W; 모드 B는 더 낮음). 현실적인 초기 부하는 듀티 사이클이 적용된 ESP32 / BLE / LED입니다; Wi-Fi는 연속적인 보장이 아닌 피크 전력 소비 마커로 표시됩니다:
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **나중을 위해 (모드 B).** 판은 두께 공진의 콤(comb)에서 투명해집니다 — 주파수를 추적해야 합니다:
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ 안전 — 첫 전원 인가 전 필독</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ 안전 — 첫 전원 인가 전 필독 — [docs/02-safety.md](docs/02-safety.md)
 
 1. 2단계 드라이버가 가동되면 **압전 소자에 수십에서 수백 볼트**가 인가됩니다 — 첫 전원 인가 실행 전에 수신 측에 TVS를 연결하세요; 리드 선에 손을 대지 마세요.
 2. **상용 전원** — 벤치 전원 공급 장치 / 절연을 통해서만 연결; 초음파 세척기 드라이버 보드는 상용 전원에 직접 연결되어 있습니다.
 3. **귀** — 무시할 수 없는 수준의 전력에서는 트랜스듀서를 금속에 밀착시켜 작동시키세요; 인클로저 없이 고전력 공기 중 초음파를 가동하지 마세요.
 4. **열** — 클램프되지 않은 Langevin 트랜스듀서는 전력 인가 시 몇 분 안에 과열됩니다; 전류를 높이기 전에 클램프하세요 (짧은 저전류 전기적 초기 구동만 허용 — 드라이버 README 참조).
 5. **파편** — 압전 세라믹은 깨지기 쉽습니다: 볼트를 너무 조이거나 충격을 주면 파편이 튑니다; 모든 기계적 작업 시 안전 고글을 착용하세요.
-
-</details>
 
 docs/            이론, 선행 기술, 안전, 응용 분야, 결정 기록 (ADR)
 docs/img/        예상 플롯 (software/simulator/channel_sim.py에 의해 생성됨)
@@ -104,8 +93,6 @@ software/        측정 스크립트 (주파수 응답 스윕 맵) 및 채널 �
 experiments/     실험 프로토콜 — 템플릿에서, 하나의 디렉토리 = 하나의 실험
 data/            원시 로그 (대용량 파일은 git에 보관되지 않음)
 ```
-
-</details>
 
 ## 원칙
 

@@ -551,6 +551,9 @@ Rules:
   new source content. Keep the lively engineering tone.
 - Preserve markdown structure, tables, code blocks (do not translate commands),
   numbers, part numbers, file paths.
+- Output pure Markdown. Never introduce HTML tags (<details>, <summary>, <b>,
+  <br>, <p>, <a href>, <img>, <code>, ...) and never HTML-escape characters;
+  use Markdown syntax (**bold**, [text](link), ![alt](img), `code`) instead.
 - Keep ALL relative links exactly as they are in the source, byte for byte —
   the mirror tree makes them resolve. NEVER translate a file name inside a link
   target; translate only the visible link text in square brackets.
@@ -758,6 +761,22 @@ def without_bar(text: str) -> str:
     return BAR_RE.sub("", text)
 
 
+def count_fences(text: str) -> int:
+    return len(re.findall(r"(?m)^\s*```", text))
+
+
+HTML_TAG_RE = re.compile(r"</?(?:a|b|i|em|strong|br|p|div|span|img|details|summary|"
+                         r"code|pre|sup|sub|ul|ol|li|table|tr|td|th|picture|source)\b[^>]*>"
+                         r"|&lt;/?[a-z]+", re.IGNORECASE)
+
+
+def html_tags(text: str) -> set[str]:
+    """HTML tag names used outside fenced code."""
+    body = re.sub(r"(?ms)^\s*```.*?^\s*```", "", text)
+    return {re.sub(r"[^a-z]", "", m.group(0).lower().split()[0].replace("&lt;", ""))
+            for m in HTML_TAG_RE.finditer(body)}
+
+
 def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
@@ -773,6 +792,13 @@ def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
         return (f"{len(out_body)} chars against {len(src_body)} in the source "
                 f"(severe truncation) — content is missing")
     if name.endswith(".md"):
+        # an unclosed fence turns the rest of the page into a code block, and
+        # HTML the source does not have renders as literal tags on GitHub
+        if count_fences(out) % 2:
+            return "unbalanced ``` code fence — the tail would render as code"
+        extra = html_tags(out) - html_tags(src_text)
+        if extra:
+            return f"HTML not present in the source: {sorted(extra)[:5]}"
         want, got = doc_shape(src_text), doc_shape(out)
         if want != got:
             return (f"structure {got} != source {want} "

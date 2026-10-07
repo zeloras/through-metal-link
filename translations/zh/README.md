@@ -17,7 +17,7 @@
 
 文档为多语言：英语为主语言，位于规范路径下；其他语言均在 [translations/](..) 下镜像整个目录树。编辑任意语言——CI 会翻译并提交其余语言（参见 [CONTRIBUTING.md](CONTRIBUTING.md)）。
 
-<p align="center"><img src="docs/img/sim0-rig-sketch.png" alt="Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi" width="900"></p>
+![Stage 1 rig: Pi → DDS → half-bridge → transformer → piezo TX | steel | piezo RX → bridge → ADC → Pi](docs/img/sim0-rig-sketch.png)
 
 ## 一段话概述
 
@@ -40,10 +40,7 @@ python3 software/sweep-map/sweep_map.py --mock
 
 **完成标志（按阶段）：** 阶段 1 —— 两次运行中扫频峰值复现误差在 <200 Hz 以内（[experiments/001](experiments/001-sweep-map-3mm-steel/README.md)）；阶段 2 —— 通过 3 mm 钢板向已知负载输出 ≥0.5 W，并且 RX 侧点亮 LED（[experiments/002](experiments/002-watts-3mm-steel/README.md)）。
 
-</details>
-
-<details>
-<summary><b>📚 一分钟理论</b> — <a href="docs/00-theory.md">docs/00-theory.md</a></summary>
+### 📚 一分钟理论 — [docs/00-theory.md](docs/00-theory.md)
 
 压电 TX 紧贴墙壁并向其内部驱动纵波；另一侧的压电 RX 将其转换回电能。钢中的声速：约 5900 m/s。
 
@@ -56,45 +53,37 @@ python3 software/sweep-map/sweep_map.py --mock
 
 主要损耗：换能器对内的谐振失配（廉价朗之万换能器为 ±1 kHz）、声耦合质量（环氧树脂 > 导热脂耦合 + 夹具 > 干压）、不对齐、谐振随温度漂移。应对所有这些问题的答案是一样的：**每次更改设置前都做一次扫频映射**。
 
-</details>
-
-<details>
-<summary><b>📈 设备应该展示什么：来自模拟器的预期图</b> — <a href="software/simulator/channel_sim.py">software/simulator/channel_sim.py</a></summary>
+### 📈 设备应该展示什么：来自模拟器的预期图 — [software/simulator/channel_sim.py](../../software/simulator/channel_sim.py)
 
 半经验信道模型（不是 FEM，**也不是实验室数据** —— 用于建立“扫频应该是什么样子以及目标是什么”的直觉）。假设在 `channel_sim.py` 中明确列出（加载 Q≈40，接触 k 因子，链路 η≤40%）。重新生成：`python3 channel_sim.py --out ../../docs/img`。
 
 **阶段 1 —— 扫频。** 在 ~40 kHz 附近有一个窄峰；模型的占位接触乘数为 导热脂:干压:气隙 = 1 : 0.25 : 0.02（即导热脂 ≈4× 干压，≈50× 气隙）。没有峰值意味着接触或换能器对有问题：
 
-<img src="docs/img/sim1-sweep-contacts.png" width="720">
+![](docs/img/sim1-sweep-contacts.png)
 
 **为什么是 4 个朗之万换能器，而不是 2 个。** 在 Q≈40 下，换能器对内 1.5 kHz 的谐振失配会使模型功率下降约 10 倍：
 
-<img src="docs/img/sim2-pair-mismatch.png" width="720">
+![](docs/img/sim2-pair-mismatch.png)
 
 **阶段 3 —— 数据。** OOK 遇到谐振器振铃问题（模型 Q~40 → τ≈0.3 ms）：1 kbit/s 很干净，在 5 kbit/s 时眼图闭合。想要更快需要模式 B：
 
-<img src="docs/img/sim5-ook-datarate.png" width="720">
+![](docs/img/sim5-ook-datarate.png)
 
 **接收端功率预算。** 阴影带是**目标**（如果阶段 2 达标，模式 A 为 0.5–5 W；模式 B 更低）。现实中的初始负载是占空比运行的 ESP32 / BLE / LED；Wi-Fi 显示为峰值电流标记，而不是持续的承诺：
 
-<img src="docs/img/sim4-power-budget.png" width="720">
+![](docs/img/sim4-power-budget.png)
 
 **后续（模式 B）。** 钢板在一组梳状厚度谐振处变得透明 —— 频率必须被跟踪：
 
-<img src="docs/img/sim3-thickness-comb.png" width="720">
+![](docs/img/sim3-thickness-comb.png)
 
-</details>
-
-<details>
-<summary><b>⚠️ 安全 —— 首次通电前必读</b> — <a href="docs/02-safety.md">docs/02-safety.md</a></summary>
+### ⚠️ 安全 —— 首次通电前必读 — [docs/02-safety.md](docs/02-safety.md)
 
 1. 一旦阶段 2 驱动器上线，**压电片上有数十到数百伏电压** —— 接收侧的 TVS 必须在首次通电运行前装好；不要触碰引线。
 2. **市电** —— 只能通过台式电源 / 隔离变压器连接；超声波清洗机驱动板与市电直接电气相连。
 3. **耳朵** —— 在非小功率下，操作换能器时应紧贴金属；切勿在没有外壳的情况下运行大功率空气超声波。
 4. **发热** —— 未夹紧的朗之万换能器在通电后几分钟内就会过热；在提高电流前先夹紧（仅限短时间的低电流电气调试 —— 见驱动器 README）。
 5. **碎片** —— 压电陶瓷易碎：螺栓过紧或受到冲击都会产生碎片；进行任何机械操作时请佩戴安全眼镜。
-
-</details>
 
 docs/            理论、现有技术、安全、应用、决策日志 (ADR)
 docs/img/        预期图表（由 software/simulator/channel_sim.py 生成）
@@ -104,8 +93,6 @@ software/        测量脚本（频率响应扫频图）与通道模拟器
 experiments/     实验协议 —— 基于模板，一个目录 = 一次实验
 data/            原始日志（大文件不纳入 git）
 ```
-
-</details>
 
 ## 原则
 

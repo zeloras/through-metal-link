@@ -1,4 +1,4 @@
-# Thí nghiệm NNN: <tiêu đề>
+# Thí nghiệm NNN: [tiêu đề]
 
 > [English (primary)](../../../experiments/TEMPLATE.md) · [Русский](../../ru/experiments/TEMPLATE.md) · [Deutsch](../../de/experiments/TEMPLATE.md) · [Português](../../pt/experiments/TEMPLATE.md) · [Español](../../es/experiments/TEMPLATE.md) · [Français](../../fr/experiments/TEMPLATE.md) · [Italiano](../../it/experiments/TEMPLATE.md) · [Polski](../../pl/experiments/TEMPLATE.md) · [Türkçe](../../tr/experiments/TEMPLATE.md) · [Українська](../../uk/experiments/TEMPLATE.md) · Tiếng Việt · [中文](../../zh/experiments/TEMPLATE.md) · [日本語](../../ja/experiments/TEMPLATE.md) · [한국어](../../ko/experiments/TEMPLATE.md) · [हिन्दी](../../hi/experiments/TEMPLATE.md)
 

@@ -39,15 +39,15 @@
 
 **模式 B（MHz）——各材料的厚度梳。** 左：结构金属；右：非金属。所有壁厚 5 mm，脂耦合。无损耗模型在精确谐振处峰值 T = 1；实际峰值因接触损耗更低，而吸收直接封死了高损耗材料的上限：
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **材料地图**——决定一切的两个轴：阻抗（耦合/接触难度）vs 1 MHz 吸收（MHz 可行性）。高 Z + 低 α 是功率级角落；低 Z + 高 α 是"40 kHz 还通，MHz 已死"；橡胶角落在我们目标的所有频率上都是死胡同：
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **模式 A（40 kHz）耦合代理**——同一传输模型在 40 kHz、3 mm 壁厚下评估，归一化到钢。*这是排名，不是瓦数：* 谐振 Langevin 对将每根柱子大致等倍放大，模型内部不含换能器加载；该倍数属于第二阶段范畴（[experiments/002](../experiments/002-watts-3mm-steel/README.md)）：
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## 扫描结果说明了什么
 
@@ -82,7 +82,7 @@
 
 "上限" = 壁面保持在疲劳/强度极限的 20% 以内且自升温低于 +20 K 时的连续强度（稳态，两面保持环境温度）。占空比运行升温更低；仅单面锚固的壁面——通常情况，一面为空气——自由面升温最多可达 4 倍。这些数字是初步估算，不是设计保证。一个约定说明：α 值为强度 dB（10·log₁₀，剂量学约定——3 dB 下降使 I 减半）；脉冲回波 NDT 文献引用幅度 dB（20·log₁₀）描述的是同一个 α，但数值大两倍——在将某来源的数字抄入本表之前，先确认它用的是哪种约定。
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 剂量扫描结果说明：
 
@@ -118,7 +118,7 @@
 | 钢筋 Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | 双层钢筋 Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 叠层模型说明：
 

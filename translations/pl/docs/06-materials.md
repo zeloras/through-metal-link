@@ -39,15 +39,15 @@ Trzy wielkości decydują, czy ściana w ogóle jest użyteczna, i dla jakiej mo
 
 **Tryb B (MHz) — grzebień grubości dla każdego materiału.** Po lewej: metale konstrukcyjne; po prawej: niemetale. Wszystkie ściany 5 mm, sprzężenie przez smar. Piki modelu bezstratnego osiągają T = 1 przy dokładnych rezonansach; rzeczywiste piki są niższe z powodu strat kontaktowych, a absorpcja wręcz ogranicza materiały stratne:
 
-<img src="../../../docs/img/mat1-thickness-comb-materials.png" width="880">
+![](../../../docs/img/mat1-thickness-comb-materials.png)
 
 **Mapa materiałów** — dwie osie, które decydują o wszystkim: impedancja (trudność sprzężenia/kontaktu) vs absorpcja przy 1 MHz (wydajność przy MHz). Wysokie Z + niskie α to róg klasy mocy; niskie Z + wysokie α to „40 kHz nadal otwarte, MHz martwe"; róg gumy to ślepy zaułek przy każdej częstotliwości, którą celujemy:
 
-<img src="../../../docs/img/mat2-material-map.png" width="720">
+![](../../../docs/img/mat2-material-map.png)
 
 **Proxy sprzężenia trybu A (40 kHz)** — ten sam model transmisji oceniony przy 40 kHz przez ścianę 3 mm, znormalizowany do stali. *Ranking, nie waty:* rezonansowa para Langevina mnoży każdy słupek w przybliżeniu równo, a model nie uwzględnia obciążenia transduktorów wewnątrz; ten mnożnik to terytorium etapu 2 ([experiments/002](../experiments/002-watts-3mm-steel/README.md)):
 
-<img src="../../../docs/img/mat3-modea-coupling-materials.png" width="720">
+![](../../../docs/img/mat3-modea-coupling-materials.png)
 
 ## Co mówi przegląd
 
@@ -82,7 +82,7 @@ Przy 1 W/cm² (już powyżej tego, co celuje ten projekt: cel etapu 2 to 0.5–5
 
 „Sufit" = ciągłe natężenie, przy którym ściana pozostaje w granicach 20% swojego limitu zmęczenia/wytrzymałości i poniżej +20 K nagrzewania własnego (stan ustalony, obie powierzchnie utrzymywane w temperaturze otoczenia). Praca cykliczna nagrzewa mniej; ściana zakotwiczona tylko z jednej strony — zwykły przypadek, powietrze z jednej strony — nagrzewa się do 4× bardziej na swobodnej powierzchni. Te liczby są pierwszym podejściem, nie gwarancją projektową. Jedna uwaga konwencyjna: wartości α to dB intensywności (10·log₁₀, konwencja dozymetryczna — spadek 3 dB halwuje I); literatura NDT pulse-echo podająca dB amplitudy (20·log₁₀) opisuje TO SAMO α liczbami dwukrotnie większymi — sprawdź, której konwencji używa źródło, zanim skopiujesz jego liczby do tej tabeli.
 
-<img src="../../../docs/img/mat4-harm-materials.png" width="920">
+![](../../../docs/img/mat4-harm-materials.png)
 
 Co mówi przegląd dawek:
 
@@ -118,7 +118,7 @@ Prawdziwy beton nigdy nie jest czysty: maty zbrojeniowe leżą na głębokości 
 | zbrojenie Ø16 @ 40 mm | 0.013 | 0.069 | 6.6e-09 |
 | dwie maty Ø16 @ 40 mm | 0.003 | 0.001 | 5.1e-09 |
 
-<img src="../../../docs/img/mat5-rebar.png" width="880">
+![](../../../docs/img/mat5-rebar.png)
 
 Co mówi model stosu:
 
