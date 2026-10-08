@@ -82,6 +82,10 @@ MAX_TASKS = 80
 MIN_LENGTH_RATIO = 0.55
 MIN_LENGTH_RATIO_CJK = 0.25
 CJK_LANGS = {"zh", "ja", "ko"}
+# Names that are never translated, in any language: the H1 of README.md came
+# back from the heading batch as "через-металл-ссылка". Checked by
+# implausible() and masked out of heading batches by translate_titles().
+PROTECTED = ("through-metal-link",)
 BOT_MARKER = "[bot]"     # matches github-actions[bot] in both %an and %ae
 
 GLOSSARY_RU = (
@@ -551,6 +555,8 @@ Rules:
   new source content. Keep the lively engineering tone.
 - Preserve markdown structure, tables, code blocks (do not translate commands),
   numbers, part numbers, file paths.
+- Never translate the project name `through-metal-link`, inline `code`, file
+  names, identifiers, commands, part numbers or URLs — copy them verbatim.
 - Output pure Markdown. Never introduce HTML tags (<details>, <summary>, <b>,
   <br>, <p>, <a href>, <img>, <code>, ...) and never HTML-escape characters;
   use Markdown syntax (**bold**, [text](link), ![alt](img), `code`) instead.
@@ -574,7 +580,9 @@ def system_json(src_lang: str, dst_lang: str) -> str:
 Input: a JSON object with strings in the source language. Return ONLY a JSON
 object with the same keys and translated values. Keep placeholders like {{d}},
 {{r}}, {{q}}, {{tau}}, units and part numbers intact — same placeholders, same
-spelling, no new ones. No code fences."""
+spelling, no new ones. Tokens of the form ⟦0⟧, ⟦1⟧ are protected names: copy
+them unchanged. Never translate the project name through-metal-link, file names
+or code identifiers. No code fences."""
 
 
 def chat(system: str, user: str) -> str:
@@ -622,13 +630,30 @@ def chat(system: str, user: str) -> str:
                        f"{choice.get('finish_reason')!r}) — output would be truncated")
     if not isinstance(out, str) or not out.strip():
         raise BadReply("empty completion")
-    return re.sub(r"^.*?```[a-z]*\n|\n```\S*$", "", out.strip(), flags=re.DOTALL)  # guard against code fences
+    return unwrap_fence(out)
+
+
+def unwrap_fence(out: str) -> str:
+    """Strip a code fence the model wrapped its WHOLE reply in, and nothing else.
+
+    The old guard was a DOTALL re.sub of "^.*?```[a-z]*<newline>" and
+    "<newline>```<non-space>*$" with "": its first branch deleted everything from the start of the reply up to the first
+    fence that opened a real code block, and its second ate a closing fence at
+    the end. Any section or document containing a code block lost its head and
+    one fence line — README's QUICKSTART digest, CONTRIBUTING, the schematics
+    and sweep-map READMEs in all fourteen languages, leaving unbalanced fences.
+    """
+    s = out.strip()
+    m = re.fullmatch(r"```[\w-]*\n(.*)\n```", s, flags=re.DOTALL)
+    if m and "```" not in m.group(1):
+        return m.group(1)
+    return s
 
 
 # ---------- documents ----------
 
 def doc_shape(text: str) -> tuple[int, int]:
-    """(headings, table rows) — the part of a document a translation must keep.
+    """(headings, table rows, ``` fence lines) — the part of a document a translation must keep.
 
     Deliberately blind to wording and to link count: a translator legitimately
     rewrites prose and may inline a link differently, but it never drops half
@@ -636,7 +661,8 @@ def doc_shape(text: str) -> tuple[int, int]:
     or half-generated reply.
     """
     return (len(re.findall(r"(?m)^#{1,6} ", text)),
-            len(re.findall(r"(?m)^\|", text)))
+            len(re.findall(r"(?m)^\|", text)),
+            count_fences(text))
 
 
 def split_sections(text: str) -> list[str] | None:
@@ -695,10 +721,28 @@ def translate_titles(titles: list[str], dst_lang: str) -> list[str] | None:
     """
     if not titles:
         return []
+    # Protected names go to the model as opaque tokens and are put back by hand,
+    # and a heading that is nothing but a name or an identifier (README's H1)
+    # does not go at all: "through-metal-link" came back as a Russian phrase.
+    def mask(s: str) -> str:
+        for i, w in enumerate(PROTECTED):
+            s = s.replace(w, f"⟦{i}⟧")
+        return s
+
+    def unmask(s: str) -> str:
+        for i, w in enumerate(PROTECTED):
+            s = s.replace(f"⟦{i}⟧", w)
+        return s
+
+    verbatim = {i for i, t in enumerate(titles)
+                if t.strip() in PROTECTED or re.fullmatch(r"`?[\w./-]+`?", t.strip())}
+    send = {str(i): mask(t) for i, t in enumerate(titles) if i not in verbatim}
+    if not send:
+        return list(titles)
     try:
         raw = chat(system_json(PRIMARY, dst_lang), json.dumps(
             {"source_language": PRIMARY, "target_language": dst_lang,
-             "strings": {str(i): t for i, t in enumerate(titles)}},
+             "strings": send},
             ensure_ascii=False))
         parsed = json.loads(raw)
     except (BadReply, json.JSONDecodeError):
@@ -708,10 +752,16 @@ def translate_titles(titles: list[str], dst_lang: str) -> list[str] | None:
         return None
     out = []
     for i in range(len(titles)):
+        if i in verbatim:
+            out.append(titles[i])
+            continue
         v = got.get(str(i))
         if not isinstance(v, str) or not v.strip():
             return None
-        out.append(v.strip())
+        v = unmask(v.strip())
+        if any(w in titles[i] and w not in v for w in PROTECTED):
+            return None
+        out.append(v)
     return out
 
 
@@ -777,6 +827,16 @@ def html_tags(text: str) -> set[str]:
             for m in HTML_TAG_RE.finditer(body)}
 
 
+def code_spans(text: str) -> set[str]:
+    """Identifier-like inline code spans (no whitespace) outside fenced code.
+
+    These are file names, flags and symbols; a translation must carry them
+    over byte for byte. Spans with spaces are prose-ish and may be reworded.
+    """
+    body = re.sub(r"(?ms)^\s*```.*?^\s*```", "", text)
+    return {m for m in re.findall(r"`([^`\s]+)`", body)}
+
+
 def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
     """Reason the reply must not be written, or None when it looks like a real
     translation."""
@@ -802,7 +862,13 @@ def implausible(src_text: str, out: str, name: str, lang: str) -> str | None:
         want, got = doc_shape(src_text), doc_shape(out)
         if want != got:
             return (f"structure {got} != source {want} "
-                    "(headings, table rows) — content is missing")
+                    "(headings, table rows, fences) — content is missing")
+        missing = [w for w in PROTECTED if src_body.count(w) > out_body.count(w)]
+        if missing:
+            return f"protected name translated or dropped: {missing}"
+        lost = code_spans(src_body) - code_spans(out_body)
+        if lost:
+            return f"inline code changed or dropped: {sorted(lost)[:5]}"
     return None
 
 
@@ -826,6 +892,17 @@ def translate_doc(src: str, dst: str, dst_lang: str, old_src: str, dry: bool) ->
     # cleanly. With no previous version there is nothing to diff against, so ask
     # for a plain full translation and send the source once.
     diff = udiff(old_src, text, src) if old_src.strip() else ""
+    # A diff only patches correctly onto a target that mirrored the old source.
+    # When the source's structure changed (README's <details> blocks became
+    # ### headings) or the current target is itself broken, a patch keeps the
+    # broken parts: the sync after #42 kept six missing sections that way. Ask
+    # for the whole file instead.
+    if diff and dst.endswith(".md") and (
+            doc_shape(old_src) != doc_shape(text)
+            or old_dst == "(missing)"
+            or implausible(old_src, old_dst, dst, dst_lang)):
+        print(f"  ~ {dst}: structure changed or target broken — full retranslation")
+        diff = ""
     if diff:
         task = (f"What changed in the source (unified diff):\n<<<\n{diff}\n>>>\n\n"
                 f"Target file `{dst}` — CURRENT (possibly outdated) content:\n"
@@ -927,10 +1004,24 @@ def stale_pairs(touched: dict[str, set[str]], state: dict):
             if l == PRIMARY:
                 continue
             key = f"{c}|{l}"
+            dst = ROOT / tr_path(c, l)
+            # A file can match the recorded hash and still be broken: #42
+            # edited English and all fourteen mirrors in one push, so every
+            # mirror counted as "human-edited", was recorded fresh, and six
+            # missing README sections were never retranslated. A mirror that
+            # fails the same structural check a model reply must pass is stale,
+            # whoever wrote it and whatever the state says.
+            broken = (dst.exists() and c.endswith(".md") and
+                      implausible(src.read_text(encoding="utf-8"),
+                                  dst.read_text(encoding="utf-8"), str(dst), l))
+            if broken:
+                print(f"  ? {tr_path(c, l)}: {broken} — queued")
+                tasks.append((c, l, h))
+                continue
             if l in touched.get(c, set()):
                 state["docs"][key] = h
                 continue
-            if state["docs"].get(key) != h or not (ROOT / tr_path(c, l)).exists():
+            if state["docs"].get(key) != h or not dst.exists():
                 tasks.append((c, l, h))
     return tasks
 
