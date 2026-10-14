@@ -2,7 +2,7 @@
 # Common (simulator + sweep plots) — any computer
 # Pinned to match CI (tools/requirements-ci.txt) so local output matches the
 # committed figures byte-for-byte.
-numpy==2.5.3
+numpy==2.5.4
 matplotlib==3.11.2
 
 # Schematics renderer (hardware/schematics/render_schematics.py)
